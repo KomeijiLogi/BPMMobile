@@ -1,0 +1,426 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/fx.js"></script>
+    <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
+    <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
+    <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
+    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>
+    <link rel="stylesheet" href="../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../Content/upload.css" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style>
+        html, body {
+            font-size: 20px;
+            background-color: white;
+            height: 100%;
+            overflow: auto;
+        }
+
+        label {
+            font-size: 0.75rem;
+        }
+
+        textarea {
+            height: auto;
+            overflow: auto;
+        }
+
+        a {
+            font-size: 0.75rem;
+        }
+
+        input {
+            font-size: 0.75rem;
+        }
+   </style>
+</head>
+<body>
+    <div class="mui-content" style="background-color:white;" id="wrapper">
+        <form class="mui-input-group" style="left:0rem;right:0rem;margin-bottom:1rem;padding-bottom:4rem;">
+            <div class="mui-input-row">
+                <label>拟定人</label>
+                <input type="text" class="" id="fname" name="fname" readonly="readonly" />
+            </div>
+            <div class="mui-input-row" style="display:block;">
+                <label>拟定部门</label>
+                <input type="text" class="" id="fdept" name="fdept" readonly="readonly" />
+            </div>
+            <div class="mui-input-row">
+                <label>申报日期</label>
+                <input type="date" class="" id="fdate" name="fdate" readonly="readonly" />
+            </div>
+            <div class="mui-input-row">
+                <label>所属项目<i style="color:red;">*</i></label>
+                <input type="text" id="fxm" name="fxm" readonly="readonly" placeholder="请选择所属项目" />
+            </div>
+            <div class="mui-input-row">
+                <label>合同类别<i style="color:red;">*</i></label>
+                <input type="text" id="flb" name="flb" readonly="readonly" placeholder="请选择合同类别" />
+            </div>
+            <div class="mui-input-row" id="fzed">
+                <label>合同金额(元)<i style="color:red;">*</i></label>
+                <input type="number" id="fze" name="fze" placeholder="请输入合同金额" readonly="readonly" />
+            </div>
+            <div class="mui-input-row">
+                <label>合同对方<i style="color:red;">*</i></label>
+                <input type="text" id="fhtdf" name="fhtdf" placeholder="请输入合同对方" readonly="readonly" />
+            </div>
+            <div class="mui-input-row">
+                <label>品牌名称<i style="color:red;">*</i></label>
+                <input type="text" id="fppmc" name="fppmc" placeholder="请输入品牌名称" readonly="readonly" />
+            </div>
+            <div class="mui-input-row" style="height:11.25rem;">
+                <label>合同名称及内容<i style="color:red;">*</i></label>
+                <textarea rows="10" id="fht_mcnr" name="fht_mcnr" placeholder="请输入合同名称及内容" readonly="readonly"></textarea>
+            </div>
+            <div class="mui-input-row" style="height:11.25rem;">
+                <label>合同价款及付款方式<i style="color:red;">*</i></label>
+                <textarea rows="10" id="fht_jkfkfs" name="fht_jkfkfs" placeholder="请输入合同价款及付款方式" readonly="readonly"></textarea>
+            </div>
+            <div class="mui-input-row" style="height:11.25rem;">
+                <label>特别约定条款<i style="color:red;">*</i></label>
+                <textarea rows="10" id="fydtk" name="fydtk" placeholder="请输入特别约定条款" readonly="readonly"></textarea>
+            </div>
+            <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
+                <div class="border border-t upload-img" style="top:0rem;">
+                    <!--上传图片-->
+                    <div class="clearfix upload-btn" id="children-bg">
+                        <label class="label">附件<i style="color:red;">*</i></label>
+                        <span class="tips" id="imageCount"><!--已添加0张--></span>
+                        <!--上传图片按钮  -->
+                        <span class="upload-addbtn" style="display:none;">
+                            <input type="file" accept="image/jpeg,image/jpg,image/png,image/jp2,image/bmp" id="file" style="opacity:0;">
+                        </span>
+
+                    </div>
+                    <div class="upload-img-list"></div>
+                </div>
+            </div>
+
+            <div class="mui-input-row" id="csd">
+                <label>加签</label>
+                <div class="mui-switch mui-switch-blue">
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </div>
+            <div id="signbody">
+
+                <div class="mui-input-row" id="signPerDiv">
+                    <label>加签人</label>
+                    <span class="mui-navigate-right"></span>
+                    <input name="signPer" id="signPer" value="" readonly="readonly" placeholder="请选择加签人" />
+                </div>
+                <div class="mui-input-row adl">
+                    <label>加签模式</label>
+                </div>
+                <div class="mui-input-row" id="signModeDiv" style="height:5.25rem;">
+
+                    <ul class="mui-table-view mui-table-view-radio">
+                        <li class="mui-table-view-cell mui-selected" id="sxsl">
+                            <a class="mui-navigate-right" id="sxsa">
+                                顺序加签
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell" id="pxsl">
+                            <a class="mui-navigate-right" id="pxsa">
+                                平行加签
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mui-input-row adl">
+                    <label>加签回转</label>
+                </div>
+                <div class="mui-input-row" id="signModeDiv" style="height:5.25rem;">
+
+                    <ul class="mui-table-view mui-table-view-radio">
+                        <li class="mui-table-view-cell mui-selected" id="hdbjdl">
+                            <a class="mui-navigate-right" id="hdbjda">
+                                回到本节点
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell" id="jrxjdl">
+                            <a class="mui-navigate-right" id="jrxjda">
+                                进入下一节点
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+
+        </form>
+    </div>
+
+    <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;display:none;" id="createD">
+        <button class="mui-btn mui-btn-primary" type="button" style="width:100%;height:2.5rem;font-size:0.8rem;" id="commitbt" onclick="Save()">提交</button>
+    </div>
+    <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;display:none;" id="approvalD">
+        &nbsp;&nbsp;
+        <button class="mui-btn mui-btn-primary" type="button" style="width:40%;height:2.5rem;font-size:0.8rem;" id="agreebt" onclick="showConfirm()">同意</button>&nbsp;&nbsp;&nbsp;
+        <button class="mui-btn mui-btn-danger" type="button" style="width:40%;height:2.5rem;font-size:0.8rem;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;
+    </div>
+    <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;display:none;" id="readD">
+        <button class="mui-btn mui-btn-primary" type="button" style="height:2.5rem;font-size:0.8rem;width:100%;margin-bottom:1rem;" id="readbt" onclick="hasRead()">已阅</button>
+    </div>
+
+    <input value="" id="stepId" name="stepId" type="hidden" />
+    <input type="hidden" id="flowPerId" name="flowPerId" value="" />
+    <input type="hidden" id="processName" name="processName" value="" />
+    <input type="hidden" id="noticeUser" name="noticeUser" value="" />
+    <input type="hidden" id="noticeOpenId" name="noticeOpenId" value="" />
+    <input type="hidden" id="taskId" name="taskId" value="" />
+    <input type="hidden" id="myPhone" name="myPhone" value="00078251" />
+    <input type="hidden" id="consignUser" name="consignUser" value="" />
+    <input type="hidden" id="consignOpenId" name="consignOpenId" value="" />
+    <input type="hidden" id="fbillno" name="fbillno" value="" />
+
+    <div id="signd" style="display:none;">
+        <div class="mui-input-row" style="height:5.25rem;font-size:0.8rem;border:groove;border-width:0.1rem;" id="ssd">
+            <label>签核意见</label>
+            <textarea rows="5" id="signSuggest" placeholder="请输入签核意见"></textarea>
+
+        </div>
+        <div class="mui-btn-row mui-text-center" style="margin-top:1rem;">
+            <button class="mui-btn mui-btn-primary" type="button" onclick="AgreeOrConSign()">确定</button>&nbsp;&nbsp;
+            <button class="mui-btn mui-btn-danger" type="button" onclick="cancelConfirm()">取消</button>
+        </div>
+    </div>
+    <script>
+        mui.init();
+
+        mui.ready(function () {
+            getBPMParam();
+
+            getTaskMsg();
+            $('#signPerDiv').click(function () {
+                openSignPer();
+
+            });
+            upload();
+            watch();
+        });
+
+        mui('.mui-content .mui-switch').each(function () {
+
+
+            this.addEventListener('toggle', function (event) {
+                if (event.detail.isActive == 'true' || event.detail.isActive == true) {
+
+                    $('#signbody').css('display', 'block');
+                } else {
+
+                    $('#signbody').css('display', 'none');
+                    $('#signPer').val('');
+                }
+
+            });
+        });
+        XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
+
+        XuntongJSBridge.call('createPop', {
+            'popTitle': '',
+            'popTitleCallBackId': '1',
+            'items': [
+                { 'text': '自定义刷新', 'callBackId': 'callback1' },
+                { 'text': '知会', 'callBackId': 'callback2' }
+            ],
+            'menuList': [
+                'refresh', 'openWithBrowser'
+            ],
+
+        }, function (result) {
+            if (result.success == true || result.success == 'true') {
+                var callBackId = result.data ? result.data.callBackId : '';
+                if (callBackId == 'callback1') {
+                    history.go(0);
+                } else if (callBackId == 'callback2') {
+                    XuntongJSBridge.call('selectPersons', { 'isMulti': 'true', 'pType': '1' }, function (result) {
+
+
+
+                        noticeOpenIdArr = new Array();
+                        if (result.success == true) {
+
+                            for (var i = 0; i < result.data.persons.length; i++) {
+
+                                noticeOpenIdArr.push(result.data.persons[i].openId);
+
+                            }
+                            $("#noticeOpenId").val(noticeOpenIdArr);
+                            //知会
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/api/bpm/PostAccount",
+                                data: { "ids": noticeOpenIdArr },
+                                beforeSend: function (XHR) {
+                                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+                                }, success: function (data, status) {
+
+                                    if (status == "success") {
+                                        var accounts = new Array();
+                                        var accName = new Array();
+                                        for (var i = 0; i < data.data.length; i++) {
+                                            accounts.push((String)(data.data[i].phone));
+                                            accName.push(data.data[i].name);
+                                        }
+                                        //alert(JSON.stringify({ 'taskID': taskId, 'comments': '', 'accounts': accounts }));
+
+                                        var btnArry = ["取消", "确定"];
+                                        mui.confirm('将知会下列人员:' + accName, '知会通知', btnArry, function (e) {
+                                            if (e.index == 1) {
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: "/api/bpm/PostInform",
+                                                    data: { 'taskID': taskId, 'comments': '', 'accounts': accounts },
+                                                    dataType: "json",
+                                                    beforeSend: function (XHR) {
+
+                                                        XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+                                                    },
+                                                    success: function (data, status) {
+
+                                                        if (status == "success") {
+                                                            mui.toast("知会成功");
+                                                        }
+                                                    }, error: function (e) {
+                                                        //console.log(e);  
+
+                                                    },
+                                                    complete: function () { }
+
+
+                                                });
+                                            } else {
+
+                                            }
+                                        });
+
+
+                                    }
+                                }, error: function (e) {
+
+                                }, complete: function () { }
+
+
+                            });
+
+
+                        }
+
+
+
+                    });
+
+                }
+            }
+
+            });
+
+        XuntongJSBridge.call('getPersonInfo', {}, function (result) {
+
+            if (result.success == true) {
+                $('#myPhone').val(result.data.userName);
+            }
+
+        });
+
+        function getTaskMsg() {
+
+            var url = window.location.href;
+            if (url != null && url.indexOf("tid") != -1 && url.indexOf("pid") != -1) {
+
+
+                taskId = url.substring(url.indexOf("=") + 1, url.indexOf("&"));
+                if (url.split("pid=")[1].indexOf("ticket") != -1) {
+                    stepId = url.split("pid=")[1];
+                    stepId = stepId.split("&ticket")[0];
+
+                } else {
+                    stepId = url.split("pid=")[1];
+                }
+
+
+            } else {
+                mui.toast("网络异常,请稍后重试");
+                history.go(-1);
+
+            }
+
+            itemidArr = new Array();
+
+            $.ajax({
+                type: "get",
+                url: "/api/bpm/GetTaskData",
+                data: { 'taskId': taskId },
+
+                beforeSend: function (XHR) {
+                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+                },
+                success: function (data, status) {
+                    //console.log(data);
+                    if (status == "success") {
+
+                        console.log(data);
+                    }
+                }, error: function (e) {
+
+                }, complete: function () {
+
+                }
+            });
+
+        }
+
+        function watch() {
+
+            var count = $('.upload-img-list >div').size();
+
+            if (count <= 4) {
+                $('#uploaddiv').css('height', '35vw');
+
+
+            } else if (count <= 8) {
+                $('#uploaddiv').css('height', '60vw');
+
+            } else if (count <= 12) {
+                $('#uploaddiv').css('height', '90vw');
+            }
+
+        }
+        var data = {
+            picUrl: '/workreport/c/file/image/get.json?fileId=',
+            queryDraft: '/workreport/modify',
+            totalSize: 0,
+            photoInfo: [],
+            fileInfo: [],
+            photos: ''
+        }
+
+    </script>
+
+
+</body>
+
+
+</html>

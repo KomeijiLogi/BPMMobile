@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ProcessList>
+  <Process>
+    <Name>洁瑞APP审批</Name>
+    <Path>\\01威高集团总部\\00威高集团本部\\XX信息管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/BaseFlow/FlowCreate.html</CreatePage>
+    <ViewPage></ViewPage>
+    <DisplayName>通用审批</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/images/undoApproval.png</Icon>
+    <Group></Group>
+    <Description>适用于洁瑞公司通用审批，提交至直接上级</Description>
+  </Process>
+  <Process>
+    <Name>BG0101005_周工作汇报审批_流程</Name>
+    <Path>\\01威高集团总部\\01跨产业集团\\BG办公管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/WeeklyFlow/FlowCreate.html</CreatePage>
+    <ViewPage></ViewPage>
+    <DisplayName>周工作汇报</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/images/myApproval.png</Icon>
+    <Group></Group>
+    <Description>工作汇报详情</Description>
+
+  </Process>
+</ProcessList>

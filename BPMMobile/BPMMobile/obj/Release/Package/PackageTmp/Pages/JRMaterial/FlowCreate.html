@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/fx.js"></script>
+    <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
+    <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
+    <script type="text/javascript" src="../../Scripts/qingjs.js"></script>
+    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
+    <!--<script type="text/javascript" src="../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>-->
+    <link rel="stylesheet" href="../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../Content/upload.css" />
+    <title></title>
+    <meta charset="utf-8" />
+     <style>
+         html, body {
+             font-size: 20px;
+             background-color: white;
+             height: 100%;
+             overflow: auto;
+         }
+
+
+         label {
+             font-size: 0.75rem;
+         }
+
+         textarea {
+             height: 5.25rem;
+             overflow: auto;
+         }
+
+         a {
+             font-size: 0.75rem;
+         }
+       
+        
+     </style>
+</head>
+<body>
+    <div class="mui-content" style="background-color:white;">
+         <form class="mui-input-group" style="left:0rem;right:0rem;">
+              <div class="mui-input-row">
+                  <label>申请人</label>
+                  <input type="text"  class="mui-input-clear" id="fname" name="fname" />
+              </div> 
+              <div class="mui-input-row">
+                  <label>所属区域</label>
+                  <input type="text"  class="mui-input-clear" id="farea" name="farea"/>
+              </div> 
+              <div class="mui-input-row">
+                  <label>申请日期</label>
+                  <input type="date" class="mui-input-clear" id="fdate" name="fdate"/>
+              </div>
+              <div class="mui-input-row">
+                  <label>联系电话<i style="color:red;">*</i></label>
+                  <input type="tel" class="mui-input-clear" id="ftel" name="ftel" placeholder="请输入联系电话"/>
+              </div>
+              <div class="mui-input-row">
+                  <label>产品类别<i style="color:red;">*</i></label>
+                  <input type="text" id="productType" name="productType"  placeholder="请选择产品类别">
+              </div>
+              <div class="mui-input-row">
+                  <label>发货类别<i style="color:red;">*</i></label>
+                  <input type="text" id="deliverType" name="deliverType" placeholder="请选择发货类别"/>
+              </div>
+              <div class="mui-input-row">
+                  <label>发票类型<i style="color:red;">*</i></label>
+                  <input type="text" id="invoiceType" name="invoiceType" placeholder="请选择发票类型"/>
+              </div>
+              <div class="mui-input-row">
+                  <label>购货单位<i style="color:red;">*</i></label>
+                  <input type="text" id="purchaseUnits" name="purchaseUnits" placeholder="请输入购货单位"/>
+              </div>
+              <div class="mui-input-row" style="height:5.25rem;">
+                  <label>发货地址<i style="color:red;">*</i></label>
+                  <textarea rows="5" id="deliverAddress" name="deliverAddress"></textarea>
+              </div>
+              <div class="mui-input-row">
+                  <label>收货人<i style="color:red;">*</i></label>
+                  <input type="text" id="receiver" name="receiver" placeholder="请输入收货人"/>
+              </div>
+              <div class="mui-input-row">
+                   <label>收货电话<i style="color:red;">*</i></label>
+                   <input type="tel" id="receivePhone" name="receivePhone" placeholder="请输入收货电话"/>
+              </div>
+              <div class="mui-input-row">
+                  <label>产品明细</label>
+                  <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:dotted;"></span>
+              </div>
+             <div id="productDetail" class="mui-input-group">
+                 <div class="mui-input-row">
+                     <label>物料编码<i style="color:red;">*</i></label>
+                     <input type="text" id="materialCode" name="materialCode" value="" />
+                 </div>
+                 <div class="mui-input-row">
+                      <label>规格型号<i style="color:red;">*</i></label>
+                 </div>
+             </div>
+              
+         </form> 
+    </div>
+</body>
+</html>
