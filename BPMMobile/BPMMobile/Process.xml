@@ -84,10 +84,54 @@
     <ViewUndoPage>/Pages/FLSW0702001/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/FLSW0702001/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/FLSW0702001/FlowDoneDetail.html</ViewDonePage>
-    <DisplayName>盛祥商管公司招商合同评审</DisplayName>
+    <DisplayName>盛祥商管招商合同评审</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204339.png</Icon>
     <Group></Group>
-    <Description>盛祥商管公司招商合同评审</Description>
+    <Description>盛祥商管招商合同评审</Description>
   </Process>
+   <Process>
+    <Name>BG0702002_商管公司部门联系单_流程</Name>
+    <Path>\\07房地产集团\\02商管公司\\BG办公管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/BG0702002/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/BG0702002/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/BG0702002/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/BG0702002/FlowDoneDetail.html</ViewDonePage>
+    <DisplayName>商管公司部门联系</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204340.png</Icon>
+    <Group></Group>
+    <Description>商管公司部门联系</Description>
+  </Process>
+
+<Process>
+    <Name>CW0701011_房地产集团推广费用申请_流程</Name>
+    <Path>\\07房地产集团\\01跨子公司\\CW财务管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/CW0701011/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/CW0701011/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/CW0701011/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/CW0701011/FlowDoneDetail.html</ViewDonePage>
+    <DisplayName>房地产集团推广费用申请</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204341.png</Icon>
+    <Group></Group>
+    <Description>房地产集团推广费用申请</Description>
+  </Process>
+  <Process>
+    <Name>CW0701009_房地产集团其他费用报销(通用)_流程</Name>
+    <Path>\\07房地产集团\\01跨子公司\\CW财务管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/CW0701009/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/CW0701009/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/CW0701009/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/CW0701009/FlowDoneDetail.html</ViewDonePage>
+    <DisplayName>房地产集团其他费用报销</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204342.png</Icon>
+    <Group></Group>
+    <Description>房地产集团其他费用报销</Description>
+  </Process>
+
 </ProcessList>

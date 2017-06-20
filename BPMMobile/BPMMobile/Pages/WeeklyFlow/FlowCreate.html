@@ -34,7 +34,8 @@
         }
         textarea {
             height: auto;
-            overflow:auto;
+            overflow: auto;
+            font-size: 0.75rem;
         }
         a {
            font-size:0.75rem;
@@ -62,7 +63,7 @@
              </div>
              <div class="mui-input-row">
                  <label>起始时间</label>
-                 <input type="date" placeholder="请选择起始时间" class="mui-input-clear" id="fstartdate" name="fstartdate"/>
+                 <input type="date" placeholder="请选择起始时间" class="mui-input-clear" id="fstartdate" name="fstartdate" />
              </div>
              <div class="mui-input-row">
                  <label>终止时间</label>
@@ -477,7 +478,7 @@
             var url = window.location.href;
             if (url != null && url != "") {
                 if (String(url).includes("reset")) {
-                    var msg = JSON.parse(localStorage.getItem('wefmsg'));
+                    var msg = JSON.parse(localStorage.getItem('BPM_ZGZHBMsg'));
                     
                     $("#fname").val(msg.fname);
                     $("#fno").val(msg.fno);

@@ -39,6 +39,7 @@
         textarea {
             height: auto;
             overflow: auto;
+            font-size: 0.75rem;
         }
 
         a {
@@ -187,7 +188,7 @@
             </div>
             <div class="mui-input-row">
                 <label>产品明细</label>
-                <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:dotted;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;display:none;" id="addProduct"></span>
+                <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;display:none;" id="addProduct"></span>
             </div>
             <div id="wllist" class="mui-input-group">
 
@@ -400,7 +401,7 @@
                         "ftotal_dx": $("#ftotal_dx").val()
                     });
 
-                    localStorage.setItem("jrmmsg", msg);
+                    localStorage.setItem("BPM_JRZPFHMsg", msg);
                     setTimeout("window.location.href = '/Pages/JRMaterial/FlowCreate.html?reset=true'", 1000);
 
                 } else if (callBackId == 'callback2') {

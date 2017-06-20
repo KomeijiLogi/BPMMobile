@@ -1,0 +1,786 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/fx.js"></script>
+    <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
+    <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
+    <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
+    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>
+    <link rel="stylesheet" href="../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../Content/upload.css" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style>
+        html, body {
+            font-size: 20px;
+            height: 100%;
+            overflow: auto;
+            background-color: white;
+        }
+
+
+        label {
+            font-size: 0.75rem;
+        }
+
+
+
+        textarea {
+            height: auto;
+            overflow: auto;
+            font-size: 0.75rem;
+        }
+        input {
+            font-size: 0.75rem;
+        }
+        a {
+            font-size: 0.75rem;
+        }
+        .bgc {
+            color: white;
+            background-color: #9BA3AE;
+        }
+      </style>
+ </head > 
+<body>
+    <div class="mui-content" style="background-color:white;" id="wrapper">
+        <form class="mui-input-group" style="left:0rem;right:0rem;margin-bottom:1rem;padding-bottom:4rem;">
+            <div class="mui-input-row">
+                <label>收函人<i style="color:red;">*</i></label>
+                <input type="text" id="fhname" name="fhname" readonly="readonly"/>
+            </div>
+            <div class="mui-input-row" >
+                <label>发函部门<i style="color:red;">*</i></label>
+                <input type="text" id="fhdept" name="fhdept" readonly="readonly"/>
+            </div>
+            <div class="mui-input-row">
+                <label>发函日期<i style="color:red;">*</i></label>
+                <input type="date" id="fhdate" name="fhdate" readonly="readonly"/>
+            </div>
+            <div class="mui-input-row">
+                <label>联系电话</label>
+                <input type="tel" id="tel" name="tel" placeholder="请输入联系电话" readonly="readonly"/>
+            </div>
+            <div class="mui-input-row">
+                <label>发出要求</label>
+                <input type="text" id="fcyq" name="fcyq" placeholder="请选择发出要求" readonly="readonly"/>
+            </div>
+            <div class="mui-input-row">
+                <label>办理时限</label>
+                <input type="text" id="blsx" name="blsx" placeholder="请选择办理时限" readonly="readonly"/>
+            </div>
+            <div class="mui-input-row">
+                <label>保密程度</label>
+                <input type="text" id="bmcd" name="bmcd" placeholder="请选择保密程度" readonly="readonly"/>
+            </div>
+            <div class="mui-input-row" style="display:none;">
+                <label>内联编号</label>
+                <input type="text" id="nlbh" name="nlbh" />
+            </div>
+            <div class="mui-input-row">
+                <label>内联类别</label>
+                <input type="text" id="fnllb" name="fnllb" placeholder="请选择内联类别" readonly="readonly"/>
+            </div>
+            <div class="mui-input-row">
+                <label>发函主题</label>
+                <input type="text" id="fhzt" name="fhzt" placeholder="请输入发函主题" readonly="readonly"/>
+            </div>
+            <div class="mui-input-row" style="height:8.75rem;">
+                <label>发函内容</label>
+                <textarea rows="7" id="fhnr" name="fhnr" placeholder="请输入发函内容" readonly="readonly"></textarea>
+            </div>
+            <div class="mui-input-row" style="display:none;height:7.25rem;" id="thd">
+                <label>退回原因</label>
+                <textarea rows="5" id="backReason" style="overflow:auto;" name="backReason" readonly="readonly"></textarea>
+            </div>
+            <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
+                <div class="border border-t upload-img" style="top:0rem;">
+                    <!--上传图片-->
+                    <div class="clearfix upload-btn" id="children-bg">
+                        <label class="label">附件</label>
+                        <span class="tips" id="imageCount"><!--已添加0张--></span>
+                        <!--上传图片按钮  -->
+                        <span class="upload-addbtn" style="display:none;">
+                            <input type="file" accept="image/jpeg,image/jpg,image/png,image/jp2,image/bmp" id="file" style="opacity:0;">
+                        </span>
+
+                    </div>
+                    <div class="upload-img-list"></div>
+                </div>
+            </div>
+            <div class="mui-input-row">
+                <label>收函部门</label>
+                <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;display:none;" id="addItem"></span>
+            </div>
+            <div class="mui-input-group" id="shlist">
+
+                <!--<div class="mui-card" id="sh">
+                    <div class="mui-input-row">
+                        <label>部门列表项</label>
+                        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteItem" onclick="deleteItem(this)"></span>
+                    </div>
+                    <div class="mui-input-row">
+                        <label>收函部门</label>
+                        <input type="text" id="shdept" name="shdept"/>
+                    </div>
+                    <div class="mui-input-row">
+                        <label>收函人</label>
+                        <input type="text" id="shname" name="shname"/>
+                        <input type="hidden" id="shno" name="shno"/>
+                    </div>
+                   <div class="mui-input-row">
+                       <label>收函人职位</label>
+                       <input type="text" id="zhiwei" name="zhiwei"/>
+                   </div>
+                </div>-->
+            </div>
+        </form>
+        <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;display:none;" id="createD">
+            <button class="mui-btn mui-btn-primary" type="button" style="width:100%;height:2.5rem;font-size:0.8rem;" id="commitbt" onclick="Save()">提交</button>
+        </div>
+        <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;display:none;" id="approvalD">
+            &nbsp;&nbsp;
+            <button class="mui-btn mui-btn-primary" type="button" style="width:40%;height:2.5rem;font-size:0.8rem;" id="agreebt" onclick="showConfirm()">确认</button>&nbsp;&nbsp;&nbsp;
+            <button class="mui-btn mui-btn-danger" type="button" style="width:40%;height:2.5rem;font-size:0.8rem;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;
+
+        </div>
+        <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;display:none;" id="readD">
+            <button class="mui-btn mui-btn-primary" type="button" style="height:2.5rem;font-size:0.8rem;width:100%;margin-bottom:1rem;" id="readbt" onclick="hasRead()">已阅</button>
+        </div>
+    </div>
+       
+        <input value="" id="stepId" name="stepId" type="hidden" />
+        <input type="hidden" id="flowPerId" name="flowPerId" value="" />
+        <input type="hidden" id="processName" name="processName" value="" />
+        <input type="hidden" id="noticeUser" name="noticeUser" value="" />
+        <input type="hidden" id="noticeOpenId" name="noticeOpenId" value="" />
+        <input type="hidden" id="taskId" name="taskId" value="" />
+        <input type="hidden" id="myPhone" name="myPhone" value="00078251" />
+        <input type="hidden" id="consignUser" name="consignUser" value="" />
+        <input type="hidden" id="consignOpenId" name="consignOpenId" value="" />
+        <input type="hidden" id="fbillno" name="fbillno" value="" />
+        <div id="signd" style="display:none;">
+            <div class="mui-input-row" style="height:5.25rem;font-size:0.8rem;border:groove;border-width:0.1rem;" id="ssd">
+                <label>签核意见</label>
+                <textarea rows="5" id="signSuggest" placeholder="请输入签核意见"></textarea>
+
+            </div>
+            <div class="mui-btn-row mui-text-center" style="margin-top:1rem;">
+                <button class="mui-btn mui-btn-primary" type="button" onclick="AgreeOrConSign()">确定</button>&nbsp;&nbsp;
+                <button class="mui-btn mui-btn-danger" type="button" onclick="cancelConfirm()">取消</button>
+            </div>
+        </div>
+    <script>
+        mui.init();
+
+        mui.ready(function () {
+            getBPMParam();
+            getTaskMsg();      
+            upload();
+            watch();
+        });
+
+        XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });        
+        XuntongJSBridge.call('createPop', {
+            'popTitle': '',
+            'popTitleCallBackId': '1',
+            'items': [
+                { 'text': '自定义刷新', 'callBackId': 'callback1' },
+                { 'text': '知会', 'callBackId': 'callback2' }
+            ],
+            'menuList': [
+                'refresh', 'openWithBrowser'
+            ],
+
+        }, function (result) {
+            if (result.success == true || result.success == 'true') {
+                var callBackId = result.data ? result.data.callBackId : '';
+                if (callBackId == 'callback1') {
+                    history.go(0);
+                } else if (callBackId == 'callback2') {
+                    XuntongJSBridge.call('selectPersons', { 'isMulti': 'true', 'pType': '1' }, function (result) {
+
+
+
+                        noticeOpenIdArr = new Array();
+                        if (result.success == true) {
+
+                            for (var i = 0; i < result.data.persons.length; i++) {
+
+                                noticeOpenIdArr.push(result.data.persons[i].openId);
+
+                            }
+                            $("#noticeOpenId").val(noticeOpenIdArr);
+                            //知会
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/api/bpm/PostAccount",
+                                data: { "ids": noticeOpenIdArr },
+                                beforeSend: function (XHR) {
+                                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+                                }, success: function (data, status) {
+
+                                    if (status == "success") {
+                                        var accounts = new Array();
+                                        var accName = new Array();
+                                        for (var i = 0; i < data.data.length; i++) {
+                                            accounts.push((String)(data.data[i].phone));
+                                            accName.push(data.data[i].name);
+                                        }
+                                        //alert(JSON.stringify({ 'taskID': taskId, 'comments': '', 'accounts': accounts }));
+
+                                        var btnArry = ["取消", "确定"];
+                                        mui.confirm('将知会下列人员:' + accName, '知会通知', btnArry, function (e) {
+                                            if (e.index == 1) {
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: "/api/bpm/PostInform",
+                                                    data: { 'taskID': taskId, 'comments': '', 'accounts': accounts },
+                                                    dataType: "json",
+                                                    beforeSend: function (XHR) {
+
+                                                        XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+                                                    },
+                                                    success: function (data, status) {
+
+                                                        if (status == "success") {
+                                                            mui.toast("知会成功");
+                                                        }
+                                                    }, error: function (e) {
+                                                        //console.log(e);  
+
+                                                    },
+                                                    complete: function () { }
+
+
+                                                });
+                                            } else {
+
+                                            }
+                                        });
+
+
+                                    }
+                                }, error: function (e) {
+
+                                }, complete: function () { }
+
+
+                            });
+
+
+                        }
+
+
+
+                    });
+
+                }
+            }
+
+        });
+
+        XuntongJSBridge.call('getPersonInfo', {}, function (result) {
+
+            if (result.success == true) {
+                $('#myPhone').val(result.data.userName);
+            }
+
+        });
+
+        function getTaskMsg() {
+
+
+
+            var url = window.location.href;
+            if (url != null && url.indexOf("tid") != -1 && url.indexOf("pid") != -1) {
+
+
+                taskId = url.substring(url.indexOf("=") + 1, url.indexOf("&"));
+                if (url.split("pid=")[1].indexOf("ticket") != -1) {
+                    stepId = url.split("pid=")[1];
+                    stepId = stepId.split("&ticket")[0];
+
+                } else {
+                    stepId = url.split("pid=")[1];
+                }
+
+
+            } else {
+                mui.toast("网络异常,请稍后重试");
+                history.go(-1);
+
+            }
+
+            itemidArr = new Array();
+
+            $.ajax({
+                type: "get",
+                url: "/api/bpm/GetTaskData",
+                data: { 'taskId': taskId },
+
+                beforeSend: function (XHR) {
+                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+                },
+                success: function (data, status) {
+                    //console.log(data);
+                    if (status == "success") {
+
+
+                        console.log(data);
+                        var item = data.FormDataSet.BPM_SGGSBMLXD_A[0];
+                        $("#taskId").val(item.TaskID);
+                        $("#fhname").val(item.fhname);
+                        $("#fhdate").val(FormatterTimeYMS(item.fhdate));
+                        $("#fhdept").val(item.fhdept);
+                        $("#tel").val(item.tel);
+                        $("#fcyq").val(item.fcyq);
+                        $("#blsx").val(item.blsx);
+                        $("#bmcd").val(item.bmcd);
+                        $("#fnllb").val(item.fnllb);
+                        $("#fhzt").val(item.fhzt);
+                        $("#fhnr").val(item.fhnr);
+                        $("#stepId").val(stepId);
+                        $("#fbillno").val(item.fbillno);
+                        if (item.fj != null && item.fj != "") {
+                            var fjtmp = (String)(item.fj);
+
+                            fjArray = fjtmp.split(";");
+                            $.ajax({
+                                type: 'POST',
+                                url: '/api/bpm/GetAttachmentsInfo',
+                                //dataType:'json',
+                                data: { 'fileIds': fjArray },
+
+                                beforeSend: function (XHR) {
+                                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+                                },
+                                success: function (data, status) {
+                                    if (status == "success") {
+
+                                        console.log(data);
+                                        for (var i = 0; i < data.length; i++) {
+                                            var li = '<div class="pic-preview smallyulan success">';
+                                            li = li + ' <div class="del none" style="opacity:1;z-index:999;"onclick="delPicture(this)">x</div>';
+
+                                            //类型判断
+                                            if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
+
+                                            } else if ((data[i].Ext).indexOf("xls") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/xlsx@2x.png"/></a></div>';
+
+                                            } else if ((data[i].Ext).indexOf("doc") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/docx@2x.png"/></a></div>';
+
+                                            } else if ((data[i].Ext).indexOf("ppt") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/ppt@2x.png"/></a></div>';
+
+                                            } else if ((data[i].Ext).indexOf("pdf") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/pdf@2x.png"/></a></div>';
+
+                                            } else if ((data[i].Ext).indexOf("zip") != -1 || (data[i].Ext).indexOf("rar") != -1 || (data[i].Ext).indexOf("7z") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/zip@2x.png"/></a></div>';
+
+                                            } else if ((data[i].Ext).indexOf("txt") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/txt@2x.png"/></a></div>';
+
+                                            } else {
+                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/unkown@2x.png"/></a></div>';
+                                            }
+
+                                            li = li + ' </div>';
+                                            li = li + '</div>';
+                                            $(".upload-img-list").append(li);
+
+                                        }
+
+                                    }
+
+                                }, error: function (e) {
+                                    console.log(e);
+
+                                }, complete: function () {
+
+                                }
+
+                            });
+                        }
+
+                        var shlist = data.FormDataSet.BPM_SGGSBMLXD_B;
+
+                        for (var i = 0; i < shlist.length; i++) {
+                            if (shlist[i].zhiwei == null) {
+                                shlist[i].zhiwei = "";
+                            }
+                            if (shlist[i].shdept == null) {
+                                shlist[i].shdept = "";
+                            }
+                            if (shlist[i].shname == null) {
+                                shlist[i].shname = "";
+                            }
+                            itemidArr.push(shlist[i].itemid);
+                            var li = ' <div class="mui-card" id= "sh" >';
+                            li = li + '     <div class="mui-input-row bgc">';
+                            li = li + '            <label>部门列表项</label>';
+                            li = li + '           <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;display:none;" id="deleteItem" onclick="deleteItem(this)"></span>';
+                            li = li + '       </div>';
+                            li = li + '       <div class="mui-input-row" style="height:auto;">';
+                            li = li + '          <label>收函部门</label>';
+                            li = li + '           <textarea id="shdept" name="shdept" rows="4">' + shlist[i].shdept + '</textarea>';
+                            li = li + '        </div>';
+                            li = li + '        <div class="mui-input-row">';
+                            li = li + '            <label>收函人</label>';
+                            li = li + '          <input type="text" id="shname" name="shname" value="' + shlist[i].shname + '" />';
+                            li = li + '            <input type="hidden" id="shno" name="shno" value="' + shlist[i].shno + '"/>';
+                            li = li + '        </div>';
+                            li = li + '        <div class="mui-input-row">';
+                            li = li + '            <label>收函人职位</label>';
+                            li = li + '            <input type="text" id="zhiwei" name="zhiwei" value="' + shlist[i].zhiwei + '"/>';
+                            li = li + '        </div>';
+                            li = li + '     </div >';
+                            $("#shlist").append(li);
+
+                        }
+
+
+                        var NodeName;
+                        //判断流程本节点是否结束，处理者是否为当前用户,
+                        //流程步骤是否是传过来的流程步骤，再根据这三项查出对应的节点名称
+                        for (var i = 0; i < data.Steps.length; i++) {
+                            //debugger;
+
+                            if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
+
+
+                                if (stepId.includes(data.Steps[i].StepID)) {
+
+                                    NodeName = data.Steps[i].NodeName;
+
+                                }
+
+                            }
+
+                        }
+
+                        if (NodeName == "开始") {
+                            $("#createD").css("display", "block");
+                        } else if (NodeName == "sysInform") {
+                            $("#readD").css("display", "block");
+                        }else {
+                            $("#approvalD").css("display", "block");
+                        }
+
+                    }
+                }, error: function (e) {
+
+
+                }, complete: function () {
+
+                }
+            });
+        }
+
+        function Save() {
+            var fareaStr = String(BPMOU).split("/");
+            //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
+            $("#fhdept").val(fareaStr[fareaStr.length - 2]);
+
+            var fhname = $("#fhname").val();
+            var fhdept = $("#fhdept").val();
+            var fhdate = $("#fhdate").val() + " 00:00:00";
+            var tel = $("#tel").val();
+            var fcyq = $("#fcyq").val();
+            var blsx = $("#blsx").val();
+            var bmcd = $("#bmcd").val();
+            var fhzt = $("#fhzt").val();
+            var fhnr = $("#fhnr").val();
+            var fnllb = $("#fnllb").val();
+
+            var shlistArr = new Array();
+            $("#shlist").find("#sh").each(function () {
+                var shdept = $(this).find("#shdept").val();
+                var shname = $(this).find("#shname").val();
+                var shno = $(this).find("#shno").val();
+                var zhiwei = $(this).find("#zhiwei").val();
+
+                var sh = ShItem(shdept, shname, shno, zhiwei);
+                shlistArr.push(sh);
+            });
+
+            var btnArry = ["取消", "确定"];
+            mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
+                if (e.index == 1) {
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '<Header>';
+                    xml = xml + '<Method>Post</Method>';
+                    //xml = xml + '<ProcessName>BG0702002_商管公司部门联系单_流程</ProcessName>';
+                    xml = xml + '<ProcessName>盛祥商管公司内部联系申请</ProcessName>';
+                    xml = xml + '<ProcessVersion>1.0</ProcessVersion>';
+                    xml = xml + '<DraftGuid></DraftGuid>';
+                    xml = xml + '<OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
+                    xml = xml + '<Action>提交</Action>';
+                    xml = xml + '<Comment></Comment>';
+                    xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '</Header>';
+                    xml = xml + ' <FormData>';
+                    xml = xml + '<BPM_SGGSBMLXD_A>';
+                    xml = xml + '<fbillno>自动生成</fbillno>';
+                    xml = xml + '<fhname>' + fhdate + '</fhname>';
+                    xml = xml + '<fhdept>' + fhdept + '</fhdept>';
+                    xml = xml + '<fhdate>' + fhdate + '</fhdate>';
+                    xml = xml + '<tel>' + tel + '</tel>';
+                    xml = xml + '<fcyq>' + fcyq + '</fcyq>';
+                    xml = xml + '<blsx>' + blsx + '</blsx>';
+                    xml = xml + '<bmcd>' + bmcd + '</bmcd>';
+                    xml = xml + '<nlbh></nlbh>';
+                    //remark:测试下缺少这个字段
+                    xml = xml + '<fnllb>' + fnllb + '</fnllb>';
+
+                    xml = xml + '<fhzt>' + fhzt + '</fhzt>';
+                    xml = xml + '<fhnr>' + fhnr + '</fhnr>';
+                    if (fjArray.toString() != null && fjArray.toString() != "") {
+                        xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
+                    } else {
+                        xml = xml + '      <fj></fj>';
+                    }
+                    xml = xml + ' </BPM_SGGSBMLXD_A>';
+                    for (var i = 0; i < shlistArr.length; i++) {
+                        xml = xml + ' <BPM_SGGSBMLXD_B>';
+                        xml = xml + '  <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
+                        xml = xml + '  <RowPrimaryKeys></RowPrimaryKeys>';
+                        xml = xml + '  <fentryno>' + (i + 1) + '</fentryno>';
+                        xml = xml + '<shdept>' + shlistArr[i].shdept + '</shdept>';
+                        xml = xml + '<shname>' + shlistArr[i].shname + '</shname>';
+                        xml = xml + '<shno>' + shlistArr[i].shno + '</shno>';
+                        xml = xml + '<zhiwei>' + shlistArr[i].zhiwei + '</zhiwei>';
+                        xml = xml + ' </BPM_SGGSBMLXD_B>';
+
+                    }
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+
+                }
+
+            });
+
+        }
+
+
+
+        function AgreeOrConSign() {
+            var fhname = $("#fhname").val();
+            var fhdept = $("#fhdept").val();
+            var fhdate = $("#fhdate").val() + " 00:00:00";
+            var tel = $("#tel").val();
+            var fcyq = $("#fcyq").val();
+            var blsx = $("#blsx").val();
+            var bmcd = $("#bmcd").val();
+            var fhzt = $("#fhzt").val();
+            var fhnr = $("#fhnr").val();
+            var fnllb = $("#fnllb").val();
+            var pid = $("#stepId").val();
+            var fbillno = $("#fbillno").val();
+            var shlistArr = new Array();
+            $("#shlist").find("#sh").each(function () {
+                var shdept = $(this).find("#shdept").val();
+                var shname = $(this).find("#shname").val();
+                var shno = $(this).find("#shno").val();
+                var zhiwei = $(this).find("#zhiwei").val();
+                var sh = ShItem(shdept, shname, shno, zhiwei);
+                shlistArr.push(sh);
+            });
+            var xml = '<?xml version="1.0"?>';
+            xml = xml + '<XForm>';
+            xml = xml + '<Header>';
+            xml = xml + '<Method>Process</Method>';
+            xml = xml + '<PID>' + pid + '</PID>';
+            xml = xml + '<Action>同意</Action>';
+            xml = xml + '<Comment></Comment>';
+            xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
+            xml = xml + '</Header>';
+            xml = xml + ' <FormData>';
+            xml = xml + '<BPM_SGGSBMLXD_A>';
+            xml = xml + '<fbillno>' + fbillno + '</fbillno>';
+            xml = xml + '<fhname>' + fhdate + '</fhname>';
+            xml = xml + '<fhdept>' + fhdept + '</fhdept>';
+            xml = xml + '<fhdate>' + fhdate + '</fhdate>';
+            xml = xml + '<tel>' + tel + '</tel>';
+            xml = xml + '<fcyq>' + fcyq + '</fcyq>';
+            xml = xml + '<blsx>' + blsx + '</blsx>';
+            xml = xml + '<bmcd>' + bmcd + '</bmcd>';
+            xml = xml + '<nlbh></nlbh>';
+            //remark:测试下缺少这个字段
+            xml = xml + '<fnllb>' + fnllb + '</fnllb>';
+
+            xml = xml + '<fhzt>' + fhzt + '</fhzt>';
+            xml = xml + '<fhnr>' + fhnr + '</fhnr>';
+            if (fjArray.toString() != null && fjArray.toString() != "") {
+                xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
+            } else {
+                xml = xml + '      <fj></fj>';
+            }
+            xml = xml + ' </BPM_SGGSBMLXD_A>';
+            for (var i = 0; i < shlistArr.length; i++) {
+                xml = xml + ' <BPM_SGGSBMLXD_B>';
+                xml = xml + '  <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
+                xml = xml + '  <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
+                xml = xml + '  <fentryno>' + (i + 1) + '</fentryno>';
+                xml = xml + '<shdept>' + shlistArr[i].shdept + '</shdept>';
+                xml = xml + '<shname>' + shlistArr[i].shname + '</shname>';
+                xml = xml + '<shno>' + shlistArr[i].shno + '</shno>';
+                xml = xml + '<zhiwei>' + shlistArr[i].zhiwei + '</zhiwei>';
+                xml = xml + ' </BPM_SGGSBMLXD_B>';
+
+            }
+            xml = xml + '</FormData>';
+            xml = xml + '</XForm>';
+            PostXml(xml);
+        }
+
+
+        function hasRead() {
+
+            var fhname = $("#fhname").val();
+            var fhdept = $("#fhdept").val();
+            var fhdate = $("#fhdate").val() + " 00:00:00";
+            var tel = $("#tel").val();
+            var fcyq = $("#fcyq").val();
+            var blsx = $("#blsx").val();
+            var bmcd = $("#bmcd").val();
+            var fhzt = $("#fhzt").val();
+            var fhnr = $("#fhnr").val();
+            var fnllb = $("#fnllb").val();
+            var pid = $("#stepId").val();
+            var fbillno = $("#fbillno").val();
+            var shlistArr = new Array();
+            $("#shlist").find("#sh").each(function () {
+                var shdept = $(this).find("#shdept").val();
+                var shname = $(this).find("#shname").val();
+                var shno = $(this).find("#shno").val();
+                var zhiwei = $(this).find("#zhiwei").val();
+
+                var sh = ShItem(shdept, shname, shno, zhiwei);
+                shlistArr.push(sh);
+            });
+            var xml = '<?xml version="1.0"?>';
+            xml = xml + '<XForm>';
+            xml = xml + '<Header>';
+            xml = xml + '<Method>InformSubmit</Method>';
+            xml = xml + '<PID>' + pid + '</PID>';
+            xml = xml + '<Comment></Comment>';
+            xml = xml + '</Header>';
+            xml = xml + ' <FormData>';
+            xml = xml + '<BPM_SGGSBMLXD_A>';
+            xml = xml + '<fbillno>' + fbillno+'</fbillno>';
+            xml = xml + '<fhname>' + fhdate + '</fhname>';
+            xml = xml + '<fhdept>' + fhdept + '</fhdept>';
+            xml = xml + '<fhdate>' + fhdate + '</fhdate>';
+            xml = xml + '<tel>' + tel + '</tel>';
+            xml = xml + '<fcyq>' + fcyq + '</fcyq>';
+            xml = xml + '<blsx>' + blsx + '</blsx>';
+            xml = xml + '<bmcd>' + bmcd + '</bmcd>';
+            xml = xml + '<nlbh></nlbh>';
+            //remark:测试下缺少这个字段
+            xml = xml + '<fnllb>' + fnllb + '</fnllb>';
+
+            xml = xml + '<fhzt>' + fhzt + '</fhzt>';
+            xml = xml + '<fhnr>' + fhnr + '</fhnr>';
+            if (fjArray.toString() != null && fjArray.toString() != "") {
+                xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
+            } else {
+                xml = xml + '      <fj></fj>';
+            }
+            xml = xml + ' </BPM_SGGSBMLXD_A>';
+            for (var i = 0; i < shlistArr.length; i++) {
+                xml = xml + ' <BPM_SGGSBMLXD_B>';
+                xml = xml + '  <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
+                xml = xml + '  <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
+                xml = xml + '  <fentryno>' + (i + 1) + '</fentryno>';
+                xml = xml + '<shdept>' + shlistArr[i].shdept + '</shdept>';
+                xml = xml + '<shname>' + shlistArr[i].shname + '</shname>';
+                xml = xml + '<shno>' + shlistArr[i].shno + '</shno>';
+                xml = xml + '<zhiwei>' + shlistArr[i].zhiwei + '</zhiwei>';
+                xml = xml + ' </BPM_SGGSBMLXD_B>';
+
+            }
+            xml = xml + '</FormData>';
+            xml = xml + '</XForm>';
+            PostXml(xml);
+        }
+
+
+        var data = {
+            picUrl: '/workreport/c/file/image/get.json?fileId=',
+            queryDraft: '/workreport/modify',
+            totalSize: 0,
+            photoInfo: [],
+            fileInfo: [],
+            photos: ''
+        }
+
+
+
+
+        function watch() {
+
+            var count = $('.upload-img-list >div').size();
+
+            if (count <= 4) {
+                $('#uploaddiv').css('height', '35vw');
+
+
+            } else if (count <= 8) {
+                $('#uploaddiv').css('height', '60vw');
+
+            } else if (count <= 12) {
+                $('#uploaddiv').css('height', '90vw');
+            }
+
+        }
+
+
+        function delPicture(el) {
+
+            $(el).parent().remove();
+            watch();
+
+        }
+
+        function ShItem(shdept, shname, shno, zhiwei) {
+            var sh = new Object();
+            sh.shdept = shdept;
+            sh.shname = shname;
+            sh.shno = shno;
+            sh.zhiwei = zhiwei;
+            return sh;
+        }
+    </script>
+</body> 
+</html>
+        

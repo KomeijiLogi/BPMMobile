@@ -33,8 +33,8 @@ function PostXml(xml) {
                 mui.toast("提交失败!请稍后重试");
             }
         },
-        error: function () {
-
+        error: function (e) {
+            alert(e.statusText +"  "+ e.responseText);
 
         },
         complete: function () {
@@ -537,3 +537,27 @@ function cancelConfirm() {
     $("#signd").css("display", "none");
 }
 
+//删除明细列表项 
+function deleteItem(context) {
+
+    $(context).parent().parent().remove();
+
+  
+}
+
+function watch() {
+
+    var count = $('.upload-img-list >div').size();
+
+    if (count <= 4) {
+        $('#uploaddiv').css('height', '35vw');
+
+
+    } else if (count <= 8) {
+        $('#uploaddiv').css('height', '60vw');
+
+    } else if (count <= 12) {
+        $('#uploaddiv').css('height', '90vw');
+    }
+
+}

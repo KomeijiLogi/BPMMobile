@@ -39,6 +39,7 @@
          textarea {
              height: auto;
              overflow: auto;
+             font-size: 0.75rem;
          }
 
          a {
@@ -100,7 +101,7 @@
               </div>
               <div class="mui-input-row">
                   <label>产品明细</label>
-                  <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:dotted;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;" id="addProduct"></span>
+                  <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;" id="addProduct"></span>
               </div>
              <div id="wllist" class="mui-input-group">
 
@@ -245,7 +246,7 @@
             var url = window.location.href;
             if (url != null && url != "") {
                 if (String(url).includes("reset")) {
-                    var msg = JSON.parse(localStorage.getItem('jrmmsg'));
+                    var msg = JSON.parse(localStorage.getItem('BPM_JRZPFHMsg'));
                     $("#fname").val(msg.fname);
                     $("#farea").val(msg.farea);
                     $("#fdate").val(msg.fdate);
@@ -327,7 +328,7 @@
                 }    
             ];
 
-            $("#fcplb").on('tap', showPicker('fcplb', fcplbdata));
+           showPicker('fcplb', fcplbdata);
 
             //发货类别
             var ffhxzdata = [
@@ -344,7 +345,7 @@
                     text:"特殊发货"
                 }
             ];
-            $("#ffhxz").on('tap', showPicker('ffhxz', ffhxzdata));
+           showPicker('ffhxz', ffhxzdata);
 
 
             //发票类型
@@ -358,7 +359,7 @@
                     text:"增值税发票"
                 }
             ];
-            $("#ffplx").on('tap', showPicker('ffplx', ffplxdata));
+            showPicker('ffplx', ffplxdata);
 
 
 

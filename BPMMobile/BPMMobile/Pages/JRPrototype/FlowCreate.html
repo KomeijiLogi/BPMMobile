@@ -39,6 +39,7 @@
         textarea {
             height: auto;
             overflow: auto;
+            font-size: 0.75rem;
         }
 
         a {
@@ -88,7 +89,7 @@
             </div>
             <div class="mui-input-row">
                 <label>样品申请明细</label>
-                <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:dotted;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;" id="addProduct"></span>
+                <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;" id="addProduct"></span>
             </div>
             <div id="yplist" class="mui-input-group" style="padding-bottom:2rem;">
 
@@ -132,7 +133,7 @@
             var url = window.location.href;
             if (url != null && url != "") {
                 if (String(url).includes("reset")) {
-                    var msg = JSON.parse(localStorage.getItem('jrpmsg'));
+                    var msg = JSON.parse(localStorage.getItem('BPM_JRYPSQMsg'));
                     $("#fname").val(msg.fname);
                     $("#farea").val(msg.farea);
                     $("#fdate").val(msg.fdate);
@@ -191,7 +192,7 @@
                 }
             ];
 
-            $("#fyplx").on('tap', showPicker('fyplx', fyplxdata));
+           showPicker('fyplx', fyplxdata);
 
             $("#addProduct").on('tap', function () {
                 var li = ' <div id="yp" class="mui-card">';

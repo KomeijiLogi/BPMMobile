@@ -25,19 +25,15 @@
     <meta charset="utf-8" />
     <style>
         html, body {
-            font-size: 20px;        
+            font-size: 20px;
+            background-color: white;
             height: 100%;
             overflow: auto;
-            background-color:white;
         }
-
 
         label {
             font-size: 0.75rem;
-
         }
-
-
 
         textarea {
             height: auto;
@@ -46,6 +42,10 @@
         }
 
         a {
+            font-size: 0.75rem;
+        }
+
+        input {
             font-size: 0.75rem;
         }
 
@@ -144,103 +144,84 @@
 <body>
     <div class="mui-content" style="background-color:white;">
         <form class="mui-input-group" style="left:0rem;right:0rem;margin-bottom:1rem;padding-bottom:4rem;">
-            <div class="mui-input-row">
-                <label>请示人</label>
-                <input type="text" class="" id="fname" name="fname" readonly="readonly" />
+            <div class="mui-input-row" >
+                <label>公司名称</label>
+                <input type="text" id="fcompany" name="fcompany" readonly="readonly" />
+            </div>
+            <div class="mui-input-row" >
+                <label>部门名称</label>
+                <input type="text" id="fdept" name="fdept" readonly="readonly" />
             </div>
             <div class="mui-input-row">
-                <label>请示部门</label>
-                <input type="text" class="" id="fdept" name="fdept" readonly="readonly" />
+                <label>申请人</label>
+                <input type="text" id="fname" name="fname" readonly="readonly" />
             </div>
             <div class="mui-input-row">
-                <label>请示日期</label>
-                <input type="date" class="" id="fdate" name="fdate" readonly="readonly"/>
+                <label>申请日期</label>
+                <input type="date" id="fdate" name="fdate" readonly="readonly" />
             </div>
             <div class="mui-input-row">
-                <label>联系方式<i style="color:red;">*</i></label>
-                <input type="tel" class="mui-input-clear" id="ftel" name="ftel" placeholder="请输入联系方式" readonly="readonly"/>
+                <label>是否借款<i style="color:red;">*</i></label>
+                <input type="text" id="fif_jk" name="fif_jk" placeholder="请选择是否借款" readonly="readonly" />
+            </div>
+            <div class="mui-input-row" style="height:auto;">
+                <label>备注</label>
+                <textarea rows="5" id="fremark" name="fremark" placeholder="请输入备注" readonly="readonly"></textarea>
             </div>
             <div class="mui-input-row">
-                <label>商户名称<i style="color:red;">*</i></label>
-                <input type="text" class="mui-input-clear" id="fshmc" name="fshmc" placeholder="请输入商户名称" readonly="readonly"/>
+                <label>申请明细</label>
+                <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;display:none;" id="addItem"></span>
             </div>
-            <div class="mui-input-row">
-                <label>店铺号<i style="color:red;">*</i></label>
-                <input type="text" class="mui-input-clear" id="fdph" name="fdph" placeholder="请输入店铺号" readonly="readonly"/>
-            </div>
-            <div class="mui-input-row">
-                <label>商户类型<i style="color:red;">*</i></label>
-                <input type="text" id="fshlx" name="fshlx" placeholder="请选择商户类型" readonly="readonly"/>
-            </div>
-            <div class="mui-input-group">
-                <div class="mui-input-row bgc">
-                    <label>运营部确认</label>
-                </div>
-                <div class="mui-input-row mui-checkbox mui-left">
-                    <label>图纸齐全/通过整改验收</label>
-                    <input name="fyytz" value="" type="checkbox" id="fyytz" disabled="disabled">
-                </div>
-                <div class="mui-input-row mui-checkbox mui-left">
-                    <label>资料齐全</label>
-                    <input name="fyyzl" value="" type="checkbox" id="fyyzl" disabled="disabled">
-                </div>
-                <div class="mui-input-row mui-checkbox mui-left">
-                    <label>因装修违规从中扣除违约金（见附件）</label>
-                    <input name="fyyyzx" value="" type="checkbox" id="fyyyzx" disabled="disabled">
-                </div>
-                <div class="mui-input-row" style="height:5.25rem;">
-                    <label>未通过表述</label>
-                    <textarea rows="5" name="fyywt" id="fyywt" readonly="readonly"></textarea>
-                </div>
-            </div>
-            <div class="mui-input-group">
-                <div class="mui-input-row bgc">
-                    <label>工程部确认</label>
-                </div>
-                <div class="mui-input-row mui-checkbox mui-left">
-                    <label>图纸齐全/通过整改验收</label>
-                    <input name="fgctz" value="" type="checkbox" id="fgctz" disabled="disabled">
-                </div>
-                <div class="mui-input-row mui-checkbox mui-left">
-                    <label>因装修违规从中扣除违约金（见附件）</label>
-                    <input name="fgcyzx" value="gcb2" type="checkbox" disabled="disabled">
-                </div>
-                <div class="mui-input-row" style="height:5.25rem;">
-                    <label>未通过表述</label>
-                    <textarea rows="5" name="fgcwt" id="fgcwt" readonly="readonly"></textarea>
-
-                </div>
+            <div class="mui-input-group" id="tglist">
+                <!--<div class="mui-card" id="tg">
+                    <div class="mui-input-row">
+                        <label>费用项目<i style="color:red;">*</i></label>
+                        <input type="text" id="fyxm" name="fyxm" value="推广费"/>
+                    </div>
+                    <div class="mui-input-row">
+                        <label>费用类型<i style="color:red;">*</i></label>
+                        <input type="text" id="ffylx" name="ffylx"/>
+                    </div>
+                    <div class="mui-input-row">
+                        <label>申请金额<i style="color:red;">*</i></label>
+                        <input type="number" id="fje" name="fje"/>
+                    </div>
+                    <div class="mui-input-row">
+                        <label>申请理由<i style="color:red;">*</i></label>
+                        <textarea rows="3" id="fremark" name="fremark"></textarea>
+                    </div>
+                </div>-->
             </div>
 
-            <div class="mui-input-group">
-                <div class="mui-input-row bgc">
-                    <label>安保部确认</label>
-                </div>
-                <div class="mui-input-row mui-checkbox mui-left">
-                    <label>图纸齐全/通过整改验收</label>
-                    <input name="fabtz" value="" type="checkbox" disabled="disabled">
-                </div>
-                <div class="mui-input-row mui-checkbox mui-left">
-                    <label>因装修违规从中扣除违约金（见附件）</label>
-                    <input name="fabyzx" value="abb2" type="checkbox" disabled="disabled">
-                </div>
-                <div class="mui-input-row" style="height:5.25rem;">
-                    <label>未通过表述</label>
-                    <textarea rows="5" name="fabwt" id="fabwt" readonly="readonly"></textarea>
-
-                </div>
+            <div class="mui-input-row">
+                <label>合计金额</label>
+                <input type="text" id="ftotal" name="ftotal" readonly="readonly" />
             </div>
-            <div class="mui-input-group">
-                <div class="mui-input-row bgc">
-                    <label>财务部确认</label>
-                </div>
-                <div class="mui-input-row mui-checkbox mui-left">
-                    <label>因装修违规从中扣除违约金（见附件）</label>
-                    <input name="fcwyzx" value="" type="checkbox" disabled="disabled">
-                </div>
-                <div class="mui-input-row" style="height:5.25rem;">
-                    <label>未通过表述</label>
-                    <textarea rows="5" name="fcwwt" id="fcwwt" readonly="readonly"></textarea>
+            <div class="mui-input-row">
+                <label>大写金额</label>
+                <input type="text" id="ftotal_dx" name="ftotal_dx" readonly="readonly" />
+            </div>
+
+
+
+            <div class="mui-input-group" id="jklist" style="display:none;">
+                <div class="mui-card">
+                    <div class="mui-input-row">
+                        <label>借款金额<i style="color:red;">*</i></label>
+                        <input type="number" id="fjktotal" name="fjktotal" readonly="readonly" value="" />
+                    </div>
+                    <div class="mui-input-row" >
+                        <label>大写金额</label>
+                        <input type="text" id="fjktotal_dx" name="fjktotal_dx" value="零元整" readonly="readonly"/>
+                    </div>
+                    <div class="mui-input-row" >
+                        <label>借款单号</label>
+                        <input type="text" id="fjkbillno" name="fjkbillno" readonly="readonly" />
+                    </div>
+                    <div class="mui-input-row" style="height:auto;">
+                        <label>借款事由</label>
+                        <textarea rows="5" id="fjkremark" name="fjkremark" readonly="readonly"></textarea>
+                    </div>
                 </div>
             </div>
 
@@ -248,7 +229,7 @@
                 <div class="border border-t upload-img" style="top:0rem;">
                     <!--上传图片-->
                     <div class="clearfix upload-btn" id="children-bg">
-                        <label class="label">附件<i style="color:red;">*</i></label>
+                        <label class="label">附件</label>
                         <span class="tips" id="imageCount"><!--已添加0张--></span>
                         <!--上传图片按钮  -->
                         <span class="upload-addbtn" style="display:none;">
@@ -259,8 +240,9 @@
                     <div class="upload-img-list"></div>
                 </div>
             </div>
-        </form>
 
+
+        </form>
         <div class="mui-table-view">
             <div class="mui-table-view-cell  mui-collapse">
                 <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
@@ -273,41 +255,41 @@
                     <div class="list">
                         <ul id="signff">
                             <!--<li>
-                                <span class="lefttime"><i></i>05-19 08:06</span>
-                                <div class="righttext">
-                                    <div>
-                                        <div class="flowmsg">发起<span>张成林<label class="flowstatus">提交</label></span></div>
-                                        <p>签核意见</p>
-                                    </div>
+                            <span class="lefttime"><i></i>05-19 08:06</span>
+                            <div class="righttext">
+                                <div>
+                                    <div class="flowmsg">发起<span>张成林<label class="flowstatus">提交</label></span></div>
+                                    <p>签核意见</p>
                                 </div>
-                            </li>
-                            <li>
-                                <span class="lefttime"><i></i>05-19 08:06</span>
-                                <div class="righttext">
-                                    <div>
-                                        <div class="flowmsg">一审<span>AA<label class="flowstatus">同意</label></span></div>
-                                        <p>签核意见</p>
-                                    </div>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="lefttime"><i></i>05-19 08:06</span>
+                            <div class="righttext">
+                                <div>
+                                    <div class="flowmsg">一审<span>AA<label class="flowstatus">同意</label></span></div>
+                                    <p>签核意见</p>
                                 </div>
-                            </li>
-                            <li>
-                                <span class="lefttime"><i></i>05-19 08:06</span>
-                                <div class="righttext">
-                                    <div>
-                                        <div class="flowmsg">二审<span>BB<label class="flowstatus">同意</label></span></div>
-                                        <p>签核意见</p>
-                                    </div>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="lefttime"><i></i>05-19 08:06</span>
+                            <div class="righttext">
+                                <div>
+                                    <div class="flowmsg">二审<span>BB<label class="flowstatus">同意</label></span></div>
+                                    <p>签核意见</p>
                                 </div>
-                            </li>
-                            <li>
-                                <span class="lefttime"><i></i>05-19 08:06</span>
-                                <div class="righttext">
-                                    <div>
-                                        <div class="flowmsg signadd">加签<span>CC<label class="flowstatus">同意</label></span></div>
-                                        <p>签核意见</p>
-                                    </div>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="lefttime"><i></i>05-19 08:06</span>
+                            <div class="righttext">
+                                <div>
+                                    <div class="flowmsg signadd">加签<span>CC<label class="flowstatus">同意</label></span></div>
+                                    <p>签核意见</p>
                                 </div>
-                            </li>-->
+                            </div>
+                        </li>-->
                         </ul>
                     </div>
 
@@ -315,30 +297,29 @@
                 </div>
             </div>
         </div>
+       
     </div>
-
     <input value="" id="stepId" name="stepId" type="hidden" />
     <input type="hidden" id="flowPerId" name="flowPerId" value="" />
     <input type="hidden" id="processName" name="processName" value="" />
     <input type="hidden" id="noticePer" name="noticePer" value="" />
     <input type="hidden" id="taskId" name="taskId" value="" />
+
     <script>
         mui.init();
         mui.ready(function () {
-
-            //Notify();
             getTaskMsg();
-
+            watch();
         });
+
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
 
-        var noticeOpenIdArr;
         XuntongJSBridge.call('createPop', {
             'popTitle': '',
             'popTitleCallBackId': '1',
             'items': [
-                { 'text': '自定义刷新', 'callBackId': 'callback1' },
-                { 'text': '知会', 'callBackId': 'callback2' }
+                { 'text': '自定义刷新', 'callBackId': 'callback1' }
+
             ],
             'menuList': [
                 'refresh', 'openWithBrowser'
@@ -349,97 +330,11 @@
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
                     history.go(0);
-                } else if (callBackId == 'callback2') {
-                    XuntongJSBridge.call('selectPersons', { 'isMulti': 'true', 'pType': '1' }, function (result) {
-
-
-
-                        noticeOpenIdArr = new Array();
-                        if (result.success == true) {
-
-                            for (var i = 0; i < result.data.persons.length; i++) {
-
-                                noticeOpenIdArr.push(result.data.persons[i].openId);
-
-                            }
-                            $("#noticeOpenId").val(noticeOpenIdArr);
-                            //知会
-
-                            $.ajax({
-                                type: "POST",
-                                url: "/api/bpm/PostAccount",
-                                data: { "ids": noticeOpenIdArr },
-                                beforeSend: function (XHR) {
-                                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
-
-                                }, success: function (data, status) {
-
-                                    if (status == "success") {
-                                        var accounts = new Array();
-                                        var accName = new Array();
-                                        for (var i = 0; i < data.data.length; i++) {
-                                            accounts.push((String)(data.data[i].phone));
-                                            accName.push(data.data[i].name);
-                                        }
-                                        //alert(JSON.stringify({ 'taskID': taskId, 'comments': '', 'accounts': accounts }));
-
-                                        var btnArry = ["取消", "确定"];
-                                        mui.confirm('将知会下列人员:' + accName, '知会通知', btnArry, function (e) {
-                                            if (e.index == 1) {
-                                                $.ajax({
-                                                    type: "POST",
-                                                    url: "/api/bpm/PostInform",
-                                                    data: { 'taskID': taskId, 'comments': '', 'accounts': accounts },
-                                                    dataType: "json",
-                                                    beforeSend: function (XHR) {
-
-                                                        XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
-
-                                                    },
-                                                    success: function (data, status) {
-
-                                                        if (status == "success") {
-                                                            mui.toast("知会成功");
-                                                        }
-                                                    }, error: function (e) {
-                                                        //console.log(e);  
-
-                                                    },
-                                                    complete: function () { }
-
-
-                                                });
-                                            } else {
-
-                                            }
-                                        });
-
-
-                                    }
-                                }, error: function (e) {
-
-                                }, complete: function () { }
-
-
-                            });
-
-
-                        }
-
-
-
-                    });
-
                 }
-                }
+            }
+        });
 
-            });
-
-        var taskId;
         function getTaskMsg() {
-
-
-
             var url = window.location.href;
 
             if (url != null && url.indexOf("tid") != -1) {
@@ -466,51 +361,29 @@
                     if (status == "success") {
 
                         console.log(data);
-
-                        var item = data.FormDataSet.BPM_SGGSZXYJTHSPB[0];
-                        $("#fname").val(item.fname);
-                        $("#fdept").val(item.fdept);
-                        $("#fdate").val(FormatterTimeYMS(item.fdate));
-                        $("#ftel").val(item.ftel);
-                        $("#fshmc").val(item.fshmc);
-                        $("#fdph").val(item.fdph);
-                        $("#fshlx").val(item.fshlx);
+                        var item = data.FormDataSet.BPM_FDCBX_TGFYSQ_A[0];
                         $("#taskId").val(item.TaskID);
-                        if (item.fyytz == 1) {
-                            $("#fyytz").attr("checked", "checked");
-                        }
-                        if (item.fyyzl == 1) {
-                            $("#fyyzl").attr("checked", "checked");
-                        }
-                        if (item.fyyyzx == 1) {
-                            $("#fyyyzx").attr("checked", "checked");
-                        }
-                        $("#fyywt").val(item.fyywt);
-                        if (item.fgctz == 1) {
-                            $("#fgctz").attr("checked", "checked");
-                        }
-                        if (item.fgcyzx == 1) {
-                            $("#fgcyzx").attr("checked", "checked");
-                        }
-                        $("#fgcwt").val(item.fgcwt);
-                        if (item.fabtz == 1) {
-                            $("#fabtz").attr("checked", "checked");
-                        }
-                        if (item.fabyzx == 1) {
-                            $("#fabyzx").attr("checked", "checked");
-                        }
-                        $("#fabwt").val(item.fabwt);
-
-                        if (item.fcwyzx == 1) {
-                            $("#fcwyzx").attr("checked", "checked");
-                        }
-                        if (item.fcwwt == 1) {
-                            $("#fcwwt").attr("checked", "checked");
+                        $("#fcompany").val(item.fcompany);
+                        $("#fdept").val(item.fdept);
+                        $("#fname").val(item.fname);
+                        $("#fdate").val(FormatterTimeYMS(item.fdate))
+                        $("#fif_jk").val(item.fif_jk);
+                        $("#fremark").val(item.fremark);
+                        $("#ftotal").val(item.ftotal);
+                        $("#ftotal_dx").val(item.ftotal_dx);
+                        $("#fjktotal").val(item.fjktotal);
+                        $("#fjktotal_dx").val(item.fjktotal_dx);
+                        $("#fjkbillno").val(item.fjkbillno);
+                        $("#fjkremark").val(item.fjkremark);
+                        if (item.fif_jk == "是") {
+                            $("#jklist").css("display", "block");
+                        } else {
+                            $("#jklist").css("display", "none");
                         }
 
 
-                        if (item.ffj != null && item.ffj != "") {
-                            var fjtmp = (String)(item.ffj);
+                        if (item.fj != null && item.fj != "") {
+                            var fjtmp = (String)(item.fj);
 
                             fjArray = fjtmp.split(";");
                             $.ajax({
@@ -581,7 +454,41 @@
                             });
                         }
 
+                        var tglist = data.FormDataSet.BPM_FDCBX_TGFYSQ_B;
+                        for (var i = 0; i < tglist.length; i++){
+                            if (tglist[i].fremark == null) {
+                                tglist[i].fremark = "";
+                            }
+                            var li = '    <div class="mui-card" id= "tg" >';
+                            li = li + '    <div class="mui-input-row bgc">';
+                            li = li + '        <label>明细列表项</label>';
+                            li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;display:none;" id="deleteProduct" ></span>';
+                            li = li + '    </div>';
+                            li = li + '    <div class="mui-input-row">';
+                            li = li + '         <label>费用项目<i style="color:red;">*</i></label>';
+                            li = li + '         <input type="text" id="fyxm" name="fyxm" value="' + tglist[i].fyxm+'" />';
+
+                            li = li + '    </div>';
+                            li = li + '      <div class="mui-input-row">';
+                            li = li + '         <label>费用类型<i style="color:red;">*</i></label>';
+                            li = li + '         <input type="text" id="ffylx" name="ffylx" placeholder="请选择费用类型" value="' + tglist[i].ffylx+'"/>';
+                            li = li + '     </div>';
+                            li = li + '     <div class="mui-input-row">';
+                            li = li + '         <label>申请金额<i style="color:red;">*</i></label>';
+                            li = li + '         <input type="number" id="fje" name="fje" placeholder="请输入申请金额" value="' + tglist[i].fje+'"/>';
+                            li = li + '     </div>';
+                            li = li + '     <div class="mui-input-row" style="height:5.25rem;">';
+                            li = li + '        <label>申请理由<i style="color:red;">*</i></label>';
+                            li = li + '         <textarea rows="5" id="fremark" name="fremark" placeholder="请输入申请理由">' + tglist[i].fremark + '</textarea>';
+                            li = li + '     </div>';
+                            li = li + '  </div > ';
+
+                            $("#tglist").append(li);   
+
+                        }
                         for (var i = 0; i < data.Steps.length; i++) {
+
+
 
                             if (data.Steps[i].FinishAt == "0001-01-01T00:00:00") {
                                 data.Steps[i].FinishAt = "";
@@ -598,17 +505,6 @@
                             }
 
                             var stepAction = locationAction(data.Steps[i].SelAction);
-                            if (data.Steps[i].SelAction == "sysInform") {
-                                stepAction = "发起知会";
-                            } else if (data.Steps[i].SelAction == "Submit") {
-                                stepAction = "已阅";
-                            } else if (data.Steps[i].SelAction == "null" || data.Steps[i].SelAction == null) {
-                                stepAction = "待处理";
-                            } else if (data.Steps[i].SelAction == "sysReject") {
-                                stepAction = "拒绝";
-                            } else if (data.Steps[i].SelAction == "sysRecedeRestart") {
-                                stepAction = "退回重填";
-                            }
 
 
                             var contents = data.Steps[i].Comments;
@@ -643,15 +539,14 @@
                             }
                             $("#signff").append(li);
                         }
+
                     }
-                },
-                error: function (e) {
-                    console.log(e);
-                },
-                complete: function () { }
+                }, error: function (e) {
 
+                }, complete: function () {
+
+                }
             });
-
 
 
         }

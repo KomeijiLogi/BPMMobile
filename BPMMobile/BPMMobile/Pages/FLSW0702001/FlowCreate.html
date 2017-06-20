@@ -36,8 +36,9 @@
         }
 
         textarea {
-            height:auto;
+            height: auto;
             overflow: auto;
+            font-size: 0.75rem;
         }
 
         a {
@@ -162,7 +163,7 @@
             var url = window.location.href;
             if (url != null && url != "") {
                 if (String(url).includes("reset")) {
-                    var msg = JSON.parse(localStorage.getItem('zshtmsg'));
+                    var msg = JSON.parse(localStorage.getItem('BPM_SGGSZSHTPSMsg'));
                     $("#fname").val(msg.fname);
                     $("#fdept").val(msg.fdept);
                     $("#fdate").val(msg.fdate);
@@ -203,7 +204,7 @@
                 }
 
             ];
-            $("#fxm").on('tap', showPicker('fxm', fxmdata));
+             showPicker('fxm', fxmdata);
 
             var flbdata = [
                 {
@@ -224,17 +225,34 @@
                 }
             ];
 
-            $("#flb").on('tap', showPicker('flb', flbdata));
+           
+
+                var element = document.getElementById('flb');
+
+                var picker = new mui.PopPicker();
+
+                picker.setData(flbdata);
+
+                element.addEventListener('tap', function () {
+
+                    picker.show(function (items) {
+
+                        element.value = items[0].text;
+                        if ($("#flb").val() == "新增合同" || $("#flb").val() == "续签合同") {
+                            $("#fzed").css("display", "none");
+                        } else {
+                            $("#fzed").css("display", "block");
+                        }
+                    });
+
+                }, false);
+               
+               
+           
 
            
 
-            $("#flb").change(function () {
-                
-                if ($("#flb").val() == "新增合同" || $("#flb").val() == "续签合同") {
-                    $("#fzed").css("display", "none");
-                }
-
-            });
+            
         }
 
         function watch() {

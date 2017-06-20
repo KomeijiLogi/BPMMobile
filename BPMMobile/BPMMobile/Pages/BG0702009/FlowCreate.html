@@ -38,6 +38,7 @@
         textarea {
             height: auto;
             overflow: auto;
+            font-size: 0.75rem;
         }
 
         a {
@@ -75,7 +76,7 @@
             </div>
             <div class="mui-input-row">
                 <label>商户类型<i style="color:red;">*</i></label>
-                <input type="text" id="fshlx" name="fshlx" placeholder="请选择商户类型"/>
+                <input type="text" id="fshlx" name="fshlx" placeholder="请选择商户类型" readonly="readonly"/>
             </div>
 
             <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
@@ -144,7 +145,7 @@
             var url = window.location.href;
             if (url != null && url != "") {
                 if (String(url).includes("reset")) {
-                    var msg = JSON.parse(localStorage.getItem('sgzxmsg'));
+                    var msg = JSON.parse(localStorage.getItem('BPM_SGGSZXYJTHSPBMsg'));
                     $("#fname").val(msg.fname);
                     $("#fdept").val(msg.fdept);
                     $("#fdate").val(msg.fdate);

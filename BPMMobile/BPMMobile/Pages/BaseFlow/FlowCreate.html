@@ -203,7 +203,7 @@
 
             if (url != null && url != "") {
                 if (String(url).includes("reset")) {
-                    var msg = JSON.parse(localStorage.getItem('bafmsg'));
+                    var msg = JSON.parse(localStorage.getItem('BPM_JRAPPMsg'));
                     $("#flowTitle").val(msg.fname);
                     $("#flowCause").val(msg.fsy);
                     

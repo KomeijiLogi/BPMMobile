@@ -35,8 +35,9 @@
             font-size: 0.75rem;
         }
         textarea {
-            height:auto;
+            height: auto;
             overflow: auto;
+            font-size: 0.75rem;
         }
 
         a {
@@ -468,7 +469,7 @@
                         "fnrjl": $("#fnrjl").val(),
                         "fgjsl": $("#fgjsl").val()
                     });
-                    localStorage.setItem("wefmsg", msg);
+                    localStorage.setItem("BPM_ZGZHBMsg", msg);
                     setTimeout("window.location.href = '/Pages/WeeklyFlow/FlowCreate.html?reset=true'", 1000);
                 } else if (callBackId == 'callback3') {
                     history.go(0);
