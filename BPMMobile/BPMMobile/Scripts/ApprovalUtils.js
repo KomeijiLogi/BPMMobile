@@ -34,7 +34,7 @@ function PostXml(xml) {
             }
         },
         error: function (e) {
-            alert(e.statusText +"  "+ e.responseText);
+            alert(e.statusText +" .... "+ e.responseText);
 
         },
         complete: function () {

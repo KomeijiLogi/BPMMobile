@@ -48,6 +48,16 @@
         input {
             font-size: 0.75rem;
         }
+        .bgl {
+            color: white;
+            background-color: #5191FD;
+        }
+        .adjla {
+            /*margin-top:0.4rem;*/
+            border: groove;
+            border-color: #5191FD;
+            border-width: 0.01rem;
+        }
     </style>
 </head>
 <body>
@@ -103,7 +113,7 @@
             </div>
 
             <div class="mui-input-row">
-                <label>合计金额</label>
+                <label>合计金额(元)</label>
                 <input type="text" id="ftotal" name="ftotal" readonly="readonly"/>
             </div>
             <div class="mui-input-row" style="display:none;">
@@ -114,9 +124,9 @@
            
 
             <div class="mui-input-group" id="jklist" style="display:none;">
-                <div class="mui-card">
-                    <div class="mui-input-row">
-                        <label>借款金额<i style="color:red;">*</i></label>
+                <div class="mui-card adjla">
+                    <div class="mui-input-row" style="height:2.75rem;">
+                        <label>借款金额(元)<i style="color:red;">*</i></label>
                         <input type="number" id="fjktotal" name="fjktotal" onchange="amountDebt()" value=""/>
                     </div>
                     <div class="mui-input-row" style="display:none;">
@@ -222,7 +232,7 @@
 
                         var ftgfyItem = JSON.stringify(msg.ftgfy[i]);
                         var li = '    <div class="mui-card" id= "tg" >';
-                        li = li + '    <div class="mui-input-row">';
+                        li = li + '    <div class="mui-input-row bgl">';
                         li = li + '        <label>明细列表项</label>';
                         li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteProduct(this)"></span>';
                         li = li + '    </div>';
@@ -235,8 +245,8 @@
                         li = li + '         <label>费用类型<i style="color:red;">*</i></label>';
                         li = li + '         <input type="text" id="ffylx" name="ffylx" placeholder="请选择费用类型" value="' + ftgfyItem.ffylx+'"/>';
                         li = li + '     </div>';
-                        li = li + '     <div class="mui-input-row">';
-                        li = li + '         <label>申请金额<i style="color:red;">*</i></label>';
+                        li = li + '     <div class="mui-input-row" style="height:2.75rem;">';
+                        li = li + '         <label>申请金额(元)<i style="color:red;">*</i></label>';
                         li = li + '         <input type="number" id="fje" name="fje" placeholder="请输入申请金额" onchange="amountCountAndPrice()" value="' + ftgfyItem.fje+'"/>';
                         li = li + '     </div>';
                         li = li + '     <div class="mui-input-row" style="height:5.25rem;">';
@@ -305,7 +315,7 @@
             $("#addItem").on('tap', function () {
 
                 var li = '    <div class="mui-card" id= "tg" >';
-                li = li + '    <div class="mui-input-row">';
+                li = li + '    <div class="mui-input-row bgl">';
                 li = li + '        <label>明细列表项</label>';
                 li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteProduct(this)"></span>';
                 li = li + '    </div>';
@@ -318,8 +328,8 @@
                 li = li + '         <label>费用类型<i style="color:red;">*</i></label>';
                 li = li + '         <input type="text" id="ffylx" name="ffylx" placeholder="请选择费用类型"/>';
                 li = li + '     </div>';
-                li = li + '     <div class="mui-input-row">';
-                li = li + '         <label>申请金额<i style="color:red;">*</i></label>';
+                li = li + '     <div class="mui-input-row" style="height:2.75rem;">';
+                li = li + '         <label>申请金额(元)<i style="color:red;">*</i></label>';
                 li = li + '         <input type="number" id="fje" name="fje" placeholder="请输入申请金额" onchange="amountCountAndPrice()"/>';
                 li = li + '     </div>';
                 li = li + '     <div class="mui-input-row" style="height:5.25rem;">';
@@ -473,9 +483,9 @@
                     xml = xml + '<ftotal>' + ftotal + '</ftotal>';
                     xml = xml + '<ftotal_dx>' + ftotal_dx + '</ftotal_dx>';
                     xml = xml + '<fjktotal>' + fjktotal + '</fjktotal>';
-                    xml = xml = '<fjktotal_dx>' + fjktotal_dx + '</fjktotal_dx>';
-                    xml = xml + '<fjkbillno></fjkbillno>';
-                    xml = xml + '<fjkremark></fjkremark>';
+                    xml = xml + '<fjktotal_dx>' + fjktotal_dx + '</fjktotal_dx>';
+                    xml = xml + '<fjkbillno>' + fjkbillno + '</fjkbillno>';
+                    xml = xml + '<fjkremark>' + fjkremark + '</fjkremark>';
                     if (fjArray.toString() != null && fjArray.toString() != "") {
                         xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
                     } else {
@@ -487,10 +497,10 @@
                         xml = xml + '  <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
                         xml = xml + '  <RowPrimaryKeys></RowPrimaryKeys>';
                         xml = xml + '  <fentryno>' + (i + 1) + '</fentryno>';
-                        xml = xml + '<fyxm>' + fyxm + '</fyxm>';
-                        xml = xml + '<ffylx>' + ffylx + '</ffylx>';
-                        xml = xml + '<fje>' + fje + '</fje>';
-                        xml = xml + '<fremark>' + fremark + '</fremark>';
+                        xml = xml + '<fyxm>' + tglistArr[i].fyxm + '</fyxm>';
+                        xml = xml + '<ffylx>' + tglistArr[i].ffylx + '</ffylx>';
+                        xml = xml + '<fje>' + tglistArr[i].fje + '</fje>';
+                        xml = xml + '<fremark>' + tglistArr[i].fremark + '</fremark>';
                         xml = xml + '</BPM_FDCBX_TGFYSQ_B>';
                     }
                     xml = xml + '</FormData>';

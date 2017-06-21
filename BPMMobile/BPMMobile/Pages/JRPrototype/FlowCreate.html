@@ -47,8 +47,14 @@
         }
 
         .bgc {
-            color:white;
-            background-color: #9BA3AE;
+            color: white;
+            background-color: #6BA2D0;
+        }
+        .adjla {
+            /*margin-top:0.4rem;*/
+            border: groove;
+            border-color: #5191FD;
+            border-width: 0.01rem;
         }
     </style>
 </head>
@@ -144,7 +150,7 @@
                     $("#fremark").val(msg.fremark);
                     for (var i = 0; i < msg.fyplx.length; i++){
                         var fypmxItem = JSON.parse(msg.fyplx[i]);
-                        var li = ' <div id="yp" class="mui-card">';
+                        var li = ' <div id="yp" class="mui-card adjla">';
                         li = li + '   <div class="mui-input-row bgc">';
                         li = li + '        <label>明细列表项</label> ';
                         li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteProduct(this)"></span>';
@@ -195,7 +201,7 @@
            showPicker('fyplx', fyplxdata);
 
             $("#addProduct").on('tap', function () {
-                var li = ' <div id="yp" class="mui-card">';
+                var li = ' <div id="yp" class="mui-card adjla">';
                 li = li + '   <div class="mui-input-row bgc">';
                 li = li + '        <label>明细列表项</label> ';
                 li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteProduct(this)"></span>';

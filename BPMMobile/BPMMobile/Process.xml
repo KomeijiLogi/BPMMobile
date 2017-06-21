@@ -122,7 +122,7 @@
   <Process>
     <Name>CW0701009_房地产集团其他费用报销(通用)_流程</Name>
     <Path>\\07房地产集团\\01跨子公司\\CW财务管理</Path>
-    <CanCreate>True</CanCreate>
+    <CanCreate>False</CanCreate>
     <CreatePage>/Pages/CW0701009/FlowCreate.html</CreatePage>
     <ViewUndoPage>/Pages/CW0701009/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/CW0701009/FlowAskDetail.html</ViewAskPage>

@@ -50,6 +50,13 @@
                     contentrefresh: "正在加载...",
                     contentnomore: '没有更多数据了',
                     callback: pullfresh
+                }, down: {
+                    height: 50,
+                    auto: false,
+                    contentdown: "下拉可以刷新",
+                    contentover: "释放立即刷新",
+                    contentrefresh: "正在刷新...",
+                    callback: refresh
                 }
             }
 
@@ -189,6 +196,11 @@
 
 
 
+        }
+
+        function refresh() {
+            history.go(0);
+            mui('#refreshContainer').pullRefresh().endPulldown();
         }
 
         function FormatterTime(time) {

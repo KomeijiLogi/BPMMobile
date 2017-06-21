@@ -308,6 +308,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\ApprovalUtils.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\extraicon\1204337.png" />
@@ -408,6 +409,7 @@
     <Content Include="Pages\BG0702009\FlowCreate.html" />
     <Content Include="Pages\BG0702009\FlowDoneDetail.html" />
     <Content Include="Pages\BG0702009\FlowUndoDetail.html" />
+    <Content Include="Pages\CW0701008\FlowDoneDetail.html" />
     <Content Include="Pages\CW0701009\FlowAskDetail.html" />
     <Content Include="Pages\CW0701009\FlowCreate.html" />
     <Content Include="Pages\CW0701009\FlowDoneDetail.html" />

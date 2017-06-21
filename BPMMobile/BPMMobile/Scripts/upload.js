@@ -355,14 +355,15 @@
 
             this.find('img').attr('src', imgUrl);
 
+            $(".del.none").hide();
             //添加调用showfiles接口函数
             this.find('img').on('tap', function () {
-                alert("111");
                 XuntongJSBridge.call('showFile', {
                     'fileName': name,
                     'fileExt': ftype,
                     'fileTime': '2015-06-02 15:40',
-                    'fileSize': fileInfo.size
+                    'fileSize': fileInfo.size,
+                    'fileDownloadUr': imgUrl
                 }, function (result) {
                     alert(JSON.stringify(result));
                 });

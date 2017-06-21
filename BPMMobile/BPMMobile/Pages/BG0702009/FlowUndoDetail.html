@@ -86,15 +86,15 @@
             </div>
             <div class="mui-input-row">
                 <label>联系方式<i style="color:red;">*</i></label>
-                <input type="tel" class="mui-input-clear" id="ftel" name="ftel" placeholder="请输入联系方式" />
+                <input type="tel" class="" id="ftel" name="ftel" placeholder="请输入联系方式" />
             </div>
             <div class="mui-input-row">
                 <label>商户名称<i style="color:red;">*</i></label>
-                <input type="text" class="mui-input-clear" id="fshmc" name="fshmc" placeholder="请输入商户名称" />
+                <input type="text" class="" id="fshmc" name="fshmc" placeholder="请输入商户名称" />
             </div>
             <div class="mui-input-row">
                 <label>店铺号<i style="color:red;">*</i></label>
-                <input type="text" class="mui-input-clear" id="fdph" name="fdph" placeholder="请输入店铺号"  />
+                <input type="text" class="" id="fdph" name="fdph" placeholder="请输入店铺号"  />
             </div>
             <div class="mui-input-row">
                 <label>商户类型<i style="color:red;">*</i></label>
@@ -433,6 +433,7 @@
         var taskId;
         var stepId;
         var itemidArr;
+        var cwNode = false;
         function getTaskMsg() {
 
             var url = window.location.href;
@@ -641,12 +642,15 @@
                             } else if (NodeName == "财务部") {
                                 $("#fcwyzx").removeAttr("disabled");
                                 $("#fcwwt").removeAttr("readonly");
+                                cwNode = true;
                             } else if (NodeName == "运营部") {
                                 $("#fyytz").removeAttr("disabled");
 
                                 $("#fyyzl").removeAttr("disabled");
                                 $("#fyyyzx").removeAttr("disabled");
                                 $("#fyywt").removeAttr("readonly");
+                            } else {
+                                cwNode = true;
                             }
                         }
                     }
@@ -908,7 +912,11 @@
                             xml = xml + ' <Header>';
                             xml = xml + '<Method>Process</Method>';
                             xml = xml + '<PID>' + pid + '</PID>';
-                            xml = xml + '<Action>确认</Action>';
+                            if (cwNode) {
+                                xml = xml + '<Action>同意</Action>';
+                            } else {
+                                xml = xml + '<Action>确认</Action>';
+                            }
 
                             xml = xml + '<Comment></Comment>';
                             //加签差异xml部分
@@ -965,7 +973,12 @@
                 xml = xml + ' <Header>';
                 xml = xml + '<Method>Process</Method>';
                 xml = xml + '<PID>' + pid + '</PID>';
-                xml = xml + '<Action>确认</Action>';
+                if (cwNode) {
+                    xml = xml + '<Action>同意</Action>';
+                } else {
+                    xml = xml + '<Action>确认</Action>';
+                }
+               
 
                 xml = xml + '<Comment></Comment>';
                 xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';

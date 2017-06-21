@@ -133,7 +133,14 @@
         }
         .bgc {
             color: white;
-            background-color: #9BA3AE;
+            background-color: #6BA2D0;
+        }
+
+        .adjla {
+            /*margin-top:0.4rem;*/
+            border: groove;
+            border-color: #5191FD;
+            border-width: 0.01rem;
         }
     </style>
 </head>
@@ -267,7 +274,7 @@
                 <input type="number" id="fsltotal" name="fsltotal" readonly="readonly" />
             </div>
             <div class="mui-input-row">
-                <label>总计金额</label>
+                <label>总计金额(元)</label>
                 <input type="number" id="ftotal" name="ftotal" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="height:4rem;">
@@ -420,7 +427,7 @@
                             wli[i].fremark = "";
                         }
 
-                        var li = ' <div id="wl" class="mui-card">';
+                        var li = ' <div id="wl" class="mui-card adjla">';
                         li = li + '   <div class="mui-input-row bgc">';
                         li = li + '        <label>明细列表项</label> ';
                         li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;display:none;" id="deleteProduct" onclick="deleteProduct(this)"></span>';
@@ -447,11 +454,11 @@
                         li = li + '        <input type="text" id="fsl" name="fsl" value="' + wli[i].fsl + '"  readonly="readonly"/>';
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row">';
-                        li = li + '        <label>单价<i style="color:red;">*</i></label>';
+                        li = li + '        <label>单价(元)<i style="color:red;">*</i></label>';
                         li = li + '        <input type="number" id="fdj" name="fdj" value="' + wli[i].fdj + '" readonly="readonly"/>';
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row">';
-                        li = li + '        <label>金额</label>';
+                        li = li + '        <label>金额(元)</label>';
                         li = li + '        <input type="text" id="fje" name="fje" value="' + wli[i].fje + '" readonly="readonly" />';
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row" style="height:5.25rem;">';
