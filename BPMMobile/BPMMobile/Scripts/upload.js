@@ -273,14 +273,14 @@
 
                 
 
-                //this._fileId = resp.data;
-                //this._fileId = resp.result.fileName;
+             
                
                 this._fileId = resp[0].FileID;
                 
                 var fileInfo = this._getFileInfo();
 
-                //if (resp && resp.success === true) {
+                //console.log(fileInfo);
+                
 
                 if (resp[0] != null) {
                     if (this.cfg.isFile) {
@@ -351,21 +351,25 @@
 
             //var imgUrl = this.cfg.previewUrl.replace('{id}', "0004.png");
              
-          
+            
 
             this.find('img').attr('src', imgUrl);
 
-            $(".del.none").hide();
+            //console.log(this.find('img'));
+            
+
+            //$(".del.none").hide();
+
             //添加调用showfiles接口函数
             this.find('img').on('tap', function () {
                 XuntongJSBridge.call('showFile', {
-                    'fileName': name,
+                    'fileName': fileInfo.name,
                     'fileExt': ftype,
                     'fileTime': '2015-06-02 15:40',
-                    'fileSize': fileInfo.size,
-                    'fileDownloadUr': imgUrl
+                    'fileSize': String(fileInfo.size),
+                    'fileDownloadUrl': imgUrl
                 }, function (result) {
-                    alert(JSON.stringify(result));
+                    //alert(JSON.stringify(result));
                 });
 
             });  

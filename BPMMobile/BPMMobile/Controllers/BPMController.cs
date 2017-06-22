@@ -418,7 +418,7 @@ namespace BPMMobile.Controllers
                         FileID = dr["FileID"].ToString(),
                         Name = dr["Name"].ToString(),
                         Ext = dr["Ext"].ToString(),
-                        //Size = long.Parse((String)dr["Size"]),
+                        Size = long.Parse(dr["Size"].ToString()),
                         LastUpdate = (DateTime)dr["LastUpdate"],
                         OwnerAccount = dr["OwnerAccount"].ToString()
 

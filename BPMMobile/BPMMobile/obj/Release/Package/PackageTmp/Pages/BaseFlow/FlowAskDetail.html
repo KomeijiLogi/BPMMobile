@@ -10,10 +10,11 @@
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
     <script type="text/javascript" src="../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
-    <script type="text/javascript" src="../../Scripts/qingjs.js"></script>
+    <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
     <script type="text/javascript" src="../../Scripts/util.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>
+    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
     <link rel="stylesheet" href="../../Content/mui.min.css" />
     <link rel="stylesheet" href="../../Content/upload.css" />
     <title></title>
@@ -140,11 +141,11 @@
             
             <div class="mui-input-row" style="height:5.25rem;">
                 <label>事由<i style="color:red;">*</i></label>
-                <textarea rows="5" id="flowCause" name="flowCause" style="overflow:auto;" readonly="readonly"></textarea>
+                <textarea rows="10" id="flowCause" name="flowCause" style="overflow:auto;" readonly="readonly"></textarea>
             </div>
             <div class="mui-input-row" style="display:none;height:5.25rem;" id="jjd">
                 <label>拒绝原因</label>
-                <textarea rows="5" id="rejectReason" style="overflow:auto;" name="rejectReason" readonly="readonly"></textarea>
+                <textarea rows="10" id="rejectReason" style="overflow:auto;" name="rejectReason" readonly="readonly"></textarea>
             </div>
 
 
@@ -246,17 +247,18 @@
                 $('#flowPerson').val(result.data.name + result.data.userName);
             }
         });
-
+        
         var noticeOpenIdArr;
         XuntongJSBridge.call('createPop', {
             'popTitle': '',
             'popTitleCallBackId': '1',
             'items': [
                 { 'text': '知会', 'callBackId': 'callback1' },
-
+                {'text':'重新发起','callBackId':'callback2'} ,
+                { 'text': '自定义刷新', 'callBackId': 'callback3' } 
             ],
             'menuList': [
-                'refresh', 'openWithBrowser'
+              'refresh', 'openWithBrowser'
             ],
 
         }, function (result) {
@@ -313,7 +315,7 @@
                                                     success: function (data, status) {
 
                                                         if (status == "success") {
-
+                                                            mui.toast("知会成功");
                                                         }
                                                     }, error: function (e) {
                                                         //console.log(e);  
@@ -343,9 +345,19 @@
                     });
 
                 } else if (callBackId == 'callback2') {
+                    
 
-                } else {
 
+                    var msg = JSON.stringify({
+                        "fname": $("#flowTitle").val(),
+                        "fsy": $("#flowCause").val(),
+                        
+                    });
+                    localStorage.setItem("BPM_JRAPPMsg", msg);
+
+                    setTimeout("window.location.href = '/Pages/BaseFlow/FlowCreate.html?reset=true'", 1000);
+                } else if (callBackId == 'callback3') {
+                    history.go(0);
                 }
             }
 
@@ -426,6 +438,11 @@
                             var fjtmp = (String)(item.fj);
 
                             fjArray = fjtmp.split(";");
+
+
+                            //console.log("fjArray:" + fjArray);
+
+                            //请求附件详细信息
                             $.ajax({
                                 type: 'POST',
                                 url: '/api/bpm/GetAttachmentsInfo',
@@ -439,48 +456,86 @@
                                     if (status == "success") {
 
                                         console.log(data);
+
                                         for (var i = 0; i < data.length; i++) {
+
+                                            var name = data[i].Name;
+                                            var type = (data[i].Ext).replace(".", "");
+                                            var size = String(data[i].Size);
+
+                                            var time = String(data[i].LastUpdate).replace("T", " ");
+                                            var downurl = 'http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;
+                                            var attach = attachItem(name, type, size, time, downurl);
+                                            attachArray.push(attach);
+
+
+
                                             var li = '<div class="pic-preview smallyulan success">';
                                             li = li + ' <div class="del none" style="opacity:1;z-index:999;"onclick="delPicture(this)">x</div>';
 
                                             //类型判断 
-                                            if ((String)(data[i].Ext).includes("png") || (String)(data[i].Ext).includes("jpg") || (String)(data[i].Ext).includes("bmp")) {
+                                            if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
+                                                //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
 
-                                            } else if ((String)(data[i].Ext).includes("xls")) {
+                                            } else if ((data[i].Ext).indexOf("xls") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/xlsx@2x.png"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/xlsx@2x.png"/></div>';
 
-                                            } else if ((String)(data[i].Ext).includes("doc")) {
+                                            } else if ((data[i].Ext).indexOf("doc") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/docx@2x.png"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/docx@2x.png"/></div>';
 
-                                            } else if ((String)(data[i].Ext).includes("ppt")) {
+                                            } else if ((data[i].Ext).indexOf("ppt") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/ppt@2x.png"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/ppt@2x.png"/></div>';
 
-                                            } else if ((String)(data[i].Ext).includes("pdf")) {
+                                            } else if ((data[i].Ext).indexOf("pdf") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/pdf@2x.png"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/pdf@2x.png"/></div>';
 
-                                            } else if ((String)(data[i].Ext).includes("zip") || (String)(data[i].Ext).includes("rar") || (String)(data[i].Ext).includes("7z")) {
+                                            } else if ((data[i].Ext).indexOf("zip") != -1 || (data[i].Ext).indexOf("rar") != -1 || (data[i].Ext).indexOf("7z") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/zip@2x.png"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/zip@2x.png"/></div>';
 
-                                            } else if ((String)(data[i].Ext).includes("txt")) {
+                                            } else if ((data[i].Ext).indexOf("txt") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/txt@2x.png"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
 
                                             } else {
-                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/unkown@2x.png"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
                                             }
 
                                             li = li + ' </div>';
                                             li = li + '</div>';
                                             $(".upload-img-list").append(li);
 
+
+                                            $(".imgdiv").each(function () {
+
+                                                $(this).parent().find(".del.none").hide();
+
+                                            });
+
+
+
+
                                         }
+
+                                        $(".imgdiv").on('tap', function () {
+                                            console.log($(this)[0].id);
+                                            XuntongJSBridge.call('showFile', {
+                                                'fileName': attachArray[$(this)[0].id].name,
+                                                'fileExt': attachArray[$(this)[0].id].type,
+                                                'fileTime': attachArray[$(this)[0].id].time,
+                                                'fileSize': attachArray[$(this)[0].id].size,
+                                                'fileDownloadUrl': attachArray[$(this)[0].id].downurl
+                                            }, function (result) {
+                                                //alert(JSON.stringify(result));
+                                            });
+                                        });
+
 
                                     }
 
@@ -492,6 +547,7 @@
                                 }
 
                             });
+
                         }
 
                         for (var i = 0; i < data.Steps.length; i++) {
@@ -510,7 +566,7 @@
                                 stepName = "开始";
                             }
 
-                            var stepAction = data.Steps[i].SelAction;
+                            var stepAction = locationAction(data.Steps[i].SelAction);
                             if (data.Steps[i].SelAction=="sysInform") {
                                 stepAction = "发起知会";
                             } else if (data.Steps[i].SelAction == "Submit") {
@@ -639,6 +695,17 @@
 
             });
 
+        }
+
+        //定义附件函数
+        function attachItem(name, type, size, time, downurl) {
+            var attachment = new Object();
+            attachment.name = name;
+            attachment.type = type;
+            attachment.size = size;
+            attachment.time = time;
+            attachment.downurl = downurl;
+            return attachment;
         }
     </script>
 </body>

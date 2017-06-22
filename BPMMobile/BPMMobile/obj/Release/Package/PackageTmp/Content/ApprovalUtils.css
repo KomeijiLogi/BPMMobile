@@ -1,0 +1,47 @@
+﻿html, body {
+    font-size: 20px;
+    background-color: white;
+    height: 100%;
+    overflow: auto;
+}
+.itemborder {
+    /*margin-top:0.4rem;*/
+    border: groove;
+    border-color: #5191FD;
+    border-width: 0.01rem;
+}
+
+.itemlabel {
+    background-color: #fea900;
+}
+
+.itemtitle {
+    color: white;
+    background-color: #5191FD;
+}
+
+#signbody {
+    display: none;
+}
+
+#signPer {
+    padding-top: 0.2rem;
+    line-break: auto;
+    white-space: normal;
+    padding-left: 0rem;
+}
+
+
+label {
+    font-size: 0.75rem;
+}
+
+textarea {
+    height: auto;
+    overflow: auto;
+    font-size: 0.75rem;
+}
+
+a {
+    font-size: 0.75rem;
+}

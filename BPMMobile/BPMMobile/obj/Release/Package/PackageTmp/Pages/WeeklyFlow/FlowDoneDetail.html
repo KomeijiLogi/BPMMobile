@@ -10,10 +10,11 @@
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
     <script type="text/javascript" src="../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
-    <script type="text/javascript" src="../../Scripts/qingjs.js"></script>
+    <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
     <!--<script type="text/javascript" src="../../Scripts/util.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>-->
+    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
     <link rel="stylesheet" href="../../Content/mui.min.css" />
     <link rel="stylesheet" href="../../Content/upload.css" />
     <title></title>
@@ -36,8 +37,9 @@
         }
 
         textarea {
-            height: 5.25rem;
+            height: auto;
             overflow: auto;
+            font-size: 0.75rem;
         }
 
         a {
@@ -125,7 +127,7 @@
             color: #fea900;
         }
         .adi {
-            color: red;
+          
             font-size: 0.75rem;
         }
     </style>
@@ -135,19 +137,19 @@
         <form class="mui-input-group" style="left:0rem;right:0rem;">
             <div class="mui-input-row">
                 <label>员工姓名</label>
-                <input type="text" placeholder="员工姓名信息" class="mui-input-clear" id="fname" name="fname" />
+                <input type="text" placeholder="员工姓名信息" class="mui-input-clear" id="fname" name="fname" readonly="readonly"/>
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="display:none;">
                 <label>员工工号</label>
-                <input type="text" placeholder="员工姓名信息" class="mui-input-clear" id="fno" name="fno" />
+                <input type="text" placeholder="员工姓名信息" class="mui-input-clear" id="fno" name="fno" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>起始时间</label>
-                <input type="date" placeholder="起始时间信息" class="mui-input-clear" id="fstartdate" name="fstartdate" />
+                <input type="date" placeholder="起始时间信息" class="mui-input-clear" id="fstartdate" name="fstartdate" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>终止时间</label>
-                <input type="date" placeholder="终止时间信息" class="mui-input-clear" id="foverdate" name="foverdate" />
+                <input type="date" placeholder="终止时间信息" class="mui-input-clear" id="foverdate" name="foverdate" readonly="readonly"/>
             </div>
             <div class="mui-input-row" style="display:none;">
                 <label>年度</label>
@@ -161,16 +163,29 @@
                 <label>周</label>
                 <input type="number" placeholder="周信息" class="" id="fweek" name="fweek" readonly="readonly" />
             </div>
-            <div class="mui-input-row" style="height:5.25rem;">
+            <div class="mui-input-row" style="height:11.25rem;">
                 <label>工作内容记录</label>
-                <textarea rows="5" id="fnrjl" name="fnrjl"></textarea>
+                <textarea rows="10" id="fnrjl" name="fnrjl" readonly="readonly"></textarea>
             </div>
-            <div class="mui-input-row" style="height:5.25rem;">
+            <div class="mui-input-row" style="height:11.25rem;">
                 <label>存在问题及改进思路</label>
-                <textarea rows="5" id="fgjsl" name="fgjsl"></textarea>
+                <textarea rows="10" id="fgjsl" name="fgjsl" readonly="readonly"></textarea>
+            </div>
+            <div class="mui-input-row">
+                <label>自我评价<i style="color:red;">*</i></label>
+                <input value="" id="zwpjg" name="zwpjg" type="text" readonly="readonly" class="adi" />
             </div>
 
-            <div class="mui-input-group">
+            <div class="mui-input-row">
+                <label>经理评价<i style="color:red;">*</i></label>
+                <input value="" id="jlpjg" name="jlpjg" type="text" readonly="readonly" class="adi"  />
+            </div>
+
+            <div class="mui-input-row">
+                <label>总监评价<i style="color:red;">*</i></label>
+                <input value="" id="zjpjg" name="zjpjg" type="text" readonly="readonly" class="adi" />
+            </div>
+            <!--<div class="mui-input-group">
                 <ul class="mui-table-view">
                     <li class="mui-table-view-cell mui-collapse">
                         <a class="mui-navigate-right" href="#">自我评价
@@ -260,19 +275,19 @@
                         </div>
                     </li>
                 </ul>
-            </div>
+            </div>-->
 
 
-            <div class="mui-input-row" style="height:5.25rem;">
+            <div class="mui-input-row" style="height:8.25rem;">
                 <label>改进意见(部门经理)</label>
                 <textarea rows="5" id="fgjjy_manager" name="fgjjy_manager" readonly="readonly"></textarea>
             </div>
-            <div class="mui-input-row" style="height:5.25rem;">
+            <div class="mui-input-row" style="height:8.25rem;">
                 <label>改进意见(总监)</label>
                 <textarea rows="5" id="fgjjy_director" name="fgjjy_director" readonly="readonly"></textarea>
             </div>
         </form>
-        <div class="mui-table-view">
+        <div class="mui-table-view" style="margin-bottom:1rem;">
             <div class="mui-table-view-cell  mui-collapse">
                 <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
 
@@ -350,10 +365,11 @@
             'popTitleCallBackId': '1',
             'items': [
                 { 'text': '知会', 'callBackId': 'callback1' },
-
+                { 'text': '自定义刷新', 'callBackId': 'callback2' }
+                
             ],
             'menuList': [
-                'refresh', 'openWithBrowser'
+              'refresh','openWithBrowser'
             ],
 
         }, function (result) {
@@ -410,7 +426,7 @@
                                                     success: function (data, status) {
 
                                                         if (status == "success") {
-
+                                                            mui.toast("知会成功");
                                                         }
                                                     }, error: function (e) {
                                                         //console.log(e);
@@ -442,7 +458,7 @@
                     });
 
                 } else if (callBackId == 'callback2') {
-
+                    history.go(0);
                 } else {
 
                 }
@@ -487,36 +503,9 @@
                     $("#fnrjl").val(item.fnrjl);
                     $("#fgjsl").val(item.fgjsl);
 
-                    var zwpjObj = document.getElementsByClassName('zwpj');
-                    if (item.fzwpj != null && item.fzwpj!="") {
-                        for (var i = 0; i < zwpjObj.length; i++) {
-                            if (item.fzwpj == zwpjObj[i].value) {
-                                zwpjObj[i].setAttribute("checked", "checked");
-                                $("#zwpji").val(zwpjObj[i].value);
-                            }
-                        }
-                    }
-
-                    var jlpjObj = document.getElementsByClassName('jlpj');
-                    if (item.fjlpj != null && item.fjlpj != "") {
-                        for (var i = 0; i < jlpjObj.length; i++){
-                            if (item.fjlpj == jlpjObj[i].value) {
-                                jlpjObj[i].setAttribute("checked", "checked");
-                                $("#jlpji").val(jlpjObj[i].value);
-                            }
-                        }
-                    }
-
-                    var zjpjObj = document.getElementsByClassName('zjpj');
-                    if (item.fzjpj != null && item.fjlpj != "") {
-                        for (var i = 0; i < zjpjObj.length; i++){
-                            if (item.fzjpj == zjpjObj[i].value) {
-                                zjpjObj[i].setAttribute("checked", "checked");
-                                $("#zjpji").val(zjpjObj[i].value);
-                            }
-                        }
-                    }
-
+                    $("#zwpjg").val(item.fzwpj);
+                    $("#jlpjg").val(item.fjlpj);
+                    $("#zjpjg").val(item.fzjpj);
 
                     $("#fgjjy_manager").val(item.fgjjy_manager);
                     $("#fgjjy_director").val(item.fgjjy_director);
@@ -540,7 +529,7 @@
                                 stepName = "开始";
                             }
 
-                            var stepAction = data.Steps[i].SelAction;
+                            var stepAction = locationAction( data.Steps[i].SelAction);
                             if (data.Steps[i].SelAction == "sysInform") {
                                 stepAction = "发起知会";
                             } else if (data.Steps[i].SelAction == "Submit") {

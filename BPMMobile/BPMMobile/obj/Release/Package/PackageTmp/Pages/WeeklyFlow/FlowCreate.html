@@ -9,12 +9,16 @@
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
     <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
-    <script type="text/javascript" src="../../Scripts/qingjs.js"></script>
+    <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
     <!--<script type="text/javascript" src="../../Scripts/util.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>-->
     <link rel="stylesheet" href="../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../Content/upload.css" />
     <title></title>
     <meta charset="utf-8" />
@@ -29,8 +33,9 @@
             font-size: 0.75rem;
         }
         textarea {
-            height: 5.25rem;
-            overflow:auto;
+            height: auto;
+            overflow: auto;
+            font-size: 0.75rem;
         }
         a {
            font-size:0.75rem;
@@ -38,6 +43,10 @@
         input[type="date"]:before {
             content: attr(placeholder);
             
+        }
+        .adi {
+            
+            font-size: 0.75rem;
         }
     </style>
 </head>
@@ -48,13 +57,13 @@
                  <label>员工姓名</label>
                  <input type="text" placeholder="请输入员工姓名信息" class="mui-input-clear" id="fname" name="fname" />
              </div>
-             <div class="mui-input-row">
+             <div class="mui-input-row" style="display:none;">
                  <label>员工工号</label>
                  <input type="text" placeholder="请输入员工工号信息" class="mui-input-clear" id="fno" name="fno" />
              </div>
              <div class="mui-input-row">
                  <label>起始时间</label>
-                 <input type="date" placeholder="请选择起始时间" class="mui-input-clear" id="fstartdate" name="fstartdate"/>
+                 <input type="date" placeholder="请选择起始时间" class="mui-input-clear" id="fstartdate" name="fstartdate" />
              </div>
              <div class="mui-input-row">
                  <label>终止时间</label>
@@ -74,14 +83,29 @@
              </div>
              <div class="mui-input-row" style="height:8.25rem;">
                  <label>工作内容记录</label>
-                 <textarea rows="5" id="fnrjl" name="fnrjl"></textarea>
+                 <textarea rows="10" id="fnrjl" name="fnrjl"></textarea>
              </div>
              <div class="mui-input-row" style="height:8.25rem;">
                  <label>存在问题及改进思路</label>
-                 <textarea rows="5" id="fgjsl" name="fgjsl"></textarea>
+                 <textarea rows="10" id="fgjsl" name="fgjsl"></textarea>
              </div>
 
-             <div class="mui-input-group">
+             <div class="mui-input-row">
+                 <label>自我评价<i style="color:red;">*</i></label>
+                 <input value="" id="zwpjg" name="zwpjg" type="text" readonly="readonly" class="adi"/>
+             </div>
+
+             <div class="mui-input-row" style="display:none;">
+                 <label>经理评价<i style="color:red;">*</i></label>
+                 <input value="" id="jlpjg" name="jlpjg" type="text" readonly="readonly" class="adi" />
+             </div>
+
+             <div class="mui-input-row" style="display:none;">
+                 <label>总监评价<i style="color:red;">*</i></label>
+                 <input value="" id="zjpjg" name="zjpjg" type="text" readonly="readonly" class="adi" />
+             </div>
+
+             <!--<div class="mui-input-group">
                  <ul class="mui-table-view">
                      <li class="mui-table-view-cell mui-collapse mui-active">
                          <a class="mui-navigate-right" href="#">自我评价</a>
@@ -165,14 +189,14 @@
                          </div>
                      </li>
                  </ul>
-             </div>
+             </div>-->
              
 
-             <div class="mui-input-row" style="height:5.25rem;">
+             <div class="mui-input-row" style="height:5.25rem;display:none;" >
                  <label>改进意见(部门经理)</label>
                  <textarea rows="5" id="fgjjy_manager" name="fgjjy_manager" readonly="readonly"></textarea>
              </div>
-             <div class="mui-input-row" style="height:5.25rem;">
+             <div class="mui-input-row" style="height:5.25rem;display:none;">
                  <label>改进意见(总监)</label>
                  <textarea rows="5" id="fgjjy_director" name="fgjjy_director" readonly="readonly"></textarea>
              </div>
@@ -188,10 +212,7 @@
 
             getBPMParam();
             getTimeMsg();
-            
-            $(".jlpj").attr("disabled", "disabled");
-            $(".zjpj").attr("disabled", "disabled");
-
+           
             var fs= document.getElementById('fstartdate');
             fs.onfocus = function () {
                 this.removeAttribute('placeholder');
@@ -207,6 +228,12 @@
             fo.onblur = function () {
                 if (this.value == '') this.setAttribute('placeholder', '请输入终止时间');
             };
+
+
+            $("#zwpjg").attr("placeholder", "请选择自我评价");
+            showPicker('zwpjg');
+
+            prepMsg();
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
@@ -214,15 +241,16 @@
         XuntongJSBridge.call('createPop', {
             'popTitle': '',
             'popTitleCallBackId': '1',
+            'items': [{ 'text': '自定义刷新', 'callBackId': 'callback1' }],
             'menuList': [
-                'refresh', 'openWithBrowser'
+              'refresh' , 'openWithBrowser'
             ],
 
         }, function (result) {
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-
+                    history.go(0);
 
                 } else if (callBackId == 'callback2') {
 
@@ -317,22 +345,29 @@
             var fweek = $("#fweek").val();
             var fnrjl = $("#fnrjl").val();
             var fgjsl = $("#fgjsl").val();
-            var fzwpj = getVals('zwpj');
-            //var fbillno = "JTZBXZBG011APP" + fyear + fmonth + taskId;
+            var fzwpj = $("#zwpjg").val();
+            var fjlpj = $("#jlpjg").val();
+            var fzjpj = $("#zjpjg").val();
+           
             if (fnrjl == "") {
                 mui.toast("请输入工作内容");
                 return;
             }
-
+            if (fzwpj == "") {
+                mui.toast("请选择自我评价");
+                return;
+            }
             var xml = '<?xml version="1.0"?>';
             xml = xml + ' <XForm>';
             xml = xml + '   <Header>';
             xml = xml + '    <Method>Post</Method>';
-            xml = xml + '   <ProcessName>BG0101005_周工作汇报审批_流程</ProcessName>';
+            //xml = xml + '   <ProcessName>BG0101005_周工作汇报审批_流程</ProcessName>';
+            xml = xml + '   <ProcessName>集团总部信息化推进部周工作汇报</ProcessName>';
             xml = xml + '   <ProcessVersion>1.0</ProcessVersion>';
             xml = xml + '   <DraftGuid></DraftGuid>';
             xml = xml + '   <OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
-            xml = xml + '   <Action>同意</Action>';
+            //xml = xml + '   <Action>同意</Action>';
+            xml = xml + '   <Action> 提交</Action>';
             xml = xml + '   <Comment></Comment>';
             xml = xml + '   <InviteIndicateUsers></InviteIndicateUsers>';
             xml = xml + '  </Header>';
@@ -403,6 +438,59 @@
                 if (rdsObj[i].checked) { checkVal = rdsObj[i].value; }
             }
             return checkVal;
+        }
+
+        function showPicker(inputid) {
+            var usePicker = new mui.PopPicker();
+            usePicker.setData([
+                {
+                    value: "yx",
+                    text: "优秀"
+                },
+                {
+                    value: "lh",
+                    text: "良好"
+                },
+                {
+                    value: "zd",
+                    text: "中等"
+                },
+                {
+                    value: "yb",
+                    text: "一般"
+                }
+
+            ]);
+            var input = document.getElementById(inputid);
+            input.addEventListener('tap', function (event) {
+
+                usePicker.show(function (items) {
+                    input.value = items[0].text;
+                });
+            }, false);
+
+
+        }
+
+
+        function prepMsg() {
+
+            var url = window.location.href;
+            if (url != null && url != "") {
+                if (String(url).includes("reset")) {
+                    var msg = JSON.parse(localStorage.getItem('BPM_ZGZHBMsg'));
+                    
+                    $("#fname").val(msg.fname);
+                    $("#fno").val(msg.fno);
+                    $("#fstartdate").val(msg.fstartdate);
+                    $("#foverdate").val(msg.foverdate);
+                    $("#fyear").val(msg.fyear);
+                    $("#fmonth").val(msg.fmonth);
+                    $("#fweek").val(msg.fweek);
+                    $("#fnrjl").val(msg.fnrjl);
+                    $("#fgjsl").val(msg.fgjsl);
+                }
+            }
         }
     </script>
 </body>

@@ -14,6 +14,7 @@
     <Group></Group>
     <Description>适用于洁瑞公司通用审批，提交至直接上级</Description>
   </Process>
+  
   <Process>
     <Name>BG0101005_周工作汇报审批_流程</Name>
     <Path>\\01威高集团总部\\01跨产业集团\\BG办公管理</Path>
@@ -27,6 +28,110 @@
     <Icon>../../Content/images/myApproval.png</Icon>
     <Group></Group>
     <Description>工作汇报详情</Description>
-
   </Process>
+  
+  <Process>
+    <!--洁瑞公司产品发货申请-->
+    <Name>XS0205001_洁瑞医用制品公司产品发货申请_流程</Name>
+    <Path>\\02医用制品集团\\05洁瑞医用制品公司\\XS销售管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/JRMaterial/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/JRMaterial/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/JRMaterial/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/JRMaterial/FlowDoneDetail.html</ViewDonePage>
+    <DisplayName>洁瑞产品发货申请</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/images/doneApproval.png</Icon>
+    <Group></Group>
+    <Description>洁瑞产品发货申请</Description>
+  </Process>
+
+   <Process>
+     <!--洁瑞公司样品申请-->
+      <Name>XS0205002_洁瑞医用制品公司样品申请_流程</Name>
+      <Path>\\02医用制品集团\\05洁瑞医用制品公司\\XS销售管理</Path>
+      <CanCreate>True</CanCreate>
+      <CreatePage>/Pages/JRPrototype/FlowCreate.html</CreatePage>
+      <ViewUndoPage>/Pages/JRPrototype/FlowUndoDetail.html</ViewUndoPage>
+      <ViewAskPage>/Pages/JRPrototype/FlowAskDetail.html</ViewAskPage>
+      <ViewDonePage>/Pages/JRPrototype/FlowDoneDetail.html</ViewDonePage>
+      <DisplayName>洁瑞样品申请</DisplayName>
+      <Css></Css>
+      <Icon>../../Content/extraicon/1204385.png</Icon>
+      <Group></Group>
+      <Description>洁瑞样品申请</Description>
+    </Process>
+
+  <Process>
+    <Name>BG0702009_商管公司装修押金退还审批_流程</Name>
+    <Path>\\07房地产集团\\02商管公司\\BG办公管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/BG0702009/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/BG0702009/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/BG0702009/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/BG0702009/FlowDoneDetail.html</ViewDonePage>
+    <DisplayName>商管公司装修押金退还审批</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204338.png</Icon>
+    <Group></Group>
+    <Description>商管公司装修押金退还审批</Description>
+  </Process>
+  <Process>
+    <Name>盛祥商管公司招商合同评审</Name>
+    <Path>\\07房地产集团\\02商管公司\\FLSW法律事务</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/FLSW0702001/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/FLSW0702001/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/FLSW0702001/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/FLSW0702001/FlowDoneDetail.html</ViewDonePage>
+    <DisplayName>盛祥商管招商合同评审</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204339.png</Icon>
+    <Group></Group>
+    <Description>盛祥商管招商合同评审</Description>
+  </Process>
+   <Process>
+    <Name>BG0702002_商管公司部门联系单_流程</Name>
+    <Path>\\07房地产集团\\02商管公司\\BG办公管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/BG0702002/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/BG0702002/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/BG0702002/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/BG0702002/FlowDoneDetail.html</ViewDonePage>
+    <DisplayName>商管公司部门联系</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204340.png</Icon>
+    <Group></Group>
+    <Description>商管公司部门联系</Description>
+  </Process>
+
+<Process>
+    <Name>CW0701011_房地产集团推广费用申请_流程</Name>
+    <Path>\\07房地产集团\\01跨子公司\\CW财务管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/CW0701011/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/CW0701011/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/CW0701011/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/CW0701011/FlowDoneDetail.html</ViewDonePage>
+    <DisplayName>房地产集团推广费用申请</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204341.png</Icon>
+    <Group></Group>
+    <Description>房地产集团推广费用申请</Description>
+  </Process>
+  <Process>
+    <Name>CW0701009_房地产集团其他费用报销(通用)_流程</Name>
+    <Path>\\07房地产集团\\01跨子公司\\CW财务管理</Path>
+    <CanCreate>False</CanCreate>
+    <CreatePage>/Pages/CW0701009/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/CW0701009/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/CW0701009/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/CW0701009/FlowDoneDetail.html</ViewDonePage>
+    <DisplayName>房地产集团其他费用报销</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204342.png</Icon>
+    <Group></Group>
+    <Description>房地产集团其他费用报销</Description>
+  </Process>
+
 </ProcessList>

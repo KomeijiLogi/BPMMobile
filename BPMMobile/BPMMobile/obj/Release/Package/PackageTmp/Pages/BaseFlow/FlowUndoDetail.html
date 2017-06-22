@@ -11,7 +11,7 @@
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
     <script type="text/javascript" src="../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
-    <script type="text/javascript" src="../../Scripts/qingjs.js"></script>
+    <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
     <script type="text/javascript" src="../../Scripts/util.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>
@@ -88,11 +88,11 @@
 
                 <div class="mui-input-row" style="height:5.25rem;">
                     <label>事由<i style="color:red;">*</i></label>
-                    <textarea rows="5" id="flowCause" style="overflow:auto;" name="flowCause"></textarea>
+                    <textarea rows="10" id="flowCause" style="overflow:auto;" name="flowCause"></textarea>
                 </div>
                 <div class="mui-input-row" style="display:none;height:5.25rem;" id="thd">
                     <label>退回原因</label>
-                    <textarea rows="5" id="backReason" style="overflow:auto;" name="backReason" readonly="readonly"></textarea>
+                    <textarea rows="10" id="backReason" style="overflow:auto;" name="backReason" readonly="readonly"></textarea>
                 </div>
                 <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                     <div class="border border-t upload-img" style="top:0rem;">
@@ -166,7 +166,7 @@
                
                 <div class="mui-input-row" style="height:5.25rem;font-size:0.8rem;display:none;" id="ssd">
                     <label>签核意见</label>
-                    <textarea rows="5" id="signSuggest" placeholder="请输入签核意见"></textarea>
+                    <textarea rows="10" id="signSuggest" placeholder="请输入签核意见"></textarea>
 
                 </div>
 
@@ -205,7 +205,7 @@
     <div id="signd" style="display:none;">
         <div class="mui-input-row" style="height:5.25rem;font-size:0.8rem;border:groove;border-width:0.1rem;" id="ssd">
             <label>签核意见</label>
-            <textarea rows="5" id="signSuggest" placeholder="请输入签核意见"></textarea>
+            <textarea rows="10" id="signSuggest" placeholder="请输入签核意见"></textarea>
 
         </div>
         <div class="mui-btn-row mui-text-center" style="margin-top:1rem;">
@@ -216,10 +216,11 @@
 
 
     <script type="text/javascript">
+       
         mui.init();
 
         mui.ready(function () {
-
+           
             getBPMParam();
             getTaskMsg();
             upload();
@@ -298,31 +299,37 @@
             }
         }
        
-       
+        var attachArray = new Array();
         function getTaskMsg() {
 
            
             
             var url = window.location.href;
             if (url != null && url.indexOf("tid") != -1 && url.indexOf("pid") != -1) {
-                
+
                 
                 taskId = url.substring(url.indexOf("=") + 1, url.indexOf("&"));
-                if (url.split("pid=")[1].includes("ticket")) {
-                    stepId = url.split("pid=")[1];
-                    stepId = stepId.split("&ticket")[0];
-                    
-                } else {
-                    stepId = url.split("pid=")[1];
-                }
+
                 
 
+                if (url.split("pid=")[1].indexOf("ticket")!=-1) {
+                    stepId = url.split("pid=")[1];
+                    stepId = stepId.split("&ticket")[0];
+
+                    
+                } else {
+                   
+                    stepId = url.split("pid=")[1];
+                   
+                }
+               
+                
             } else {
                 mui.toast("网络异常,请稍后重试");
                 history.go(-1);
                 
             }
-            
+           
             $.ajax({
                 type: "get",
                 url: "/api/bpm/GetTaskData",
@@ -334,10 +341,11 @@
                 success: function (data, status) {
 
                     if (status == "success") {
-                        
+
                         //console.log(data);
 
                         var item = data.FormDataSet.BPM_JRAPP[0];
+
                         $("#flowTitle").val(item.fbt);
                         $("#flowPerson").val(item.createuser);
                         $("#flowTime").val(FormatterTime(item.createtime));
@@ -361,57 +369,95 @@
                                 type: 'POST',
                                 url: '/api/bpm/GetAttachmentsInfo',
                                 //dataType:'json',
-                                data: { 'fileIds':  fjArray },
-                                
+                                data: { 'fileIds': fjArray },
+
                                 beforeSend: function (XHR) {
                                     XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
                                 },
                                 success: function (data, status) {
-                                    if (status == "success"){
+                                    if (status == "success") {
 
                                         console.log(data);
+                                       
                                         for (var i = 0; i < data.length; i++) {
+
+                                            var name = data[i].Name;
+                                            var type = (data[i].Ext).replace(".", "");
+                                            var size = String(data[i].Size);
+                                            
+                                            var time = String(data[i].LastUpdate).replace("T"," ");
+                                            var downurl = 'http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;                          
+                                            var attach = attachItem(name, type, size, time, downurl);
+                                            attachArray.push(attach);
+
+
+
                                             var li = '<div class="pic-preview smallyulan success">';
                                             li = li + ' <div class="del none" style="opacity:1;z-index:999;"onclick="delPicture(this)">x</div>';
 
                                             //类型判断 
-                                            if ((String)(data[i].Ext).includes("png") || (String)(data[i].Ext).includes("jpg") || (String)(data[i].Ext).includes("bmp")) {
+                                            if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
+                                                //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i+'" ><img src="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
 
-                                            } else if ((String)(data[i].Ext).includes("xls")) {
+                                            } else if ((data[i].Ext).indexOf("xls") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/xlsx@2x.png"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i+'"><img src="../../Content/images/xlsx@2x.png"/></div>';
 
-                                            } else if ((String)(data[i].Ext).includes("doc")) {
+                                            } else if ((data[i].Ext).indexOf("doc") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/docx@2x.png"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i +'"><img src="../../Content/images/docx@2x.png"/></div>';
 
-                                            } else if ((String)(data[i].Ext).includes("ppt")) {
+                                            } else if ((data[i].Ext).indexOf("ppt") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/ppt@2x.png"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i +'"><img src="../../Content/images/ppt@2x.png"/></div>';
 
-                                            } else if ((String)(data[i].Ext).includes("pdf")) {
+                                            } else if ((data[i].Ext).indexOf("pdf") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/pdf@2x.png"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i +'"><img src="../../Content/images/pdf@2x.png"/></div>';
 
-                                            } else if ((String)(data[i].Ext).includes("zip") || (String)(data[i].Ext).includes("rar") || (String)(data[i].Ext).includes("7z")) {
+                                            } else if ((data[i].Ext).indexOf("zip") != -1 || (data[i].Ext).indexOf("rar") != -1 || (data[i].Ext).indexOf("7z") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/zip@2x.png"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i +'"><img src="../../Content/images/zip@2x.png"/></div>';
 
-                                            } else if ((String)(data[i].Ext).includes("txt")) {
+                                            } else if ((data[i].Ext).indexOf("txt") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/txt@2x.png"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i +'"><img src="../../Content/images/txt@2x.png"/></div>';
 
-                                            }  else {
-                                                li = li + '    <div class="img-wrap smallimg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="../../Content/images/unkown@2x.png"/></a></div>';
+                                            } else {
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i +'"><img src="../../Content/images/unkown@2x.png"/></div>';
                                             }
 
                                             li = li + ' </div>';
                                             li = li + '</div>';
                                             $(".upload-img-list").append(li);
-                                            
+
+
+                                            $(".imgdiv").each(function () {
+
+                                                $(this).parent().find(".del.none").hide();
+                                              
+                                            });
+
+                                           
+
+
                                         }
+
+                                        $(".imgdiv").on('tap', function () {
+                                            console.log($(this)[0].id);
+                                            XuntongJSBridge.call('showFile', {
+                                                'fileName': attachArray[$(this)[0].id].name,
+                                                'fileExt': attachArray[$(this)[0].id].type,
+                                                'fileTime': attachArray[$(this)[0].id].time,
+                                                'fileSize': attachArray[$(this)[0].id].size,
+                                                'fileDownloadUrl': attachArray[$(this)[0].id].downurl
+                                            }, function (result) {
+                                                //alert(JSON.stringify(result));
+                                            });
+                                        });
+
 
                                     }
 
@@ -423,35 +469,37 @@
                                 }
 
                             });
-                            
+
                         }
 
-                        
-                        
+
+
                         var NodeName;
                         //判断流程本节点是否结束，处理者是否为当前用户,
                         //流程步骤是否是传过来的流程步骤，再根据这三项查出对应的节点名称
-                        for (var i = 0; i < data.Steps.length; i++){
+                        for (var i = 0; i < data.Steps.length; i++) {
                             //debugger;
-                            
+
                             if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
 
-                                
+
                                 if (stepId.includes(data.Steps[i].StepID)) {
-                                   
+
                                     NodeName = data.Steps[i].NodeName;
 
-                                } 
+                                }
 
                             }
 
                         }
+
+
                         if (!NodeName) {
                             $("#csd").css("display", "none");
 
                         }
 
-                       
+
                         if (NodeName == "开始") {
                             //退回重填的处理
                             $("#csd").css("display", "none");
@@ -461,7 +509,7 @@
                             $("#backReason").val(data.Steps[data.Steps.length - 2].Comments);
                             $("#flowPerId").val(data.Steps[data.Steps.length - 1].RecipientAccount);
                             $("#processName").val(data.Steps[data.Steps.length - 1].ProcessName);
-                            
+
                         } else if (NodeName == "sysInform") {
                             //知会的处理
                             $("#flowTitle").removeClass("mui-input-clear");
@@ -479,13 +527,16 @@
                             $("#flowTitle").attr("readonly", "readonly");
                             $("#flowCause").attr("readonly", "readonly");
                             $("#approvalD").css("display", "block");
-                           
-                            
-                        } 
+
+
+                        }
+                    } else {
+                       
                     }
                 },
                 error: function (e) {
                     console.log(e);
+                   
                 },
                 complete: function () { }
 
@@ -505,9 +556,9 @@
             'popTitleCallBackId': '1',
             'items': [
                 { 'text': '知会', 'callBackId': 'callback1' },
-                
+                { 'text': '自定义刷新', 'callBackId': 'callback2' }
             ], 'menuList': [
-                 'refresh', 'openWithBrowser'
+                'refresh', 'openWithBrowser'
             ],
 
         }, function (result) {
@@ -563,7 +614,7 @@
                                                     success: function (data, status) {
 
                                                         if (status == "success") {
-
+                                                            mui.toast("知会成功");
                                                         }
                                                     }, error: function (e) {
                                                         //console.log(e);  
@@ -593,8 +644,8 @@
                     });
 
 
-                } else {
-
+                } else if (callBackId == 'callback2') {
+                    history.go(0);
                 }
             }
 
@@ -737,7 +788,7 @@
                                     if (status == "success") {
 
                                         mui.toast("操作成功");
-                                        setTimeout(" window.location.href = '/Pages/BaseFlow/UndoFlow.html'", 2000);
+                                        setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
                                     } else {
                                         mui.toast("操作失败,请稍后重试");
                                     }
@@ -803,7 +854,7 @@
                         if (status == "success") {
 
                             mui.toast("操作成功");
-                            setTimeout(" window.location.href = '/Pages/BaseFlow/UndoFlow.html'", 2000);
+                            setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
                         } else {
                             mui.toast("操作失败,请稍后重试");
                         }
@@ -845,7 +896,7 @@
                             if (status == "success") {
 
                                 mui.toast("操作成功");
-                                setTimeout(" window.location.href = '/Pages/BaseFlow/UndoFlow.html'", 2000);
+                                setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
                             } else {
                                 mui.toast("操作失败,请稍后重试");
                             }
@@ -911,7 +962,7 @@
                 success: function (data, status) {
                     if (status == "success") {
                         mui.toast("操作成功");
-                        setTimeout(" window.location.href = '/Pages/BaseFlow/UndoFlow.html'", 2000);
+                        setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
                     } else {
                         mui.toast("操作失败!请稍后重试");
                     }
@@ -948,7 +999,7 @@
                             if (status == "success") {
 
                                 mui.toast("操作成功");
-                                setTimeout(" window.location.href = '/Pages/BaseFlow/UndoFlow.html'", 2000);
+                                setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
                             } else {
                                 mui.toast("操作失败,请稍后重试");
                             }
@@ -1047,7 +1098,7 @@
                     if (status == "success") {
                         //console.log(data);
                         mui.toast("提交成功");
-                        setTimeout(" window.location.href = '/Pages/BaseFlow/UndoFlow.html'", 2000);
+                        setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
                     } else {
 
                         mui.toast("提交失败!请稍后重试");
@@ -1154,6 +1205,17 @@
 
             $("#wrapper").css("display", "block");
             $("#signd").css("display", "none");
+        }
+
+        //定义附件函数
+        function attachItem(name,type,size,time,downurl) {
+            var attachment = new Object();
+            attachment.name = name;
+            attachment.type = type;
+            attachment.size = size;
+            attachment.time = time;
+            attachment.downurl = downurl;
+            return attachment;
         }
     </script> 
 </body>

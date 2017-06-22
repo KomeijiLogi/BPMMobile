@@ -10,10 +10,11 @@
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
     <script type="text/javascript" src="../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
-    <script type="text/javascript" src="../../Scripts/qingjs.js"></script>
+    <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
     <script type="text/javascript" src="../../Scripts/util.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>
+    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
     <link rel="stylesheet" href="../../Content/mui.min.css" />
     <link rel="stylesheet" href="../../Content/upload.css" />
     <title></title>
@@ -83,7 +84,7 @@
 
     </div>
 
-    <input type="hidden" id="flowPerId" name="flowPerId" value="00078251" />
+    <input type="hidden" id="flowPerId" name="flowPerId" value="" />
 
     <script type="text/javascript">
 
@@ -98,6 +99,8 @@
             getBPMParam();
             
             selectPic();
+
+            preMsg();
         });
        
 
@@ -118,6 +121,7 @@
         XuntongJSBridge.call('createPop', {
             'popTitle': '',
             'popTitleCallBackId': '1',
+            'items': [{ 'text': '自定义刷新', 'callBackId': 'callback1' }],
             'menuList': [
                 'refresh', 'openWithBrowser'
             ],
@@ -127,6 +131,7 @@
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
 
+                    history.go(0);
 
                 } else if (callBackId == 'callback2') {
 
@@ -136,7 +141,6 @@
             }
 
         });
-
 
         function getNowFormatDate() {
             var date = new Date();
@@ -194,6 +198,22 @@
             });
 
         }
+        function preMsg() {
+            var url = window.location.href;
+
+            if (url != null && url != "") {
+                if (String(url).includes("reset")) {
+                    var msg = JSON.parse(localStorage.getItem('BPM_JRAPPMsg'));
+                    $("#flowTitle").val(msg.fname);
+                    $("#flowCause").val(msg.fsy);
+                    
+                }
+
+            }
+
+        }
+
+
 
 
         function Save() {

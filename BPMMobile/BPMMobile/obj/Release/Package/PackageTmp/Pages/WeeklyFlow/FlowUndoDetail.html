@@ -9,12 +9,16 @@
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
     <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
-    <script type="text/javascript" src="../../Scripts/qingjs.js"></script>
+    <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
     <!--<script type="text/javascript" src="../../Scripts/util.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>-->
     <link rel="stylesheet" href="../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../Content/mui.picker.min.css"/>
+    <link rel="stylesheet" href="../../Content/mui.poppicker.css"/>
     <link rel="stylesheet" href="../../Content/upload.css" />
     <title></title>
     <meta charset="utf-8" />
@@ -31,8 +35,9 @@
         }
 
         textarea {
-            height: 5.25rem;
+            height: auto;
             overflow: auto;
+            font-size: 0.75rem;
         }
 
         a {
@@ -42,7 +47,7 @@
             content: attr(placeholder);
         }*/
         .adi {
-           color:red;
+           
            font-size:0.75rem;
            
         }
@@ -56,7 +61,7 @@
                 <label>员工姓名</label>
                 <input type="text" placeholder="请输入员工姓名信息" class="" id="fname" name="fname" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="display:none;">
                 <label>员工工号</label>
                 <input type="text" placeholder="请输入员工姓名信息" class="" id="fno" name="fno" />
             </div>
@@ -80,32 +85,43 @@
                 <label>周</label>
                 <input type="number" placeholder="请输入周信息" class="" id="fweek" name="fweek" readonly="readonly" />
             </div>
-            <div class="mui-input-row" style="height:8.25rem;">
+            <div class="mui-input-row" style="height:11.25rem;">
                 <label>工作内容记录</label>
                 <textarea rows="5" id="fnrjl" name="fnrjl"></textarea>
             </div>
-            <div class="mui-input-row" style="height:8.25rem;">
+            <div class="mui-input-row" style="height:11.25rem;">
                 <label>存在问题及改进思路</label>
                 <textarea rows="5" id="fgjsl" name="fgjsl"></textarea>
             </div>
-            <div class="mui-input-row" style="display:none;height:5.25rem;" id="thd">
+            <div class="mui-input-row" style="display:none;height:7.25rem;" id="thd">
                 <label>退回原因</label>
                 <textarea rows="5" id="backReason" style="overflow:auto;" name="backReason" readonly="readonly"></textarea>
             </div>
 
+            <div class="mui-input-row">
+                <label>自我评价<i style="color:red;">*</i></label>
+                <input value="" id="zwpjg" name="zwpjg" type="text" readonly="readonly" class="adi"/>
+            </div>
+           
+            <div class="mui-input-row">
+                <label>经理评价<i style="color:red;">*</i></label>
+                <input value="" id="jlpjg" name="jlpjg" type="text" readonly="readonly" class="adi"/>
+            </div>
 
+            <div class="mui-input-row">
+                <label>总监评价<i style="color:red;">*</i></label>
+                <input value="" id="zjpjg" name="zjpjg" type="text" readonly="readonly" class="adi"/>
+            </div>
 
-
-
-
-
-            <div class="mui-input-group">
+            <!--<div class="mui-input-group">
                 <ul class="mui-table-view">
                     <li class="mui-table-view-cell mui-collapse" id="zwpjl" >
                         <a class="mui-navigate-right" href="#">自我评价
                            <input id="zwpji" name="zwpji" class="mui-pull-right adi" readonly="readonly" value=""/>
                         </a>
                         <div class="mui-collapse-content">
+
+                     
 
                             <div class="mui-input-row mui-radio mui-left">
                                 <label>优秀</label>
@@ -189,17 +205,17 @@
                         </div>
                     </li>
                 </ul>
-            </div>
+            </div>-->
 
 
 
 
 
-            <div class="mui-input-row" style="height:5.25rem;">
+            <div class="mui-input-row" style="height:8.25rem;">
                 <label>改进意见(部门经理)</label>
                 <textarea rows="5" id="fgjjy_manager" name="fgjjy_manager" ></textarea>
             </div>
-            <div class="mui-input-row" style="height:5.25rem;">
+            <div class="mui-input-row" style="height:8.25rem;">
                 <label>改进意见(总监)</label>
                 <textarea rows="5" id="fgjjy_director" name="fgjjy_director"></textarea>
             </div>
@@ -281,7 +297,7 @@
             'popTitleCallBackId': '1',
             'items': [
                 { 'text': '知会', 'callBackId': 'callback1' },
-
+                { 'text': '自定义刷新', 'callBackId': 'callback2' }
             ], 'menuList': [
                 'refresh', 'openWithBrowser'
             ],
@@ -339,7 +355,7 @@
                                                     success: function (data, status) {
 
                                                         if (status == "success") {
-
+                                                            mui.toast("知会成功");
                                                         }
                                                     }, error: function (e) {
                                                         //console.log(e);  
@@ -369,8 +385,8 @@
                     });
 
 
-                } else {
-
+                } else if (callBackId == 'callback2') {
+                    history.go(0);
                 }
             }
 
@@ -392,7 +408,7 @@
 
 
                 taskId = url.substring(url.indexOf("=") + 1, url.indexOf("&"));
-                if (url.split("pid=")[1].includes("ticket")) {
+                if (url.split("pid=")[1].indexOf("ticket")!=-1) {
                     stepId = url.split("pid=")[1];
                     stepId = stepId.split("&ticket")[0];
 
@@ -431,35 +447,11 @@
                     $("#stepId").val(stepId);
                     $("#taskId").val(item.TaskID);
                     $("#fbillno").val(item.fbillno);
-                    var zwpjObj = document.getElementsByClassName('zwpj');
-                    if (item.fzwpj != null && item.fzwpj != "") {
-                        for (var i = 0; i < zwpjObj.length; i++) {
-                            if (item.fzwpj == zwpjObj[i].value) {
-                                zwpjObj[i].setAttribute("checked", "checked");
-                                $("#zwpji").val(zwpjObj[i].value);
-                            }
-                        }
-                    }
+                    $("#zwpjg").val(item.fzwpj);
+                    $("#jlpjg").val(item.fjlpj);
+                    $("#zjpjg").val(item.fzjpj);
 
-                    var jlpjObj = document.getElementsByClassName('jlpj');
-                    if (item.fjlpj != null && item.fjlpj != "") {
-                        for (var i = 0; i < jlpjObj.length; i++) {
-                            if (item.fjlpj == jlpjObj[i].value) {
-                                jlpjObj[i].setAttribute("checked", "checked");
-                                $("#jlpji").val(jlpjObj[i].value);
-                            }
-                        }
-                    }
-
-                    var zjpjObj = document.getElementsByClassName('zjpj');
-                    if (item.fzjpj != null && item.fjlpj != "") {
-                        for (var i = 0; i < zjpjObj.length; i++) {
-                            if (item.fzjpj == zjpjObj[i].value) {
-                                zjpjObj[i].setAttribute("checked", "checked");
-                                $("#zjpji").val(zjpjObj[i].value);
-                            }
-                        }
-                    }
+                   
                     $("#fgjjy_manager").val(item.fgjjy_manager);
                     $("#fgjjy_director").val(item.fgjjy_director);
 
@@ -496,9 +488,8 @@
                         $("#processName").val(data.Steps[data.Steps.length - 1].ProcessName);
                         $("#fgjjy_manager").attr("readonly", "readonly");
                         $("#fgjjy_director").attr("readonly", "readonly");
-                        $(".jlpj").attr("disabled", "disabled");
-                        $(".zjpj").attr("disabled", "disabled");
-                        $("#zwpjl").addClass('mui-active');
+                        showPicker('zwpjg');
+                       
                     } else if (NodeName == "sysInform") {
                         //知会的处理
                         $("#fnrjl").attr("readonly", "readonly");
@@ -506,9 +497,7 @@
                         $("#fgjjy_manager").attr("readonly", "readonly");
                         $("#fgjjy_director").attr("readonly", "readonly");
                         $("#readD").css("display", "block");
-                        $(".zwpj").attr("disabled", "disabled");
-                        $(".jlpj").attr("disabled", "disabled");
-                        $(".zjpj").attr("disabled", "disabled");
+                       
                         $("#fstartdate").attr("readonly", "readonly");
                         $("#foverdate").attr("readonly", "readonly");
 
@@ -529,18 +518,16 @@
                         $("#fno").attr("readonly", "readonly");
                         
                         if (NodeName == "部门经理") {
-                            $(".zwpj").attr("disabled", "disabled");
-                            $(".zjpj").attr("disabled", "disabled");
+                           
                             $("#fgjjy_manager").removeAttr("readonly");
-                            $("#jlpjl").addClass('mui-active');
-
+                            $("#jlpjg").attr("placeholder", "请选择经理评价"); 
+                            showPicker('jlpjg');
                         } else if (NodeName == "分管领导") {
-                            $(".zwpj").attr("disabled", "disabled");
-                            $(".jlpj").attr("disabled", "disabled");
+                            $("#zjpjg").attr("placeholder", "请选择总监评价"); 
                             $("#fgjjy_director").removeAttr("readonly");
                             $("#agreebt").css("width", "100%");
                             $("#refusebt").css("display", "none");
-                            $("#zjpjl").addClass('mui-active');
+                            showPicker('zjpjg');
                         }
 
                     }
@@ -572,9 +559,9 @@
             var fweek = $("#fweek").val();
             var fnrjl = $("#fnrjl").val();
             var fgjsl = $("#fgjsl").val();
-            var fzwpj = getVals('zwpj');
-            var fjlpj = getVals('jlpj');
-            var fzjpj = getVals('zjpj');
+            var fzwpj = $("#zwpjg").val();
+            var fjlpj = $("#jlpjg").val();
+            var fzjpj = $("#zjpjg").val();
             var fgjjy_manager = $("#fgjjy_manager").val();
             var fgjjy_director = $("#fgjjy_director").val();
             var taskId = $("#taskId").val();
@@ -627,7 +614,7 @@
                     if (status == "success") {
 
                         mui.toast("操作成功");
-                        setTimeout(" window.location.href = '/Pages/BaseFlow/UndoFlow.html'", 2000);
+                        setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
                     } else {
                         mui.toast("操作失败,请稍后重试");
                     }
@@ -667,7 +654,7 @@
                             if (status == "success") {
 
                                 mui.toast("操作成功");
-                                setTimeout(" window.location.href = '/Pages/BaseFlow/UndoFlow.html'", 2000);
+                                setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
                             } else {
                                 mui.toast("操作失败,请稍后重试");
                             }
@@ -699,9 +686,9 @@
             var fweek = $("#fweek").val();
             var fnrjl = $("#fnrjl").val();
             var fgjsl = $("#fgjsl").val();
-            var fzwpj = getVals('zwpj');
-            var fjlpj = getVals('jlpj');
-            var fzjpj = getVals('zjpj');
+            var fzwpj = $("#zwpjg").val();
+            var fjlpj = $("#jlpjg").val();
+            var fzjpj = $("#zjpjg").val();
             var fgjjy_manager = $("#fgjjy_manager").val();
             var fgjjy_director = $("#fgjjy_director").val();
             var taskId = $("#taskId").val();
@@ -748,7 +735,7 @@
                 success: function (data, status) {
                     if (status == "success") {
                         mui.toast("操作成功");
-                        setTimeout(" window.location.href = '/Pages/BaseFlow/UndoFlow.html'", 2000);
+                        setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
                     } else {
                         mui.toast("操作失败!请稍后重试");
                     }
@@ -822,7 +809,9 @@
             var fweek = $("#fweek").val();
             var fnrjl = $("#fnrjl").val();
             var fgjsl = $("#fgjsl").val();
-            var fzwpj = getVals('zwpj');
+            var fzwpj = $("#zwpjg").val();
+            var fjlpj = $("#jlpjg").val();
+            var fzjpj = $("#zjpjg").val();
             //var fbillno = "JTZBXZBG011APP" + fyear + fmonth + taskId;
             if (fnrjl == "") {
                 mui.toast("请输入工作内容");
@@ -834,11 +823,13 @@
             xml = xml + ' <XForm>';
             xml = xml + '   <Header>';
             xml = xml + '    <Method>Post</Method>';
-            xml = xml + '   <ProcessName>BG0101005_周工作汇报审批_流程</ProcessName>';
+            //xml = xml + '   <ProcessName>BG0101005_周工作汇报审批_流程</ProcessName>';
+            xml = xml + '   <ProcessName>集团总部信息化推进部周工作汇报</ProcessName>';
             xml = xml + '   <ProcessVersion>1.0</ProcessVersion>';
             xml = xml + '   <DraftGuid></DraftGuid>';
             xml = xml + '   <OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
-            xml = xml + '   <Action>同意</Action>';
+            //xml = xml + '   <Action>同意</Action>';
+             xml = xml + '   <Action> 提交</Action>';
             xml = xml + '   <Comment></Comment>';
             xml = xml + '   <InviteIndicateUsers></InviteIndicateUsers>';
             xml = xml + '  </Header>';
@@ -893,6 +884,38 @@
                 }
 
             });
+        }
+
+        function showPicker(inputid) {
+            var usePicker = new mui.PopPicker();
+            usePicker.setData([
+                {
+                    value: "yx",
+                    text: "优秀"
+                },
+                {
+                    value: "lh",
+                    text:"良好"
+                },
+                {
+                    value: "zd",
+                    text:"中等"
+                },
+                {
+                    value: "yb",
+                    text:"一般"
+                }
+
+            ]);
+            var input = document.getElementById(inputid);
+            input.addEventListener('tap', function (event) {
+
+                usePicker.show(function (items) {
+                    input.value = items[0].text;
+                });
+            }, false);
+
+
         }
     </script>
 </body>

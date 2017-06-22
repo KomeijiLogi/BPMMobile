@@ -273,14 +273,14 @@
 
                 
 
-                //this._fileId = resp.data;
-                //this._fileId = resp.result.fileName;
+             
                
                 this._fileId = resp[0].FileID;
                 
                 var fileInfo = this._getFileInfo();
 
-                //if (resp && resp.success === true) {
+                //console.log(fileInfo);
+                
 
                 if (resp[0] != null) {
                     if (this.cfg.isFile) {
@@ -351,38 +351,28 @@
 
             //var imgUrl = this.cfg.previewUrl.replace('{id}', "0004.png");
              
-            /*
-            if (((String)(fileInfo.Ext).indexOf("xls")) != -1) {
-                imgUrl = "/Content/images/xlsx@2x.png";
-            } else if (((String)(fileInfo.Ext).indexOf("doc")) != -1) {
-                imgUrl = "/Content/images/docx@2x.png";
-            } else if (((String)(fileInfo.Ext).indexOf("ppt")) != -1) {
-                imgUrl = "/Content/images/ppt@2x.png";
-            } else if (((String)(fileInfo.Ext).indexOf("txt")) != -1) {
-                imgUrl = "/Content/images/txt@2x.png";
-            } else if (((String)(fileInfo.Ext).indexOf("zip")) != -1||((String)(fileInfo.Ext).indexOf("rar")) != -1)||((String)(fileInfo.Ext).indexOf("7z")) != -1 {
-                imgUrl = "/Content/images/zip@2x.png";
-            } else if (((String)(fileInfo.Ext).indexOf("pdf")) != -1){
-                imgUrl = "/Content/images/pdf@2x.png";
-            } else if(((String)(fileInfo.Ext).indexOf("png")) != -1||((String)(fileInfo.Ext).indexOf("jpg")) != -1){
-                imgUrl = this.cfg.previewUrl.replace('{id}', fileInfo.id);
-            } else {
-                imgUrl = "/Content/images/unkown@2x.png";
-            }
-            */
+            
 
             this.find('img').attr('src', imgUrl);
 
-            //this.find('img').onclick = function () {
-            //    XuntongJSBridge.call('showFile', {
-            //        'fileId': fileInfo.id, 'fileName': name,
-            //        'fileExt': ftype, fileTime: '',
-            //        'fileSize': fileInfo.size
-            //    }, function (result) {
-            //        alert(JSON.stringify(result));
-            //    });
-                
-            //};
+            //console.log(this.find('img'));
+            
+
+            //$(".del.none").hide();
+
+            //添加调用showfiles接口函数
+            this.find('img').on('tap', function () {
+                XuntongJSBridge.call('showFile', {
+                    'fileName': fileInfo.name,
+                    'fileExt': ftype,
+                    'fileTime': '2015-06-02 15:40',
+                    'fileSize': String(fileInfo.size),
+                    'fileDownloadUrl': imgUrl
+                }, function (result) {
+                    //alert(JSON.stringify(result));
+                });
+
+            });  
 
             this.find('.img-mask').hide();
         },

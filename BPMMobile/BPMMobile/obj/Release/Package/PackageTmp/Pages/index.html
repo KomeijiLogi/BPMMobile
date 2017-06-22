@@ -8,7 +8,8 @@
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
-    <script type="text/javascript" src="../../Scripts/qingjs.js"></script>
+    <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
+    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
     <link rel="stylesheet" href="../../Content/mui.min.css" />
     <title></title>
 	<meta charset="utf-8" />
@@ -65,24 +66,24 @@
     <div class="mui-content">
         <ul class="mui-table-view mui-grid-view">
             <li class="mui-table-view-cell mui-media items">
-                <a href="/Pages/BaseFlow/UndoFlow.html">
+                <a href="/Pages/UndoFlow.html">
 
                  
-                   <img src="../../Content/images/UndoTask.png" class="mui-media-object" style="width:2rem;height:2rem;" />
+                   <img src="../../Content/extraicon/1204344.png" class="mui-media-object" style="width:2rem;height:2rem;" />
                    <span class="mui-badge mui-badge-danger" id="badgeicon">0</span> 
                     <div class="mui-media-body">待办事项</div>
                    
                 </a>
             </li>
             <li class="mui-table-view-cell mui-media items">
-                <a href="/Pages/BaseFlow/AskFlow.html">
-                    <img src="../../Content/images/MyTask.png" class="mui-media-object" style="width:2rem;height:2rem;" />
+                <a href="/Pages/AskFlow.html">
+                    <img src="../../Content/extraicon/1204358.png" class="mui-media-object" style="width:2rem;height:2rem;" />
                     <div class="mui-media-body">申请事项</div>
                 </a>
             </li>
             <li class="mui-table-view-cell mui-media items">
-                <a href="/Pages/BaseFlow/DoneFlow.html">
-                    <img src="../../Content/images/DoneTask.png" class="mui-media-object" style="width:2rem;height:2rem;" />
+                <a href="/Pages/DoneFlow.html">
+                    <img src="../../Content/extraicon/1204364.png" class="mui-media-object" style="width:2rem;height:2rem;" />
                     <div class="mui-media-body">已办事项</div>
                 </a>
             </li>
@@ -123,6 +124,7 @@
           XuntongJSBridge.call('createPop', {
                 'popTitle': '',
                 'popTitleCallBackId': '1',
+                'items': [{'text':'自定义刷新','callBackId':'callback1'}],
                 'menuList': [
                     'refresh', 'openWithBrowser'
                 ],
@@ -131,7 +133,7 @@
                 if (result.success == true || result.success == 'true') {
                     var callBackId = result.data ? result.data.callBackId : '';
                     if (callBackId == 'callback1') {
-
+                        history.go(0);
 
                     } else if (callBackId == 'callback2') {
 
@@ -157,23 +159,20 @@
                       return unescape(r[2]);
                   }
               } else {
-                  var ticket = localStorage.getItem('ticket');
-                  
+                  var ticket = localStorage.getItem('ticket');                  
                   return ticket;
               }
 
-            
-
-             
              
               return null;
           }
 
          
-         function getMsg() {
-              //var ticket = getUrlParam('ticket');
+          function getMsg() {
 
-             var ticket = '40f7aea52bdd341b9ac498f8d4e0eb3e';
+              var ticket = getUrlParam('ticket');
+
+              //var ticket = '1b3e903268aaaa3e9aa4d57de48b7e40';
               
              localStorage.setItem('ticket', ticket);
 
@@ -215,7 +214,7 @@
 
                     }
                 },
-                error: function (e) { alert(e.status +e.statusText); },
+                error: function (e) {  },
                 complete: function () { }
 
             })
@@ -241,10 +240,9 @@
 
           }
 
-         
+
+
     </script>
-
-
 
 </body>
 </html>

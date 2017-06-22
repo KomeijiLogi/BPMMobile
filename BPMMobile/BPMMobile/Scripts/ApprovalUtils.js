@@ -6,6 +6,7 @@ var fjArray = new Array();
 var taskId;
 var stepId;
 var itemidArr;
+var attachArray = new Array();
 
 //提交,审批,加签,已阅
 function PostXml(xml) {
@@ -560,4 +561,15 @@ function watch() {
         $('#uploaddiv').css('height', '90vw');
     }
 
+}
+
+//定义附件函数
+function attachItem(name, type, size, time, downurl) {
+    var attachment = new Object();
+    attachment.name = name;
+    attachment.type = type;
+    attachment.size = size;
+    attachment.time = time;
+    attachment.downurl = downurl;
+    return attachment;
 }
