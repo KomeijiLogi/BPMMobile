@@ -128,48 +128,66 @@ namespace BPMMobile.Controllers
             return Json(ret);
         }
 
-        
-
+       
 
         /// <summary>
         /// 获取待办任务分页
         /// </summary>
         /// <returns></returns>
-        public IHttpActionResult GetMyUndoTask(int startRowIndex,int rows)
+        public IHttpActionResult GetMyUndoTask(int startRowIndex,int rows,String search)
         {
             var allList = GetMyTaskList();
+
+
+            if (search!=null&&search != "")
+            {
+              allList = GetMyTaskList(search);
+            }
+           
             var taskList = allList
                 .OrderByDescending(t=>t.ReceiveAt)
                 .Skip(startRowIndex)
                 .Take(rows);
             var mobileProcess = GetMobileProcess();
-            var ret = from t in taskList
-                      join m in mobileProcess on t.ProcessName equals m.Name
-                      select new TaskDto()
-                      {
-                          DisplayName = m.DisplayName,
-                          Icon = m.Icon,
-                          ReceiveAt = t.ReceiveAt,
-                          ViewUndoPage = m.ViewUndoPage,
-                          ViewAskPage=m.ViewAskPage,
-                          ViewDonePage=m.ViewDonePage,
-                          Description = t.Description,
-                          ProcessName = t.ProcessName,
-                          StepID = t.StepID,
-                          StepName = t.StepName,
-                          TaskID = t.TaskID
-                      };
-            return   Json(new { tasks=ret,total= allList.Count}); 
+          
+                var ret = from t in taskList
+                          join m in mobileProcess on t.ProcessName equals m.Name
+                          select new TaskDto()
+                          {
+                              DisplayName = m.DisplayName,
+                              Icon = m.Icon,
+                              ReceiveAt = t.ReceiveAt,
+                              ViewUndoPage = m.ViewUndoPage,
+                              ViewAskPage = m.ViewAskPage,
+                              ViewDonePage = m.ViewDonePage,
+                              Description = t.Description,
+                              ProcessName = t.ProcessName,
+                              StepID = t.StepID,
+                              StepName = t.StepName,
+                              TaskID = t.TaskID
+                          };
+                return Json(new { tasks = ret, total = allList.Count });
+           
+
+            
         }
+
+
+
+
         /// <summary>
         /// 我发起的
         /// </summary>
         /// <param name="startRowIndex"></param>
         /// <param name="rows"></param>
         /// <returns></returns>
-        public IHttpActionResult GetMyRequest(int startRowIndex, int rows)
+        public IHttpActionResult GetMyRequest(int startRowIndex, int rows, String search)
         {
             var allList = GetMyRequestList();
+            if (search != null && search != "")
+            {
+                allList = GetMyRequestList(search);
+            }
             var taskList = allList
                 .OrderByDescending(t=>t.CreateAt)
                 .Skip(startRowIndex)
@@ -200,9 +218,13 @@ namespace BPMMobile.Controllers
         /// <param name="startRowIndex"></param>
         /// <param name="rows"></param>
         /// <returns></returns>
-        public IHttpActionResult GetMyProcessed(int startRowIndex, int rows)
+        public IHttpActionResult GetMyProcessed(int startRowIndex, int rows,String search)
         {
             var allList = GetMyProcessedList();
+            if (search != null && search != "")
+            {
+                allList = GetMyProcessedList(search);
+            }
             var taskList = allList
                 .OrderByDescending(t => t.CreateAt)
                 .Skip(startRowIndex)
@@ -232,7 +254,8 @@ namespace BPMMobile.Controllers
         public IHttpActionResult PostProcess([FromBody]string xml )
         {
             ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-            try {
+            try
+            {
                 PrepareBPMEnv();
                 using (BPMConnection cn = new BPMConnection())
                 {
@@ -243,7 +266,7 @@ namespace BPMMobile.Controllers
                     return Json(result);
                 }
 
-            } catch (Exception e) {
+        } catch (Exception e) {
 
                 log.Error("error:"+e);
             }
@@ -576,6 +599,36 @@ namespace BPMMobile.Controllers
             return tasks;
         }
         /// <summary>
+        /// 根据查询条件获取全部待办任务
+        /// </summary>
+        /// <param name="search">查询条件</param>
+        /// <returns></returns>
+        private BPMTaskListCollection GetMyTaskList(String search)
+        {
+            PrepareBPMEnv();
+            BPMTaskListCollection tasks = new BPMTaskListCollection();
+            using (BPMConnection cn = new BPMConnection())
+            {
+                cn.WebOpen();
+                var mobileProcess = GetMobileProcess();
+                foreach (var p in mobileProcess)
+                {
+                    int rowcount = 0;
+                    if (p.DisplayName.IndexOf(search)!=-1) {
+                        var list = cn.GetMyTaskList("ProcessName='" + p.Name + "'", null, 0, int.MaxValue, out rowcount);
+                        tasks.Append(list);
+                    }
+                   
+                }
+            }
+            return tasks;
+        }
+
+
+
+
+
+        /// <summary>
         /// 获取全部我发起的
         /// </summary>
         /// <returns></returns>
@@ -603,6 +656,40 @@ namespace BPMMobile.Controllers
             }
             return tasks;
         }
+
+        /// <summary>
+        /// 根据查询条件获取全部我发起的
+        /// </summary>
+        /// <param name="search">查询条件</param>
+        /// <returns></returns>
+        private BPMTaskCollection GetMyRequestList(String search)
+        {
+            PrepareBPMEnv();
+            BPMTaskCollection tasks = new BPMTaskCollection();
+            using (BPMConnection cn = new BPMConnection())
+            {
+                cn.WebOpen();
+                var mobileProcess = GetMobileProcess();
+                foreach (var p in mobileProcess)
+                {
+                    int rowcount = 0;
+                    if (p.DisplayName.IndexOf(search) != -1) {
+                        var list = cn.GetHistoryTasks(
+                       HistoryTaskType.MyRequest, p.Path,
+                       "ProcessName='" + p.Name + "'",
+                       "",
+                       "",
+                       0,
+                       int.MaxValue,
+                       out rowcount);
+                        tasks.Append(list);
+                    }
+                   
+                }
+            }
+            return tasks;
+        }
+
         /// <summary>
         /// 获取全部已办的
         /// </summary>
@@ -627,6 +714,39 @@ namespace BPMMobile.Controllers
                         int.MaxValue,
                         out rowcount);
                     tasks.Append(list);
+                }
+            }
+            return tasks;
+        }
+
+        /// <summary>
+        /// 根据查询条件获取全部已办的
+        /// </summary>
+        /// <param name="search">查询条件</param>
+        /// <returns></returns>
+        private BPMTaskCollection GetMyProcessedList(String search)
+        {
+            PrepareBPMEnv();
+            BPMTaskCollection tasks = new BPMTaskCollection();
+            using (BPMConnection cn = new BPMConnection())
+            {
+                cn.WebOpen();
+                var mobileProcess = GetMobileProcess();
+                foreach (var p in mobileProcess)
+                {
+                    int rowcount = 0;
+                    if (p.DisplayName.IndexOf(search) != -1) {
+                        var list = cn.GetHistoryTasks(
+                        HistoryTaskType.MyProcessed, p.Path,
+                        "ProcessName='" + p.Name + "'",
+                        "",
+                        "",
+                        0,
+                        int.MaxValue,
+                        out rowcount);
+                        tasks.Append(list);
+                    }
+                    
                 }
             }
             return tasks;

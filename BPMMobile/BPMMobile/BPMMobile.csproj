@@ -401,6 +401,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Pages\AskFlow.html" />
+    <Content Include="Pages\BG0702001\FlowAskDetail.html" />
+    <Content Include="Pages\BG0702001\FlowCreate.html" />
+    <Content Include="Pages\BG0702001\FlowDoneDetail.html" />
+    <Content Include="Pages\BG0702001\FlowUndoDetail.html" />
     <Content Include="Pages\BG0702002\FlowAskDetail.html" />
     <Content Include="Pages\BG0702002\FlowCreate.html" />
     <Content Include="Pages\BG0702002\FlowDoneDetail.html" />
@@ -409,7 +413,10 @@
     <Content Include="Pages\BG0702009\FlowCreate.html" />
     <Content Include="Pages\BG0702009\FlowDoneDetail.html" />
     <Content Include="Pages\BG0702009\FlowUndoDetail.html" />
+    <Content Include="Pages\CW0701008\FlowAskDetail.html" />
+    <Content Include="Pages\CW0701008\FlowCreate.html" />
     <Content Include="Pages\CW0701008\FlowDoneDetail.html" />
+    <Content Include="Pages\CW0701008\FlowUndoDetail.html" />
     <Content Include="Pages\CW0701009\FlowAskDetail.html" />
     <Content Include="Pages\CW0701009\FlowCreate.html" />
     <Content Include="Pages\CW0701009\FlowDoneDetail.html" />
@@ -427,6 +434,10 @@
     <Content Include="Pages\FLSW0702001\FlowCreate.html" />
     <Content Include="Pages\FLSW0702001\FlowDoneDetail.html" />
     <Content Include="Pages\FLSW0702001\FlowUndoDetail.html" />
+    <Content Include="Pages\SCGL0703002\FlowAskDetail.html" />
+    <Content Include="Pages\SCGL0703002\FlowCreate.html" />
+    <Content Include="Pages\SCGL0703002\FlowDoneDetail.html" />
+    <Content Include="Pages\SCGL0703002\FlowUndoDetail.html" />
     <Content Include="Pages\UndoFlow.html" />
     <Content Include="Pages\index.html" />
     <Content Include="Pages\JRMaterial\FlowAskDetail.html" />

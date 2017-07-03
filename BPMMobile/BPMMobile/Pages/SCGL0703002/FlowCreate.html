@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/fx.js"></script>
+    <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
+    <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
+    <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
+    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>
+    <link rel="stylesheet" href="../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../Content/upload.css" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style>
+        html, body {
+            font-size: 20px;
+            background-color: white;
+            height: 100%;
+            overflow: auto;
+        }
+
+        label {
+            font-size: 0.75rem;
+        }
+
+        textarea {
+            height: auto;
+            overflow: auto;
+            font-size: 0.75rem;
+        }
+
+        a {
+            font-size: 0.75rem;
+        }
+
+        input {
+            font-size: 0.75rem;
+        }
+
+        .bgc {
+            color: white;
+            background-color: #5191FD;
+        }
+    </style>
+</head>
+<body>
+    <div class="mui-content" style="background-color:white;">
+        <form class="mui-input-group"  style="left:0rem;right:0rem;margin-bottom:1rem;padding-bottom:4rem;">
+            <div class="mui-input-row">
+                <label for="fname">提报人</label>
+                <input type="text" id="fname" name="fname" value=""/>
+            </div>
+            <div class="mui-input-row">
+                <label for="fdate">提报日期</label>
+                <input type="date" id="fdate" name="fdate" value=""/>
+            </div>
+            <div class="mui-input-row">
+                <label for="fdept">提报单位<i style="color:red;">*</i></label>
+                <input type="text" id="fdept" name="fdept" value=""/>
+            </div>
+            <div class="mui-input-row">
+                <label for="fdepot">提报仓库<i style="color:red;">*</i></label>
+                <input type="text" id="fdepot" name="fdepot" value=""/>
+            </div>
+            <div class="mui-input-row">
+                <label>不良物资明细</label>
+                <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;" id="addItem"></span>
+            </div>
+            <div class="mui-input-group" id="bllist">
+
+            </div>
+            <div class="mui-input-row">
+                <label for="fsltotal">总计数量</label>
+                <input type="number" id="fsltotal" name="fsltotal" value=""/>
+            </div>
+            <div class="mui-input-row">
+                <label for="fjetotal">总计金额(元)</label>
+                <input type="text" id="fjetotal" name="fjetotal" value=""/>
+            </div>
+
+        </form>
+    </div>
+    <script>
+        mui.init();
+
+    </script>
+</body>
+</html>

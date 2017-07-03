@@ -87,11 +87,11 @@
             </div>
             <div class="mui-input-row" style="height:11.25rem;">
                 <label>工作内容记录</label>
-                <textarea rows="5" id="fnrjl" name="fnrjl"></textarea>
+                <textarea rows="10" id="fnrjl" name="fnrjl"></textarea>
             </div>
             <div class="mui-input-row" style="height:11.25rem;">
                 <label>存在问题及改进思路</label>
-                <textarea rows="5" id="fgjsl" name="fgjsl"></textarea>
+                <textarea rows="10" id="fgjsl" name="fgjsl"></textarea>
             </div>
             <div class="mui-input-row" style="display:none;height:7.25rem;" id="thd">
                 <label>退回原因</label>
@@ -277,6 +277,8 @@
             fo.onblur = function () {
                 if (this.value == '') this.setAttribute('placeholder', '请输入终止时间');
             };
+
+            forbiddenCache();
         });
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
 
@@ -286,8 +288,11 @@
         var BPMOU;
 
         XuntongJSBridge.call('getPersonInfo', {}, function (result) {
+            if (typeof (result) == "string") {
+                result = JSON.parse(result);
+            }
 
-            if (result.success == true) {
+            if (result.success == true || result.success == "true") {
                 $('#myPhone').val(result.data.userName);
             }
 
@@ -297,9 +302,9 @@
             'popTitleCallBackId': '1',
             'items': [
                 { 'text': '知会', 'callBackId': 'callback1' },
-                { 'text': '自定义刷新', 'callBackId': 'callback2' }
+                { 'text': '刷新', 'callBackId': 'callback2' }
             ], 'menuList': [
-                'refresh', 'openWithBrowser'
+                 'openWithBrowser'
             ],
 
         }, function (result) {
@@ -308,10 +313,13 @@
                 if (callBackId == 'callback1') {
 
                     XuntongJSBridge.call('selectPersons', { 'isMulti': 'true', 'pType': '1' }, function (result) {
+                        if (typeof (result) == "string") {
+                            result = JSON.parse(result);
+                        }
 
 
                         noticeOpenIdArr = new Array();
-                        if (result.success == true) {
+                        if (result.success == true || result.success == "true") {
 
                             for (var i = 0; i < result.data.persons.length; i++) {
 
@@ -386,7 +394,12 @@
 
 
                 } else if (callBackId == 'callback2') {
-                    history.go(0);
+                    if (isSafari()) {
+                        iosfresh();
+                    } else {
+                        history.go(0);
+                    }
+                   
                 }
             }
 
@@ -403,6 +416,7 @@
         }
 
         function getTaskMsg() {
+
             var url = window.location.href;
             if (url != null && url.indexOf("tid") != -1 && url.indexOf("pid") != -1) {
 
@@ -525,8 +539,8 @@
                         } else if (NodeName == "分管领导") {
                             $("#zjpjg").attr("placeholder", "请选择总监评价"); 
                             $("#fgjjy_director").removeAttr("readonly");
-                            $("#agreebt").css("width", "100%");
-                            $("#refusebt").css("display", "none");
+                            //$("#agreebt").css("width", "100%");
+                            //$("#refusebt").css("display", "none");
                             showPicker('zjpjg');
                         }
 
@@ -724,6 +738,7 @@
             xml = xml + ' </BPM_ZGZHB>';
             xml = xml + '</FormData>';
             xml = xml + '</XForm>';
+
             $.ajax({
                 type: "POST",
                 url: "/api/bpm/PostProcess",
@@ -750,6 +765,7 @@
         }
 
         function getBPMParam() {
+
             $.ajax({
 
                 type: 'get',
@@ -812,7 +828,7 @@
             var fzwpj = $("#zwpjg").val();
             var fjlpj = $("#jlpjg").val();
             var fzjpj = $("#zjpjg").val();
-            //var fbillno = "JTZBXZBG011APP" + fyear + fmonth + taskId;
+            
             if (fnrjl == "") {
                 mui.toast("请输入工作内容");
                 return;
@@ -829,7 +845,7 @@
             xml = xml + '   <DraftGuid></DraftGuid>';
             xml = xml + '   <OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
             //xml = xml + '   <Action>同意</Action>';
-             xml = xml + '   <Action> 提交</Action>';
+            xml = xml + '   <Action>提交</Action>';
             xml = xml + '   <Comment></Comment>';
             xml = xml + '   <InviteIndicateUsers></InviteIndicateUsers>';
             xml = xml + '  </Header>';
@@ -916,6 +932,36 @@
             }, false);
 
 
+        }
+
+        //判断是否是Safari
+        function isSafari() {
+
+            if ( navigator.userAgent.indexOf("iPad") != -1 || navigator.userAgent.indexOf("iPhone") != -1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        //ios刷新
+        function iosfresh() {
+
+
+            if ($('body').hasClass("no-cache")) {
+                document.body.style.display = "none";
+                window.location.reload();
+
+            }
+
+
+        }
+
+        function forbiddenCache() {
+            if (isSafari()) {
+                $('body').addClass("no-cache");
+              
+            }
+           
         }
     </script>
 </body>

@@ -270,7 +270,7 @@
 
             //Notify();
             getTaskMsg();
-            
+            forbiddenCache();
         });
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
         XuntongJSBridge.call('createPop', {
@@ -278,10 +278,10 @@
             'popTitleCallBackId': '1',
             'items': [
                 { 'text': '重新发起', 'callBackId': 'callback1' },
-                {'text':'自定义刷新','callBackId':'callback2'}
+                {'text':'刷新','callBackId':'callback2'}
             ],
             'menuList': [
-                'refresh', 'openWithBrowser'
+                'openWithBrowser'
             ],
 
         }, function (result) {
@@ -319,7 +319,11 @@
                     localStorage.setItem("BPM_JRYPSQMsg", msg);
                     setTimeout("window.location.href = '/Pages/JRPrototype/FlowCreate.html?reset=true'", 1000);
                 } else if (callBackId == 'callback2') {
-                    history.go(0);
+                    if (isSafari()) {
+                        iosfresh();
+                    } else {
+                        history.go(0);
+                    }
                 } else {
 
                 }

@@ -232,6 +232,7 @@
             });
             watch();
             selectPic();
+            forbiddenCache();
         });
 
         mui('.mui-content .mui-switch').each(function () {
@@ -259,8 +260,11 @@
         var fjArray = new Array();
 
         XuntongJSBridge.call('getPersonInfo', {}, function (result) {
+            if (typeof (result) == "string") {
+                result = JSON.parse(result);
+            }
 
-            if (result.success == true) {
+            if (result.success == true || result.success == "true") {
                 $('#myPhone').val(result.data.userName);
             }
 
@@ -271,10 +275,13 @@
             XuntongJSBridge.call('selectPersons', { 'isMulti': 'true', 'pType': '1' }, function (result) {
 
                 //alert(JSON.stringify(result.data));
+                if (typeof (result) == "string") {
+                    result = JSON.parse(result);
+                }
 
                 var consignNameArr = new Array();
                 consignOpenIdArr=new Array();
-                if (result.success == true) {
+                if (result.success == true || result.success == "true") {
                     
                     for (var i = 0; i < result.data.persons.length;i++){
                         consignNameArr.push(result.data.persons[i].name);
@@ -556,9 +563,9 @@
             'popTitleCallBackId': '1',
             'items': [
                 { 'text': '知会', 'callBackId': 'callback1' },
-                { 'text': '自定义刷新', 'callBackId': 'callback2' }
+                { 'text': '刷新', 'callBackId': 'callback2' }
             ], 'menuList': [
-                'refresh', 'openWithBrowser'
+                 'openWithBrowser'
             ],
 
         }, function (result) {
@@ -570,7 +577,7 @@
                         
 
                         noticeOpenIdArr = new Array();
-                        if (result.success == true) {
+                        if (result.success == true || result.success == "true") {
 
                             for (var i = 0; i < result.data.persons.length; i++) {
 
@@ -645,7 +652,12 @@
 
 
                 } else if (callBackId == 'callback2') {
-                    history.go(0);
+                    if (isSafari()) {
+                        iosfresh();
+                    } else {
+                        history.go(0);
+                    }
+                    
                 }
             }
 
@@ -1216,6 +1228,35 @@
             attachment.time = time;
             attachment.downurl = downurl;
             return attachment;
+        }
+        //判断是否是Safari
+        function isSafari() {
+
+            if ( navigator.userAgent.indexOf("iPad") != -1 || navigator.userAgent.indexOf("iPhone") != -1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        //ios刷新
+        function iosfresh() {
+
+
+            if ($('body').hasClass("no-cache")) {
+                document.body.style.display = "none";
+                window.location.reload();
+
+            }
+
+
+        }
+
+        function forbiddenCache() {
+            if (isSafari()) {
+                $('body').addClass("no-cache");
+               
+            }
+
         }
     </script> 
 </body>

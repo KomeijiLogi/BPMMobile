@@ -262,7 +262,7 @@
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
 
         XuntongJSBridge.call('getPersonInfo', {}, function (result) {
-            if (result.success == true) {
+            if (result.success == true || result.success == "true") {
                 $("#fname").val(result.data.name);
             }
         });

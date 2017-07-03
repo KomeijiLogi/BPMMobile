@@ -109,6 +109,7 @@
 
 
     <script>
+
           mui.init();
 
 
@@ -117,23 +118,30 @@
               var width = document.body.clientWidth / 3;
               $('.items').css('width', width + 'px');
               getMsg();
-
+              forbiddenCache();
           });
 
           XuntongJSBridge.call('setWebViewTitle', { 'title': '流程审批' });
           XuntongJSBridge.call('createPop', {
                 'popTitle': '',
                 'popTitleCallBackId': '1',
-                'items': [{'text':'自定义刷新','callBackId':'callback1'}],
+                'items': [{'text':'刷新','callBackId':'callback1'}],
                 'menuList': [
-                    'refresh', 'openWithBrowser'
+                   'openWithBrowser'
                 ],
 
            }, function (result) {
                 if (result.success == true || result.success == 'true') {
                     var callBackId = result.data ? result.data.callBackId : '';
                     if (callBackId == 'callback1') {
-                        history.go(0);
+                       
+                        if (isSafari()) {
+                            
+                            iosfresh();
+                        } else {
+                            history.go(0);
+                        }
+                        
 
                     } else if (callBackId == 'callback2') {
 
@@ -170,9 +178,9 @@
          
           function getMsg() {
 
-              var ticket = getUrlParam('ticket');
+             var ticket = getUrlParam('ticket');
 
-              //var ticket = '1b3e903268aaaa3e9aa4d57de48b7e40';
+             //var ticket = '9d575eec4a36f931e55d2461cb3b9795';
               
              localStorage.setItem('ticket', ticket);
 
@@ -234,14 +242,42 @@
                     }
                 },
                 error: function (e) {  },
-                complete: function () { }
+                complete: function () {  }
 
             })
 
           }
 
+          //判断是否是Safari
+          function isSafari() {
+
+              //alert(navigator.userAgent);
+
+              if (navigator.userAgent.indexOf("iPad") != -1 || navigator.userAgent.indexOf("iPhone") != -1) {
+                  return true;
+              } else {
+                  return false;
+              }
+          }
+          //ios刷新
+          function iosfresh() {
+
+              if ($('body').hasClass("no-cache")){
+                      document.body.style.display = "none";
+                      window.location.reload();
+
+             }
+          
+          }
 
 
+          function forbiddenCache() {
+              if (isSafari()) {
+                  $('body').addClass("no-cache");
+
+              }
+
+          }
     </script>
 
 </body>

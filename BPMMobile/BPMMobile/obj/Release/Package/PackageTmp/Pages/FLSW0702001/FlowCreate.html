@@ -63,7 +63,7 @@
             </div> 
             <div class="mui-input-row">
                 <label>申报日期</label>
-                <input type="date" class="" id="fdate" name="fdate" />
+                <input type="date" class="" id="fdate" name="fdate" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>所属项目<i style="color:red;">*</i></label>
@@ -124,29 +124,37 @@
             watch();
             upload();
             prepMsg();
-
+            forbiddenCache();
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
 
         XuntongJSBridge.call('getPersonInfo', {}, function (result) {
-            if (result.success == true) {
+            if (typeof (result) == "string") {
+                result = JSON.parse(result);
+            }
+
+            if (result.success == true || result.success == "true") {
                 $("#fname").val(result.data.name);
             }
         });
         XuntongJSBridge.call('createPop', {
             'popTitle': '',
             'popTitleCallBackId': '1',
-            'items': [{ 'text': '自定义刷新', 'callBackId': 'callback1' }],
+            'items': [{ 'text': '刷新', 'callBackId': 'callback1' }],
             'menuList': [
-                'refresh', 'openWithBrowser'
+                 'openWithBrowser'
             ],
 
         }, function (result) {
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    history.go(0);
+                    if (isSafari()) {
+                        iosfresh();
+                    } else {
+                        history.go(0);
+                    }
                     //location.reload();
                 } else if (callBackId == 'callback2') {
 
@@ -249,9 +257,7 @@
                
                
            
-
-           
-
+        
             
         }
 

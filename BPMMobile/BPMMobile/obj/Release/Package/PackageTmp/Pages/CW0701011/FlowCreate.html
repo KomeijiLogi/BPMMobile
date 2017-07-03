@@ -171,28 +171,37 @@
             watch();
             getBPMParam();
             prepMsg();
+            forbiddenCache();
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
 
         XuntongJSBridge.call('getPersonInfo', {}, function (result) {
-            if (result.success == true) {
+            if (typeof (result) == "string") {
+                result = JSON.parse(result);
+            }
+
+            if (result.success == true || result.success == "true") {
                 $("#fname").val(result.data.name);
             }
         });
         XuntongJSBridge.call('createPop', {
             'popTitle': '',
             'popTitleCallBackId': '1',
-            'items': [{ 'text': '自定义刷新', 'callBackId': 'callback1' }],
+            'items': [{ 'text': '刷新', 'callBackId': 'callback1' }],
             'menuList': [
-                'refresh', 'openWithBrowser'
+                'openWithBrowser'
             ],
 
         }, function (result) {
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    history.go(0);
+                    if (isSafari()) {
+                        iosfresh();
+                    } else {
+                        history.go(0);
+                    }
                     //location.reload();
                 } else if (callBackId == 'callback2') {
 
@@ -255,12 +264,12 @@
                         li = li + '     </div>';
                         li = li + '  </div > ';
 
-                        $("#tglist").append(li);   
+                        $("#tglist").append(li);
                         showPicker('ffylx', ffylxdata);
                     }
                 }
             }
-           
+
         }
 
         function tapEvent() {
@@ -275,7 +284,7 @@
                     text:"否"
                 }
             ];
-            
+
                 var element = document.getElementById('fif_jk');
 
                 var picker = new mui.PopPicker();
@@ -295,11 +304,11 @@
                     });
 
                 }, false);
-               
-               
-          
 
-          
+
+
+
+
 
             var ffylxdata = [
                 {
@@ -322,7 +331,7 @@
                 li = li + '    <div class="mui-input-row">';
                 li = li + '         <label>费用项目<i style="color:red;">*</i></label>';
                 li = li + '         <input type="text" id="fyxm" name="fyxm" value="推广费" />';
-               
+
                 li = li + '    </div>';
                 li = li + '      <div class="mui-input-row">';
                 li = li + '         <label>费用类型<i style="color:red;">*</i></label>';
@@ -338,16 +347,16 @@
                 li = li + '     </div>';
                 li = li + '  </div > ';
 
-                $("#tglist").append(li);   
+                $("#tglist").append(li);
 
                 showPicker('ffylx', ffylxdata);
             });
 
-            
+
         }
 
-        
-        //删除产品明细列表项 
+
+        //删除产品明细列表项
         function deleteProduct(context) {
 
             $(context).parent().parent().remove();
@@ -409,7 +418,7 @@
         }
 
 
-       
+
 
 
         function Save() {
@@ -430,7 +439,7 @@
             var fjktotal_dx = $("#fjktotal_dx").val();
             var fjkbillno = $("#fjkbillno").val();
             var fjkremark = $("#fjkremark").val();
-            
+
             if (!fif_jk || fif_jk == "") {
                 mui.toast("请选择是否是借款");
                 return;
@@ -508,7 +517,7 @@
                     PostXml(xml);
                 }
             });
-           
+
         }
 
 

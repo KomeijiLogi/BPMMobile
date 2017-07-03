@@ -8,6 +8,8 @@ var stepId;
 var itemidArr;
 var attachArray = new Array();
 
+
+
 //提交,审批,加签,已阅
 function PostXml(xml) {
     $.ajax({
@@ -66,9 +68,11 @@ function Notify() {
 
                 XuntongJSBridge.call('selectPersons', { 'isMulti': 'true', 'pType': '1' }, function (result) {
 
-
+                    if (typeof (result) == "string") {
+                        result = JSON.parse(result);
+                    }
                     var  noticeOpenIdArr = new Array();
-                    if (result.success == true) {
+                    if (result.success == true|| result.success == "true") {
 
                         for (var i = 0; i < result.data.persons.length; i++) {
 
@@ -471,10 +475,12 @@ function openSignPer() {
     XuntongJSBridge.call('selectPersons', { 'isMulti': 'true', 'pType': '1' }, function (result) {
 
         //alert(JSON.stringify(result.data));
-
+        if (typeof (result) == "string") {
+            result = JSON.parse(result);
+        }
         var consignNameArr = new Array();
         consignOpenIdArr = new Array();
-        if (result.success == true) {
+        if (result.success == true || result.success == "true") {
 
             for (var i = 0; i < result.data.persons.length; i++) {
                 consignNameArr.push(result.data.persons[i].name);
@@ -519,9 +525,13 @@ function locationAction(selAction ) {
         stepAction = "直送";
     } else if (selAction == "sysAbort") {
         stepAction = "撤销";
-    } else {
+    } else if (selAction == "sysStop") {
+        stepAction = "结束";
+    } else if (selAction == "sysPickBackRestart") {
+        stepAction = "取回";
+    }  else {
        stepAction = selAction;
-    }
+    } 
     return stepAction;
 
 }
@@ -572,4 +582,36 @@ function attachItem(name, type, size, time, downurl) {
     attachment.time = time;
     attachment.downurl = downurl;
     return attachment;
+}
+
+//判断是否是Safari
+function isSafari() {
+
+    if ( navigator.userAgent.indexOf("iPad") != -1 || navigator.userAgent.indexOf("iPhone") != -1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+//ios刷新
+function iosfresh() {
+
+
+
+    if ($('body').hasClass("no-cache")) {
+        document.body.style.display = "none";
+        window.location.reload();
+
+    }
+
+
+}
+
+function forbiddenCache() {
+    if (isSafari()) {
+        $('body').addClass("no-cache");
+       
+    }
+    
+
 }

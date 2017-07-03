@@ -306,6 +306,7 @@
         mui.ready(function () {
             getTaskMsg();
             watch();
+            forbiddenCache();
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
@@ -314,18 +315,22 @@
             'popTitle': '',
             'popTitleCallBackId': '1',
             'items': [
-                { 'text': '自定义刷新', 'callBackId': 'callback1' }
+                { 'text': '刷新', 'callBackId': 'callback1' }
 
             ],
             'menuList': [
-                'refresh', 'openWithBrowser'
+                'openWithBrowser'
             ],
 
         }, function (result) {
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    history.go(0);
+                    if (isSafari()) {
+                        iosfresh();
+                    } else {
+                        history.go(0);
+                    }
                 }
             }
         });
@@ -416,7 +421,7 @@
                                             var li = '<div class="pic-preview smallyulan success">';
                                             li = li + ' <div class="del none" style="opacity:1;z-index:999;"onclick="delPicture(this)">x</div>';
 
-                                            //类型判断 
+                                            //类型判断
                                             if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
 
                                                 //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
@@ -494,7 +499,7 @@
                         }
 
                         var bxlist = data.FormDataSet.BPM_FDCBX_QTFYBX_B;
-                        for (var i = 0; i < bxlist.length; i++){
+                        for (var i = 0; i < bxlist.length; i++) {
                             if (bxlist[i].remark == null) {
                                 bxlist[i].remark = "";
                             }
@@ -504,23 +509,23 @@
                             li = li + '    </div>';
                             li = li + '   <div class="mui-input-row">';
                             li = li + '       <label>费用项目</label>';
-                            li = li + '        <input type="text" id="fyxm" name="fyxm" readonly="readonly" value="' + bxlist[i].fyxm+'"/>';
+                            li = li + '        <input type="text" id="fyxm" name="fyxm" readonly="readonly" value="' + bxlist[i].fyxm + '"/>';
                             li = li + '    </div>';
                             li = li + '   <div class="mui-input-row">';
                             li = li + '       <label>申请金额(元)</label>';
-                            li = li + '        <input type="number" id="fsqje" name="fsqje" readonly="readonly" value="' + bxlist[i].fsqje+'"/>';
+                            li = li + '        <input type="number" id="fsqje" name="fsqje" readonly="readonly" value="' + bxlist[i].fsqje + '"/>';
                             li = li + '      </div>';
                             li = li + '     <div class="mui-input-row">';
                             li = li + '       <label>报销金额(元)<i style="color:red;"></i></label>';
-                            li = li + '      <input type="number" id="fbxje" name="fbxje" readonly="readonly" value="' + bxlist[i].fbxje+'"/>';
+                            li = li + '      <input type="number" id="fbxje" name="fbxje" readonly="readonly" value="' + bxlist[i].fbxje + '"/>';
                             li = li + '    </div>';
                             li = li + '   <div class="mui-input-row" style="height:2.25rem;">';
                             li = li + '         <label>超申请情况(%)</label>';
-                            li = li + '       <input type="text" id="fcsq" name="fcsq" readonly="readonly" value="' + bxlist[i].fcsq+'"/>';
+                            li = li + '       <input type="text" id="fcsq" name="fcsq" readonly="readonly" value="' + bxlist[i].fcsq + '"/>';
                             li = li + '   </div>';
                             li = li + '     <div class="mui-input-row" style="height:5.25rem;">';
                             li = li + '         <label>备注说明</label>';
-                            li = li + '        <textarea rows="5" id="remark" name="remark">' + bxlist[i].remark+'</textarea>';
+                            li = li + '        <textarea rows="5" id="remark" name="remark">' + bxlist[i].remark + '</textarea>';
                             li = li + '     </div>';
                             li = li + '   </div >';
                             $("#bxlist").append(li);

@@ -101,6 +101,7 @@
             selectPic();
 
             preMsg();
+            forbiddenCache();
         });
        
 
@@ -111,8 +112,10 @@
         XuntongJSBridge.call('getPersonInfo', {}, function (result) {
 
             //alert(JSON.stringify(result));
-
-            if (result.success == true) {
+            if (typeof (result) == "string") {
+                result = JSON.stringify(result);
+            }
+            if (result.success == true || result.success == "true") {
                 $('#flowPerson').val(result.data.name + result.data.userName);
                 $('#flowPerId').val(result.data.userName);
 
@@ -121,18 +124,25 @@
         XuntongJSBridge.call('createPop', {
             'popTitle': '',
             'popTitleCallBackId': '1',
-            'items': [{ 'text': '自定义刷新', 'callBackId': 'callback1' }],
+            'items': [{ 'text': '刷新', 'callBackId': 'callback1' }],
             'menuList': [
-                'refresh', 'openWithBrowser'
+                 'openWithBrowser'
             ],
 
         }, function (result) {
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-
-                    history.go(0);
-
+                    if (isSafari()) {    
+                        
+                        iosfresh();
+                    } else {
+                        //alert(navigator.userAgent);
+                        history.go(0);
+                        //window.location.reload();
+                    }
+                  
+                    
                 } else if (callBackId == 'callback2') {
 
                 } else {
@@ -378,7 +388,32 @@
 
         }
 
-       
+        function isSafari() {
+
+            if (navigator.userAgent.indexOf("iPad") != -1 || navigator.userAgent.indexOf("iPhone") != -1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function iosfresh() {
+
+
+            if ($('body').hasClass("no-cache")) {
+                document.body.style.display = "none";
+                window.location.reload();
+
+            }
+
+
+        }
+        function forbiddenCache() {
+            if (isSafari()) {
+                $('body').addClass("no-cache");
+               
+            }
+
+        }
     </script> 
 </body>
 </html>

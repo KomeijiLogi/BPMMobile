@@ -316,6 +316,7 @@
         mui.ready(function () {
             getTaskMsg();
             watch();
+            forbiddenCache();
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
@@ -324,19 +325,23 @@
             'popTitle': '',
             'popTitleCallBackId': '1',
             'items': [
-                { 'text': '自定义刷新', 'callBackId': 'callback1' },
+                { 'text': '刷新', 'callBackId': 'callback1' },
                 {'text':'重新发起','callBackId':'callback2'}
 
             ],
             'menuList': [
-                'refresh', 'openWithBrowser'
+                'openWithBrowser'
             ],
 
         }, function (result) {
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    history.go(0);
+                    if (isSafari()) {
+                        iosfresh();
+                    } else {
+                        history.go(0);
+                    }
                 } else if (callBackId == 'callback2'){
 
                     var ftgfy = new Array();
