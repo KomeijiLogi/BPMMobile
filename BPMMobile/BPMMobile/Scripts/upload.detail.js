@@ -3,7 +3,7 @@
 
     //var picUrl = '/upload/';
 
-    var picUrl = 'http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx';
+    var picUrl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx';
 
     var me = this;
 

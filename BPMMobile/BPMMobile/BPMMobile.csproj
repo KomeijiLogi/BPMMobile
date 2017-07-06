@@ -311,6 +311,7 @@
     <Content Include="Content\ApprovalUtils.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\DoneOrMyApproval.css" />
     <Content Include="Content\extraicon\1204337.png" />
     <Content Include="Content\extraicon\1204338.png" />
     <Content Include="Content\extraicon\1204339.png" />
@@ -409,10 +410,18 @@
     <Content Include="Pages\BG0702002\FlowCreate.html" />
     <Content Include="Pages\BG0702002\FlowDoneDetail.html" />
     <Content Include="Pages\BG0702002\FlowUndoDetail.html" />
+    <Content Include="Pages\BG0702008\FlowAskDetail.html" />
+    <Content Include="Pages\BG0702008\FlowCreate.html" />
+    <Content Include="Pages\BG0702008\FlowDoneDetail.html" />
+    <Content Include="Pages\BG0702008\FlowUndoDetail.html" />
     <Content Include="Pages\BG0702009\FlowAskDetail.html" />
     <Content Include="Pages\BG0702009\FlowCreate.html" />
     <Content Include="Pages\BG0702009\FlowDoneDetail.html" />
     <Content Include="Pages\BG0702009\FlowUndoDetail.html" />
+    <Content Include="Pages\BG0702012\FlowAskDetail.html" />
+    <Content Include="Pages\BG0702012\FlowCreate.html" />
+    <Content Include="Pages\BG0702012\FlowDoneDetail.html" />
+    <Content Include="Pages\BG0702012\FlowUndoDetail.html" />
     <Content Include="Pages\CW0701008\FlowAskDetail.html" />
     <Content Include="Pages\CW0701008\FlowCreate.html" />
     <Content Include="Pages\CW0701008\FlowDoneDetail.html" />
@@ -434,6 +443,10 @@
     <Content Include="Pages\FLSW0702001\FlowCreate.html" />
     <Content Include="Pages\FLSW0702001\FlowDoneDetail.html" />
     <Content Include="Pages\FLSW0702001\FlowUndoDetail.html" />
+    <Content Include="Pages\FLSW0702002\FlowAskDetail.html" />
+    <Content Include="Pages\FLSW0702002\FlowCreate.html" />
+    <Content Include="Pages\FLSW0702002\FlowDoneDetail.html" />
+    <Content Include="Pages\FLSW0702002\FlowUndoDetail.html" />
     <Content Include="Pages\SCGL0703002\FlowAskDetail.html" />
     <Content Include="Pages\SCGL0703002\FlowCreate.html" />
     <Content Include="Pages\SCGL0703002\FlowDoneDetail.html" />
@@ -507,6 +520,7 @@
     <Content Include="Scripts\upload.detail.js" />
     <Content Include="Scripts\upload.js" />
     <Content Include="Scripts\util.js" />
+    <Content Include="Scripts\vue.min.js" />
     <Content Include="Scripts\zepto.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

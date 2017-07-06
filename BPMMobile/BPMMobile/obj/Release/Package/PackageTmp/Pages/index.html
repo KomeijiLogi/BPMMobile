@@ -178,9 +178,9 @@
          
           function getMsg() {
 
-             var ticket = getUrlParam('ticket');
+              var ticket = getUrlParam('ticket');
 
-             //var ticket = '9d575eec4a36f931e55d2461cb3b9795';
+              //var ticket = '03b06e9c8c53c6833b1991ccf5efd1f9';
               
              localStorage.setItem('ticket', ticket);
 
@@ -262,15 +262,12 @@
           //ios刷新
           function iosfresh() {
 
-              
-
               if ($('body').hasClass("no-cache")){
                       document.body.style.display = "none";
                       window.location.reload();
 
              }
           
-
           }
 
 

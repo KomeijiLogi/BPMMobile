@@ -72,19 +72,19 @@
             </div>
             <div class="mui-input-row">
                 <label>联系电话</label>
-                <input type="tel" id="tel" name="tel" placeholder="请输入联系电话" readonly="readonly"/>
+                <input type="tel" id="tel" name="tel"  readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>发出要求</label>
-                <input type="text" id="fcyq" name="fcyq" placeholder="请选择发出要求" readonly="readonly"/>
+                <input type="text" id="fcyq" name="fcyq"  readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>办理时限</label>
-                <input type="text" id="blsx" name="blsx" placeholder="请选择办理时限" readonly="readonly"/>
+                <input type="text" id="blsx" name="blsx"  readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>保密程度</label>
-                <input type="text" id="bmcd" name="bmcd" placeholder="请选择保密程度" readonly="readonly"/>
+                <input type="text" id="bmcd" name="bmcd"  readonly="readonly"/>
             </div>
             <div class="mui-input-row" style="display:none;">
                 <label>内联编号</label>
@@ -92,15 +92,15 @@
             </div>
             <div class="mui-input-row">
                 <label>内联类别</label>
-                <input type="text" id="fnllb" name="fnllb" placeholder="请选择内联类别" readonly="readonly"/>
+                <input type="text" id="fnllb" name="fnllb"  readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>发函主题</label>
-                <input type="text" id="fhzt" name="fhzt" placeholder="请输入发函主题" readonly="readonly"/>
+                <input type="text" id="fhzt" name="fhzt"  readonly="readonly"/>
             </div>
             <div class="mui-input-row" style="height:8.75rem;">
                 <label>发函内容</label>
-                <textarea rows="7" id="fhnr" name="fhnr" placeholder="请输入发函内容" readonly="readonly"></textarea>
+                <textarea rows="7" id="fhnr" name="fhnr"  readonly="readonly"></textarea>
             </div>
             <div class="mui-input-row" style="display:none;height:7.25rem;" id="thd">
                 <label>退回原因</label>
@@ -201,7 +201,8 @@
             'popTitleCallBackId': '1',
             'items': [
                 { 'text': '刷新', 'callBackId': 'callback1' },
-                { 'text': '知会', 'callBackId': 'callback2' }
+                { 'text': '知会', 'callBackId': 'callback2' },
+                {'text':'退回某步','callBackId':'callback3'}
             ],
             'menuList': [
                 'openWithBrowser'
@@ -300,6 +301,8 @@
 
                     });
 
+                } else if (callBackId == 'callback3') {
+                    getRecedableToSteps();
                 }
             }
 
@@ -400,7 +403,7 @@
                                             var size = String(data[i].Size);
 
                                             var time = String(data[i].LastUpdate).replace("T", " ");
-                                            var downurl = 'http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;
+                                            var downurl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;
                                             var attach = attachItem(name, type, size, time, downurl);
                                             attachArray.push(attach);
 
@@ -412,8 +415,8 @@
                                             //类型判断 
                                             if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
 
-                                                //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
+                                                //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("xls") != -1) {
 

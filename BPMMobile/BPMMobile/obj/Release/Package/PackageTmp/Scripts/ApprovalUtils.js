@@ -7,8 +7,8 @@ var taskId;
 var stepId;
 var itemidArr;
 var attachArray = new Array();
-
-
+var action;
+var toStepIDs = new Array();
 
 //提交,审批,加签,已阅
 function PostXml(xml) {
@@ -362,6 +362,7 @@ function reject() {
 
 //选择器前提需要mui加载完成
 function showPicker(el, data) {
+
     var element = document.getElementById(el);
     
     var picker = new mui.PopPicker();
@@ -376,6 +377,7 @@ function showPicker(el, data) {
         });
 
     }, false);
+
 }
 
 
@@ -613,5 +615,112 @@ function forbiddenCache() {
        
     }
     
+
+}
+
+//获取可退回步骤的列表
+function getRecedableToSteps() {
+    var stepid = parseInt($("#stepId").val());
+    //console.log(parseInt($("#stepId").val()));
+    $.ajax({
+        type: "POST",
+        url: "/api/bpm/GetRecedableToSteps",
+        data: { '': stepid },
+        beforeSend: function (XHR) {
+            XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+        },
+        success: function (data, status) {
+
+            if (status == "success") {
+                console.log(data);
+                $("#wrapper").css("display", "none");
+                if ($("#recedeWr").length != 0) {
+                    $("#recedeWr").remove();
+                }
+
+
+                var li = '<div class="mui-card" id="recedeWr" style="z-index:999;">';
+                li = li + '  <form class="mui-input-group">';
+                li = li + '  <div class="mui-input-row bgc">';
+                li = li + '       <label>将任务退回到</label>';
+                li = li + '  </div>';
+                for (var i = 0; i < data.length; i++) {
+                    li = li + '     <div class="mui-input-row mui-checkbox mui-left">';
+                    li = li + '     <label>' + data[i].NodeName + '&nbsp;' + data[i].OwnerFullName + '&nbsp;' + FormatterTimeYMS(data[i].FinishAt) + '</label>';
+
+                    li = li + '     <input name="stepcbox" value="' + data[i].StepID + '" type="checkbox" >';
+                    li = li + '     </div>';
+
+                }
+                li = li + '   <div class="mui-btn-row mui-text-center" style="margin-top:1rem;">';
+                li = li + '      <button class="mui-btn mui-btn-primary" type="button" style="height:2.5rem;width:40%;" onclick="RecedeBack()">确定</button>&nbsp;&nbsp;';
+                li = li + '      <button class="mui-btn mui-btn-danger" type="button" style="height:2.5rem;width:40%;" onclick="goBack()">取消</button>';
+                li = li + '   </div>';
+                $("body").append(li);
+
+
+            }
+        }, error: function (e) {
+
+        }, complete: function () {
+
+        }
+    });
+}
+
+
+//退回某步
+function RecedeBack() {
+    var stepId = $("#stepId").val();
+    var comments;
+    var list = document.getElementById('recedeWr');
+    var checkboxArray = [].slice.call(list.querySelectorAll('input[type="checkbox"]'));
+
+    checkboxArray.forEach(function (box) {
+        if (box.checked) {
+            toStepIDs.push(box.value);
+        }
+    });
+    if (toStepIDs.length > 0) {
+        var btnArray = ['取消', '确定'];
+        mui.prompt('请输入原因：', '', '退回理由', btnArray, function (e) {
+            if (e.index == 1) {
+                comments = e.value;
+
+
+                $.ajax({
+                    type: 'Post',
+                    url: '/api/bpm/PostRecedeBack',
+                    //dataType:'json',
+                    data: { 'stepid': stepId, 'comments': comments, 'toStepIDs': toStepIDs },
+
+                    beforeSend: function (XHR) {
+                        XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+                    },
+                    success: function (data, status) {
+                        if (status == "success") {
+                            console.log(data);
+                            mui.toast("退回到某步操作成功");
+                            setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
+                        }
+                    }, error: function (e) {
+
+                    }, complete: function () {
+
+                    }
+                });
+            }
+        });
+    } else {
+        mui.toast("未选中任何节点");
+    }
+
+
+}
+
+function goBack() {
+    $("#recedeWr").css("display", "none");
+    $("#wrapper").css("display", "block");
 
 }

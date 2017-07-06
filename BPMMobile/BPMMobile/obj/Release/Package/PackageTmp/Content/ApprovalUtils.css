@@ -45,3 +45,24 @@ textarea {
 a {
     font-size: 0.75rem;
 }
+input {
+    font-size:0.75rem;
+}
+
+.mui-bar {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+#done.mui-disabled {
+    color: gray;
+}
+
+li {
+    font-size: 0.75rem;
+}
+
+.adl {
+    background-color: #fea900;
+}
+        

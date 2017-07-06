@@ -313,6 +313,23 @@ namespace BPMMobile.Controllers
                 return Json(rv.ToString());
             }
         }
+        /// <summary>
+        /// 获取全部可以退回的步骤
+        /// </summary>
+        /// <param name="stepid"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult GetRecedableToSteps([FromBody]int stepid) {
+            PrepareBPMEnv();
+            using (BPMConnection cn = new BPMConnection())
+            {
+                cn.WebOpen();
+                BPMStepCollection steps= BPMProcStep.GetRecedableToSteps(cn, stepid);
+                return Json(steps);
+            }
+
+               
+        }
 
         /// <summary>
         /// 拒绝

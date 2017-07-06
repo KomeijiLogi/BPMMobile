@@ -157,35 +157,35 @@
             </div>
             <div class="mui-input-row">
                 <label>所属项目<i style="color:red;">*</i></label>
-                <input type="text" id="fxm" name="fxm" readonly="readonly" placeholder="请选择所属项目" />
+                <input type="text" id="fxm" name="fxm" readonly="readonly"  />
             </div>
             <div class="mui-input-row">
                 <label>合同类别<i style="color:red;">*</i></label>
-                <input type="text" id="flb" name="flb" readonly="readonly" placeholder="请选择合同类别" />
+                <input type="text" id="flb" name="flb" readonly="readonly"  />
             </div>
             <div class="mui-input-row" id="fzed">
                 <label>合同金额(元)<i style="color:red;">*</i></label>
-                <input type="number" id="fze" name="fze" placeholder="请输入合同金额" readonly="readonly"/>
+                <input type="number" id="fze" name="fze"  readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>合同对方<i style="color:red;">*</i></label>
-                <input type="text" id="fhtdf" name="fhtdf" placeholder="请输入合同对方" readonly="readonly"/>
+                <input type="text" id="fhtdf" name="fhtdf"  readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>品牌名称<i style="color:red;">*</i></label>
-                <input type="text" id="fppmc" name="fppmc" placeholder="请输入品牌名称" readonly="readonly"/>
+                <input type="text" id="fppmc" name="fppmc"  readonly="readonly"/>
             </div>
             <div class="mui-input-row" style="height:11.25rem;">
                 <label>合同名称及内容<i style="color:red;">*</i></label>
-                <textarea rows="10" id="fht_mcnr" name="fht_mcnr" placeholder="请输入合同名称及内容" readonly="readonly"></textarea>
+                <textarea rows="10" id="fht_mcnr" name="fht_mcnr"  readonly="readonly"></textarea>
             </div>
             <div class="mui-input-row" style="height:11.25rem;">
                 <label>合同价款及付款方式<i style="color:red;">*</i></label>
-                <textarea rows="10" id="fht_jkfkfs" name="fht_jkfkfs" placeholder="请输入合同价款及付款方式" readonly="readonly"></textarea>
+                <textarea rows="10" id="fht_jkfkfs" name="fht_jkfkfs"  readonly="readonly"></textarea>
             </div>
             <div class="mui-input-row" style="height:11.25rem;">
                 <label>特别约定条款<i style="color:red;">*</i></label>
-                <textarea rows="10" id="fydtk" name="fydtk" placeholder="请输入特别约定条款" readonly="readonly"></textarea>
+                <textarea rows="10" id="fydtk" name="fydtk"  readonly="readonly"></textarea>
             </div>
             <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                 <div class="border border-t upload-img" style="top:0rem;">
@@ -274,6 +274,8 @@
             getTaskMsg();
             forbiddenCache();
         });
+
+        XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
 
         XuntongJSBridge.call('createPop', {
             'popTitle': '',
@@ -453,7 +455,7 @@
                                         var size = String(data[i].Size);
 
                                         var time = String(data[i].LastUpdate).replace("T", " ");
-                                        var downurl = 'http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;
+                                        var downurl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;
                                         var attach = attachItem(name, type, size, time, downurl);
                                         attachArray.push(attach);
 
@@ -465,8 +467,8 @@
                                         //类型判断 
                                         if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
 
-                                            //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
-                                            li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
+                                            //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
+                                            li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
 
                                         } else if ((data[i].Ext).indexOf("xls") != -1) {
 

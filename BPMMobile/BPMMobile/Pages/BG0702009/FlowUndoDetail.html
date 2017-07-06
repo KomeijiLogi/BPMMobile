@@ -36,7 +36,9 @@
             font-size: 0.75rem;
         }
 
-
+        input {
+            font-size: 0.75rem;
+        }
 
         textarea {
             height: auto;
@@ -86,19 +88,19 @@
             </div>
             <div class="mui-input-row">
                 <label>联系方式<i style="color:red;">*</i></label>
-                <input type="tel" class="" id="ftel" name="ftel" placeholder="请输入联系方式" />
+                <input type="tel" class="" id="ftel" name="ftel"  />
             </div>
             <div class="mui-input-row">
                 <label>商户名称<i style="color:red;">*</i></label>
-                <input type="text" class="" id="fshmc" name="fshmc" placeholder="请输入商户名称" />
+                <input type="text" class="" id="fshmc" name="fshmc"  />
             </div>
             <div class="mui-input-row">
                 <label>店铺号<i style="color:red;">*</i></label>
-                <input type="text" class="" id="fdph" name="fdph" placeholder="请输入店铺号"  />
+                <input type="text" class="" id="fdph" name="fdph"  />
             </div>
             <div class="mui-input-row">
                 <label>商户类型<i style="color:red;">*</i></label>
-                <input type="text" id="fshlx" name="fshlx" placeholder="请选择商户类型" readonly="readonly"/>
+                <input type="text" id="fshlx" name="fshlx"  readonly="readonly"/>
             </div>
             <div class="mui-input-group">
                 <div class="mui-input-row bgc">
@@ -326,7 +328,8 @@
             'popTitleCallBackId': '1',
             'items': [
                 { 'text': '刷新', 'callBackId': 'callback1' },
-                { 'text': '知会', 'callBackId': 'callback2' }
+                { 'text': '知会', 'callBackId': 'callback2' },
+                {'text':'退回某步','callBackId':'callback3'}
             ],
             'menuList': [
                 'openWithBrowser'
@@ -425,6 +428,8 @@
 
                     });
 
+                } else if (callBackId == 'callback3') {
+                    getRecedableToSteps();
                 }
             }
 
@@ -557,7 +562,7 @@
                                             var size = String(data[i].Size);
 
                                             var time = String(data[i].LastUpdate).replace("T", " ");
-                                            var downurl = 'http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;
+                                            var downurl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;
                                             var attach = attachItem(name, type, size, time, downurl);
                                             attachArray.push(attach);
 
@@ -569,8 +574,8 @@
                                             //类型判断 
                                             if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
 
-                                                //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://172.16.3.53:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
+                                                //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("xls") != -1) {
 
@@ -1124,41 +1129,6 @@
             $("#signd").css("display", "none");
         }
 
-        //退回某步
-        //function RecedeBack() {
-        //    var stepId = $("#stepId").val();
-        //    var comments;
-            
-        //    var btnArray = ['取消', '确定'];
-        //    mui.prompt('请输入原因：', '', '退回理由', btnArray, function (e) {
-        //        if (e.index == 1) {
-        //            comments = e.value;
-                    
-
-        //            $.ajax({
-        //                type: 'Post',
-        //                url: '/api/bpm/PostRecedeBack',
-        //                //dataType:'json',
-        //                data: { 'stepid': stepId, 'comments': comments, 'toStepIDs': toStepIDs},
-
-        //                beforeSend: function (XHR) {
-        //                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
-        //                },
-        //                success: function (data, status) {
-        //                    if (status == "success") {
-        //                        console.log(data);
-
-        //                    }
-        //                }, error: function (e) {
-
-        //                }, complete: function () {
-
-        //                }
-        //            });
-        //        }
-        //    });
-           
-        //}
     </script>
 </body> 
 </html >

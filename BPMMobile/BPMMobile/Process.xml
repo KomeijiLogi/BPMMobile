@@ -195,4 +195,50 @@
     <Group></Group>
     <Description>适用于建设公司库存不良物资提报</Description>
   </Process>
+  <Process>
+    <!--盛祥商管公司开业保证金、履约保证金退还申请-->
+    <Name>BG0702012_商管公司开业保证金、履约保证金退还审批_流程</Name>
+    <Path>\\07房地产集团\\02商管公司\\BG办公管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/BG0702012/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/BG0702012/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/BG0702012/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/BG0702012/FlowDoneDetail.html</ViewDonePage>
+    <DisplayName>商管开业/履约保证金退还</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204346.png</Icon>
+    <Group></Group>
+    <Description>商管公司开业保证金、履约保证金退还审批</Description>
+  </Process>
+  <Process>
+    <!--盛祥商管公司图纸会签-->
+    <Name>BG0702008_商管公司图纸会审_流程</Name>
+    <Path>\\07房地产集团\\02商管公司\\BG办公管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/BG0702008/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/BG0702008/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/BG0702008/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/BG0702008/FlowDoneDetail.html</ViewDonePage>
+    <DisplayName>商管公司图纸会审</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204347.png</Icon>
+    <Group></Group>
+    <Description>商管公司图纸会审</Description>
+  </Process>
+
+  <Process>
+    <!--盛祥商管公司其他合同评审-->
+    <Name>盛祥商管公司其他合同评审</Name>
+    <Path>\\07房地产集团\\02商管公司\\FLSW法律事务</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/FLSW0702002/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/FLSW0702002/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/FLSW0702002/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/FLSW0702002/FlowDoneDetail.html</ViewDonePage>
+    <DisplayName>盛祥商管公司其他合同评审</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204348.png</Icon>
+    <Group></Group>
+    <Description>盛祥商管公司其他合同评审</Description>
+  </Process>
 </ProcessList>

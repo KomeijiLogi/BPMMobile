@@ -349,7 +349,26 @@
 
                 $("#tglist").append(li);
 
-                showPicker('ffylx', ffylxdata);
+                //showPicker('ffylx', ffylxdata);
+
+                var picker = new mui.PopPicker();
+
+                picker.setData(ffylxdata);
+
+
+                $("#tglist").find("#ffylx").each(function () {
+                    var self = this;
+                    console.log(self);
+                    $(this).off('tap');
+                    $(this).on('tap', function () {
+
+                        picker.show(function (items) {
+                            self.value=(items[0].text);
+                        });
+                    });
+                });
+
+                
             });
 
 
