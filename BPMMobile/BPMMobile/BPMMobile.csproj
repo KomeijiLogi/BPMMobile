@@ -401,6 +401,14 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Pages\98SGMonthlyFlow\FlowAskDetail.html" />
+    <Content Include="Pages\98SGMonthlyFlow\FlowCreate.html" />
+    <Content Include="Pages\98SGMonthlyFlow\FlowDoneDetail.html" />
+    <Content Include="Pages\98SGMonthlyFlow\FlowUndoDetail.html" />
+    <Content Include="Pages\98SGWeeklyFlow\FlowAskDetail.html" />
+    <Content Include="Pages\98SGWeeklyFlow\FlowCreate.html" />
+    <Content Include="Pages\98SGWeeklyFlow\FlowDoneDetail.html" />
+    <Content Include="Pages\98SGWeeklyFlow\FlowUndoDetail.html" />
     <Content Include="Pages\AskFlow.html" />
     <Content Include="Pages\BG0702001\FlowAskDetail.html" />
     <Content Include="Pages\BG0702001\FlowCreate.html" />
@@ -410,6 +418,10 @@
     <Content Include="Pages\BG0702002\FlowCreate.html" />
     <Content Include="Pages\BG0702002\FlowDoneDetail.html" />
     <Content Include="Pages\BG0702002\FlowUndoDetail.html" />
+    <Content Include="Pages\BG0702004\FlowAskDetail.html" />
+    <Content Include="Pages\BG0702004\FlowCreate.html" />
+    <Content Include="Pages\BG0702004\FlowDoneDetail.html" />
+    <Content Include="Pages\BG0702004\FlowUndoDetail.html" />
     <Content Include="Pages\BG0702008\FlowAskDetail.html" />
     <Content Include="Pages\BG0702008\FlowCreate.html" />
     <Content Include="Pages\BG0702008\FlowDoneDetail.html" />
@@ -422,6 +434,10 @@
     <Content Include="Pages\BG0702012\FlowCreate.html" />
     <Content Include="Pages\BG0702012\FlowDoneDetail.html" />
     <Content Include="Pages\BG0702012\FlowUndoDetail.html" />
+    <Content Include="Pages\CGGL0703002\FlowAskDetail.html" />
+    <Content Include="Pages\CGGL0703002\FlowCreate.html" />
+    <Content Include="Pages\CGGL0703002\FlowDoneDetail.html" />
+    <Content Include="Pages\CGGL0703002\FlowUndoDetail.html" />
     <Content Include="Pages\CW0701008\FlowAskDetail.html" />
     <Content Include="Pages\CW0701008\FlowCreate.html" />
     <Content Include="Pages\CW0701008\FlowDoneDetail.html" />
@@ -447,6 +463,10 @@
     <Content Include="Pages\FLSW0702002\FlowCreate.html" />
     <Content Include="Pages\FLSW0702002\FlowDoneDetail.html" />
     <Content Include="Pages\FLSW0702002\FlowUndoDetail.html" />
+    <Content Include="Pages\BG0702005\FlowAskDetail.html" />
+    <Content Include="Pages\BG0702005\FlowCreate.html" />
+    <Content Include="Pages\BG0702005\FlowDoneDetail.html" />
+    <Content Include="Pages\BG0702005\FlowUndoDetail.html" />
     <Content Include="Pages\SCGL0703002\FlowAskDetail.html" />
     <Content Include="Pages\SCGL0703002\FlowCreate.html" />
     <Content Include="Pages\SCGL0703002\FlowDoneDetail.html" />

@@ -707,6 +707,10 @@
                                 $("#fyyzl").removeAttr("disabled");
                                 $("#fyyyzx").removeAttr("disabled");
                                 $("#fyywt").removeAttr("readonly");
+                            } else if (NodeName == "推广部") {
+
+                            } else if (NodeName == "客服部") {
+
                             } else {
                                 cwNode = true;
                             }
@@ -856,47 +860,54 @@
             var pid = $("#stepId").val();
             var fbillno = $("#fbillno").val();
 
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + '<XForm>';
-            xml = xml + ' <Header>';
-            xml = xml + '<Method>InformSubmit</Method>';
-            xml = xml + '<PID>'+pid+'</PID>';
-           
-           
-            xml = xml + '<Comment></Comment>';
-           
-            xml = xml + '</Header>';
-            xml = xml + '<FormData>';
-            xml = xml + '<BPM_SGGSZXYJTHSPB>';
-            xml = xml + '<fbillno>'+fbillno+'</fbillno>';
-            xml = xml + '<fname>' + fname + '</fname>';
-            xml = xml + '<fdept>' + fdept + '</fdept>';
-            xml = xml + '<fdate>' + fdate + '</fdate>';
-            xml = xml + '<ftel>' + ftel + '</ftel>';
-            xml = xml + '<fshmc>' + fshmc + '</fshmc>';
-            xml = xml + '<fdph>' + fdph + '</fdph>';
-            xml = xml + '<fshlx>' + fshlx + '</fshlx>';
-            xml = xml + '<fyytz>' + fyytz + '</fyytz>';
-            xml = xml + '<fyyzl>' + fyyzl + '</fyyzl>';
-            xml = xml + '<fyyyzx>' + fyyyzx + '</fyyyzx>';
-            xml = xml + '<fyywt>' + fyywt + '</fyywt>';
-            xml = xml + '<fgctz>' + fgctz + '</fgctz>';
-            xml = xml + '<fgcyzx>' + fgcyzx + '</fgcyzx>';
-            xml = xml + ' <fgcwt>' + fgcwt + '</fgcwt>';
-            xml = xml + ' <fabtz>' + fabtz + '</fabtz>';
-            xml = xml + '<fabyzx>' + fabyzx + '</fabyzx>';
-            xml = xml + '<fabwt>'+fabwt+'</fabwt>';
-            xml = xml + ' <ftgyzx>0</ftgyzx>';
-            xml = xml + '<ftgwt></ftgwt>';
-            xml = xml + '<fkfyzx>0</fkfyzx>';
-            xml = xml + '<fkfwt></fkfwt>';
-            xml = xml + '<fcwyzx>' + fcwyzx + '</fcwyzx>';
-            xml = xml + '<fcwwt>' + fcwwt + '</fcwwt>';
-            xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
-            xml = xml + '</BPM_SGGSZXYJTHSPB>';
-            xml = xml + ' </FormData>';
-            xml = xml + '</XForm>';
-            PostXml(xml);
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
+                if (e.index == 1) {
+                    comment = e.value;
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + ' <Header>';
+                    xml = xml + '<Method>InformSubmit</Method>';
+                    xml = xml + '<PID>' + pid + '</PID>';
+
+
+                    xml = xml + '<Comment>' + comment + '</Comment>';
+
+                    xml = xml + '</Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<BPM_SGGSZXYJTHSPB>';
+                    xml = xml + '<fbillno>' + fbillno + '</fbillno>';
+                    xml = xml + '<fname>' + fname + '</fname>';
+                    xml = xml + '<fdept>' + fdept + '</fdept>';
+                    xml = xml + '<fdate>' + fdate + '</fdate>';
+                    xml = xml + '<ftel>' + ftel + '</ftel>';
+                    xml = xml + '<fshmc>' + fshmc + '</fshmc>';
+                    xml = xml + '<fdph>' + fdph + '</fdph>';
+                    xml = xml + '<fshlx>' + fshlx + '</fshlx>';
+                    xml = xml + '<fyytz>' + fyytz + '</fyytz>';
+                    xml = xml + '<fyyzl>' + fyyzl + '</fyyzl>';
+                    xml = xml + '<fyyyzx>' + fyyyzx + '</fyyyzx>';
+                    xml = xml + '<fyywt>' + fyywt + '</fyywt>';
+                    xml = xml + '<fgctz>' + fgctz + '</fgctz>';
+                    xml = xml + '<fgcyzx>' + fgcyzx + '</fgcyzx>';
+                    xml = xml + ' <fgcwt>' + fgcwt + '</fgcwt>';
+                    xml = xml + ' <fabtz>' + fabtz + '</fabtz>';
+                    xml = xml + '<fabyzx>' + fabyzx + '</fabyzx>';
+                    xml = xml + '<fabwt>' + fabwt + '</fabwt>';
+                    xml = xml + ' <ftgyzx>0</ftgyzx>';
+                    xml = xml + '<ftgwt></ftgwt>';
+                    xml = xml + '<fkfyzx>0</fkfyzx>';
+                    xml = xml + '<fkfwt></fkfwt>';
+                    xml = xml + '<fcwyzx>' + fcwyzx + '</fcwyzx>';
+                    xml = xml + '<fcwwt>' + fcwwt + '</fcwwt>';
+                    xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                    xml = xml + '</BPM_SGGSZXYJTHSPB>';
+                    xml = xml + ' </FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+                }
+            });
         }
         function AgreeOrConSign() {
             var fname = $("#fname").val();

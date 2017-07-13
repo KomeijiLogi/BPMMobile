@@ -747,50 +747,58 @@
                 var sh = ShItem(shdept, shname, shno, zhiwei);
                 shlistArr.push(sh);
             });
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + '<XForm>';
-            xml = xml + '<Header>';
-            xml = xml + '<Method>InformSubmit</Method>';
-            xml = xml + '<PID>' + pid + '</PID>';
-            xml = xml + '<Comment></Comment>';
-            xml = xml + '</Header>';
-            xml = xml + ' <FormData>';
-            xml = xml + '<BPM_SGGSBMLXD_A>';
-            xml = xml + '<fbillno>' + fbillno+'</fbillno>';
-            xml = xml + '<fhname>' + fhdate + '</fhname>';
-            xml = xml + '<fhdept>' + fhdept + '</fhdept>';
-            xml = xml + '<fhdate>' + fhdate + '</fhdate>';
-            xml = xml + '<tel>' + tel + '</tel>';
-            xml = xml + '<fcyq>' + fcyq + '</fcyq>';
-            xml = xml + '<blsx>' + blsx + '</blsx>';
-            xml = xml + '<bmcd>' + bmcd + '</bmcd>';
-            xml = xml + '<nlbh></nlbh>';
-            //remark:测试下缺少这个字段
-            xml = xml + '<fnllb>' + fnllb + '</fnllb>';
 
-            xml = xml + '<fhzt>' + fhzt + '</fhzt>';
-            xml = xml + '<fhnr>' + fhnr + '</fhnr>';
-            if (fjArray.toString() != null && fjArray.toString() != "") {
-                xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
-            } else {
-                xml = xml + '      <fj></fj>';
-            }
-            xml = xml + ' </BPM_SGGSBMLXD_A>';
-            for (var i = 0; i < shlistArr.length; i++) {
-                xml = xml + ' <BPM_SGGSBMLXD_B>';
-                xml = xml + '  <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
-                xml = xml + '  <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
-                xml = xml + '  <fentryno>' + (i + 1) + '</fentryno>';
-                xml = xml + '<shdept>' + shlistArr[i].shdept + '</shdept>';
-                xml = xml + '<shname>' + shlistArr[i].shname + '</shname>';
-                xml = xml + '<shno>' + shlistArr[i].shno + '</shno>';
-                xml = xml + '<zhiwei>' + shlistArr[i].zhiwei + '</zhiwei>';
-                xml = xml + ' </BPM_SGGSBMLXD_B>';
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
+                if (e.index == 1) {
+                    comment = e.value;
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '<Header>';
+                    xml = xml + '<Method>InformSubmit</Method>';
+                    xml = xml + '<PID>' + pid + '</PID>';
+                    xml = xml + '<Comment>' + comment + '</Comment>';
+                    xml = xml + '</Header>';
+                    xml = xml + ' <FormData>';
+                    xml = xml + '<BPM_SGGSBMLXD_A>';
+                    xml = xml + '<fbillno>' + fbillno + '</fbillno>';
+                    xml = xml + '<fhname>' + fhdate + '</fhname>';
+                    xml = xml + '<fhdept>' + fhdept + '</fhdept>';
+                    xml = xml + '<fhdate>' + fhdate + '</fhdate>';
+                    xml = xml + '<tel>' + tel + '</tel>';
+                    xml = xml + '<fcyq>' + fcyq + '</fcyq>';
+                    xml = xml + '<blsx>' + blsx + '</blsx>';
+                    xml = xml + '<bmcd>' + bmcd + '</bmcd>';
+                    xml = xml + '<nlbh></nlbh>';
+                    //remark:测试下缺少这个字段
+                    xml = xml + '<fnllb>' + fnllb + '</fnllb>';
 
-            }
-            xml = xml + '</FormData>';
-            xml = xml + '</XForm>';
-            PostXml(xml);
+                    xml = xml + '<fhzt>' + fhzt + '</fhzt>';
+                    xml = xml + '<fhnr>' + fhnr + '</fhnr>';
+                    if (fjArray.toString() != null && fjArray.toString() != "") {
+                        xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
+                    } else {
+                        xml = xml + '      <fj></fj>';
+                    }
+                    xml = xml + ' </BPM_SGGSBMLXD_A>';
+                    for (var i = 0; i < shlistArr.length; i++) {
+                        xml = xml + ' <BPM_SGGSBMLXD_B>';
+                        xml = xml + '  <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
+                        xml = xml + '  <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
+                        xml = xml + '  <fentryno>' + (i + 1) + '</fentryno>';
+                        xml = xml + '<shdept>' + shlistArr[i].shdept + '</shdept>';
+                        xml = xml + '<shname>' + shlistArr[i].shname + '</shname>';
+                        xml = xml + '<shno>' + shlistArr[i].shno + '</shno>';
+                        xml = xml + '<zhiwei>' + shlistArr[i].zhiwei + '</zhiwei>';
+                        xml = xml + ' </BPM_SGGSBMLXD_B>';
+
+                    }
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+                }
+            });
         }
 
 

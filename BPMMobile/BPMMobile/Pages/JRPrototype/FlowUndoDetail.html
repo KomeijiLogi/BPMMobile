@@ -788,8 +788,82 @@
             }
         }
         function hasRead() {
+            var pid = $("#stepId").val();//stepId
+            var fname = $("#fname").val();
+            var farea = $("#farea").val();
+            var fdate = $("#fdate").val() + " 00:00:00";
+            var ftel = $("#ftel").val();
+            var fyplx = $("#fyplx").val();
+            var fcusno = $("#fcusno").val();
+            var fcusname = $("#fcusname").val();
+            var fremark = $("#fremark").val();
+            var fbillno = $("#fbillno").val();
 
+            var yplistArr = new Array();
+            $("#yplist").find("#yp").each(function () {
 
+                var fwlno = $(this).find("#fwlno").val();
+                var fwlname = $(this).find("#fwlname").val();
+                var fggxh = $(this).find("#fggxh").val();
+                var fsl = $(this).find("#fsl").val();
+                var fremark = $(this).find("#fremark").val();
+                if (Ypitem(fwlno, fwlname, fggxh, fsl, fremark) == null) {
+                    return;
+                }
+                var yp = Ypitem(fwlno, fwlname, fggxh, fsl, fremark);
+                yplistArr.push(yp);
+            });
+
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
+                if (e.index == 1) {
+                    comment = e.value;
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + ' <Header>';
+                    xml = xml + '<Method>InformSubmit</Method>';
+                    xml = xml + '<PID>' + pid + '</PID>';
+                    xml = xml + '<Comment>' + comment + '</Comment>';
+                    xml = xml + '</Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<BPM_JRYPSQ_A>';
+                    xml = xml + '<fbillno>' + fbillno + '</fbillno>';
+                    xml = xml + '<fname>' + fname + '</fname>';
+                    xml = xml + '<farea>' + farea + '</farea>';
+                    xml = xml + '<fdate>' + fdate + '</fdate>';
+                    xml = xml + '<ftel>' + ftel + '</ftel>';
+                    xml = xml + '<fyplx>' + fyplx + '</fyplx>';
+                    xml = xml + '<fcusno>' + fcusno + '</fcusno>';
+                    xml = xml + '<fcusname>' + fcusname + '</fcusname>';
+                    xml = xml + '<fremark>' + fremark + '</fremark>';
+                    if (fjArray.toString() != null && fjArray.toString() != "") {
+
+                        xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
+                    } else {
+
+                        xml = xml + '      <fj></fj>';
+                    }
+                    xml = xml + '</BPM_JRYPSQ_A>';
+                    for (var i = 0; i < yplistArr.length; i++) {
+                        xml = xml + '<BPM_JRYPSQ_B>';
+                        xml = xml + '  <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
+                        xml = xml + '  <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
+                        xml = xml + '  <fentryno>' + (i + 1) + '</fentryno>';
+                        xml = xml + '  <fwlno>' + yplistArr[i].fwlno + '</fwlno>';
+                        xml = xml + '  <fwlname>' + yplistArr[i].fwlname + '</fwlname>';
+                        xml = xml + '  <fggxh>' + yplistArr[i].fggxh + '</fggxh>';
+                        xml = xml + '  <fsl>' + yplistArr[i].fsl + '</fsl>';
+                        xml = xml + '  <fremark>' + yplistArr[i].fremark + '</fremark>';
+                        xml = xml + '</BPM_JRYPSQ_B>';
+                    }
+                    xml = xml + '             </FormData>';
+                    xml = xml + '         </XForm>';
+
+                    PostXml(xml);
+
+                }
+            });
         }
 
         //定义样品函数

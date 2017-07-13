@@ -939,57 +939,63 @@
             var flowPerId = $("#flowPerId").val();
             var flowCause = $("#flowCause").val();
             var pid = $("#stepId").val();//stepId
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
+                if (e.index == 1) {
+                    comment = e.value;
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '  <Header>';
+                    xml = xml + '    <Method>InformSubmit</Method>';
+                    xml = xml + '    <PID>' + pid + '</PID>';
+                    xml = xml + '    <Comment>' + comment + '</Comment>';
+                    xml = xml + '  </Header>';
+                    xml = xml + ' <FormData>';
+                    xml = xml + '  <BPM_JRAPP>';
+                    xml = xml + '     <fbt>' + flowTitle + '</fbt>';
+                    xml = xml + '     <fsy>' + flowCause + '</fsy>';
+                    if (fjArray.toString() != null && fjArray.toString() != "") {
 
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + '<XForm>';
-            xml = xml + '  <Header>';
-            xml = xml + '    <Method>InformSubmit</Method>';
-            xml = xml + '    <PID>' + pid + '</PID>';
-            xml = xml + '    <Comment></Comment>';
-            xml = xml + '  </Header>';
-            xml = xml + ' <FormData>';
-            xml = xml + '  <BPM_JRAPP>';
-            xml = xml + '     <fbt>' + flowTitle + '</fbt>';
-            xml = xml + '     <fsy>' + flowCause + '</fsy>';
-            if (fjArray.toString() != null && fjArray.toString() != "") {
-
-                xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
-            } else {
-
-                xml = xml + '      <fj></fj>';
-            }
-            xml = xml + '  </BPM_JRAPP>';
-            xml = xml + ' </FormData>';
-            xml = xml + '</XForm>';
-
-
-
-
-
-
-            $.ajax({
-                type: "POST",
-                url: "/api/bpm/PostProcess",
-                data: { '': xml },
-                beforeSend: function (XHR) {
-                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
-
-                },
-                success: function (data, status) {
-                    if (status == "success") {
-                        mui.toast("操作成功");
-                        setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
+                        xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
                     } else {
-                        mui.toast("操作失败!请稍后重试");
+
+                        xml = xml + '      <fj></fj>';
                     }
+                    xml = xml + '  </BPM_JRAPP>';
+                    xml = xml + ' </FormData>';
+                    xml = xml + '</XForm>';
 
-                },
-                error: function (e) {
-                    //alert(e);
-                },
-                complete: function () { }
+
+
+
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/bpm/PostProcess",
+                        data: { '': xml },
+                        beforeSend: function (XHR) {
+                            XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+                        },
+                        success: function (data, status) {
+                            if (status == "success") {
+                                mui.toast("操作成功");
+                                setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
+                            } else {
+                                mui.toast("操作失败!请稍后重试");
+                            }
+
+                        },
+                        error: function (e) {
+                            //alert(e);
+                        },
+                        complete: function () { }
+                    });
+                }
+
             });
-
         }
 
 

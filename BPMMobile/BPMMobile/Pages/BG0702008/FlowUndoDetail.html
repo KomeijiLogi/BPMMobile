@@ -721,30 +721,36 @@
             var fdpno = $("#fdpno").val();
             var fssxm = $("#fssxm").val();
             var fpd = $("#fpd").val();
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
+                if (e.index == 1) {
+                    comment = e.value;
 
-
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + '<XForm>';
-            xml = xml + '<Header>';
-            xml = xml + '<Method>InformSubmit</Method>';
-            xml = xml + '<PID>' + pid + '</PID>';
-            xml = xml + '<Comment></Comment>';
-            xml = xml + '</Header>';
-            xml = xml + '<FormData>';
-            xml = xml + ' <BPM_SGGSTZHS>';
-            xml = xml + '<fname>' + fname + '</fname>';
-            xml = xml + '<fdept>' + fdept + '</fdept>';
-            xml = xml + '<fdate>' + fdate + '</fdate>';
-            xml = xml + '<ftel>' + ftel + '</ftel>';
-            xml = xml + '<fshname>' + fshname + '</fshname>';
-            xml = xml + '<fdpno>' + fdpno + '</fdpno>';
-            xml = xml + '<fssxm>' + fssxm + '</fssxm>';
-            xml = xml + '<fpd>' + fpd + '</fpd>';
-            xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
-            xml = xml + '</BPM_SGGSTZHS>';
-            xml = xml + '</FormData>';
-            xml = xml + '</XForm>';
-            PostXml(xml);
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '<Header>';
+                    xml = xml + '<Method>InformSubmit</Method>';
+                    xml = xml + '<PID>' + pid + '</PID>';
+                    xml = xml + '<Comment>' + comment + '</Comment>';
+                    xml = xml + '</Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + ' <BPM_SGGSTZHS>';
+                    xml = xml + '<fname>' + fname + '</fname>';
+                    xml = xml + '<fdept>' + fdept + '</fdept>';
+                    xml = xml + '<fdate>' + fdate + '</fdate>';
+                    xml = xml + '<ftel>' + ftel + '</ftel>';
+                    xml = xml + '<fshname>' + fshname + '</fshname>';
+                    xml = xml + '<fdpno>' + fdpno + '</fdpno>';
+                    xml = xml + '<fssxm>' + fssxm + '</fssxm>';
+                    xml = xml + '<fpd>' + fpd + '</fpd>';
+                    xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                    xml = xml + '</BPM_SGGSTZHS>';
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+                }
+            });
         }
 
         function Save() {
@@ -831,20 +837,21 @@
                     if (status == "success") {
                         console.log(data);
                         $("#wrapper").css("display", "none");
+
                         if ($("#recedeWr").length != 0) {
                             $("#recedeWr").remove();
                         }
-                       
+                        
 
                         var li = '<div class="mui-card" id="recedeWr" style="z-index:999;">';
                         li = li + '  <form class="mui-input-group">';
                         li = li + '  <div class="mui-input-row bgc">';
-                        li = li + '       <label>将任务退回到</label>';
+                        li = li + '       <label>将任务退回</label>';
                         li = li + '  </div>';
                         for (var i = 0; i < data.length;i++){
+
                             li = li + '     <div class="mui-input-row mui-checkbox mui-left">';
                             li = li + '     <label>' + data[i].NodeName + '&nbsp;' + data[i].OwnerFullName + '&nbsp;' + FormatterTimeYMS(data[i].FinishAt) + '</label>';
-
                             li = li + '     <input name="stepcbox" value="' + data[i].StepID + '" type="checkbox" >';
                             li = li + '     </div>';
                             

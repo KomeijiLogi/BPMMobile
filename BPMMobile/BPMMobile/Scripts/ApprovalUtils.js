@@ -10,6 +10,7 @@ var attachArray = new Array();
 var action;
 var toStepIDs = new Array();
 
+
 //提交,审批,加签,已阅
 function PostXml(xml) {
     $.ajax({
@@ -23,14 +24,18 @@ function PostXml(xml) {
         success: function (data, status) {
 
             if (status == "success") {
-                //console.log(data);
+                console.log(data);
                 if (data.Recipients[0] != null) {
                     mui.toast("提交给" + data.Recipients[0].Recipient.DisplayName);
                 } else {
                     mui.toast("流程结束");
                 }
-                
-                setTimeout("window.location.href = '/Pages/index.html?ticket=" + localStorage.getItem('ticket') + "'", 2000);
+                if (String(xml).indexOf("提交") != -1) {
+                    setTimeout("window.location.href = '/Pages/index.html?ticket=" + localStorage.getItem('ticket') + "'", 2000);
+                } else {
+                    setTimeout("window.location.href = '/Pages/UndoFlow.html'", 2000);
+                }
+              
 
             } else {
                 mui.toast("提交失败!请稍后重试");
@@ -155,76 +160,60 @@ function Notify() {
 
 }
 
-//获取当前日期
-function getNowFormatDate(timeformat) {
-    
+//退回某步
+function RecedeBack() {
+    var stepId = $("#stepId").val();
+    var comments;
+    var list = document.getElementById('recedeWr');
+    var checkboxArray = [].slice.call(list.querySelectorAll('input[type="checkbox"]'));
 
-    var date = new Date();
-    var seperator1 = "-";
-    var seperator2 = ":";
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var strDate = date.getDate();
-    if (month >= 1 && month <= 9) {
-        month = "0" + month;
-    }
-    if (strDate >= 0 && strDate <= 9) {
-        strDate = "0" + strDate;
-    }
-    var hour = date.getHours();
-    if (hour >= 0 && hour <= 9) {
-        hour = "0" + hour;
-    }
-    var minute = date.getMinutes();
-    if (minute >= 0 && minute <= 9) {
-        minute = "0" + minute;
-    }
-    var seconds = date.getSeconds();
-    if (seconds >= 0 && seconds <= 9) {
-        seconds = "0" + seconds;
-    }
-    //yyyy-MM-dd hh:mm:ss格式
-    var currentdate1 = year + seperator1 + month + seperator1 + strDate
-        + " " + hour + seperator2 + minute + seperator2 + seconds
-        ;
-    //yyyy-MM-dd
-    var currentdate2 = year + seperator1 + month + seperator1 + strDate;
+    checkboxArray.forEach(function (box) {
+        if (box.checked) {
+            toStepIDs.push(box.value);
+        }
+    });
+    if (toStepIDs.length > 0) {
+        var btnArray = ['取消', '确定'];
+        mui.prompt('请输入原因：', '', '退回理由', btnArray, function (e) {
+            if (e.index == 1) {
+                comments = e.value;
 
-    //hh:mm:ss
-    var currentdate3 = hour + seperator2 + minute + seperator2 + seconds;
-    if (timeformat == 1) {
-        return currentdate1;
-    } else if (timeformat == 2) {
-        return currentdate2;
-    } else if (timeformat == 3) {
-        return currentdate3;
+
+                $.ajax({
+                    type: 'Post',
+                    url: '/api/bpm/PostRecedeBack',
+                    //dataType:'json',
+                    data: { 'stepid': stepId, 'comments': comments, 'toStepIDs': toStepIDs },
+
+                    beforeSend: function (XHR) {
+                        XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+                    },
+                    success: function (data, status) {
+                        if (status == "success") {
+                            console.log(data);
+                            mui.toast("退回到某步操作成功");
+                            setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
+                        }
+                    }, error: function (e) {
+
+                    }, complete: function () {
+
+                    }
+                });
+            }
+        });
     } else {
-        return "";
+        mui.toast("未选中任何节点");
     }
-    
-}
 
-//格式化时间为MM-dd hh:mm
-function FormatterTime(time) {
-    var time = String(time);
-    var ymd = time.substring(time.indexOf("-") + 1, time.indexOf("T"));
-    var hms = time.substring(time.indexOf("T") + 1, time.lastIndexOf(":"));
-    time = ymd + " " + hms;
 
-    return time;
-}
-//格式化时间为yyyy-MM-dd
-function FormatterTimeYMS(time) {
-    var time = String(time);
-    var ymd = time.substring(0, time.indexOf("T"));
-    return ymd;
 }
 
 
 //退回重填
-function Refilled(taskId) {
+function Refilled() {
 
-
+    var taskId = $("#taskId").val();
     var comments;
     var btnArray = ['取消', '确定'];
     mui.prompt('请输入原因：', '', '退回理由', btnArray, function (e) {
@@ -251,7 +240,7 @@ function Refilled(taskId) {
                 },
                 error: function (e) {
                     //console.log(e);  
-
+                    alert(e.statusText);
                 },
                 complete: function () { }
 
@@ -296,27 +285,6 @@ function getBPMParam() {
 
 }
 
-//前端获取ticket
-function getUrlParam(name) {
-
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-
-    var r;
-    if (window.location.search != null && window.location.search != "") {
-
-        r = window.location.search.substr(1).match(reg);
-
-        if (r != null) {
-
-            return unescape(r[2]);
-        }
-    } else {
-        var ticket = localStorage.getItem('ticket');
-
-        return ticket;
-    }
-    return null;
-}
 
 //拒绝
 function reject() {
@@ -360,6 +328,29 @@ function reject() {
 
 }
 
+
+//前端获取ticket
+function getUrlParam(name) {
+
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+
+    var r;
+    if (window.location.search != null && window.location.search != "") {
+
+        r = window.location.search.substr(1).match(reg);
+
+        if (r != null) {
+
+            return unescape(r[2]);
+        }
+    } else {
+        var ticket = localStorage.getItem('ticket');
+
+        return ticket;
+    }
+    return null;
+}
+
 //选择器前提需要mui加载完成
 function showPicker(el, data) {
 
@@ -381,94 +372,6 @@ function showPicker(el, data) {
 }
 
 
-
-// 数字转换成大写金额函数
-function atoc(numberValue) {
-    var numberValue = new String(Math.round(numberValue * 100)); // 数字金额
-    var chineseValue = ""; // 转换后的汉字金额
-    var String1 = "零壹贰叁肆伍陆柒捌玖"; // 汉字数字
-    var String2 = "万仟佰拾亿仟佰拾万仟佰拾元角分"; // 对应单位
-    var len = numberValue.length; // numberValue 的字符串长度
-    var Ch1; // 数字的汉语读法
-    var Ch2; // 数字位的汉字读法
-    var nZero = 0; // 用来计算连续的零值的个数
-    var String3; // 指定位置的数值
-    if (len > 15) {
-        alert("超出计算范围");
-        return "";
-    }
-    if (numberValue == 0) {
-        chineseValue = "零元整";
-        return chineseValue;
-    }
-
-    String2 = String2.substr(String2.length - len, len); // 取出对应位数的STRING2的值
-    for (var i = 0; i < len; i++) {
-        String3 = parseInt(numberValue.substr(i, 1), 10); // 取出需转换的某一位的值
-        if (i != (len - 3) && i != (len - 7) && i != (len - 11) && i != (len - 15)) {
-            if (String3 == 0) {
-                Ch1 = "";
-                Ch2 = "";
-                nZero = nZero + 1;
-            }
-            else if (String3 != 0 && nZero != 0) {
-                Ch1 = "零" + String1.substr(String3, 1);
-                Ch2 = String2.substr(i, 1);
-                nZero = 0;
-            }
-            else {
-                Ch1 = String1.substr(String3, 1);
-                Ch2 = String2.substr(i, 1);
-                nZero = 0;
-            }
-        }
-        else { // 该位是万亿，亿，万，元位等关键位
-            if (String3 != 0 && nZero != 0) {
-                Ch1 = "零" + String1.substr(String3, 1);
-                Ch2 = String2.substr(i, 1);
-                nZero = 0;
-            }
-            else if (String3 != 0 && nZero == 0) {
-                Ch1 = String1.substr(String3, 1);
-                Ch2 = String2.substr(i, 1);
-                nZero = 0;
-            }
-            else if (String3 == 0 && nZero >= 3) {
-                Ch1 = "";
-                Ch2 = "";
-                nZero = nZero + 1;
-            }
-            else {
-                Ch1 = "";
-                Ch2 = String2.substr(i, 1);
-                nZero = nZero + 1;
-            }
-            if (i == (len - 11) || i == (len - 3)) { // 如果该位是亿位或元位，则必须写上
-                Ch2 = String2.substr(i, 1);
-            }
-        }
-        chineseValue = chineseValue + Ch1 + Ch2;
-    }
-
-    if (String3 == 0) { // 最后一位（分）为0时，加上“整”
-        chineseValue = chineseValue + "整";
-    }
-
-    return chineseValue;
-}
-
-//格式化钱
-function FormatMoney(s) {
-    if (/[^0-9\.]/.test(s)) return "invalid value";
-    s = s.replace(/^(\d*)$/, "$1.");
-    s = (s + "00").replace(/(\d*\.\d\d)\d*/, "$1");
-    s = s.replace(".", ",");
-    var re = /(\d)(\d{3},)/;
-    while (re.test(s))
-        s = s.replace(re, "$1,$2");
-    s = s.replace(/,(\d\d)$/, ".$1");
-    return "" + s.replace(/^\./, "0.")
-}  
 
 //打开加签
 
@@ -574,6 +477,94 @@ function watch() {
     }
 
 }
+// 数字转换成大写金额函数
+function atoc(numberValue) {
+    var numberValue = new String(Math.round(numberValue * 100)); // 数字金额
+    var chineseValue = ""; // 转换后的汉字金额
+    var String1 = "零壹贰叁肆伍陆柒捌玖"; // 汉字数字
+    var String2 = "万仟佰拾亿仟佰拾万仟佰拾元角分"; // 对应单位
+    var len = numberValue.length; // numberValue 的字符串长度
+    var Ch1; // 数字的汉语读法
+    var Ch2; // 数字位的汉字读法
+    var nZero = 0; // 用来计算连续的零值的个数
+    var String3; // 指定位置的数值
+    if (len > 15) {
+        alert("超出计算范围");
+        return "";
+    }
+    if (numberValue == 0) {
+        chineseValue = "零元整";
+        return chineseValue;
+    }
+
+    String2 = String2.substr(String2.length - len, len); // 取出对应位数的STRING2的值
+    for (var i = 0; i < len; i++) {
+        String3 = parseInt(numberValue.substr(i, 1), 10); // 取出需转换的某一位的值
+        if (i != (len - 3) && i != (len - 7) && i != (len - 11) && i != (len - 15)) {
+            if (String3 == 0) {
+                Ch1 = "";
+                Ch2 = "";
+                nZero = nZero + 1;
+            }
+            else if (String3 != 0 && nZero != 0) {
+                Ch1 = "零" + String1.substr(String3, 1);
+                Ch2 = String2.substr(i, 1);
+                nZero = 0;
+            }
+            else {
+                Ch1 = String1.substr(String3, 1);
+                Ch2 = String2.substr(i, 1);
+                nZero = 0;
+            }
+        }
+        else { // 该位是万亿，亿，万，元位等关键位
+            if (String3 != 0 && nZero != 0) {
+                Ch1 = "零" + String1.substr(String3, 1);
+                Ch2 = String2.substr(i, 1);
+                nZero = 0;
+            }
+            else if (String3 != 0 && nZero == 0) {
+                Ch1 = String1.substr(String3, 1);
+                Ch2 = String2.substr(i, 1);
+                nZero = 0;
+            }
+            else if (String3 == 0 && nZero >= 3) {
+                Ch1 = "";
+                Ch2 = "";
+                nZero = nZero + 1;
+            }
+            else {
+                Ch1 = "";
+                Ch2 = String2.substr(i, 1);
+                nZero = nZero + 1;
+            }
+            if (i == (len - 11) || i == (len - 3)) { // 如果该位是亿位或元位，则必须写上
+                Ch2 = String2.substr(i, 1);
+            }
+        }
+        chineseValue = chineseValue + Ch1 + Ch2;
+    }
+
+    if (String3 == 0) { // 最后一位（分）为0时，加上“整”
+        chineseValue = chineseValue + "整";
+    }
+
+    return chineseValue;
+}
+
+//格式化钱
+function FormatMoney(s) {
+    if (/[^0-9\.]/.test(s)) return "invalid value";
+    s = s.replace(/^(\d*)$/, "$1.");
+    s = (s + "00").replace(/(\d*\.\d\d)\d*/, "$1");
+    s = s.replace(".", ",");
+    var re = /(\d)(\d{3},)/;
+    while (re.test(s))
+        s = s.replace(re, "$1,$2");
+    s = s.replace(/,(\d\d)$/, ".$1");
+    return "" + s.replace(/^\./, "0.")
+}
+
 
 //定义附件函数
 function attachItem(name, type, size, time, downurl) {
@@ -643,7 +634,7 @@ function getRecedableToSteps() {
                 var li = '<div class="mui-card" id="recedeWr" style="z-index:999;">';
                 li = li + '  <form class="mui-input-group">';
                 li = li + '  <div class="mui-input-row bgc">';
-                li = li + '       <label>将任务退回到</label>';
+                li = li + '       <label>将任务退回</label>';
                 li = li + '  </div>';
                 for (var i = 0; i < data.length; i++) {
                     li = li + '     <div class="mui-input-row mui-checkbox mui-left">';
@@ -670,57 +661,128 @@ function getRecedableToSteps() {
 }
 
 
-//退回某步
-function RecedeBack() {
-    var stepId = $("#stepId").val();
-    var comments;
-    var list = document.getElementById('recedeWr');
-    var checkboxArray = [].slice.call(list.querySelectorAll('input[type="checkbox"]'));
 
-    checkboxArray.forEach(function (box) {
-        if (box.checked) {
-            toStepIDs.push(box.value);
-        }
-    });
-    if (toStepIDs.length > 0) {
-        var btnArray = ['取消', '确定'];
-        mui.prompt('请输入原因：', '', '退回理由', btnArray, function (e) {
-            if (e.index == 1) {
-                comments = e.value;
-
-
-                $.ajax({
-                    type: 'Post',
-                    url: '/api/bpm/PostRecedeBack',
-                    //dataType:'json',
-                    data: { 'stepid': stepId, 'comments': comments, 'toStepIDs': toStepIDs },
-
-                    beforeSend: function (XHR) {
-                        XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
-                    },
-                    success: function (data, status) {
-                        if (status == "success") {
-                            console.log(data);
-                            mui.toast("退回到某步操作成功");
-                            setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
-                        }
-                    }, error: function (e) {
-
-                    }, complete: function () {
-
-                    }
-                });
-            }
-        });
-    } else {
-        mui.toast("未选中任何节点");
-    }
-
-
-}
 
 function goBack() {
     $("#recedeWr").css("display", "none");
     $("#wrapper").css("display", "block");
 
 }
+
+
+//获取当前日期
+function getNowFormatDate(timeformat) {
+
+
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var hour = date.getHours();
+    if (hour >= 0 && hour <= 9) {
+        hour = "0" + hour;
+    }
+    var minute = date.getMinutes();
+    if (minute >= 0 && minute <= 9) {
+        minute = "0" + minute;
+    }
+    var seconds = date.getSeconds();
+    if (seconds >= 0 && seconds <= 9) {
+        seconds = "0" + seconds;
+    }
+    //yyyy-MM-dd hh:mm:ss格式
+    var currentdate1 = year + seperator1 + month + seperator1 + strDate
+        + " " + hour + seperator2 + minute + seperator2 + seconds
+        ;
+    //yyyy-MM-dd
+    var currentdate2 = year + seperator1 + month + seperator1 + strDate;
+
+    //hh:mm:ss
+    var currentdate3 = hour + seperator2 + minute + seperator2 + seconds;
+    if (timeformat == 1) {
+        return currentdate1;
+    } else if (timeformat == 2) {
+        return currentdate2;
+    } else if (timeformat == 3) {
+        return currentdate3;
+    } else {
+        return "";
+    }
+
+}
+
+//格式化时间为MM-dd hh:mm
+function FormatterTime(time) {
+    var time = String(time);
+    var ymd = time.substring(time.indexOf("-") + 1, time.indexOf("T"));
+    var hms = time.substring(time.indexOf("T") + 1, time.lastIndexOf(":"));
+    time = ymd + " " + hms;
+
+    return time;
+}
+//格式化时间为yyyy-MM-dd
+function FormatterTimeYMS(time) {
+    var time = String(time);
+    var ymd = time.substring(0, time.indexOf("T"));
+    return ymd;
+}
+
+
+//格局化日期：yyyy-MM-dd  
+function formatDate(date) {
+    var myyear = date.getFullYear();
+    var mymonth = date.getMonth() + 1;
+    var myweekday = date.getDate();
+
+    if (mymonth < 10) {
+        mymonth = "0" + mymonth;
+    }
+    if (myweekday < 10) {
+        myweekday = "0" + myweekday;
+    }
+    return (myyear + "-" + mymonth + "-" + myweekday);
+}  
+var date = new Date();
+var nowYear = date.getFullYear();
+var nowMonth = date.getMonth();
+var nowDay = date.getDate();
+var nowDayOfWeek = date.getDay();
+//获取本周的第一天
+function getWeekStartDate() {
+   
+    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek);
+    return formatDate(weekStartDate);   
+
+}
+//获取本周的最后一天
+function getWeekEndDate() {
+    var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek));
+    return formatDate(weekEndDate);   
+}
+//获取下周的第一天
+function getNextWeekStartDate() {
+    
+    var nextWeekStartDate = new Date(nowYear, nowMonth, (nowDay + 7) - nowDayOfWeek);
+    return formatDate(nextWeekStartDate);
+}
+//获取下周的最后一天
+function getNextWeekEndDate() {
+
+    var nextWeekEndDate = new Date(nowYear, nowMonth, (nowDay + 7) + (6 - nowDayOfWeek));
+    return formatDate(nextWeekEndDate);
+}
+//获得某月的天数   
+function getMonthDays(myMonth) {
+    var monthStartDate = new Date(nowYear, myMonth, 1);
+    var monthEndDate = new Date(nowYear, myMonth + 1, 1);
+    var days = (monthEndDate - monthStartDate) / (1000 * 60 * 60 * 24);
+    return days;
+}  

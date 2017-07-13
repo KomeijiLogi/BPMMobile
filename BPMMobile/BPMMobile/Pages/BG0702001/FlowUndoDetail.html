@@ -913,37 +913,43 @@
             var ftitle = $("#ftitle").val();
             var fnqbh = $("#fnqbh").val();
             var fqsnr = $("#fqsnr").val();
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
+                if (e.index == 1) {
+                    comment = e.value;
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '<Header>';
+                    xml = xml + '<Method>InformSubmit</Method>';
+                    xml = xml + '<PID>' + pid + '</PID>';
+                    xml = xml + '<Comment>' + comment + '</Comment>';
+                    xml = xml + '</Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<BPM_SGGSNBQS>';
+                    xml = xml + '<fbillno>' + fbillno + '</fbillno>';
+                    xml = xml + '<fname>' + fname + '</fname>';
+                    xml = xml + '<fdept>' + fdept + '</fdept>';
+                    xml = xml + '<fdate>' + fdate + '</fdate>';
+                    xml = xml + '<tel></tel>';
+                    xml = xml + '<ftitle>' + ftitle + '</ftitle>';
+                    xml = xml + '<fnqbh>' + fnqbh + '</fnqbh>';
+                    //测试环境下缺少这两个字段
+                    xml = xml + '<ftg>' + ftg + '</ftg>';
+                    xml = xml + '<fiffy>' + fiffy + '</fiffy>';
 
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + '<XForm>';
-            xml = xml + '<Header>';
-            xml = xml + '<Method>InformSubmit</Method>';
-            xml = xml + '<PID>' + pid + '</PID>';
-            xml = xml + '<Comment></Comment>';
-            xml = xml + '</Header>';
-            xml = xml + '<FormData>';
-            xml = xml + '<BPM_SGGSNBQS>';
-            xml = xml + '<fbillno>' + fbillno+'</fbillno>';
-            xml = xml + '<fname>' + fname + '</fname>';
-            xml = xml + '<fdept>' + fdept + '</fdept>';
-            xml = xml + '<fdate>' + fdate + '</fdate>';
-            xml = xml + '<tel></tel>';
-            xml = xml + '<ftitle>' + ftitle + '</ftitle>';
-            xml = xml + '<fnqbh>' + fnqbh + '</fnqbh>';
-            //测试环境下缺少这两个字段
-            xml = xml + '<ftg>' + ftg + '</ftg>';
-            xml = xml + '<fiffy>' + fiffy + '</fiffy>';
-
-            xml = xml + '<fqsnr>' + fqsnr + '</fqsnr>';
-            if (fjArray.toString() != null && fjArray.toString() != "") {
-                xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
-            } else {
-                xml = xml + '      <fj></fj>';
-            }
-            xml = xml + '</BPM_SGGSNBQS>';
-            xml = xml + '</FormData>';
-            xml = xml + '</XForm>';
-            PostXml(xml);
+                    xml = xml + '<fqsnr>' + fqsnr + '</fqsnr>';
+                    if (fjArray.toString() != null && fjArray.toString() != "") {
+                        xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
+                    } else {
+                        xml = xml + '      <fj></fj>';
+                    }
+                    xml = xml + '</BPM_SGGSNBQS>';
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+                }
+            });
         }
 
         function tapEvent() {

@@ -520,6 +520,7 @@
                             $("#fydtk").removeAttr("readonly");
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
+                            $("#csd").css("display", "none");
                         } else {
 
                             $("#approvalD").css("display", "block");
@@ -680,32 +681,118 @@
             var fhtnr = $("#fhtnr").val();
             var fjkfs = $("#fjkfs").val();
             var fydtk = $("#fydtk").val();
-
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + '<XForm>';
-            xml = xml + '<Header>';
-            xml = xml + '<Method>InformSubmit</Method>';
-            xml = xml + '<PID>' + pid + '</PID>';
-            xml = xml + '<Comment></Comment>';
-            xml = xml + '</Header>';
-            xml = xml + '<FormData>';
-            xml = xml + ' <BPM_SGGSQTHTPS>';
-            xml = xml + ' <fbillno>' + fbillno + '</fbillno>';
-            xml = xml + '<fname>' + fname + '</fname>';
-            xml = xml + '<fdept>' + fdept + '</fdept>';
-            xml = xml + '<fdate>' + fdate + '</fdate>';
-            xml = xml + '<fze>' + fze + '</fze>';
-            xml = xml + '<fhtdf>' + fhtdf + '</fhtdf>';
-            xml = xml + '<fhtmc>' + fhtmc + '</fhtmc>';
-            xml = xml + '<fhtnr>' + fhtnr + '</fhtnr>';
-            xml = xml + '<fjkfs>' + fjkfs + '</fjkfs>';
-            xml = xml + '<fydtk>' + fydtk + '</fydtk>';
-            xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
-            xml = xml + '</BPM_SGGSQTHTPS>';
-            xml = xml + '</FormData>';
-            xml = xml + '</XForm>';
-            PostXml(xml);
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
+                if (e.index == 1) {
+                    comment = e.value;
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '<Header>';
+                    xml = xml + '<Method>InformSubmit</Method>';
+                    xml = xml + '<PID>' + pid + '</PID>';
+                    xml = xml + '<Comment>' + comment + '</Comment>';
+                    xml = xml + '</Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + ' <BPM_SGGSQTHTPS>';
+                    xml = xml + ' <fbillno>' + fbillno + '</fbillno>';
+                    xml = xml + '<fname>' + fname + '</fname>';
+                    xml = xml + '<fdept>' + fdept + '</fdept>';
+                    xml = xml + '<fdate>' + fdate + '</fdate>';
+                    xml = xml + '<fze>' + fze + '</fze>';
+                    xml = xml + '<fhtdf>' + fhtdf + '</fhtdf>';
+                    xml = xml + '<fhtmc>' + fhtmc + '</fhtmc>';
+                    xml = xml + '<fhtnr>' + fhtnr + '</fhtnr>';
+                    xml = xml + '<fjkfs>' + fjkfs + '</fjkfs>';
+                    xml = xml + '<fydtk>' + fydtk + '</fydtk>';
+                    xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                    xml = xml + '</BPM_SGGSQTHTPS>';
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+                }
+            });
         }
+
+        function Save() {
+
+            var fareaStr = String(BPMOU).split("/");
+            //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
+            $("#fdept").val(fareaStr[fareaStr.length - 2]);
+
+            var fname = $("#fname").val();
+            var fdept = $("#fdept").val();
+            var fdate = $("#fdate").val();
+            var fze = $("#fze").val();
+            var fhtdf = $("#fhtdf").val();
+            var fhtmc = $("#fhtmc").val();
+            var fhtnr = $("#fhtnr").val();
+            var fjkfs = $("#fjkfs").val();
+            var fydtk = $("#fydtk").val();
+
+            if (!fze || fze == "") {
+                mui.toast("请输入合同总额");
+                return;
+            }
+            if (!fhtdf || fhtdf == "") {
+                mui.toast("请输入合同对方");
+                return;
+            }
+            if (!fhtmc || fhtmc == "") {
+                mui.toast("请输入合同名称");
+                return;
+            }
+            if (!fhtnr || fhtnr == "") {
+                mui.toast("请输入合同内容");
+                return;
+            }
+            if (!fjkfs || fjkfs == "") {
+                mui.toast("请输入合同价款及付款方式");
+                return;
+            }
+            if (fjArray.toString() == null || fjArray.toString() == "") {
+                mui.toast("请上传附件");
+                return;
+            }
+
+            var btnArry = ["取消", "确定"];
+            mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
+                if (e.index == 1) {
+
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '<Header>';
+                    xml = xml + '<Method>Post</Method>';
+                    xml = xml + '<ProcessName>盛祥商管公司其他合同评审</ProcessName>';
+                    xml = xml + '<ProcessVersion>1.0</ProcessVersion>';
+                    xml = xml + '<DraftGuid></DraftGuid>';
+                    xml = xml + '<OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
+                    xml = xml + '<Action>提交</Action>';
+                    xml = xml + '<Comment></Comment>';
+                    xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '</Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + ' <BPM_SGGSQTHTPS>';
+                    xml = xml + '<fbillno>自动生成</fbillno>';
+                    xml = xml + '<fname>' + fname + '</fname>';
+                    xml = xml + '<fdept>' + fdept + '</fdept>';
+                    xml = xml + '<fdate>' + fdate + '</fdate>';
+                    xml = xml + '<fze>' + fze + '</fze>';
+                    xml = xml + '<fhtdf>' + fhtdf + '</fhtdf>';
+                    xml = xml + '<fhtmc>' + fhtmc + '</fhtmc>';
+                    xml = xml + '<fhtnr>' + fhtnr + '</fhtnr>';
+                    xml = xml + '<fjkfs>' + fjkfs + '</fjkfs>';
+                    xml = xml + '<fydtk>' + fydtk + '</fydtk>';
+                    xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                    xml = xml + '</BPM_SGGSQTHTPS>';
+                    xml = xml + ' </FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+                }
+            });
+
+        }
+
     </script> 
 </body>
 </html>

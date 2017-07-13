@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../../Content/mui.picker.min.css"/>
     <link rel="stylesheet" href="../../Content/mui.poppicker.css"/>
     <link rel="stylesheet" href="../../Content/upload.css" />
+    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
     <title></title>
     <meta charset="utf-8" />
     <style>
@@ -711,59 +712,67 @@
             var fgjjy_director = $("#fgjjy_director").val();
             var taskId = $("#taskId").val();
             var fbillno = $("#fbillno").val();
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + ' <XForm>';
-            xml = xml + '   <Header>';
-            xml = xml + '    <Method>InformSubmit</Method>';
-            xml = xml + '    <PID>' + pid + '</PID>';
-            xml = xml + '   <Action>同意</Action>';
-            xml = xml + '   <Comment></Comment>';
-            xml = xml + '   <InviteIndicateUsers></InviteIndicateUsers>';
-            xml = xml + '  </Header>';
-            xml = xml + '<FormData>';
-            xml = xml + '<BPM_ZGZHB>';
-            xml = xml + '   <fbillno>' + fbillno+'</fbillno>';
-            xml = xml + '   <TaskID>' + taskId + '</TaskID>';
-            xml = xml + '   <fname>' + fname + '</fname>';
-            xml = xml + '   <fno>' + fno + '</fno>';
-            xml = xml + '   <fstartdate>' + fstartdate + '</fstartdate>';
-            xml = xml + '   <foverdate>' + foverdate + '</foverdate>';
-            xml = xml + '   <fyear>' + fyear + '</fyear>';
-            xml = xml + '   <fmonth>' + fmonth + '</fmonth>';
-            xml = xml + '   <fweek>' + fweek + '</fweek>';
-            xml = xml + '   <fpd>2</fpd>';
-            xml = xml + '   <fnrjl>' + fnrjl + '</fnrjl>';
-            xml = xml + '   <fgjsl>' + fgjsl + '</fgjsl>';
-            xml = xml + '   <fzwpj>' + fzwpj + '</fzwpj>';
-            xml = xml + '   <fjlpj>' + fjlpj + '</fjlpj>';
-            xml = xml + '   <fzjpj>' + fzjpj + '</fzjpj>';
-            xml = xml + '   <fgjjy_manager>' + fgjjy_manager + '</fgjjy_manager>';
-            xml = xml + '   <fgjjy_director>' + fgjjy_director + '</fgjjy_director>';
-            xml = xml + ' </BPM_ZGZHB>';
-            xml = xml + '</FormData>';
-            xml = xml + '</XForm>';
 
-            $.ajax({
-                type: "POST",
-                url: "/api/bpm/PostProcess",
-                data: { '': xml },
-                beforeSend: function (XHR) {
-                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
+                if (e.index == 1) {
+                    comment = e.value;
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + ' <XForm>';
+                    xml = xml + '   <Header>';
+                    xml = xml + '    <Method>InformSubmit</Method>';
+                    xml = xml + '    <PID>' + pid + '</PID>';
+                    xml = xml + '   <Action>同意</Action>';
+                    xml = xml + '   <Comment></Comment>';
+                    xml = xml + '   <InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '  </Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<BPM_ZGZHB>';
+                    xml = xml + '   <fbillno>' + fbillno + '</fbillno>';
+                    xml = xml + '   <TaskID>' + taskId + '</TaskID>';
+                    xml = xml + '   <fname>' + fname + '</fname>';
+                    xml = xml + '   <fno>' + fno + '</fno>';
+                    xml = xml + '   <fstartdate>' + fstartdate + '</fstartdate>';
+                    xml = xml + '   <foverdate>' + foverdate + '</foverdate>';
+                    xml = xml + '   <fyear>' + fyear + '</fyear>';
+                    xml = xml + '   <fmonth>' + fmonth + '</fmonth>';
+                    xml = xml + '   <fweek>' + fweek + '</fweek>';
+                    xml = xml + '   <fpd>2</fpd>';
+                    xml = xml + '   <fnrjl>' + fnrjl + '</fnrjl>';
+                    xml = xml + '   <fgjsl>' + fgjsl + '</fgjsl>';
+                    xml = xml + '   <fzwpj>' + fzwpj + '</fzwpj>';
+                    xml = xml + '   <fjlpj>' + fjlpj + '</fjlpj>';
+                    xml = xml + '   <fzjpj>' + fzjpj + '</fzjpj>';
+                    xml = xml + '   <fgjjy_manager>' + fgjjy_manager + '</fgjjy_manager>';
+                    xml = xml + '   <fgjjy_director>' + fgjjy_director + '</fgjjy_director>';
+                    xml = xml + ' </BPM_ZGZHB>';
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
 
-                },
-                success: function (data, status) {
-                    if (status == "success") {
-                        mui.toast("操作成功");
-                        setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
-                    } else {
-                        mui.toast("操作失败!请稍后重试");
-                    }
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/bpm/PostProcess",
+                        data: { '': xml },
+                        beforeSend: function (XHR) {
+                            XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
 
-                },
-                error: function (e) {
-                    //alert(e);
-                },
-                complete: function () { }
+                        },
+                        success: function (data, status) {
+                            if (status == "success") {
+                                mui.toast("操作成功");
+                                setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
+                            } else {
+                                mui.toast("操作失败!请稍后重试");
+                            }
+
+                        },
+                        error: function (e) {
+                            //alert(e);
+                        },
+                        complete: function () { }
+                    });
+                }
             });
 
         }

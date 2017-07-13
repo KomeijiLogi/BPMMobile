@@ -180,8 +180,10 @@
 
               var ticket = getUrlParam('ticket');
 
-              //var ticket = '03b06e9c8c53c6833b1991ccf5efd1f9';
-              
+              //var ticket = '7a1bbaa4a5d1b87ed958c256b7c5cf31';
+
+             localStorage.clear();
+
              localStorage.setItem('ticket', ticket);
 
              
@@ -265,7 +267,6 @@
               if ($('body').hasClass("no-cache")){
                       document.body.style.display = "none";
                       window.location.reload();
-
              }
           
           }

@@ -799,58 +799,64 @@
                 bxlistArr.push(bx);
 
             });
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
+                if (e.index == 1) {
+                    comment = e.value;
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '    <Header>';
+                    xml = xml + '<Method>InformSubmit</Method>';
+                    xml = xml + '        <PID>' + pid + '</PID>';
 
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + '<XForm>';
-            xml = xml + '    <Header>';
-            xml = xml + '<Method>InformSubmit</Method>';
-            xml = xml + '        <PID>' + pid + '</PID>';
-         
-            xml = xml + '         <Comment></Comment>';
-            
-            xml = xml + '</Header>';
-            xml = xml + '<FormData>';
-            xml = xml + '<BPM_FDCBX_QTFYBX_A>';
-            xml = xml + '<fbillno>' + fbillno + '</fbillno>';
-            xml = xml + '<fcompany>' + fcompany + '</fcompany>';
-            xml = xml + '<fdept>' + fdept + '</fdept>';
-            xml = xml + '<fname>' + fname + '</fname>';
-            xml = xml + '<fdate>' + fdate + '</fdate>';
-            xml = xml + '<fsqdh>' + fsqdh + '</fsqdh>';
-            xml = xml + '<fsqdID>' + fsqdID + '</fsqdID>';
-            xml = xml + '<fsqje>' + fsqje + '</fsqje>';
-            xml = xml + '<fjkje>' + fjkje + '</fjkje>';
-            xml = xml + '<fsqtotal>' + fsqtotal + '</fsqtotal>';
-            xml = xml + '<ftotal>' + ftotal + '</ftotal>';
-            xml = xml + '<ftotal_dx>' + ftotal_dx + '</ftotal_dx>';
-            xml = xml + '<fdjs>' + fdjs + '</fdjs>';
-            if (fjArray.toString() != null && fjArray.toString() != "") {
-                xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
-            } else {
-                xml = xml + '      <fj></fj>';
-            }
+                    xml = xml + '         <Comment>' + comment + '</Comment>';
 
-            xml = xml + '<fno>' + fno + '</fno>';
-            xml = xml + '<fisfinish>1</fisfinish>';
-            xml = xml + '<fis_bx>0</fis_bx>';
-            xml = xml + '<TaskID>' + taskId + '</TaskID>';
-            xml = xml + '</BPM_FDCBX_QTFYBX_A>';
-            for (var i = 0; i < bxlistArr.length; i++) {
-                xml = xml + '<BPM_FDCBX_QTFYBX_B>';
-                xml = xml + ' <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
-                xml = xml + ' <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
-                xml = xml + '<fentryno>' + (i + 1) + '</fentryno>';
-                xml = xml + '<fyxm>' + bxlistArr[i].fyxm + '</fyxm>';
-                xml = xml + '<fsqje>' + bxlistArr[i].fsqje + '</fsqje>';
-                xml = xml + '<fbxje>' + bxlistArr[i].fbxje + '</fbxje>';
-                xml = xml + '<fcsq>' + bxlistArr[i].fcsq + '</fcsq>';
-                xml = xml + '<remark>' + bxlistArr[i].remark + '</remark>';
-                xml = xml + '</BPM_FDCBX_QTFYBX_B>';
+                    xml = xml + '</Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<BPM_FDCBX_QTFYBX_A>';
+                    xml = xml + '<fbillno>' + fbillno + '</fbillno>';
+                    xml = xml + '<fcompany>' + fcompany + '</fcompany>';
+                    xml = xml + '<fdept>' + fdept + '</fdept>';
+                    xml = xml + '<fname>' + fname + '</fname>';
+                    xml = xml + '<fdate>' + fdate + '</fdate>';
+                    xml = xml + '<fsqdh>' + fsqdh + '</fsqdh>';
+                    xml = xml + '<fsqdID>' + fsqdID + '</fsqdID>';
+                    xml = xml + '<fsqje>' + fsqje + '</fsqje>';
+                    xml = xml + '<fjkje>' + fjkje + '</fjkje>';
+                    xml = xml + '<fsqtotal>' + fsqtotal + '</fsqtotal>';
+                    xml = xml + '<ftotal>' + ftotal + '</ftotal>';
+                    xml = xml + '<ftotal_dx>' + ftotal_dx + '</ftotal_dx>';
+                    xml = xml + '<fdjs>' + fdjs + '</fdjs>';
+                    if (fjArray.toString() != null && fjArray.toString() != "") {
+                        xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
+                    } else {
+                        xml = xml + '      <fj></fj>';
+                    }
 
-            }
-            xml = xml + '</FormData>';
-            xml = xml + '</XForm>';
-            PostXml(xml);
+                    xml = xml + '<fno>' + fno + '</fno>';
+                    xml = xml + '<fisfinish>1</fisfinish>';
+                    xml = xml + '<fis_bx>0</fis_bx>';
+                    xml = xml + '<TaskID>' + taskId + '</TaskID>';
+                    xml = xml + '</BPM_FDCBX_QTFYBX_A>';
+                    for (var i = 0; i < bxlistArr.length; i++) {
+                        xml = xml + '<BPM_FDCBX_QTFYBX_B>';
+                        xml = xml + ' <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
+                        xml = xml + ' <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
+                        xml = xml + '<fentryno>' + (i + 1) + '</fentryno>';
+                        xml = xml + '<fyxm>' + bxlistArr[i].fyxm + '</fyxm>';
+                        xml = xml + '<fsqje>' + bxlistArr[i].fsqje + '</fsqje>';
+                        xml = xml + '<fbxje>' + bxlistArr[i].fbxje + '</fbxje>';
+                        xml = xml + '<fcsq>' + bxlistArr[i].fcsq + '</fcsq>';
+                        xml = xml + '<remark>' + bxlistArr[i].remark + '</remark>';
+                        xml = xml + '</BPM_FDCBX_QTFYBX_B>';
+
+                    }
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+                }
+            });
         }
 
         function tapEvent() {

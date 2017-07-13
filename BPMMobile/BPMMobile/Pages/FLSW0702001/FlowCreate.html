@@ -333,6 +333,11 @@
                 mui.toast("请输入特别约定条款");
                 return;
             }
+            
+            if (fjArray.toString() == null || fjArray.toString() == "") {
+                mui.toast("请上传附件");
+                return;
+            }
 
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {

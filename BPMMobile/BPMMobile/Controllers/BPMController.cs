@@ -281,13 +281,23 @@ namespace BPMMobile.Controllers
         [HttpPost]
         public IHttpActionResult PostRecedeRestart(PostRecedeRestartModel model)
         {
-            PrepareBPMEnv();
-            using (BPMConnection cn = new BPMConnection())
+            ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            try
             {
-                cn.WebOpen();
-                User result = BPMTask.RecedeRestart(cn, model.taskID, model.comments);
-                return Json(result);
+                PrepareBPMEnv();
+                using (BPMConnection cn = new BPMConnection())
+                {
+                    cn.WebOpen();
+                    User result = BPMTask.RecedeRestart(cn, model.taskID, model.comments);
+                    return Json(result);
+                }
             }
+            catch (Exception e)
+            {
+
+                log.Error("error:" + e);
+            }
+            return null;
         }
 
         /// <summary>
