@@ -370,7 +370,22 @@ function showPicker(el, data) {
     }, false);
 
 }
+function showPickerByZepto(zeptoParentId, zeptoId,data) {
+    var picker = new mui.PopPicker();
+    picker.setData(data);
 
+    $(zeptoParentId).find(zeptoId).each(function () {
+
+        var self = this;
+        $(this).on('tap', function () {
+
+            picker.show(function (items) {
+                self.value = (items[0].text);
+            });
+        });
+    });
+
+}
 
 
 //打开加签

@@ -309,7 +309,11 @@
             }
 
             if (result.success == true || result.success == "true") {
-                $('#myPhone').val(result.data.userName);
+                if (typeof (result.data.userName) == "undefined") {
+                    $('#myPhone').val("");
+                } else {
+                    $('#myPhone').val(result.data.userName);
+                }
             }
 
         });
@@ -506,6 +510,12 @@
                             li = li + '</div>';
                             $("#mxlist").append(li);
                         }
+
+                        if ($('#myPhone').val() == "") {
+                            var myPhone = String(BPMOU).split("/");
+                            $('#myPhone').val(String(myPhone[myPhone.length - 1]));
+
+                        }
                         var NodeName;
                         //判断流程本节点是否结束，处理者是否为当前用户,
                         //流程步骤是否是传过来的流程步骤，再根据这三项查出对应的节点名称
@@ -515,7 +525,7 @@
                             if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
 
 
-                                if (stepId.includes(data.Steps[i].StepID)) {
+                                if (stepId.indexOf(data.Steps[i].StepID)!=-1) {
 
                                     NodeName = data.Steps[i].NodeName;
 
@@ -622,7 +632,8 @@
             var fphone = $("#fphone").val();
             var fytsm = $("#fytsm").val();
 
-
+            var fbillno = $("#fbillno").val();
+            var pid = $("#stepId").val();
             var mxlistArr = new Array();
             $("#mxlist").find("#mx").each(function () {
 
@@ -630,14 +641,13 @@
                 var fmc = $(this).find("#fmc").val();
                 var famount = $(this).find("#famount").val();
                 var fremark = $(this).find("#fremark").val();
-                if (MxItem(ftype, fmc, famount, fremark) == null) {
-                    return;
-                }
+                //if (MxItem(ftype, fmc, famount, fremark) == null) {
+                //    return;
+                //}
                 var mx = MxItem(ftype, fmc, famount, fremark);
                 mxlistArr.push(mx);
             });
-            var fbillno = $("#fbillno").val();
-            var pid = $("#stepId").val();
+           
             var comment = '';
             var btnArray = ['取消', '确定'];
             mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
@@ -690,8 +700,7 @@
             var fdept = $("#fdept").val();
             var fphone = $("#fphone").val();
             var fytsm = $("#fytsm").val();
-
-
+        
             var mxlistArr = new Array();
             $("#mxlist").find("#mx").each(function () {
 
@@ -699,9 +708,9 @@
                 var fmc = $(this).find("#fmc").val();
                 var famount = $(this).find("#famount").val();
                 var fremark = $(this).find("#fremark").val();
-                if (MxItem(ftype, fmc, famount, fremark) == null) {
-                    return;
-                }
+                //if (MxItem(ftype, fmc, famount, fremark) == null) {
+                //    return;
+                //}
                 var mx = MxItem(ftype, fmc, famount, fremark);
                 mxlistArr.push(mx);
             });

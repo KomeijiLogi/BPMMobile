@@ -277,7 +277,13 @@
 
             if (result.success == true || result.success == "true") {
                 $('#fname').val(result.data.name);
-                $('#fno').val(result.data.userName);
+                if (typeof (result.data.userName) == "undefined") {
+                    $('#fno').val('');
+                } else {
+                    $('#fno').val(result.data.userName);
+                }
+
+              
 
             }
         });
@@ -346,6 +352,10 @@
 
         }
         function Save() {
+            if ($("#fno").val() == "") {
+                var myPhone = String(BPMOU).split("/");
+                $('#fno').val(String(myPhone[myPhone.length - 1]));
+            }
 
             var fname = $("#fname").val();
             var fno = $("#fno").val();

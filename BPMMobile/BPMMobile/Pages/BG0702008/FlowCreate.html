@@ -180,6 +180,7 @@
         function prepMsg() {
             tapEvent();
             $("#fdate").val(getNowFormatDate(2));
+
             var url = window.location.href;
             if (url != null && url != "") {
                 if (String(url).includes("reset")) {

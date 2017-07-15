@@ -59,6 +59,7 @@
 <body>
     <div class="mui-content" style="background-color:white;" id="wrapper" >
         <form class="mui-input-group" style="left:0rem;right:0rem;">
+           
             <div class="mui-input-row">
                 <label>员工姓名</label>
                 <input type="text" placeholder="请输入员工姓名信息" class="" id="fname" name="fname" />
@@ -290,14 +291,20 @@
         var BPMOU;
 
         XuntongJSBridge.call('getPersonInfo', {}, function (result) {
+           
             if (typeof (result) == "string") {
                 result = JSON.parse(result);
             }
-
+           
             if (result.success == true || result.success == "true") {
-                $('#myPhone').val(result.data.userName);
+                if (typeof (result.data.userName) == "undefined") {
+                    $('#myPhone').val("");
+                } else {
+                    $('#myPhone').val(result.data.userName);
+                }
+              
             }
-
+           
         });
         XuntongJSBridge.call('createPop', {
             'popTitle': '',
@@ -474,17 +481,23 @@
                     $("#fgjjy_manager").val(item.fgjjy_manager);
                     $("#fgjjy_director").val(item.fgjjy_director);
 
+                    if ($('#myPhone').val() == "") {
+                        var myPhone = String(BPMOU).split("/");
+                        $('#myPhone').val(String(myPhone[myPhone.length - 1]));
+                        
+                    }
 
-                    var NodeName;
+                   
+                    var NodeName ;
                     //判断流程本节点是否结束，处理者是否为当前用户,
                     //流程步骤是否是传过来的流程步骤，再根据这三项查出对应的节点名称
                     for (var i = 0; i < data.Steps.length; i++) {
                         //debugger;
-
+                       
                         if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
 
-                           
-                            if (stepId.includes(data.Steps[i].StepID)) {
+
+                            if (stepId.indexOf(data.Steps[i].StepID)!=-1) {
                                
                                 NodeName = data.Steps[i].NodeName;
 
@@ -494,7 +507,7 @@
 
                     }
 
-                    
+                   
 
                     if (NodeName == "开始") {
                         //退回重填的处理
@@ -724,7 +737,7 @@
                     xml = xml + '    <Method>InformSubmit</Method>';
                     xml = xml + '    <PID>' + pid + '</PID>';
                     xml = xml + '   <Action>同意</Action>';
-                    xml = xml + '   <Comment></Comment>';
+                    xml = xml + '   <Comment>' + comment + '</Comment>';
                     xml = xml + '   <InviteIndicateUsers></InviteIndicateUsers>';
                     xml = xml + '  </Header>';
                     xml = xml + '<FormData>';
@@ -828,7 +841,10 @@
             return checkVal;
         }
         function Save() {
-
+            if ($("#fno").val() == "") {
+                var myPhone = String(BPMOU).split("/");
+                $('#fno').val(String(myPhone[myPhone.length - 1]));
+            }
             var fname = $("#fname").val();
             var fno = $("#fno").val();
             var fstartdate = $("#fstartdate").val() + " 00:00:00";

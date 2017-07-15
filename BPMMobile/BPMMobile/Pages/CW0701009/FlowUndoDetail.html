@@ -319,7 +319,11 @@
             }
 
             if (result.success == true || result.success == "true") {
-                $('#myPhone').val(result.data.userName);
+                if (typeof (result.data.userName) == "undefined") {
+                    $('#myPhone').val("");
+                } else {
+                    $('#myPhone').val(result.data.userName);
+                }
             }
 
         });
@@ -531,6 +535,11 @@
                             $("#bxlist").append(li);
 
                         }
+                        if ($('#myPhone').val() == "") {
+                            var myPhone = String(BPMOU).split("/");
+                            $('#myPhone').val(String(myPhone[myPhone.length - 1]));
+
+                        }
                         var NodeName;
                         //判断流程本节点是否结束，处理者是否为当前用户,
                         //流程步骤是否是传过来的流程步骤，再根据这三项查出对应的节点名称
@@ -540,7 +549,7 @@
                             if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
 
 
-                                if (stepId.includes(data.Steps[i].StepID)) {
+                                if (stepId.indexOf(data.Steps[i].StepID)!=-1) {
 
                                     NodeName = data.Steps[i].NodeName;
 

@@ -422,6 +422,10 @@
     <Content Include="Pages\BG0702004\FlowCreate.html" />
     <Content Include="Pages\BG0702004\FlowDoneDetail.html" />
     <Content Include="Pages\BG0702004\FlowUndoDetail.html" />
+    <Content Include="Pages\BG0702007\FlowAskDetail.html" />
+    <Content Include="Pages\BG0702007\FlowCreate.html" />
+    <Content Include="Pages\BG0702007\FlowDoneDetail.html" />
+    <Content Include="Pages\BG0702007\FlowUndoDetail.html" />
     <Content Include="Pages\BG0702008\FlowAskDetail.html" />
     <Content Include="Pages\BG0702008\FlowCreate.html" />
     <Content Include="Pages\BG0702008\FlowDoneDetail.html" />
@@ -434,6 +438,10 @@
     <Content Include="Pages\BG0702012\FlowCreate.html" />
     <Content Include="Pages\BG0702012\FlowDoneDetail.html" />
     <Content Include="Pages\BG0702012\FlowUndoDetail.html" />
+    <Content Include="Pages\BG0702017\FlowAskDetail.html" />
+    <Content Include="Pages\BG0702017\FlowCreate.html" />
+    <Content Include="Pages\BG0702017\FlowDoneDetail.html" />
+    <Content Include="Pages\BG0702017\FlowUndoDetail.html" />
     <Content Include="Pages\CGGL0703002\FlowAskDetail.html" />
     <Content Include="Pages\CGGL0703002\FlowCreate.html" />
     <Content Include="Pages\CGGL0703002\FlowDoneDetail.html" />
@@ -562,6 +570,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Pages\BG0702027\" />
     <Folder Include="upload\" />
   </ItemGroup>
   <ItemGroup>

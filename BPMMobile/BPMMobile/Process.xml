@@ -286,7 +286,34 @@
     <Css></Css>
     <Icon>../../Content/extraicon/1204353.png</Icon>
     <Group></Group>
-    <Description>威高广场代金劵、礼品领用申请</Description>
+    <Description>适用于威高广场代金劵、礼品领用申请</Description>
   </Process>
-
+  <Process>
+    <Name>盛祥商管公司工装制作申请</Name>
+    <Path>\\07房地产集团\\02商管公司\\BG办公管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/BG0702007/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/BG0702007/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/BG0702007/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/BG0702007/FlowDoneDetail.html</ViewDonePage>
+    <DisplayName>商管公司工装制作申请</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204354.png</Icon>
+    <Group></Group>
+    <Description>适用于商管公司工装制作申请</Description>
+  </Process>
+  <Process>
+    <Name>盛祥商管公司活动场地验收申请</Name>
+    <Path>\\07房地产集团\\02商管公司\\BG办公管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/BG0702017/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/BG0702017/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/BG0702017/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/BG0702017/FlowDoneDetail.html</ViewDonePage>
+    <DisplayName>商管公司活动场地验收申请</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204355.png</Icon>
+    <Group></Group>
+    <Description>适用于商管公司活动场地验收申请</Description>
+  </Process>
 </ProcessList>
