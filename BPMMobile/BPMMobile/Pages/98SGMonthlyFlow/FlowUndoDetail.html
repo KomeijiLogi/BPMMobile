@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -225,11 +226,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                  window.location.reload();
                 } else if (callBackId == 'callback2') {
                     XuntongJSBridge.call('selectPersons', { 'isMulti': 'true', 'pType': '1' }, function (result) {
 
@@ -286,7 +283,7 @@
                                                             mui.toast("知会成功");
                                                         }
                                                     }, error: function (e) {
-                                                        //console.log(e);  
+                                                        //console.log(e);
 
                                                     },
                                                     complete: function () { }
@@ -339,6 +336,8 @@
         function getTaskMsg() {
 
             var url = window.location.href;
+
+           
             if (url != null && url.indexOf("tid") != -1 && url.indexOf("pid") != -1) {
 
 
@@ -346,9 +345,12 @@
                 if (url.split("pid=")[1].indexOf("ticket") != -1) {
                     stepId = url.split("pid=")[1];
                     stepId = stepId.split("&ticket")[0];
+                    var ticket = url.split("=")[3];
+                    localStorage.setItem('ticket', ticket);
 
                 } else {
                     stepId = url.split("pid=")[1];
+                   
                 }
 
 
@@ -369,10 +371,10 @@
                     XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
                 },
                 success: function (data, status) {
-
+                    console.log(data);
                     if (status == "success") {
 
-                        console.log(data);
+                        //console.log(data);
                         var item = data.FormDataSet.BPM_SGGSYBTBB[0];
                         $("#taskId").val(item.TaskID);
                         $("#fname").val(item.fname);
@@ -471,6 +473,7 @@
 
                         }
 
+
                         if (NodeName == "开始") {
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -494,7 +497,10 @@
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
                         } else {
-                            $("#approvalD").css("display", "block");
+                            if (typeof (NodeName) != "undefined") {
+                                $("#approvalD").css("display", "block");
+                            }
+
                         }
 
 
@@ -704,6 +710,7 @@
                 var jh = JhItem(frw_jh, fmb_jh);
                 jhlistArr.push(jh);
             });
+            var pid = $("#stepId").val();
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                 if (e.index == 1) {
@@ -719,16 +726,13 @@
                     var ftjdate = year + "年" + month + "月" + day + "日" + hour + "时" + minute + "分" + second + "秒" + dayOW;
                     var xml = '<?xml version="1.0"?>';
                     xml = xml + '<XForm>';
-                    xml = xml + '<Header>';
-                    xml = xml + '<Method>Post</Method>';
-                    xml = xml + '<ProcessName>商管月工作汇报_流程</ProcessName>';
-                    xml = xml + '<ProcessVersion>1.0</ProcessVersion>';
-                    xml = xml + ' <DraftGuid></DraftGuid>';
-                    xml = xml + '<OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
-                    xml = xml + '<Action>提交</Action>';
-                    xml = xml + '<Comment></Comment>';
-                    xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
-                    xml = xml + '</Header>';
+                    xml = xml + '   <Header>';
+                    xml = xml + '    <Method>Process</Method>';
+                    xml = xml + '   <PID>' + pid + '</PID>';
+                    xml = xml + '   <Action>提交</Action>';
+                    xml = xml + '    <Comment></Comment>';
+                    xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '  </Header>';
                     xml = xml + '<FormData>';
                     xml = xml + '<BPM_SGGSYBTBB>';
                     xml = xml + '<fbillno>自动生成</fbillno>';
@@ -859,7 +863,7 @@
                     PostXml(xml);
                 }
             });
-           
+
         }
         function AgreeOrConSign() {
             var fname = $("#fname").val();

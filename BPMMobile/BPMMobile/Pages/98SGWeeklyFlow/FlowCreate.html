@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -110,7 +111,7 @@
 
             if (result.success == true || result.success == "true") {
                 $("#fname").val(result.data.name);
-                $("#ftbrno").val(result.data.userName);  
+                $("#ftbrno").val(result.data.userName);
             }
         });
         XuntongJSBridge.call('createPop', {
@@ -125,11 +126,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                     //location.reload();
                 } else if (callBackId == 'callback2') {
 
@@ -149,6 +146,8 @@
             $("#fjsrq_zj").val(getWeekEndDate());
             $("#fksrq_jh").val(getNextWeekStartDate());
             $("#fjsrq_jh").val(getNextWeekEndDate());
+            var url = window.location.href;
+            version = url.split("=")[1];
         }
 
         function tapEvent() {
@@ -242,7 +241,7 @@
                     var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
                     var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
                     var dayOW = new Array("星期7", "星期1", "星期2", "星期3", "星期4", "星期5", "星期6")[date.getDay()];
-                    var ftjdate = year + "年" + month + "月" + day + "日" + hour + "时" + minute + "分" + second + "秒" + dayOW; 
+                    var ftjdate = year + "年" + month + "月" + day + "日" + hour + "时" + minute + "分" + second + "秒" + dayOW;
 
 
                     var xml = '<?xml version="1.0"?>';
@@ -250,7 +249,7 @@
                     xml = xml + '<Header>';
                     xml = xml + '<Method>Post</Method>';
                     xml = xml + '<ProcessName>商管周工作汇报_流程</ProcessName>';
-                    xml = xml + '<ProcessVersion>1.0</ProcessVersion>';
+                    xml = xml + '<ProcessVersion>' + version + '</ProcessVersion>';
                     xml = xml + ' <DraftGuid></DraftGuid>';
                     xml = xml + '<OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
                     xml = xml + '<Action>提交</Action>';
@@ -304,7 +303,7 @@
 
         }
 
-        
+
 
         function ZjItem(frw_zj, fmb_zj, fjg_zj) {
 

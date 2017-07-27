@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -134,14 +135,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {    
-                        
-                        iosfresh();
-                    } else {
-                        //alert(navigator.userAgent);
-                        history.go(0);
-                        //window.location.reload();
-                    }
+                    window.location.reload();
                   
                     
                 } else if (callBackId == 'callback2') {
@@ -213,14 +207,19 @@
             var url = window.location.href;
 
             if (url != null && url != "") {
-                if (String(url).includes("reset")) {
+                if (String(url).indexOf("reset") != -1) {
                     var msg = JSON.parse(localStorage.getItem('BPM_JRAPPMsg'));
                     $("#flowTitle").val(msg.fname);
                     $("#flowCause").val(msg.fsy);
-                    
+                    version = url.replace("&reset", "").split("=")[1];
+                } else {
+                    version = url.split("=")[1];
                 }
 
-            }
+                
+            } 
+           
+            
 
         }
 
@@ -251,7 +250,7 @@
             xml = xml + ' <Header>';
             xml = xml + '   <Method>Post</Method>';
             xml = xml + '   <ProcessName>洁瑞APP审批</ProcessName>';
-            xml = xml + '   <ProcessVersion>1.1</ProcessVersion>';
+            xml = xml + '   <ProcessVersion>' + version + '</ProcessVersion>';
             xml = xml + '   <DraftGuid></DraftGuid>';
             xml = xml + '   <OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';          
             xml = xml + '   <Action>提交</Action>';

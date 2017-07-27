@@ -8,6 +8,7 @@
     <ViewUndoPage>/Pages/BaseFlow/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/BaseFlow/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/BaseFlow/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/BaseFlow/FlowCreate.html</ViewPage>
     <DisplayName>通用审批</DisplayName>
     <Css></Css>
     <Icon>../../Content/images/undoApproval.png</Icon>
@@ -22,6 +23,7 @@
     <ViewUndoPage>/Pages/WeeklyFlow/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/WeeklyFlow/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/WeeklyFlow/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/WeeklyFlow/FlowCreate.html</ViewPage>
     <DisplayName>周工作汇报</DisplayName>
     <Css></Css>
     <Icon>../../Content/images/myApproval.png</Icon>
@@ -37,6 +39,7 @@
     <ViewUndoPage>/Pages/JRMaterial/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/JRMaterial/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/JRMaterial/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/JRMaterial/FlowCreate.html</ViewPage>
     <DisplayName>洁瑞产品发货申请</DisplayName>
     <Css></Css>
     <Icon>../../Content/images/doneApproval.png</Icon>
@@ -53,6 +56,7 @@
     <ViewUndoPage>/Pages/JRPrototype/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/JRPrototype/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/JRPrototype/FlowDoneDetail.html</ViewDonePage>
+   <ViewPage>/Pages/JRPrototype/FlowCreate.html</ViewPage>
     <DisplayName>洁瑞样品申请</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204385.png</Icon>
@@ -69,6 +73,7 @@
     <ViewUndoPage>/Pages/BG0702009/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/BG0702009/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/BG0702009/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/BG0702009/FlowCreate.html</ViewPage>
     <DisplayName>商管公司装修押金退还</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204338.png</Icon>
@@ -83,6 +88,7 @@
     <ViewUndoPage>/Pages/FLSW0702001/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/FLSW0702001/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/FLSW0702001/FlowDoneDetail.html</ViewDonePage>
+  <ViewPage>/Pages/FLSW0702001/FlowCreate.html</ViewPage>
     <DisplayName>盛祥商管招商合同评审</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204339.png</Icon>
@@ -97,6 +103,7 @@
     <ViewUndoPage>/Pages/BG0702002/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/BG0702002/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/BG0702002/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/BG0702002/FlowCreate.html</ViewPage>
     <DisplayName>商管公司部门联系</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204340.png</Icon>
@@ -111,6 +118,7 @@
     <ViewUndoPage>/Pages/CW0701011/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/CW0701011/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/CW0701011/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/CW0701011/FlowCreate.html</ViewPage>
     <DisplayName>房地产集团推广费用申请</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204341.png</Icon>
@@ -125,6 +133,7 @@
     <ViewUndoPage>/Pages/CW0701009/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/CW0701009/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/CW0701009/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/CW0701009/FlowCreate.html</ViewPage>
     <DisplayName>房地产集团其他费用报销</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204342.png</Icon>
@@ -139,7 +148,8 @@
     <ViewUndoPage>/Pages/CW0701008/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/CW0701008/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/CW0701008/FlowDoneDetail.html</ViewDonePage>
-    <DisplayName>房地产集团其他费用申请</DisplayName>
+   <ViewPage>/Pages/CW0701008/FlowCreate.html</ViewPage>
+   <DisplayName>房地产集团其他费用申请</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204343.png</Icon>
     <Group></Group>
@@ -153,6 +163,7 @@
     <ViewUndoPage>/Pages/BG0702001/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/BG0702001/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/BG0702001/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/BG0702001/FlowCreate.html</ViewPage>
     <DisplayName>商管公司内部请示</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204344.png</Icon>
@@ -168,6 +179,7 @@
     <ViewUndoPage>/Pages/BG0702012/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/BG0702012/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/BG0702012/FlowDoneDetail.html</ViewDonePage>
+     <ViewPage>/Pages/BG0702012/FlowCreate.html</ViewPage>
     <DisplayName>商管开业/履约保证金退还</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204346.png</Icon>
@@ -183,6 +195,7 @@
     <ViewUndoPage>/Pages/BG0702008/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/BG0702008/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/BG0702008/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/BG0702008/FlowCreate.html</ViewPage>
     <DisplayName>商管公司图纸会审</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204347.png</Icon>
@@ -198,13 +211,14 @@
     <ViewUndoPage>/Pages/FLSW0702002/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/FLSW0702002/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/FLSW0702002/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/FLSW0702002/FlowCreate.html</ViewPage>
     <DisplayName>盛祥商管公司其他合同评审</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204348.png</Icon>
     <Group></Group>
     <Description>适用于盛祥商管公司其他合同评审</Description>
   </Process>
- <!--<Process>
+ <Process>
     <Name>建设公司库存不良物资提报</Name>
     <Path>\\01威高集团总部\\06建设公司\\SCGL生产管理</Path>
     <CanCreate>True</CanCreate>
@@ -212,6 +226,7 @@
     <ViewUndoPage>/Pages/SCGL0703002/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/SCGL0703002/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/SCGL0703002/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/SCGL0703002/FlowCreate.html</ViewPage>
     <DisplayName>建设公司库存不良物资提报</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204345.png</Icon>
@@ -226,12 +241,13 @@
     <ViewUndoPage>/Pages/CGGL0703002/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/CGGL0703002/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/CGGL0703002/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/CGGL0703002/FlowCreate.html</ViewPage>
     <DisplayName>建设公司安质部零星采购</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204349.png</Icon>
     <Group></Group>
     <Description>适用于建设公司库存不良物资提报</Description>
-  </Process>-->
+  </Process>
   <Process>
     <Name>商管周工作汇报_流程</Name>
     <Path>\\98门户</Path>
@@ -240,6 +256,7 @@
     <ViewUndoPage>/Pages/98SGWeeklyFlow/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/98SGWeeklyFlow/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/98SGWeeklyFlow/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/98SGWeeklyFlow/FlowCreate.html</ViewPage> 
     <DisplayName>商管周工作汇报 </DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204350.png</Icon>
@@ -254,6 +271,7 @@
     <ViewUndoPage>/Pages/98SGMonthlyFlow/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/98SGMonthlyFlow/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/98SGMonthlyFlow/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/98SGMonthlyFlow/FlowCreate.html</ViewPage>
     <DisplayName>商管月工作汇报 </DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204351.png</Icon>
@@ -268,6 +286,7 @@
     <ViewUndoPage>/Pages/BG0702005/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/BG0702005/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/BG0702005/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/BG0702005/FlowCreate.html</ViewPage>
     <DisplayName>商管公司合同评审</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204352.png</Icon>
@@ -282,6 +301,7 @@
     <ViewUndoPage>/Pages/BG0702004/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/BG0702004/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/BG0702004/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/BG0702004/FlowCreate.html</ViewPage>
     <DisplayName>威高广场代金劵、礼品领用申请</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204353.png</Icon>
@@ -296,6 +316,7 @@
     <ViewUndoPage>/Pages/BG0702007/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/BG0702007/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/BG0702007/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/BG0702007/FlowCreate.html</ViewPage>
     <DisplayName>商管公司工装制作申请</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204354.png</Icon>
@@ -310,10 +331,56 @@
     <ViewUndoPage>/Pages/BG0702017/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/BG0702017/FlowAskDetail.html</ViewAskPage>
     <ViewDonePage>/Pages/BG0702017/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/BG0702017/FlowCreate.html</ViewPage>
     <DisplayName>商管公司活动场地验收申请</DisplayName>
     <Css></Css>
     <Icon>../../Content/extraicon/1204355.png</Icon>
     <Group></Group>
     <Description>适用于商管公司活动场地验收申请</Description>
+  </Process>
+ <Process>
+    <Name>市场差旅费用报销单</Name>
+    <Path>\\94制品在线费用报销\\市场费用报销</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/TravelExpenses/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/TravelExpenses/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/TravelExpenses/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/TravelExpenses/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/TravelExpenses/FlowCreate.html</ViewPage>
+    <DisplayName>市场差旅费用报销</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204337.png</Icon>
+    <Group></Group>
+    <Description>适用于市场差旅费用报销</Description>
+  </Process>
+ <Process>
+    <Name>制品公司费用标准特批</Name>
+    <Path>\\94制品在线费用报销\\市场费用报销</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/SpeciallyExpense/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/SpeciallyExpense/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/SpeciallyExpense/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/SpeciallyExpense/FlowDoneDetail.html</ViewDonePage>
+   <ViewPage>/Pages/SpeciallyExpense/FlowCreate.html</ViewPage>
+    <DisplayName>费用特批</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204356.png</Icon>
+    <Group></Group>
+    <Description>适用于制品公司费用标准特批</Description>
+  </Process>
+  <Process>
+    <Name>制品集团其他费用报销</Name>
+    <Path>\\94制品在线费用报销\\市场费用报销</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/OtherExpense/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/OtherExpense/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/OtherExpense/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/OtherExpense/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/OtherExpense/FlowCreate.html</ViewPage>
+    <DisplayName>其他费用报销</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204357.png</Icon>
+    <Group></Group>
+    <Description>适用于制品公司其他费用报销</Description>
   </Process>
 </ProcessList>

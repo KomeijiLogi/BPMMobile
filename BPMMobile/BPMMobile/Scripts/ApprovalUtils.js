@@ -9,7 +9,8 @@ var itemidArr;
 var attachArray = new Array();
 var action;
 var toStepIDs = new Array();
-
+var version="1.0";
+var DraftGuid = '';
 
 //提交,审批,加签,已阅
 function PostXml(xml) {
@@ -377,6 +378,7 @@ function showPickerByZepto(zeptoParentId, zeptoId,data) {
     $(zeptoParentId).find(zeptoId).each(function () {
 
         var self = this;
+        $(this).off('tap');
         $(this).on('tap', function () {
 
             picker.show(function (items) {
@@ -750,6 +752,16 @@ function FormatterTimeYMS(time) {
     return ymd;
 }
 
+function FormatterTime_Y_M_S(year, month, day) {
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (day >= 0 && day <= 9) {
+        day = "0" + day;
+    }
+    var ymd = year + "-" + month + "-" + day;
+    return ymd;
+}
 
 //格局化日期：yyyy-MM-dd  
 function formatDate(date) {
@@ -801,3 +813,28 @@ function getMonthDays(myMonth) {
     var days = (monthEndDate - monthStartDate) / (1000 * 60 * 60 * 24);
     return days;
 }  
+
+//获取某月的第一天 需要加载xdate.js  输入yyyy-MM-dd格式的数据
+function getMonthFirst(dateString) {
+    var info = String(dateString).split("-");
+    var year = info[0];
+    var month = info[1]-1;
+    
+    var firstDate = new Date(year, month);
+    firstDate.setDate(1);
+    return new XDate(firstDate).toString('yyyy-MM-dd');
+}
+
+function getMonthLast(dateString) {
+
+    var info = String(dateString).split("-");
+    var year = info[0];
+    var month = info[1] - 1;
+
+    var firstDate = new Date(year, month);
+    firstDate.setDate(1);
+    var endDate = new Date(firstDate);
+    endDate.setMonth(firstDate.getMonth() + 1);
+    endDate.setDate(0);
+    return new XDate(endDate).toString('yyyy-MM-dd');
+}

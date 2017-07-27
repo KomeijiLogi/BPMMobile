@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -121,11 +122,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                     //location.reload();
                 } else if (callBackId == 'callback2') {
 
@@ -146,6 +143,10 @@
             $("#fy_zj").val(date.getMonth() + 1);
             $("#fn_jh").val(date.getFullYear());
             $("#fy_jh").val(date.getMonth() + 2);
+
+            var url = window.location.href;
+            version = url.split("=")[1];
+            
         }
 
 
@@ -212,7 +213,7 @@
                     value: date.getFullYear()-1 +"",
                     text: date.getFullYear()-1 +"年",
                     children: monthdata
-                   
+
                 },
                 {
                     value: date.getFullYear() + "",
@@ -231,7 +232,7 @@
                 }
             ];
 
-           
+
             var datePicker = new mui.PopPicker({
                 layer: 2
             });
@@ -361,7 +362,7 @@
                     xml = xml + '<Header>';
                     xml = xml + '<Method>Post</Method>';
                     xml = xml + '<ProcessName>商管月工作汇报_流程</ProcessName>';
-                    xml = xml + '<ProcessVersion>1.0</ProcessVersion>';
+                    xml = xml + '<ProcessVersion>' + version + '</ProcessVersion>';
                     xml = xml + ' <DraftGuid></DraftGuid>';
                     xml = xml + '<OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
                     xml = xml + '<Action>提交</Action>';

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -303,7 +304,7 @@
 
             });
         });
-        XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });      
+        XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
 
         XuntongJSBridge.call('createPop', {
             'popTitle': '',
@@ -321,11 +322,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                 } else if (callBackId == 'callback2') {
                     getRecedableToSteps();
                 }
@@ -357,7 +354,8 @@
                 if (url.split("pid=")[1].indexOf("ticket") != -1) {
                     stepId = url.split("pid=")[1];
                     stepId = stepId.split("&ticket")[0];
-
+                    var ticket = url.split("=")[3];
+                    localStorage.setItem('ticket', ticket);
                 } else {
                     stepId = url.split("pid=")[1];
                 }
@@ -445,7 +443,7 @@
                                             var li = '<div class="pic-preview smallyulan success">';
                                             li = li + ' <div class="del none" style="opacity:1;z-index:999;"onclick="delPicture(this)">x</div>';
 
-                                            //类型判断 
+                                            //类型判断
                                             if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
 
                                                 //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
@@ -579,12 +577,14 @@
                         }
 
                         if (NodeName == "开始") {
-                           
+
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
                         } else {
-                            $("#approvalD").css("display", "block");
+                            if (typeof (NodeName) != "undefined") {
+                                $("#approvalD").css("display", "block");
+                            }
                         }
 
                     }
@@ -754,7 +754,7 @@
                 xml = xml + '<Action>同意</Action>';
 
                 xml = xml + '<Comment></Comment>';
-           
+
                 xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
                 xml = xml + '</Header>';
                 xml = xml + '<FormData>';
@@ -793,7 +793,7 @@
                 xml = xml + '</XForm>';
                 PostXml(xml);
             }
-         
+
 
         }
 
@@ -920,7 +920,7 @@
         }
 
 
-        
+
     </script>
 
 </body>

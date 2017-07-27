@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -119,11 +120,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                     //location.reload();
                 } else if (callBackId == 'callback2') {
 
@@ -140,7 +137,8 @@
             $("#fdate").val(getNowFormatDate(2));
             var url = window.location.href;
             if (url != null && url != "") {
-                if (String(url).includes("reset")) {
+                if (String(url).indexOf("reset") != -1) {
+                    version = url.replace("&reset", "").split("=")[1];
                     var msg = JSON.parse(localStorage.getItem('BPM_SGGSGZZZSQBMsg'));
                     $("#fname").val(msg.fname);
                     $("#fdept").val(msg.fdept);
@@ -265,7 +263,7 @@
                         }
                     ];
 
-                    for (var i = 0; i < msg.fsqmx.length;i++){
+                    for (var i = 0; i < msg.fsqmx.length; i++) {
                         var fsqmxItem = JSON.parse(msg.fsqmx[i]);
                         var li = '<div id="mx" class="mui-card">';
                         li = li + '   <div class="mui-input-row itemtitle">';
@@ -351,6 +349,8 @@
 
                         });
                     }
+                } else {
+                    version = url.split("=")[1];
                 }
             }
         }
@@ -474,7 +474,7 @@
             ];
 
 
-          
+
 
             $("#addItem").on('tap', function () {
 
@@ -524,7 +524,7 @@
 
                 showPickerByZepto("#mxlist", "#fks", fksdata);
                 showPickerByZepto("#mxlist", "#fjj", fjjdata);
-                
+
 
                 var picker = new mui.PopPicker(
                     {
@@ -622,7 +622,7 @@
                         xml = xml + '<Header>';
                         xml = xml + '<Method>Post</Method>';
                         xml = xml + '<ProcessName>盛祥商管公司工装制作申请</ProcessName>';
-                        xml = xml + '<ProcessVersion>1.1</ProcessVersion>';
+                        xml = xml + '<ProcessVersion>' + version + '</ProcessVersion>';
                         xml = xml + '<DraftGuid></DraftGuid>';
                         xml = xml + '<OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
                         xml = xml + '<Action>提交</Action>';
@@ -666,7 +666,7 @@
                         PostXml(xml);
                     }
                 });
-           
+
         }
 
 
@@ -720,7 +720,7 @@
             }
             return mx;
         }
-     
+
     </script>
 </body>
 </html>

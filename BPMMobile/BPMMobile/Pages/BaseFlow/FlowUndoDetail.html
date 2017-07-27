@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -71,6 +72,7 @@
     <div class="mui-content" style="background-color:white;display:block;z-index:998;" id="wrapper">
         <div class="" id="scroller">
             <form class="mui-input-group" style="left:0rem;right:0rem;">
+              
                 <div class="mui-input-row">
                     <label>标题<i style="color:red;">*</i></label>
                     <input type="text" class="mui-input-clear" placeholder="请输入标题" id="flowTitle" name="flowTitle"/>
@@ -315,33 +317,37 @@
         function getTaskMsg() {
 
            
-            
+
+
             var url = window.location.href;
             if (url != null && url.indexOf("tid") != -1 && url.indexOf("pid") != -1) {
 
                 
                 taskId = url.substring(url.indexOf("=") + 1, url.indexOf("&"));
 
-                
 
+               
                 if (url.split("pid=")[1].indexOf("ticket")!=-1) {
                     stepId = url.split("pid=")[1];
                     stepId = stepId.split("&ticket")[0];
-
+                    var ticket = url.split("=")[3];
+                    localStorage.setItem('ticket', ticket);
                     
                 } else {
                    
                     stepId = url.split("pid=")[1];
                    
                 }
+
                
-                
             } else {
                 mui.toast("网络异常,请稍后重试");
                 history.go(-1);
                 
             }
+
            
+
             $.ajax({
                 type: "get",
                 url: "/api/bpm/GetTaskData",
@@ -351,9 +357,9 @@
                     XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
                 },
                 success: function (data, status) {
-
+                   
                     if (status == "success") {
-
+                       
                         //console.log(data);
 
                         var item = data.FormDataSet.BPM_JRAPP[0];
@@ -475,7 +481,7 @@
 
                                 }, error: function (e) {
                                     console.log(e);
-
+                                    
                                 }, complete: function () {
 
                                 }
@@ -484,7 +490,7 @@
 
                         }
 
-
+                       
                         if ($('#myPhone').val() == "") {
                             var myPhone = String(BPMOU).split("/");
                             $('#myPhone').val(String(myPhone[myPhone.length - 1]));
@@ -509,7 +515,7 @@
 
                         }
 
-
+                       
                         if (!NodeName) {
                             $("#csd").css("display", "none");
 
@@ -537,13 +543,14 @@
 
 
                         } else {
-                            //审批的处理
-                            $("#flowTitle").removeClass("mui-input-clear");
-                            $("#flowCause").removeClass("mui-input-clear");
-                            $("#flowTitle").attr("readonly", "readonly");
-                            $("#flowCause").attr("readonly", "readonly");
-                            $("#approvalD").css("display", "block");
-
+                            if (typeof (NodeName) != "undefined") {
+                                //审批的处理
+                                $("#flowTitle").removeClass("mui-input-clear");
+                                $("#flowCause").removeClass("mui-input-clear");
+                                $("#flowTitle").attr("readonly", "readonly");
+                                $("#flowCause").attr("readonly", "readonly");
+                                $("#approvalD").css("display", "block");
+                            }
 
                         }
                     } else {
@@ -662,12 +669,7 @@
 
 
                 } else if (callBackId == 'callback2') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
-
+                    window.location.reload();
                 } else if (callBackId == 'callback3') {
                     getRecedableToSteps();
                 }
@@ -1084,20 +1086,17 @@
             var flowCause = $("#flowCause").val();
 
             //TODO:附件部分添加
-
+            var pid = $("#stepId").val();
 
             var xml = '<?xml version="1.0"?>';
             xml = xml + '<XForm>';
-            xml = xml + ' <Header>';
-            xml = xml + '   <Method>Post</Method>';
-            xml = xml + '   <ProcessName>' + $("#processName").val()+ '</ProcessName>';
-            xml = xml + '   <ProcessVersion>1.1</ProcessVersion>';
-            xml = xml + '   <DraftGuid></DraftGuid>';
-            xml = xml + '   <OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
+            xml = xml + '   <Header>';
+            xml = xml + '    <Method>Process</Method>';
+            xml = xml + '   <PID>' + pid + '</PID>';
             xml = xml + '   <Action>提交</Action>';
-            xml = xml + '   <Comment></Comment>';
-            xml = xml + '   <InviteIndicateUsers></InviteIndicateUsers>';
-            xml = xml + ' </Header>';
+            xml = xml + '    <Comment></Comment>';
+            xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
+            xml = xml + '  </Header>';
             xml = xml + ' <FormData>';
             xml = xml + '   <BPM_JRAPP>';
             xml = xml + '      <fbt>' + flowTitle + '</fbt>';

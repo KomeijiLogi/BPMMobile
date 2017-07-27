@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -185,11 +186,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                     //location.reload();
                 } else if (callBackId == 'callback2') {
 
@@ -206,7 +203,7 @@
             $("#fhdate").val(getNowFormatDate(2));
             var url = window.location.href;
             if (url != null && url != "") {
-                if (String(url).includes("reset")) {
+                if (String(url).indexOf("reset") != -1) {
                     var msg = JSON.parse(localStorage.getItem("BPM_SGGSBMLXDMsg"));
                     $("#fhname").val(msg.fhname);
                     $("#fhdept").val(msg.fhdept);
@@ -218,7 +215,7 @@
                     $("#fnllb").val(msg.fnllb);
                     $("#fhzt").val(msg.fhzt);
                     $("#fhnr").val(msg.fhnr);
-                    for (var i = 0; i < msg.fshbm.length; i++){
+                    for (var i = 0; i < msg.fshbm.length; i++) {
 
                         var fshbmItem = JSON.parse(msg.fshbm[i]);
 
@@ -243,8 +240,11 @@
                         li = li + '     </div >';
                         $("#shlist").append(li);
                     }
+                    version = url.replace("&reset", "").split("=")[1];
+                } else {
+                    version = url.split("=")[1];
                 }
-            }
+            } 
 
         }
 
@@ -448,7 +448,7 @@
                     xml = xml + '<Method>Post</Method>';
                     //xml = xml + '<ProcessName>BG0702002_商管公司部门联系单_流程</ProcessName>';
                     xml = xml + '<ProcessName>盛祥商管公司内部联系申请</ProcessName>';
-                    xml = xml + '<ProcessVersion>1.0</ProcessVersion>';
+                    xml = xml + '<ProcessVersion>' + version + '</ProcessVersion>';
                     xml = xml + '<DraftGuid></DraftGuid>';
                     xml = xml + '<OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
                     xml = xml + '<Action>提交</Action>';

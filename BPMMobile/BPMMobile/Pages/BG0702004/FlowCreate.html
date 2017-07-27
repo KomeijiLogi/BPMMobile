@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -108,11 +109,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                     //location.reload();
                 } else if (callBackId == 'callback2') {
 
@@ -131,7 +128,8 @@
 
             var url = window.location.href;
             if (url != null && url != "") {
-                if (String(url).includes("reset")) {
+                if (String(url).indexOf("reset") != -1) {
+                    version = url.replace("&reset", "").split("=")[1];
                     var msg = JSON.parse(localStorage.getItem('BPM_WGGCDJJLPLYSQMsg'));
                     $("#fname").val(msg.fname);
                     $("#fdept").val(msg.fdept);
@@ -157,48 +155,50 @@
                         }
                     ];
                     for (var i = 0; i < msg.fsqmx.length; i++) {
-                            var fsqmxItem = JSON.parse(msg.fsqmx[i]);
-                              
-                            var li = '<div id="mx" class="mui-card">';
-                            li = li + '   <div class="mui-input-row itemtitle">';
-                            li = li + '        <label>明细列表项</label> ';
-                            li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="ftype">类型<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="ftype" name="ftype" readonly="readonly" placeholder="请选择类型" value="' + fsqmxItem.ftype+'"/>';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fmc">名称<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="fmc" name="fmc" placeholder="请输入名称" value="' + fsqmxItem.fmc+'"/>';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="famount">数量<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="number" id="famount" name="famount" placeholder="请输入数量" value="' + fsqmxItem.famount+'"/>';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row" style="height:5.25rem;">';
-                            li = li + '         <label for="fremark">备注</label>';
-                            li = li + '         <textarea rows="5" id="fremark" name="fremark" placeholder="请输入备注">' + fsqmxItem.fremark+'</textarea>';
-                            li = li + '   </div>';
-                            li = li + '</div>';
-                            $("#mxlist").append(li);
+                        var fsqmxItem = JSON.parse(msg.fsqmx[i]);
+
+                        var li = '<div id="mx" class="mui-card">';
+                        li = li + '   <div class="mui-input-row itemtitle">';
+                        li = li + '        <label>明细列表项</label> ';
+                        li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
+                        li = li + '   </div>';
+                        li = li + '   <div class="mui-input-row">';
+                        li = li + '        <label for="ftype">类型<i style="color:red;">*</i></label>';
+                        li = li + '        <input type="text" id="ftype" name="ftype" readonly="readonly" placeholder="请选择类型" value="' + fsqmxItem.ftype + '"/>';
+                        li = li + '   </div>';
+                        li = li + '   <div class="mui-input-row">';
+                        li = li + '        <label for="fmc">名称<i style="color:red;">*</i></label>';
+                        li = li + '        <input type="text" id="fmc" name="fmc" placeholder="请输入名称" value="' + fsqmxItem.fmc + '"/>';
+                        li = li + '   </div>';
+                        li = li + '   <div class="mui-input-row">';
+                        li = li + '        <label for="famount">数量<i style="color:red;">*</i></label>';
+                        li = li + '        <input type="number" id="famount" name="famount" placeholder="请输入数量" value="' + fsqmxItem.famount + '"/>';
+                        li = li + '   </div>';
+                        li = li + '   <div class="mui-input-row" style="height:5.25rem;">';
+                        li = li + '         <label for="fremark">备注</label>';
+                        li = li + '         <textarea rows="5" id="fremark" name="fremark" placeholder="请输入备注">' + fsqmxItem.fremark + '</textarea>';
+                        li = li + '   </div>';
+                        li = li + '</div>';
+                        $("#mxlist").append(li);
 
 
-                            var picker = new mui.PopPicker();
-                            picker.setData(ftypedata);
+                        var picker = new mui.PopPicker();
+                        picker.setData(ftypedata);
 
-                            $("#mxlist").find("#ftype").each(function () {
+                        $("#mxlist").find("#ftype").each(function () {
 
-                                var self = this;
-                                $(this).on('tap', function () {
+                            var self = this;
+                            $(this).on('tap', function () {
 
-                                    picker.show(function (items) {
-                                        self.value = (items[0].text);
-                                    });
+                                picker.show(function (items) {
+                                    self.value = (items[0].text);
                                 });
                             });
-                        
+                        });
+
                     }
+                } else {
+                    version = url.split("=")[1];
                 }
             }
         }
@@ -309,7 +309,7 @@
                     xml = xml + '<Header>';
                     xml = xml + '<Method>Post</Method>';
                     xml = xml + ' <ProcessName>盛祥商管公司威高广场代金劵、礼品领用申请</ProcessName>';
-                    xml = xml + '<ProcessVersion>1.1</ProcessVersion>';
+                    xml = xml + '<ProcessVersion>' + version + '</ProcessVersion>';
                     xml = xml + '<DraftGuid></DraftGuid>';
                     xml = xml + '<OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
                     xml = xml + '<Action>提交</Action>';

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -136,23 +137,23 @@
                <label for="fgg">规格</label>
                <input type="text" id="fgg" name="fgg" placeholder="请输入规格"/>
            </div>
-           <div class="mui-input-row">
+           <div class="mui-input-row" style="height:2.25rem;">
                <label for="fyxsysj">音响大屏使用时间</label>
-               <input type="text" id="fyxsysj" name="fyxsysj"/>
+               <input type="text" id="fyxsysj" name="fyxsysj" placeholder="请输入音响大屏使用时间"/>
            </div>
            <div class="mui-input-row">
                <label for="fbzsj">布展时间</label>
-               <input type="datetime" id="fbzsj" name="fbzsj"/>
+               <input type="datetime-local" value="2017/07/17 15:51" id="fbzsj" name="fbzsj" placeholder="请选择布展时间"/>
            </div>
            <div class="mui-input-row">
                <label for="fczsj">拆展时间</label>
-               <input type="datetime" id="fczsj" name="fczsj"/>
+               <input type="datetime-local" value="2017/07/17 15:51" id="fczsj" name="fczsj" placeholder="请选择拆展时间"/>
            </div>
            <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                <div class="border border-t upload-img" style="top:0rem;">
                    <!--上传图片-->
                    <div class="clearfix upload-btn" id="children-bg">
-                       <label class="label">附件<i style="color:red;">*</i></label>
+                       <label class="label">附件</label>
                        <span class="tips" id="imageCount"><!--已添加0张--></span>
                        <!--上传图片按钮  -->
                        <span class="upload-addbtn">
@@ -179,6 +180,21 @@
             prepMsg();
 
         });
+
+        mui('.mui-input-group').on('change', 'input', function () {
+            if (this.checked) {
+
+                fzplxArr.push(this.value);
+                console.log(fzplxArr);
+            } else {
+                if ($.inArray(this.value, fzplxArr) != -1) {
+
+
+                }
+            }
+
+        });
+
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
 
@@ -223,9 +239,30 @@
             tapEvent();
             $("#fdate").val(getNowFormatDate(2));
 
-
+            var url = window.location.href;
+            version = url.split("=")[1];
         }
 
+        var fzplxArr = new Array();
+        function tapEvent() {
+
+
+            var fcddata = [
+                {
+                    value: "sgc",
+                    text:"时光城"
+                },
+                {
+                    value: "wggc",
+                    text:"威高广场"
+                }
+            ];
+
+            showPicker('fcd', fcddata);
+
+           
+
+        }
 
 
         function Save() {
@@ -236,6 +273,8 @@
             var fname = $("#fname").val();
             var fdept = $("#fdept").val();
             var fdate = $("#fdate").val() + " 00:00:00";
+
+            var fcd = $("#fcd").val();
 
         }
     </script>

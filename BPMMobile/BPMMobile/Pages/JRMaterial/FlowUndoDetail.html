@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -360,11 +361,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                 } else if (callBackId == 'callback2') {
                     getRecedableToSteps();
                 } else {
@@ -400,7 +397,8 @@
                 if (url.split("pid=")[1].indexOf("ticket")!=-1) {
                     stepId = url.split("pid=")[1];
                     stepId = stepId.split("&ticket")[0];
-
+                    var ticket = url.split("=")[3];
+                    localStorage.setItem('ticket', ticket);
                 } else {
                     stepId = url.split("pid=")[1];
                 }
@@ -544,34 +542,35 @@
                             $(this).find("#fdj").attr("readonly", "readonly");
                             $(this).find("#fremark").attr("readonly", "readonly");
                             $(this).find("#deleteProduct").css("display", "none");
-                        }); 
+                        });
                         $("#csd").css("display", "none");
                         $("#addProduct").css("display", "none");
                     } else {
-                        //审批的处理
-                        $("#approvalD").css("display", "block");
-                        $("#fareaD").css("display", "block");
-                        $("#ftel").attr("readonly", "readonly");
-                        $("#fghdw").attr("readonly", "readonly");
-                        $("#faddr").attr("readonly", "readonly");
-                        $("#fshr").attr("readonly", "readonly");
-                        $("#fshtel").attr("readonly", "readonly");
-                        $("#wllist").find("#wl").each(function () {
-                            $(this).find("#fwlno").attr("readonly", "readonly");
-                            $(this).find("#fwlname").attr("readonly", "readonly");
-                            $(this).find("#fggxh").attr("readonly", "readonly");
-                            $(this).find("#fsl").attr("readonly", "readonly");
-                            $(this).find("#fdj").attr("readonly", "readonly");
-                            $(this).find("#fremark").attr("readonly", "readonly");
-                            $(this).find("#deleteProduct").css("display", "none");
-                        });
-                        
+                        if (typeof (NodeName) != "undefined") {
+                            //审批的处理
+                            $("#approvalD").css("display", "block");
+                            $("#fareaD").css("display", "block");
+                            $("#ftel").attr("readonly", "readonly");
+                            $("#fghdw").attr("readonly", "readonly");
+                            $("#faddr").attr("readonly", "readonly");
+                            $("#fshr").attr("readonly", "readonly");
+                            $("#fshtel").attr("readonly", "readonly");
+                            $("#wllist").find("#wl").each(function () {
+                                $(this).find("#fwlno").attr("readonly", "readonly");
+                                $(this).find("#fwlname").attr("readonly", "readonly");
+                                $(this).find("#fggxh").attr("readonly", "readonly");
+                                $(this).find("#fsl").attr("readonly", "readonly");
+                                $(this).find("#fdj").attr("readonly", "readonly");
+                                $(this).find("#fremark").attr("readonly", "readonly");
+                                $(this).find("#deleteProduct").css("display", "none");
+                            });
 
-                        $("#addProduct").css("display", "none");
-                      
 
+                            $("#addProduct").css("display", "none");
+
+
+                        }
                     }
-
 
                 },
                 error: function (e) {

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -47,7 +48,7 @@
             </div>
             <div class="mui-input-row">
                 <label for="fcgbm">采购部门<i style="color:red;">*</i></label>
-                <input type="text" id="fcgbm" name="fcgbm" value=""/>
+                <input type="text" id="fcgbm" name="fcgbm" value="" placeholder="请选择采购部门"/>
             </div>
             <div class="mui-input-row" style="height:2.25rem;">
                 <label>安质部零星采购明细</label>
@@ -95,11 +96,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                     //location.reload();
                 } else if (callBackId == 'callback2') {
 
@@ -118,7 +115,8 @@
 
             var url = window.location.href;
             if (url != null && url != "") {
-                if (String(url).includes("reset")) {
+                version = url.replace("&reset", "").split("=")[1];
+                if (String(url).indexOf("reset") != -1) {
 
                     var msg = JSON.parse(localStorage.getItem('BPM_JSGSLXCGSQMsg'));
 
@@ -128,7 +126,7 @@
                     $("#fdhdate").val(msg.fdhdate);
                     $("#fcgbm").val(msg.fcgbm);
 
-                    for (var i = 0; i < msg.flxmx.length;i++){
+                    for (var i = 0; i < msg.flxmx.length; i++) {
 
                         var flxmxItem = JSON.parse(msg.flxmx[i]);
                         var li = '<div id="lx" class="mui-card">';
@@ -169,6 +167,8 @@
 
                     }
                 }
+            } else {
+                version = url.split("=")[1];
             }
         }
 
@@ -280,7 +280,7 @@
                     xml = xml + '<Header>';
                     xml = xml + '<Method>Post</Method>';
                     xml = xml + '<ProcessName>建设公司安质部零星采购申请</ProcessName>';
-                    xml = xml + '<ProcessVersion>1.0</ProcessVersion>';
+                    xml = xml + '<ProcessVersion>' + version + '</ProcessVersion>';
                     xml = xml + '<DraftGuid></DraftGuid>';
                     xml = xml + '<OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
                     xml = xml + '<Action>提交</Action>';

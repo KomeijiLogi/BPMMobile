@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
@@ -95,12 +96,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
-                    
+                    window.location.reload();
 
                 } else if (callBackId == 'callback2') {
 
@@ -175,7 +171,7 @@
 
                                 var li = '<li class="mui-table-view-cell" id="touchArea">';
                                
-                                li = li + '  <a href="'+ data.tasks[i].ViewAskPage+'?tid=' + data.tasks[i].TaskID + '">';
+                                li = li + '  <a href="' + data.tasks[i].ViewAskPage + '?tid=' + data.tasks[i].TaskID + '">';
                                 
                                 
                                 li = li + '       <input type="hidden" value="'+data.tasks[i].TaskID +'" id="taskId" name="taskId"/> ';

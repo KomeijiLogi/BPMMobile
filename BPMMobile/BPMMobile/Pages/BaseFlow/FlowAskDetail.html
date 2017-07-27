@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -169,7 +170,7 @@
 
 
         <div class="mui-table-view">
-            <div class="mui-table-view-cell  mui-collapse">
+            <div class="mui-table-view-cell  mui-collapse mui-active">
                 <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
 
                     历史签核意见
@@ -362,11 +363,7 @@
 
                     setTimeout("window.location.href = '/Pages/BaseFlow/FlowCreate.html?reset=true'", 1000);
                 } else if (callBackId == 'callback3') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                     
                 }
             }
