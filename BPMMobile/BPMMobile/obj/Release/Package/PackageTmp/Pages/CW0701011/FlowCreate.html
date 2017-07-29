@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -167,6 +168,7 @@
     <script>
         mui.init();
         mui.ready(function () {
+            getVersion('\\07房地产集团\\01跨子公司\\CW财务管理', '盛祥商管公司挂账推广费用申请');
             upload();
             watch();
             getBPMParam();
@@ -197,11 +199,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                     //location.reload();
                 } else if (callBackId == 'callback2') {
 
@@ -218,7 +216,8 @@
             $("#fdate").val(getNowFormatDate(2));
             var url = window.location.href;
             if (url != null && url != "") {
-                if (String(url).includes("reset")) {
+                if (String(url).indexOf("reset") != -1) {
+                   
                     var msg = JSON.parse(localStorage.getItem("BPM_FDCBX_TGFYSQMsg"));
                     $("#fcompany").val(msg.fcompany);
                     $("#fdept").val(msg.fdept);
@@ -267,6 +266,8 @@
                         $("#tglist").append(li);
                         showPicker('ffylx', ffylxdata);
                     }
+                } else {
+                    
                 }
             }
 
@@ -368,7 +369,7 @@
                     });
                 });
 
-                
+
             });
 
 
@@ -492,7 +493,7 @@
                     xml = xml + '<Method>Post</Method>';
                     //xml = xml + '<ProcessName>CW0701011_房地产集团推广费用申请_流程</ProcessName>';
                     xml = xml + '<ProcessName>盛祥商管公司挂账推广费用申请</ProcessName>';
-                    xml = xml + '<ProcessVersion>1.0</ProcessVersion>';
+                    xml = xml + '<ProcessVersion>' + version + '</ProcessVersion>';
                     xml = xml + '<DraftGuid></DraftGuid>';
                     xml = xml + '<OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
                     xml = xml + '<Action>提交</Action>';

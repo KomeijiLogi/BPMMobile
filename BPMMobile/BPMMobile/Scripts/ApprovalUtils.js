@@ -29,7 +29,7 @@ function PostXml(xml) {
                 if (data.Recipients[0] != null) {
                     mui.toast("提交给" + data.Recipients[0].Recipient.DisplayName);
                 } else {
-                    mui.toast("流程结束");
+                    mui.toast("流程审批结束");
                 }
                 if (String(xml).indexOf("提交") != -1) {
                     setTimeout("window.location.href = '/Pages/index.html?ticket=" + localStorage.getItem('ticket') + "'", 2000);
@@ -286,6 +286,36 @@ function getBPMParam() {
 
 }
 
+//获取版本信息
+function getVersion(path, name) {
+
+    $.ajax({
+
+        type: 'get',
+        url: "/api/bpm/GetProcessDefine",
+        data: { 'path': path, 'name': name },
+        beforeSend: function (XHR) {
+            XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+        },
+        success: function (data, status) {
+            if (status == "success") {
+
+                console.log(data);
+                version = (data.Version.Major) + "." + (data.Version.Minor);
+            } else {
+
+            }
+        },
+        error: function (e) {
+
+        },
+
+        complete: function () {
+            console.log(version);
+        }
+    });
+
+}
 
 //拒绝
 function reject() {

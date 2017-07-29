@@ -49,21 +49,20 @@ namespace BPMMobile.Controllers
         }
 
 
-
         /// <summary>
         /// 可发起流程列表
         /// </summary>
         /// <returns></returns>
 
-        public IHttpActionResult GetCanCreateProcess()
+        private List<Process> GetCanCreate()
         {
             PrepareBPMEnv();
 
-            List<Process> myProcesses = new List<Process> ();
+            List<Process> myProcesses = new List<Process>();
             using (BPMConnection cn = new BPMConnection())
             {
                 cn.WebOpen();
-               
+
                 BPMProcessCollection processes = new BPMProcessCollection();
                 var mobileProcess = GetMobileProcess();
                 var cache = new Dictionary<string, BPMProcessCollection>();
@@ -83,13 +82,55 @@ namespace BPMMobile.Controllers
                     {
                         if (item.Name == p.Name)
                         {
-                            p.Version = item.Version.Major.ToString()+"." + item.Version.Minor.ToString();
+                            p.Version = item.Version.Major.ToString() + "." + item.Version.Minor.ToString();
                             myProcesses.Add(p);
                         }
                     }
                 }
             }
-                return Json(myProcesses);
+            return myProcesses;
+        }
+        /// <summary>
+        /// 可发起流程列表
+        /// </summary>
+        /// <returns></returns>
+
+        public IHttpActionResult GetCanCreateProcess()
+        {
+            //PrepareBPMEnv();
+
+            //List<Process> myProcesses = new List<Process> ();
+            //using (BPMConnection cn = new BPMConnection())
+            //{
+            //    cn.WebOpen();
+
+            //    BPMProcessCollection processes = new BPMProcessCollection();
+            //    var mobileProcess = GetMobileProcess();
+            //    var cache = new Dictionary<string, BPMProcessCollection>();
+            //    foreach (var p in mobileProcess)
+            //    {
+            //        if (!p.CanCreate) continue;
+            //        if (cache.ContainsKey(p.Path))
+            //        {
+            //            processes = cache[p.Path];
+            //        }
+            //        else
+            //        {
+            //            processes = cn.GetProcessList(p.Path, BPMPermision.Execute, true);
+            //            cache.Add(p.Path, processes);
+            //        }
+            //        foreach (BPMProcess item in processes)
+            //        {
+            //            if (item.Name == p.Name)
+            //            {
+            //                p.Version = item.Version.Major.ToString()+"." + item.Version.Minor.ToString();
+            //                myProcesses.Add(p);
+            //            }
+            //        }
+            //    }
+            //}
+            var list = GetCanCreate();
+                return Json(list);
             }
         /// <summary>
         /// 获取待办任务数量
@@ -712,6 +753,32 @@ namespace BPMMobile.Controllers
                 return Json(result);
             }
         }
+        /// <summary> 
+        /// 获取流程定义 
+        /// </summary> 
+        /// <param name="path"></param> 
+        /// <param name="name"></param> 
+        /// <returns></returns> 
+        public IHttpActionResult GetProcessDefine(string path, string name)
+        {
+            PrepareBPMEnv();
+            BPMProcess p = null; ;
+            using (BPMConnection cn = new BPMConnection())
+            {
+                cn.WebOpen();
+                BPMProcessCollection processes = new BPMProcessCollection();
+                processes = cn.GetProcessList(path, BPMPermision.Execute, true);
+                foreach (BPMProcess item in processes)
+                {
+                    if (item.Name == name)
+                    {
+                        p = item;
+                        break;
+                    }
+                }
+            }
+            return Json(p);
+        }
         /// <summary>
         /// 上传文件
         /// </summary>
@@ -813,9 +880,11 @@ namespace BPMMobile.Controllers
             .OrderByDescending(t => t.CreateDate)
             .Skip(startRowIndex)
             .Take(rows);
-            var mobileProcess = GetMobileProcess();
+          //  var mobileProcess = GetMobileProcess();
+            var canCreatelist = GetCanCreate();
             var ret = from t in taskList
-                      join m in mobileProcess on t.ProcessName equals m.Name
+                      //join m in mobileProcess on t.ProcessName equals m.Name
+                      join m in canCreatelist  on t.ProcessName equals m.Name
                       select new DraftDto()
                       {
                           DisplayName = m.DisplayName,
@@ -824,7 +893,8 @@ namespace BPMMobile.Controllers
                           ViewPage = m.ViewPage,
                           Description = t.Description,
                           ProcessName = t.ProcessName,
-                          DraftGuid = t.DraftGuid
+                          DraftGuid = t.DraftGuid,
+                          Version=m.Version
                          
                           
                       };
@@ -1283,6 +1353,7 @@ namespace BPMMobile.Controllers
         public string Description { get; set; }
         public Guid DraftGuid { get; set; }
         public string ProcessName { get; set; }
+        public string Version { get; set; }
 
 
     }

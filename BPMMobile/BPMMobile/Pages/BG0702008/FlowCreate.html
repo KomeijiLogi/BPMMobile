@@ -118,6 +118,7 @@
         mui.init();
 
         mui.ready(function () {
+            getVersion('\\07房地产集团\\02商管公司\\BG办公管理', '盛祥商管公司图纸会签');
             upload();
             getBPMParam();
             watch();
@@ -181,7 +182,7 @@
             var url = window.location.href;
             if (url != null && url != "") {
                 if (String(url).indexOf("reset") != -1) {
-                    version = url.replace("&reset", "").split("=")[1];
+                   
                     var msg = JSON.parse(localStorage.getItem('BPM_SGGSTZHSMsg'));
                     $("#fname").val(msg.fname);
                     $("#fdept").val(msg.fdept);
@@ -195,7 +196,7 @@
                         $("#fpd").val(msg.fpd);
                     }
                 } else {
-                    version = url.split("=")[1];
+                    
                 }
             }
         }

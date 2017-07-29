@@ -126,6 +126,7 @@
     <script>
         mui.init();
         mui.ready(function () {
+            getVersion('\\02医用制品集团\\05洁瑞医用制品公司\\XS销售管理', '洁瑞公司样品申请');
             getBPMParam();
             prepMsg();
             watch();
@@ -140,7 +141,7 @@
             var url = window.location.href;
             if (url != null && url != "") {
                 if (String(url).indexOf("reset") != -1) {
-                    version = url.replace("&reset", "").split("=")[1];
+                   
                     var msg = JSON.parse(localStorage.getItem('BPM_JRYPSQMsg'));
                     $("#fname").val(msg.fname);
                     $("#farea").val(msg.farea);
@@ -183,7 +184,7 @@
 
                     }
                 } else {
-                    version = url.split("=")[1];
+                   
                 }
             }
 

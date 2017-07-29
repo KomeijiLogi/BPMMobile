@@ -71,6 +71,7 @@
         mui.init();
 
         mui.ready(function () {
+            getVersion('\\01威高集团总部\\06建设公司\\SCGL生产管理','建设公司库存不良物资提报');
             getBPMParam();
             prepMsg();
             forbiddenCache();
@@ -120,7 +121,7 @@
             var url = window.location.href;
             if (url != null && url != "") {
                 if (String(url).indexOf("reset") != -1) {
-                    version = url.replace("&reset", "").split("=")[1];
+                   
                     var msg = JSON.parse(localStorage.getItem('BPM_JSGSBLWZTBMsg'));
                     $("#fname").val(msg.fname);
                     $("#fdept").val(msg.fdept);
@@ -207,7 +208,7 @@
                         });
                     }
                 } else {
-                    version = url.split("=")[1];
+                   
                 }
             }
         }

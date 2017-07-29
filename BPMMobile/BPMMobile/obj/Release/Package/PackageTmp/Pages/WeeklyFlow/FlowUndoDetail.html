@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -21,6 +22,7 @@
     <link rel="stylesheet" href="../../Content/mui.picker.min.css"/>
     <link rel="stylesheet" href="../../Content/mui.poppicker.css"/>
     <link rel="stylesheet" href="../../Content/upload.css" />
+    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
     <title></title>
     <meta charset="utf-8" />
     <style>
@@ -58,6 +60,7 @@
 <body>
     <div class="mui-content" style="background-color:white;" id="wrapper" >
         <form class="mui-input-group" style="left:0rem;right:0rem;">
+           
             <div class="mui-input-row">
                 <label>员工姓名</label>
                 <input type="text" placeholder="请输入员工姓名信息" class="" id="fname" name="fname" />
@@ -289,14 +292,20 @@
         var BPMOU;
 
         XuntongJSBridge.call('getPersonInfo', {}, function (result) {
+           
             if (typeof (result) == "string") {
                 result = JSON.parse(result);
             }
-
+           
             if (result.success == true || result.success == "true") {
-                $('#myPhone').val(result.data.userName);
+                if (typeof (result.data.userName) == "undefined") {
+                    $('#myPhone').val("");
+                } else {
+                    $('#myPhone').val(result.data.userName);
+                }
+              
             }
-
+           
         });
         XuntongJSBridge.call('createPop', {
             'popTitle': '',
@@ -396,11 +405,7 @@
 
 
                 } else if (callBackId == 'callback2') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
 
                 } else if (callBackId == 'callback3') {
                     getRecedableToSteps();
@@ -429,7 +434,8 @@
                 if (url.split("pid=")[1].indexOf("ticket")!=-1) {
                     stepId = url.split("pid=")[1];
                     stepId = stepId.split("&ticket")[0];
-
+                    var ticket = url.split("=")[3];
+                    localStorage.setItem('ticket', ticket);
                 } else {
                     stepId = url.split("pid=")[1];
                 }
@@ -473,17 +479,23 @@
                     $("#fgjjy_manager").val(item.fgjjy_manager);
                     $("#fgjjy_director").val(item.fgjjy_director);
 
+                    if ($('#myPhone').val() == "") {
+                        var myPhone = String(BPMOU).split("/");
+                        $('#myPhone').val(String(myPhone[myPhone.length - 1]));
+                        
+                    }
 
-                    var NodeName;
+                   
+                    var NodeName ;
                     //判断流程本节点是否结束，处理者是否为当前用户,
                     //流程步骤是否是传过来的流程步骤，再根据这三项查出对应的节点名称
                     for (var i = 0; i < data.Steps.length; i++) {
                         //debugger;
-
+                       
                         if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
 
-                           
-                            if (stepId.includes(data.Steps[i].StepID)) {
+
+                            if (stepId.indexOf(data.Steps[i].StepID)!=-1) {
                                
                                 NodeName = data.Steps[i].NodeName;
 
@@ -493,7 +505,7 @@
 
                     }
 
-                    
+                   
 
                     if (NodeName == "开始") {
                         //退回重填的处理
@@ -523,29 +535,31 @@
                         $("#fno").attr("readonly", "readonly");
 
                     } else {
-                        //审批的处理
-                        $("#fnrjl").attr("readonly", "readonly");
-                        $("#fgjsl").attr("readonly", "readonly");
-                        $("#fgjjy_manager").attr("readonly", "readonly");
-                        $("#fgjjy_director").attr("readonly", "readonly");
-                        $("#fstartdate").attr("readonly", "readonly");
-                        $("#foverdate").attr("readonly", "readonly");
-                        $("#approvalD").css("display", "block");
+                        if (typeof (NodeName) != "undefined") {
+                            //审批的处理
+                            $("#fnrjl").attr("readonly", "readonly");
+                            $("#fgjsl").attr("readonly", "readonly");
+                            $("#fgjjy_manager").attr("readonly", "readonly");
+                            $("#fgjjy_director").attr("readonly", "readonly");
+                            $("#fstartdate").attr("readonly", "readonly");
+                            $("#foverdate").attr("readonly", "readonly");
+                            $("#approvalD").css("display", "block");
 
-                        $("#fname").attr("readonly", "readonly");
-                        $("#fno").attr("readonly", "readonly");
-                        
-                        if (NodeName == "部门经理") {
-                           
-                            $("#fgjjy_manager").removeAttr("readonly");
-                            $("#jlpjg").attr("placeholder", "请选择经理评价"); 
-                            showPicker('jlpjg');
-                        } else if (NodeName == "分管领导") {
-                            $("#zjpjg").attr("placeholder", "请选择总监评价"); 
-                            $("#fgjjy_director").removeAttr("readonly");
-                            //$("#agreebt").css("width", "100%");
-                            //$("#refusebt").css("display", "none");
-                            showPicker('zjpjg');
+                            $("#fname").attr("readonly", "readonly");
+                            $("#fno").attr("readonly", "readonly");
+
+                            if (NodeName == "部门经理") {
+
+                                $("#fgjjy_manager").removeAttr("readonly");
+                                $("#jlpjg").attr("placeholder", "请选择经理评价");
+                                showPicker('jlpjg');
+                            } else if (NodeName == "分管领导") {
+                                $("#zjpjg").attr("placeholder", "请选择总监评价");
+                                $("#fgjjy_director").removeAttr("readonly");
+                                //$("#agreebt").css("width", "100%");
+                                //$("#refusebt").css("display", "none");
+                                showPicker('zjpjg');
+                            }
                         }
 
                     }
@@ -711,59 +725,67 @@
             var fgjjy_director = $("#fgjjy_director").val();
             var taskId = $("#taskId").val();
             var fbillno = $("#fbillno").val();
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + ' <XForm>';
-            xml = xml + '   <Header>';
-            xml = xml + '    <Method>InformSubmit</Method>';
-            xml = xml + '    <PID>' + pid + '</PID>';
-            xml = xml + '   <Action>同意</Action>';
-            xml = xml + '   <Comment></Comment>';
-            xml = xml + '   <InviteIndicateUsers></InviteIndicateUsers>';
-            xml = xml + '  </Header>';
-            xml = xml + '<FormData>';
-            xml = xml + '<BPM_ZGZHB>';
-            xml = xml + '   <fbillno>' + fbillno+'</fbillno>';
-            xml = xml + '   <TaskID>' + taskId + '</TaskID>';
-            xml = xml + '   <fname>' + fname + '</fname>';
-            xml = xml + '   <fno>' + fno + '</fno>';
-            xml = xml + '   <fstartdate>' + fstartdate + '</fstartdate>';
-            xml = xml + '   <foverdate>' + foverdate + '</foverdate>';
-            xml = xml + '   <fyear>' + fyear + '</fyear>';
-            xml = xml + '   <fmonth>' + fmonth + '</fmonth>';
-            xml = xml + '   <fweek>' + fweek + '</fweek>';
-            xml = xml + '   <fpd>2</fpd>';
-            xml = xml + '   <fnrjl>' + fnrjl + '</fnrjl>';
-            xml = xml + '   <fgjsl>' + fgjsl + '</fgjsl>';
-            xml = xml + '   <fzwpj>' + fzwpj + '</fzwpj>';
-            xml = xml + '   <fjlpj>' + fjlpj + '</fjlpj>';
-            xml = xml + '   <fzjpj>' + fzjpj + '</fzjpj>';
-            xml = xml + '   <fgjjy_manager>' + fgjjy_manager + '</fgjjy_manager>';
-            xml = xml + '   <fgjjy_director>' + fgjjy_director + '</fgjjy_director>';
-            xml = xml + ' </BPM_ZGZHB>';
-            xml = xml + '</FormData>';
-            xml = xml + '</XForm>';
 
-            $.ajax({
-                type: "POST",
-                url: "/api/bpm/PostProcess",
-                data: { '': xml },
-                beforeSend: function (XHR) {
-                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
+                if (e.index == 1) {
+                    comment = e.value;
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + ' <XForm>';
+                    xml = xml + '   <Header>';
+                    xml = xml + '    <Method>InformSubmit</Method>';
+                    xml = xml + '    <PID>' + pid + '</PID>';
+                    xml = xml + '   <Action>同意</Action>';
+                    xml = xml + '   <Comment>' + comment + '</Comment>';
+                    xml = xml + '   <InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '  </Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<BPM_ZGZHB>';
+                    xml = xml + '   <fbillno>' + fbillno + '</fbillno>';
+                    xml = xml + '   <TaskID>' + taskId + '</TaskID>';
+                    xml = xml + '   <fname>' + fname + '</fname>';
+                    xml = xml + '   <fno>' + fno + '</fno>';
+                    xml = xml + '   <fstartdate>' + fstartdate + '</fstartdate>';
+                    xml = xml + '   <foverdate>' + foverdate + '</foverdate>';
+                    xml = xml + '   <fyear>' + fyear + '</fyear>';
+                    xml = xml + '   <fmonth>' + fmonth + '</fmonth>';
+                    xml = xml + '   <fweek>' + fweek + '</fweek>';
+                    xml = xml + '   <fpd>2</fpd>';
+                    xml = xml + '   <fnrjl>' + fnrjl + '</fnrjl>';
+                    xml = xml + '   <fgjsl>' + fgjsl + '</fgjsl>';
+                    xml = xml + '   <fzwpj>' + fzwpj + '</fzwpj>';
+                    xml = xml + '   <fjlpj>' + fjlpj + '</fjlpj>';
+                    xml = xml + '   <fzjpj>' + fzjpj + '</fzjpj>';
+                    xml = xml + '   <fgjjy_manager>' + fgjjy_manager + '</fgjjy_manager>';
+                    xml = xml + '   <fgjjy_director>' + fgjjy_director + '</fgjjy_director>';
+                    xml = xml + ' </BPM_ZGZHB>';
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
 
-                },
-                success: function (data, status) {
-                    if (status == "success") {
-                        mui.toast("操作成功");
-                        setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
-                    } else {
-                        mui.toast("操作失败!请稍后重试");
-                    }
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/bpm/PostProcess",
+                        data: { '': xml },
+                        beforeSend: function (XHR) {
+                            XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
 
-                },
-                error: function (e) {
-                    //alert(e);
-                },
-                complete: function () { }
+                        },
+                        success: function (data, status) {
+                            if (status == "success") {
+                                mui.toast("操作成功");
+                                setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
+                            } else {
+                                mui.toast("操作失败!请稍后重试");
+                            }
+
+                        },
+                        error: function (e) {
+                            //alert(e);
+                        },
+                        complete: function () { }
+                    });
+                }
             });
 
         }
@@ -819,7 +841,10 @@
             return checkVal;
         }
         function Save() {
-
+            if ($("#fno").val() == "") {
+                var myPhone = String(BPMOU).split("/");
+                $('#fno').val(String(myPhone[myPhone.length - 1]));
+            }
             var fname = $("#fname").val();
             var fno = $("#fno").val();
             var fstartdate = $("#fstartdate").val() + " 00:00:00";
@@ -832,7 +857,8 @@
             var fzwpj = $("#zwpjg").val();
             var fjlpj = $("#jlpjg").val();
             var fzjpj = $("#zjpjg").val();
-            
+
+            var pid = $("#stepId").val();
             if (fnrjl == "") {
                 mui.toast("请输入工作内容");
                 return;
@@ -842,16 +868,11 @@
             var xml = '<?xml version="1.0"?>';
             xml = xml + ' <XForm>';
             xml = xml + '   <Header>';
-            xml = xml + '    <Method>Post</Method>';
-            //xml = xml + '   <ProcessName>BG0101005_周工作汇报审批_流程</ProcessName>';
-            xml = xml + '   <ProcessName>集团总部信息化推进部周工作汇报</ProcessName>';
-            xml = xml + '   <ProcessVersion>1.0</ProcessVersion>';
-            xml = xml + '   <DraftGuid></DraftGuid>';
-            xml = xml + '   <OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
-            //xml = xml + '   <Action>同意</Action>';
+            xml = xml + '    <Method>Process</Method>';         
+            xml = xml + '   <PID>'+pid+'</PID>';
             xml = xml + '   <Action>提交</Action>';
-            xml = xml + '   <Comment></Comment>';
-            xml = xml + '   <InviteIndicateUsers></InviteIndicateUsers>';
+            xml = xml + '    <Comment></Comment>';
+            xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
             xml = xml + '  </Header>';
             xml = xml + '<FormData>';
             xml = xml + '<BPM_ZGZHB>';

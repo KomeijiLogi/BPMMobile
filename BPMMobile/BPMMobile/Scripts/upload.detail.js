@@ -110,7 +110,13 @@
 
 }
 
+function uploadFiles() {
 
+
+    var uploadurl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx';
+
+    
+}
 
 
 

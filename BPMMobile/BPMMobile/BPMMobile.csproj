@@ -507,6 +507,10 @@
     <Content Include="Pages\OtherExpense\FlowCreate.html" />
     <Content Include="Pages\OtherExpense\FlowDoneDetail.html" />
     <Content Include="Pages\OtherExpense\FlowUndoDetail.html" />
+    <Content Include="Pages\SC0200001\FlowAskDetail.html" />
+    <Content Include="Pages\SC0200001\FlowCreate.html" />
+    <Content Include="Pages\SC0200001\FlowDoneDetail.html" />
+    <Content Include="Pages\SC0200001\FlowUndoDetail.html" />
     <Content Include="Pages\SCGL0703002\FlowAskDetail.html" />
     <Content Include="Pages\SCGL0703002\FlowCreate.html" />
     <Content Include="Pages\SCGL0703002\FlowDoneDetail.html" />
@@ -614,7 +618,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Pages\BG0702027\" />
     <Folder Include="upload\" />
   </ItemGroup>
   <ItemGroup>

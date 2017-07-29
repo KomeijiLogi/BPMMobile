@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
-    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
-    <link rel="stylesheet" href="../../Content/mui.min.css" />
+    <script type="text/javascript" src="../Scripts/ApprovalUtils.js"></script>
+    <link rel="stylesheet" href="../Content/mui.min.css" />
     <title></title>
 	<meta charset="utf-8" />
    
@@ -48,13 +49,23 @@
             left: 0%;
         }
         #badgeicon {
-           position:relative;
-           right:1.7rem;
-           top:0.3rem;
-           z-index:2;
+           position:absolute;
+           /*right:1.7rem;*/
+           top:0.7rem;
+           z-index:998;
            float:right;
 
         }
+        @media screen and (max-height: 568px) {
+            #badgeicon {
+                position: absolute;
+                right:0.2rem;
+                top: 0.7rem;
+                z-index: 998;
+                float: right;
+            }
+        }
+       
     </style>
 
 
@@ -71,20 +82,26 @@
                  
                    <img src="../../Content/extraicon/1204344.png" class="mui-media-object" style="width:2rem;height:2rem;" />
                    <span class="mui-badge mui-badge-danger" id="badgeicon">0</span> 
-                    <div class="mui-media-body">待办事项</div>
+                   <div class="mui-media-body">待办</div>
                    
                 </a>
             </li>
             <li class="mui-table-view-cell mui-media items">
                 <a href="/Pages/AskFlow.html">
                     <img src="../../Content/extraicon/1204358.png" class="mui-media-object" style="width:2rem;height:2rem;" />
-                    <div class="mui-media-body">申请事项</div>
+                    <div class="mui-media-body">申请</div>
                 </a>
             </li>
             <li class="mui-table-view-cell mui-media items">
                 <a href="/Pages/DoneFlow.html">
                     <img src="../../Content/extraicon/1204364.png" class="mui-media-object" style="width:2rem;height:2rem;" />
-                    <div class="mui-media-body">已办事项</div>
+                    <div class="mui-media-body">已办</div>
+                </a>
+            </li>
+            <li class="mui-table-view-cell mui-media items">
+                <a href="/Pages/DraftFlow.html">
+                    <img src="../../Content/extraicon/1204394.png" class="mui-media-object" style="width:2rem;height:2rem;" />
+                    <div class="mui-media-body">草稿</div>
                 </a>
             </li>
         </ul>
@@ -115,8 +132,10 @@
 
           $(document).ready(function () {
 
-              var width = document.body.clientWidth / 3;
-              $('.items').css('width', width + 'px');
+              //var width = document.body.clientWidth / 3.3;
+              var width = document.body.clientWidth / 3.3;
+              //$('.items').css('width', width + 'px');
+              $('.items').css('width', '25%');
               getMsg();
               forbiddenCache();
           });
@@ -135,13 +154,7 @@
                     var callBackId = result.data ? result.data.callBackId : '';
                     if (callBackId == 'callback1') {
                        
-                        if (isSafari()) {
-                            
-                            iosfresh();
-                        } else {
-                            history.go(0);
-                        }
-                        
+                        window.location.reload();
 
                     } else if (callBackId == 'callback2') {
 
@@ -180,8 +193,10 @@
 
               var ticket = getUrlParam('ticket');
 
-              //var ticket = '03b06e9c8c53c6833b1991ccf5efd1f9';
-              
+              //var ticket = 'a565f54713d967f2143f9d1d97095050';
+
+             localStorage.clear();
+
              localStorage.setItem('ticket', ticket);
 
              
@@ -197,6 +212,7 @@
                     if (status == "success") {
 
                         $('#badgeCreate').text(data.length);
+                        //console.log(data);
                         if (data.length == 0) {
 
 
@@ -205,7 +221,7 @@
 
                             for (var i = 0; i < data.length; i++) {
                                 var li = '   <li class="mui-table-view-cell mui-media accroditem">';
-                                li = li + '          <a href="' + data[i].CreatePage + '" style="padding-left:0rem;">';
+                                li = li + '          <a href="' + data[i].CreatePage + '?version=' + data[i].Version + '" style="padding-left:0rem;">';
                                 li = li + '          <img class="mui-media-object mui-pull-left" src="' + data[i].Icon + '">';
                                 li = li + '          <div class="mui-media-body"> ';
                                 li = li + '                ' + data[i].DisplayName + '';
@@ -265,7 +281,6 @@
               if ($('body').hasClass("no-cache")){
                       document.body.style.display = "none";
                       window.location.reload();
-
              }
           
           }

@@ -168,6 +168,7 @@
     <script>
         mui.init();
         mui.ready(function () {
+            getVersion('\\07房地产集团\\01跨子公司\\CW财务管理', '盛祥商管公司挂账推广费用申请');
             upload();
             watch();
             getBPMParam();
@@ -216,7 +217,7 @@
             var url = window.location.href;
             if (url != null && url != "") {
                 if (String(url).indexOf("reset") != -1) {
-                    version = url.replace("&reset", "").split("=")[1];
+                   
                     var msg = JSON.parse(localStorage.getItem("BPM_FDCBX_TGFYSQMsg"));
                     $("#fcompany").val(msg.fcompany);
                     $("#fdept").val(msg.fdept);
@@ -266,7 +267,7 @@
                         showPicker('ffylx', ffylxdata);
                     }
                 } else {
-                    version = url.split("=")[1];
+                    
                 }
             }
 

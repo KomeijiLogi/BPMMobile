@@ -65,4 +65,26 @@ li {
 .adl {
     background-color: #fea900;
 }
-        
+.bgc {
+    color: white;
+    background-color: #6BA2D0;
+}
+
+
+.itemcontenttitle {
+    color: white;
+    background-color: #5BC254;
+}
+.illustration_context {
+    text-align: center;
+    font-size: 0.5rem;
+}
+
+.bottomborder {
+    border: dashed;
+    border-width: 0rem 0rem 0.02rem 0rem;
+}
+
+.illustration_context_extra {
+    font-size: 0.3rem;
+}

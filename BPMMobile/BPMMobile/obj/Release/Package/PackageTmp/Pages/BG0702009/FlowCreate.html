@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -107,6 +108,7 @@
         mui.init();
 
         mui.ready(function () {
+            getVersion('\\07房地产集团\\02商管公司\\BG办公管理', '盛祥商管公司装修押金退还申请');
             getBPMParam();
             prepMsg();
             watch();
@@ -136,11 +138,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                     if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                     //location.reload();
                 } else if (callBackId == 'callback2') {
 
@@ -156,7 +154,8 @@
             $("#fdate").val(getNowFormatDate(2));
             var url = window.location.href;
             if (url != null && url != "") {
-                if (String(url).includes("reset")) {
+                if (String(url).indexOf("reset") != -1) {
+                    
                     var msg = JSON.parse(localStorage.getItem('BPM_SGGSZXYJTHSPBMsg'));
                     $("#fname").val(msg.fname);
                     $("#fdept").val(msg.fdept);
@@ -166,6 +165,8 @@
                     $("#fdph").val(msg.fdph);
                     $("#fshlx").val(msg.fshlx);
 
+                } else {
+                    
                 }
             }
 
@@ -262,9 +263,9 @@
                     xml = xml + '<XForm>';
                     xml = xml + ' <Header>';
                     xml = xml + '<Method>Post</Method>';
-                    //xml = xml + '<ProcessName>BG0702009_商管公司装修押金退还审批_流程</ProcessName>';
+                   
                     xml = xml + '<ProcessName>盛祥商管公司装修押金退还申请</ProcessName>';
-                    xml = xml + ' <ProcessVersion>1.1</ProcessVersion>';
+                    xml = xml + ' <ProcessVersion>' + version + '</ProcessVersion>';
                     xml = xml + '<DraftGuid></DraftGuid>';
                     xml = xml + '<OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
                     xml = xml + '<Action>提交</Action>';

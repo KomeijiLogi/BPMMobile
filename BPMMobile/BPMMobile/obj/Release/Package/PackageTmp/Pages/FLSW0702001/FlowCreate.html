@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -120,7 +121,8 @@
     </div>
     <script>
         mui.init();
-        mui.ready(function(){
+        mui.ready(function () {
+            getVersion('\\07房地产集团\\02商管公司\\FLSW法律事务', '盛祥商管公司招商合同评审');
             getBPMParam();
             watch();
             upload();
@@ -151,11 +153,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                     //location.reload();
                 } else if (callBackId == 'callback2') {
 
@@ -171,7 +169,7 @@
 
             var url = window.location.href;
             if (url != null && url != "") {
-                if (String(url).includes("reset")) {
+                if (String(url).indexOf("reset")!=-1) {
                     var msg = JSON.parse(localStorage.getItem('BPM_SGGSZSHTPSMsg'));
                     $("#fname").val(msg.fname);
                     $("#fdept").val(msg.fdept);
@@ -184,7 +182,9 @@
                     $("#fht_mcnr").val(msg.fht_mcnr);
                     $("#fht_jkfkfs").val(msg.fht_jkfkfs);
                     $("#fydtk").val(msg.fydtk);
-
+                    
+                } else {
+                    
                 }
             }
         }
@@ -333,6 +333,11 @@
                 mui.toast("请输入特别约定条款");
                 return;
             }
+            
+            if (fjArray.toString() == null || fjArray.toString() == "") {
+                mui.toast("请上传附件");
+                return;
+            }
 
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
@@ -342,7 +347,7 @@
                     xml = xml + '<Header>';
                     xml = xml + '<Method>Post</Method>';
                     xml = xml + '<ProcessName>盛祥商管公司招商合同评审</ProcessName>';
-                    xml = xml + '<ProcessVersion>1.0</ProcessVersion>';
+                    xml = xml + '<ProcessVersion>' + version + '</ProcessVersion>';
                     xml = xml + '<DraftGuid></DraftGuid>';
                     xml = xml + '<OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
                     xml = xml + '<Action>提交</Action>';

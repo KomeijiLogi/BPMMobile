@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -360,11 +361,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                 } else if (callBackId == 'callback2') {
                     getRecedableToSteps();
                 } else {
@@ -379,7 +376,11 @@
             }
 
             if (result.success == true || result.success == "true") {
-                $('#myPhone').val(result.data.userName);
+                if (typeof (result.data.userName) == "undefined") {
+                    $('#myPhone').val("");
+                } else {
+                    $('#myPhone').val(result.data.userName);
+                }
             }
 
         });
@@ -396,7 +397,8 @@
                 if (url.split("pid=")[1].indexOf("ticket")!=-1) {
                     stepId = url.split("pid=")[1];
                     stepId = stepId.split("&ticket")[0];
-
+                    var ticket = url.split("=")[3];
+                    localStorage.setItem('ticket', ticket);
                 } else {
                     stepId = url.split("pid=")[1];
                 }
@@ -493,7 +495,11 @@
                         $("#wllist").append(li);
                     }
 
+                    if ($('#myPhone').val() == "") {
+                        var myPhone = String(BPMOU).split("/");
+                        $('#myPhone').val(String(myPhone[myPhone.length - 1]));
 
+                    }
                     var NodeName;
                     //判断流程本节点是否结束，处理者是否为当前用户,
                     //流程步骤是否是传过来的流程步骤，再根据这三项查出对应的节点名称
@@ -503,7 +509,7 @@
                         if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
 
 
-                            if (stepId.includes(data.Steps[i].StepID)) {
+                            if (stepId.indexOf(data.Steps[i].StepID)!=-1) {
 
                                 NodeName = data.Steps[i].NodeName;
 
@@ -536,34 +542,35 @@
                             $(this).find("#fdj").attr("readonly", "readonly");
                             $(this).find("#fremark").attr("readonly", "readonly");
                             $(this).find("#deleteProduct").css("display", "none");
-                        }); 
+                        });
                         $("#csd").css("display", "none");
                         $("#addProduct").css("display", "none");
                     } else {
-                        //审批的处理
-                        $("#approvalD").css("display", "block");
-                        $("#fareaD").css("display", "block");
-                        $("#ftel").attr("readonly", "readonly");
-                        $("#fghdw").attr("readonly", "readonly");
-                        $("#faddr").attr("readonly", "readonly");
-                        $("#fshr").attr("readonly", "readonly");
-                        $("#fshtel").attr("readonly", "readonly");
-                        $("#wllist").find("#wl").each(function () {
-                            $(this).find("#fwlno").attr("readonly", "readonly");
-                            $(this).find("#fwlname").attr("readonly", "readonly");
-                            $(this).find("#fggxh").attr("readonly", "readonly");
-                            $(this).find("#fsl").attr("readonly", "readonly");
-                            $(this).find("#fdj").attr("readonly", "readonly");
-                            $(this).find("#fremark").attr("readonly", "readonly");
-                            $(this).find("#deleteProduct").css("display", "none");
-                        });
-                        
+                        if (typeof (NodeName) != "undefined") {
+                            //审批的处理
+                            $("#approvalD").css("display", "block");
+                            $("#fareaD").css("display", "block");
+                            $("#ftel").attr("readonly", "readonly");
+                            $("#fghdw").attr("readonly", "readonly");
+                            $("#faddr").attr("readonly", "readonly");
+                            $("#fshr").attr("readonly", "readonly");
+                            $("#fshtel").attr("readonly", "readonly");
+                            $("#wllist").find("#wl").each(function () {
+                                $(this).find("#fwlno").attr("readonly", "readonly");
+                                $(this).find("#fwlname").attr("readonly", "readonly");
+                                $(this).find("#fggxh").attr("readonly", "readonly");
+                                $(this).find("#fsl").attr("readonly", "readonly");
+                                $(this).find("#fdj").attr("readonly", "readonly");
+                                $(this).find("#fremark").attr("readonly", "readonly");
+                                $(this).find("#deleteProduct").css("display", "none");
+                            });
 
-                        $("#addProduct").css("display", "none");
-                      
 
+                            $("#addProduct").css("display", "none");
+
+
+                        }
                     }
-
 
                 },
                 error: function (e) {
@@ -1086,47 +1093,54 @@
                 wllistArr.push(wl);
 
             });
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + '<XForm>';
-            xml = xml + ' <Header>';
-            xml = xml + '<Method>InformSubmit</Method>';
-            xml = xml + '<PID>' + pid + '</PID>';
-            xml = xml + '<Comment></Comment>';
-            xml = xml + '</Header>';
-            xml = xml + '<FormData>';
-            xml = xml + '             <BPM_JRZPFH_A>';
-            xml = xml + '                 <fname>' + fname + '</fname>';
-            xml = xml + '                 <farea>' + farea + '</farea>';
-            xml = xml + '                 <fdate>' + fdate + '</fdate>';
-            xml = xml + '                 <ftel>' + ftel + '</ftel>';
-            xml = xml + '                 <fcplb>' + fcplb + '</fcplb>';
-            xml = xml + '                 <ffhxz>' + ffhxz + '</ffhxz>';
-            xml = xml + '                 <ffplx>' + ffplx + '</ffplx>';
-            xml = xml + '                 <fghdw>' + fghdw + '</fghdw>';
-            xml = xml + '                 <faddr>' + faddr + '</faddr>';
-            xml = xml + '                 <fshr>' + fshr + '</fshr>';
-            xml = xml + '                 <fshtel>' + fshtel + '</fshtel>';
-            xml = xml + '                 <ftotal_dx>' + ftotal_dx + '</ftotal_dx>';
-            xml = xml + '                  <fsl>' + fsltotal + '</fsl>';
-            xml = xml + '                  <ftotal>' + ftotal + '</ftotal>';
-            xml = xml + '               </BPM_JRZPFH_A> ';
-            for (var i = 0; i < wllistArr.length; i++) {
-                xml = xml + '<BPM_JRZPFH_B>';
-                xml = xml + '  <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
-                xml = xml + '  <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
-                xml = xml + '  <fentryno>' + (i + 1) + '</fentryno>';
-                xml = xml + '  <fwlno>' + wllistArr[i].fwlno + '</fwlno>';
-                xml = xml + '  <fwlname>' + wllistArr[i].fwlname + '</fwlname>';
-                xml = xml + '  <fggxh>' + wllistArr[i].fggxh + '</fggxh>';
-                xml = xml + '  <fsl>' + wllistArr[i].fsl + '</fsl>';
-                xml = xml + '  <fdj>' + wllistArr[i].fdj + '</fdj>';
-                xml = xml + '  <fje>' + wllistArr[i].fje + '</fje>';
-                xml = xml + '  <fremark>' + wllistArr[i].fremark + '</fremark>';
-                xml = xml + '</BPM_JRZPFH_B>';
-            }
-            xml = xml + '             </FormData>';
-            xml = xml + '         </XForm>';
-            PostXml(xml);
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
+                if (e.index == 1) {
+                    comment = e.value;
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + ' <Header>';
+                    xml = xml + '<Method>InformSubmit</Method>';
+                    xml = xml + '<PID>' + pid + '</PID>';
+                    xml = xml + '<Comment>' + comment + '</Comment>';
+                    xml = xml + '</Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '             <BPM_JRZPFH_A>';
+                    xml = xml + '                 <fname>' + fname + '</fname>';
+                    xml = xml + '                 <farea>' + farea + '</farea>';
+                    xml = xml + '                 <fdate>' + fdate + '</fdate>';
+                    xml = xml + '                 <ftel>' + ftel + '</ftel>';
+                    xml = xml + '                 <fcplb>' + fcplb + '</fcplb>';
+                    xml = xml + '                 <ffhxz>' + ffhxz + '</ffhxz>';
+                    xml = xml + '                 <ffplx>' + ffplx + '</ffplx>';
+                    xml = xml + '                 <fghdw>' + fghdw + '</fghdw>';
+                    xml = xml + '                 <faddr>' + faddr + '</faddr>';
+                    xml = xml + '                 <fshr>' + fshr + '</fshr>';
+                    xml = xml + '                 <fshtel>' + fshtel + '</fshtel>';
+                    xml = xml + '                 <ftotal_dx>' + ftotal_dx + '</ftotal_dx>';
+                    xml = xml + '                  <fsl>' + fsltotal + '</fsl>';
+                    xml = xml + '                  <ftotal>' + ftotal + '</ftotal>';
+                    xml = xml + '               </BPM_JRZPFH_A> ';
+                    for (var i = 0; i < wllistArr.length; i++) {
+                        xml = xml + '<BPM_JRZPFH_B>';
+                        xml = xml + '  <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
+                        xml = xml + '  <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
+                        xml = xml + '  <fentryno>' + (i + 1) + '</fentryno>';
+                        xml = xml + '  <fwlno>' + wllistArr[i].fwlno + '</fwlno>';
+                        xml = xml + '  <fwlname>' + wllistArr[i].fwlname + '</fwlname>';
+                        xml = xml + '  <fggxh>' + wllistArr[i].fggxh + '</fggxh>';
+                        xml = xml + '  <fsl>' + wllistArr[i].fsl + '</fsl>';
+                        xml = xml + '  <fdj>' + wllistArr[i].fdj + '</fdj>';
+                        xml = xml + '  <fje>' + wllistArr[i].fje + '</fje>';
+                        xml = xml + '  <fremark>' + wllistArr[i].fremark + '</fremark>';
+                        xml = xml + '</BPM_JRZPFH_B>';
+                    }
+                    xml = xml + '             </FormData>';
+                    xml = xml + '         </XForm>';
+                    PostXml(xml);
+                }
+            });
         }
     </script>
 </body>

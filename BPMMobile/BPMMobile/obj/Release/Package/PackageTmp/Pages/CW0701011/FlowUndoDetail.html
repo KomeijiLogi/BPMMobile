@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -303,7 +304,7 @@
 
             });
         });
-        XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });      
+        XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
 
         XuntongJSBridge.call('createPop', {
             'popTitle': '',
@@ -321,11 +322,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                 } else if (callBackId == 'callback2') {
                     getRecedableToSteps();
                 }
@@ -338,7 +335,11 @@
             }
 
             if (result.success == true || result.success == "true") {
-                $('#myPhone').val(result.data.userName);
+                if (typeof (result.data.userName) == "undefined") {
+                    $('#myPhone').val("");
+                } else {
+                    $('#myPhone').val(result.data.userName);
+                }
             }
 
         });
@@ -353,7 +354,8 @@
                 if (url.split("pid=")[1].indexOf("ticket") != -1) {
                     stepId = url.split("pid=")[1];
                     stepId = stepId.split("&ticket")[0];
-
+                    var ticket = url.split("=")[3];
+                    localStorage.setItem('ticket', ticket);
                 } else {
                     stepId = url.split("pid=")[1];
                 }
@@ -441,7 +443,7 @@
                                             var li = '<div class="pic-preview smallyulan success">';
                                             li = li + ' <div class="del none" style="opacity:1;z-index:999;"onclick="delPicture(this)">x</div>';
 
-                                            //类型判断 
+                                            //类型判断
                                             if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
 
                                                 //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
@@ -550,7 +552,11 @@
                             $("#tglist").append(li);
 
                         }
+                        if ($('#myPhone').val() == "") {
+                            var myPhone = String(BPMOU).split("/");
+                            $('#myPhone').val(String(myPhone[myPhone.length - 1]));
 
+                        }
                         var NodeName;
                         //判断流程本节点是否结束，处理者是否为当前用户,
                         //流程步骤是否是传过来的流程步骤，再根据这三项查出对应的节点名称
@@ -560,7 +566,7 @@
                             if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
 
 
-                                if (stepId.includes(data.Steps[i].StepID)) {
+                                if (stepId.indexOf(data.Steps[i].StepID)!=-1) {
 
                                     NodeName = data.Steps[i].NodeName;
 
@@ -571,12 +577,14 @@
                         }
 
                         if (NodeName == "开始") {
-                           
+
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
                         } else {
-                            $("#approvalD").css("display", "block");
+                            if (typeof (NodeName) != "undefined") {
+                                $("#approvalD").css("display", "block");
+                            }
                         }
 
                     }
@@ -746,7 +754,7 @@
                 xml = xml + '<Action>同意</Action>';
 
                 xml = xml + '<Comment></Comment>';
-           
+
                 xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
                 xml = xml + '</Header>';
                 xml = xml + '<FormData>';
@@ -785,7 +793,7 @@
                 xml = xml + '</XForm>';
                 PostXml(xml);
             }
-         
+
 
         }
 
@@ -829,50 +837,57 @@
                 var tg = tgItem(fyxm, ffylx, fje, fremark);
                 tglistArr.push(tg);
             });
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + '<XForm>';
-            xml = xml + ' <Header>';
-            xml = xml + '<Method>InformSubmit</Method>';
-            xml = xml + '<PID>' + pid + '</PID>';
-           
-            xml = xml + '<Comment></Comment>';
-            
-            xml = xml + '</Header>';
-            xml = xml + '<FormData>';
-            xml = xml + '<BPM_FDCBX_TGFYSQ_A>';
-            xml = xml + '<fbillno>' + fbillno + '</fbillno>';
-            xml = xml + '<fcompany>' + fcompany + '</fcompany>';
-            xml = xml + '<fdept>' + fdept + '</fdept>';
-            xml = xml + ' <fname>' + fname + '</fname>';
-            xml = xml + '<fdate>' + fdate + '</fdate>';
-            xml = xml + '<fif_jk>' + fif_jk + '</fif_jk>';
-            xml = xml + '<fremark>' + fremark + '</fremark>';
-            xml = xml + '<ftotal>' + ftotal + '</ftotal>';
-            xml = xml + '<ftotal_dx>' + ftotal_dx + '</ftotal_dx>';
-            xml = xml + '<fjktotal>' + fjktotal + '</fjktotal>';
-            xml = xml + '<fjktotal_dx>' + fjktotal_dx + '</fjktotal_dx>';
-            xml = xml + '<fjkbillno></fjkbillno>';
-            xml = xml + '<fjkremark></fjkremark>';
-            if (fjArray.toString() != null && fjArray.toString() != "") {
-                xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
-            } else {
-                xml = xml + '      <fj></fj>';
-            }
-            xml = xml + '</BPM_FDCBX_TGFYSQ_A>';
-            for (var i = 0; i < tglistArr.length; i++) {
-                xml = xml + '<BPM_FDCBX_TGFYSQ_B>';
-                xml = xml + '  <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
-                xml = xml + '  <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
-                xml = xml + '  <fentryno>' + (i + 1) + '</fentryno>';
-                xml = xml + '<fyxm>' + tglistArr[i].fyxm + '</fyxm>';
-                xml = xml + '<ffylx>' + tglistArr[i].ffylx + '</ffylx>';
-                xml = xml + '<fje>' + tglistArr[i].fje + '</fje>';
-                xml = xml + '<fremark>' + tglistArr[i].fremark + '</fremark>';
-                xml = xml + '</BPM_FDCBX_TGFYSQ_B>';
-            }
-            xml = xml + '</FormData>';
-            xml = xml + '</XForm>';
-            PostXml(xml);
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
+                if (e.index == 1) {
+                    comment = e.value;
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + ' <Header>';
+                    xml = xml + '<Method>InformSubmit</Method>';
+                    xml = xml + '<PID>' + pid + '</PID>';
+
+                    xml = xml + '<Comment>' + comment + '</Comment>';
+
+                    xml = xml + '</Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<BPM_FDCBX_TGFYSQ_A>';
+                    xml = xml + '<fbillno>' + fbillno + '</fbillno>';
+                    xml = xml + '<fcompany>' + fcompany + '</fcompany>';
+                    xml = xml + '<fdept>' + fdept + '</fdept>';
+                    xml = xml + ' <fname>' + fname + '</fname>';
+                    xml = xml + '<fdate>' + fdate + '</fdate>';
+                    xml = xml + '<fif_jk>' + fif_jk + '</fif_jk>';
+                    xml = xml + '<fremark>' + fremark + '</fremark>';
+                    xml = xml + '<ftotal>' + ftotal + '</ftotal>';
+                    xml = xml + '<ftotal_dx>' + ftotal_dx + '</ftotal_dx>';
+                    xml = xml + '<fjktotal>' + fjktotal + '</fjktotal>';
+                    xml = xml + '<fjktotal_dx>' + fjktotal_dx + '</fjktotal_dx>';
+                    xml = xml + '<fjkbillno></fjkbillno>';
+                    xml = xml + '<fjkremark></fjkremark>';
+                    if (fjArray.toString() != null && fjArray.toString() != "") {
+                        xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
+                    } else {
+                        xml = xml + '      <fj></fj>';
+                    }
+                    xml = xml + '</BPM_FDCBX_TGFYSQ_A>';
+                    for (var i = 0; i < tglistArr.length; i++) {
+                        xml = xml + '<BPM_FDCBX_TGFYSQ_B>';
+                        xml = xml + '  <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
+                        xml = xml + '  <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
+                        xml = xml + '  <fentryno>' + (i + 1) + '</fentryno>';
+                        xml = xml + '<fyxm>' + tglistArr[i].fyxm + '</fyxm>';
+                        xml = xml + '<ffylx>' + tglistArr[i].ffylx + '</ffylx>';
+                        xml = xml + '<fje>' + tglistArr[i].fje + '</fje>';
+                        xml = xml + '<fremark>' + tglistArr[i].fremark + '</fremark>';
+                        xml = xml + '</BPM_FDCBX_TGFYSQ_B>';
+                    }
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+                }
+            });
 
         }
 
@@ -905,7 +920,7 @@
         }
 
 
-        
+
     </script>
 
 </body>

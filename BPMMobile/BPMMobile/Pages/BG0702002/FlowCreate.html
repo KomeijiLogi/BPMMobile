@@ -155,6 +155,7 @@
         mui.init();
 
         mui.ready(function () {
+            getVersion('\\07房地产集团\\02商管公司\\BG办公管理', '盛祥商管公司内部联系申请');
             upload();
             watch();
             getBPMParam();
@@ -240,9 +241,9 @@
                         li = li + '     </div >';
                         $("#shlist").append(li);
                     }
-                    version = url.replace("&reset", "").split("=")[1];
+                  
                 } else {
-                    version = url.split("=")[1];
+                   
                 }
             } 
 

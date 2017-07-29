@@ -89,6 +89,7 @@
 
         mui.init();
         mui.ready(function () {
+            getVersion('\\07房地产集团\\02商管公司\\FLSW法律事务', '盛祥商管公司其他合同评审');
             getBPMParam();
             watch();
             upload();
@@ -136,7 +137,7 @@
             var url = window.location.href;
             if (url != null && url != "") {
                 if (String(url).indexOf("reset")!=-1) {
-                    version = url.replace("&reset", "").split("=")[1];
+                    
                     var msg = JSON.parse(localStorage.getItem('BPM_SGGSQTHTPSMsg'));
                     $("#fname").val(msg.fname);
                     $("#fdept").val(msg.fdept);
@@ -148,7 +149,7 @@
                     $("#fjkfs").val(msg.fjkfs);
                     $("#fydtk").val(msg.fydtk);
                 } else {
-                    version = url.split("=")[1];
+                    
                 }
             }
 

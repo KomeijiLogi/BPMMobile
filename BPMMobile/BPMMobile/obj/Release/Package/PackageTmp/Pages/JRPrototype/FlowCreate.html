@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -125,6 +126,7 @@
     <script>
         mui.init();
         mui.ready(function () {
+            getVersion('\\02医用制品集团\\05洁瑞医用制品公司\\XS销售管理', '洁瑞公司样品申请');
             getBPMParam();
             prepMsg();
             watch();
@@ -138,7 +140,8 @@
 
             var url = window.location.href;
             if (url != null && url != "") {
-                if (String(url).includes("reset")) {
+                if (String(url).indexOf("reset") != -1) {
+                   
                     var msg = JSON.parse(localStorage.getItem('BPM_JRYPSQMsg'));
                     $("#fname").val(msg.fname);
                     $("#farea").val(msg.farea);
@@ -148,7 +151,7 @@
                     $("#fcusno").val(msg.fcusno);
                     $("#fcusname").val(msg.fcusname);
                     $("#fremark").val(msg.fremark);
-                    for (var i = 0; i < msg.fyplx.length; i++){
+                    for (var i = 0; i < msg.fyplx.length; i++) {
                         var fypmxItem = JSON.parse(msg.fyplx[i]);
                         var li = ' <div id="yp" class="mui-card adjla">';
                         li = li + '   <div class="mui-input-row bgc">';
@@ -180,6 +183,8 @@
                         $("#yplist").append(li);
 
                     }
+                } else {
+                   
                 }
             }
 
@@ -246,12 +251,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
-                   
+                    window.location.reload();
                 } else if (callBackId == 'callback2') {
 
                 } else {
@@ -349,7 +349,7 @@
                     xml = xml + '  <Method>Post</Method>';
                     //xml = xml + '  <ProcessName>XS0205002_洁瑞医用制品公司样品申请_流程</ProcessName>';
                     xml = xml + '  <ProcessName>洁瑞公司样品申请</ProcessName>';
-                    xml = xml + '  <ProcessVersion>1.0</ProcessVersion>';
+                    xml = xml + '  <ProcessVersion>' + version + '</ProcessVersion>';
                     xml = xml + '  <DraftGuid></DraftGuid>';
                     xml = xml + '   <OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
                     xml = xml + '   <Action>提交</Action>';

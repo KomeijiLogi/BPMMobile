@@ -908,7 +908,8 @@
                             li = li + '              </div>';
                             li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                             li = li + '                 <p class="p_adj">地区类别</p>';
-                            li = li + '                 <label id="farea" class="farea mui-text-center">' + item_b[i].fdqlb + '</label>';
+                            li = li + '                 <input id="farea" name="farea" type="text" class="mui-text-center" value="' + item_b[i].fdqlb + '" readonly="readonly" />';
+                         
                             li = li + '              </div>';
                             li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                             li = li + '                 <p class="p_adj"></p>';
@@ -1088,13 +1089,16 @@
                                     $("#form_secondary").find("#faccountant_expense").each(function () {
                                         $(this).removeAttr("readonly");
                                     });
+                                    $("#freimburseusenumber").removeAttr("readonly");     
                                 } else if (NodeName.indexOf("财务") != -1) {
                                     $("#form_secondary").find("#ffinance_expense").each(function () {
                                         $(this).removeAttr("readonly");
                                         $(this).on('change', function () {
                                             CalculateExpenses();
                                         });
+
                                     });
+                                    $("#freimburseusenumber").removeAttr("readonly");     
                                 } else {
 
                                 }
@@ -1161,7 +1165,7 @@
                 var dddd_pro = $(this).find("#destination_province").val();
                 var dddd_city = $(this).find("#destination_city").text();
                 var citymid = $(this).find("#citymid").val();
-                var fdqlb = $(this).find("#farea").text();
+                var fdqlb = $(this).find("#farea").val();
                 var fccts = $(this).find("#fday").val();
                 var fjtgj = $(this).find("#transpotation").text();
 
@@ -1379,7 +1383,7 @@
                 var dddd_pro = $(this).find("#destination_province").val();
                 var dddd_city = $(this).find("#destination_city").text();
                 var citymid = $(this).find("#citymid").val();
-                var fdqlb = $(this).find("#farea").text();
+                var fdqlb = $(this).find("#farea").val();
                 var fccts = $(this).find("#fday").val();
                 var fjtgj = $(this).find("#transpotation").text();
 
@@ -1668,7 +1672,7 @@
                 var dddd_pro = $(this).find("#destination_province").val();
                 var dddd_city = $(this).find("#destination_city").text();
                 var citymid = $(this).find("#citymid").val();
-                var fdqlb = $(this).find("#farea").text();
+                var fdqlb = $(this).find("#farea").val();
                 var fccts = $(this).find("#fday").val();
                 var fjtgj = $(this).find("#transpotation").text();
 
@@ -2055,7 +2059,7 @@
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj">地区类别</p>';
-                    li = li + '                 <label id="farea" class="farea mui-text-center">二类</label>';
+                    li = li + '                 <input id="farea" name="farea" type="text" class="mui-text-center" value="二类" readonly="readonly" />';
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj"></p>';
@@ -2152,7 +2156,7 @@
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj">地区类别</p>';
-                    li = li + '                 <label id="farea" class="farea mui-text-center">二类</label>';
+                    li = li + '                 <input id="farea" name="farea" type="text" class="mui-text-center" value="二类" readonly="readonly" />';
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj"></p>';
@@ -2246,7 +2250,7 @@
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj">地区类别</p>';
-                    li = li + '                 <label id="farea" class="farea mui-text-center">二类</label>';
+                    li = li + '                 <input id="farea" name="farea" type="text" class="mui-text-center" value="二类" readonly="readonly" />';
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj"></p>';
@@ -2339,7 +2343,7 @@
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj">地区类别</p>';
-                    li = li + '                 <label id="farea" class="farea mui-text-center">二类</label>';
+                    li = li + '                 <input id="farea" name="farea" type="text" class="mui-text-center" value="二类" readonly="readonly" />';
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj"></p>';
@@ -2432,7 +2436,7 @@
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj">地区类别</p>';
-                    li = li + '                 <label id="farea" class="farea mui-text-center">二类</label>';
+                    li = li + '                 <input id="farea" name="farea" type="text" class="mui-text-center" value="二类" readonly="readonly" />';
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj"></p>';
@@ -2911,7 +2915,7 @@
                             $("#" + anchor_id).parent().parent().find("#departure_city").text($("#fdeparture_chosen").val());
                             $("#" + anchor_id).parent().parent().find("#destination_city").text($("#fdestination_chosen").val());
                             //console.log($("#" + anchor_id).parent().parent().parent());
-                            $("#" + anchor_id).parent().parent().parent().find("#farea").text($("#citytype_chosen").val());
+                            $("#" + anchor_id).parent().parent().parent().find("#farea").val($("#citytype_chosen").val());
                             $("#" + anchor_id).parent().parent().find("#citymid").val($("#fdestination_citymid").val());
                             $("#" + anchor_id).parent().parent().find("#kscitymid").val($("#fdeparture_citymid").val());
                             // console.log($("#" + anchor_id).parent().parent().find("#kscitymid").val());

@@ -459,14 +459,15 @@
                         <div id="form_guide_city_all">
                             <div id="form_guide_city">
                                 <section id="city_header">
-                                    <div class="mui-row">
-                                        <button class="mui-btn mui-btn-yellow mui-pull-left mui-col-xs-2" id="cancel_city">取消</button>
-                                        <h4 class="mui-text-center city_h mui-col-xs-8">城市选择</h4>
-                                        <button class="mui-btn mui-btn-blue mui-pull-right mui-col-xs-2" id="complete_city">完成</button>
-                                    </div>
+                                    
 
-                                    <div id="city_show" class="city_show">
-                                        <form class="mui-row mui-card">
+                                    <div id="city_show mui-card" class="city_show">
+                                        <div class="mui-row">
+                                            <span class="mui-icon mui-icon-arrowthinleft mui-pull-left mui-col-xs-2" id="cancel_city"></span>
+                                            <h4 class="mui-text-center city_h mui-col-xs-8">城市选择</h4>
+                                            <span class="mui-icon mui-icon-checkmarkempty mui-pull-right mui-col-xs-2" id="complete_city"></span>
+                                        </div>
+                                        <form class="mui-row">
                                             <div class="mui-col-xs-5 aim_div">
                                                 <label for="fdeparture_chosen">出发地</label>
                                                 <input type="hidden" id="fdeparture_citymid" name="fdeparture_citymid" />
@@ -474,7 +475,8 @@
                                                 <input type="text" id="fdeparture_chosen" name="fdeparture_chosen" placeholder="请选择出发地" class="aim_input" />
                                             </div>
                                             <div class="mui-col-xs-2 mui-text-center">
-                                                <span class="mui-icon mui-icon-arrowthinright"></span>
+                                                
+                                                <span class="mui-icon mui-icon-redo arrow_adj" ></span>
                                                 <input type="hidden" id="citytype_chosen" name="citytype_chosen" />
                                             </div>
                                             <div class="mui-col-xs-5 aim_div">
@@ -487,18 +489,50 @@
 
                                     </div>
                                     <div id="city_main" class="city_main">
-                                        <div>
-                                            <h5 class="mui-text-left">历史城市</h5>
-                                            <input type="hidden" id="history1p" name="history1p" value="山东省" />
-                                            <input type="hidden" id="history1t" name="history1t" value="二类" />
-                                            <button id="history1c" name="history1c" class="mui-btn mui-btn-primary city_chosen">威海市</button>
-                                            &nbsp;
-                                            <input type="hidden" id="history2p" name="history2p" value="山东省" />
-                                            <input type="hidden" id="history2t" name="history2t" value="二类" />
-                                            <button id="history2c" name="history2c" class="mui-btn mui-btn-primary city_chosen">青岛市</button>
+                                        <h5 class="mui-text-left">历史城市</h5>
+                                        <div class="mui-row">
+                                            <div class="mui-col-xs-4">
+                                                <input type="hidden" id="history1province" name="history1province" value="山东省" class="historyprovince" />
+                                                <input type="hidden" id="history1citytype" name="history1citytype" value="二类"  class="historycitytype"/>
+                                                <input type="hidden" id="history1citymid" name="history1citymid" class="historycitymid"/>
+                                                <button id="history1city" name="history1city" class="mui-btn mui-btn-primary city_chosen">威海市</button>
+                                            </div>
+                                            <div class="mui-col-xs-4">
+                                                <input type="hidden" id="history2province" name="history2province" value="山东省"  class="historyprovince"/>
+                                                <input type="hidden" id="history2citytype" name="history2citytype" value="二类"  class="historycitytype"/>
+                                                <input type="hidden" id="history2citymid" name="history2citymid" class="historycitymid" />
+                                                <button id="history2city" name="history2city" class="mui-btn mui-btn-primary city_chosen">青岛市</button>
+                                           </div>    
+                                            <div class="mui-col-xs-4">
+                                                <input type="hidden" id="history3province" name="history3province" value="山东省" class="historyprovince"/>
+                                                <input type="hidden" id="history3citytype" name="history3citytype" value="二类" class="historycitytype"/>
+                                                <input type="hidden" id="history3citymid" name="history3citymid" class="historycitymid"/>
+                                                <button id="history3city" name="history3city" class="mui-btn mui-btn-primary city_chosen">青岛市</button>
+                                            </div>
+                                        </div>
+                                        <div class="mui-row" style="padding-top:0.4rem;">
+                                            <div class="mui-col-xs-4">
+                                                <input type="hidden" id="history4province" name="history4province" value="山东省" class="historyprovince"/>
+                                                <input type="hidden" id="history4citytype" name="history4citytype" value="二类" class="historycitytype"/>
+                                                <input type="hidden" id="history4citymid" name="history4citymid" class="historycitymid"/>
+                                                <button id="history4city" name="history4city" class="mui-btn mui-btn-primary city_chosen">威海市</button>
+                                            </div>
+                                           
+                                            <div class="mui-col-xs-4">
+                                                <input type="hidden" id="history5province" name="history5province" value="山东省" class="historyprovince"/>
+                                                <input type="hidden" id="history5citytype" name="history5citytype" value="二类" class="historycitytype"/>
+                                                <input type="hidden" id="history5citymid" name="history5citymid" class="historycitymid"/>
+                                                <button id="history5city" name="history5city" class="mui-btn mui-btn-primary city_chosen">青岛市</button>
+                                            </div>
+                                            <div class="mui-col-xs-4">
+                                                <input type="hidden" id="history6province" name="history6province" value="山东省" class="historyprovince"/>
+                                                <input type="hidden" id="history6citytype" name="history6citytype" value="二类" class="historycitytype"/>
+                                                <input type="hidden" id="history6citymid" name="history6citymid" class="historycitymid"/>
+                                                <button id="history6city" name="history6city" class="mui-btn mui-btn-primary city_chosen">青岛市</button>
+                                            </div>
                                         </div>
                                         <br />
-                                        <div>
+                                        <div style="display:none;">
                                             <h5 class="mui-text-left">热门城市</h5>
                                             <input type="hidden" id="hot1p" name="hot1p" value="上海市" />
                                             <input type="hidden" id="hot1t" name="hot1t" value="一类" />
@@ -581,7 +615,7 @@
             initMsg();
             upload();
             watch();
-           
+            getVersion('\\94制品在线费用报销\\市场费用报销', '市场差旅费用报销单');
          
         });
         mui('body').on('shown', '.mui-popover', function (e) {
@@ -811,7 +845,7 @@
                     li = li + '              </div>';
                     li = li + '             <div class="mui-col-xs-3 mui-text-center">';
                     li = li + '                <p>报销金额</p>';
-                    li = li + '               <input type="number" id="fsubmit_expense" name="fsubmit_expense" value="" class="bxje" placeholder="待填"/>';
+                    li = li + '               <input type="number" id="fsubmit_expense" name="fsubmit_expense" value="" class="bxje" placeholder="待填" />';
                     li = li + '             </div>';
                     li = li + '             <div class="mui-col-xs-3 mui-text-center">';
                     li = li + '               <p>会计审核</p>';
@@ -825,11 +859,11 @@
                     li = li + '       <div id="sc-row-6" class="mui-card-content  mui-row bottomborder">';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj">费用标准</p>';
-                    li = li + '                 <input id="fstandard" name="fstandard" type="number" value="" class="mui-text-center" placeholder="待填"/>';
+                    li = li + '                 <input id="fstandard" name="fstandard" type="number"  class="mui-text-center" placeholder="待填" />';
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj">地区类别</p>';
-                    li = li + '                 <label id="farea" class="farea mui-text-center">二类</label>';
+                    li = li + '                 <input id="farea" name="farea" type="text" class="mui-text-center" value="二类" readonly="readonly" />';
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj"></p>';
@@ -922,11 +956,11 @@
                     li = li + '       <div id="sc-row-6" class="mui-card-content  mui-row bottomborder">';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj">费用标准</p>';
-                    li = li + '                 <input id="fstandard" name="fstandard" type="number" value="" class="mui-text-center" placeholder="待填"/>';
+                    li = li + '                 <input id="fstandard" name="fstandard" type="number"  class="mui-text-center" placeholder="待填"/>';
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj">地区类别</p>';
-                    li = li + '                 <label id="farea" class="farea mui-text-center">二类</label>';
+                    li = li + '                 <input id="farea" name="farea" type="text" class="mui-text-center" value="二类" readonly="readonly" />';
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj"></p>';
@@ -1016,11 +1050,11 @@
                     li = li + '       <div id="sc-row-6" class="mui-card-content  mui-row bottomborder">';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj">费用标准</p>';
-                    li = li + '                 <input id="fstandard" name="fstandard" type="number" value="" class="mui-text-center" placeholder="待填"/>';
+                    li = li + '                 <input id="fstandard" name="fstandard" type="number"  class="mui-text-center" placeholder="待填"/>';
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj">地区类别</p>';
-                    li = li + '                 <label id="farea" class="farea mui-text-center">二类</label>';
+                    li = li + '                 <input id="farea" name="farea" type="text" class="mui-text-center" value="二类" readonly="readonly" />';
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj"></p>';
@@ -1109,11 +1143,11 @@
                     li = li + '       <div id="sc-row-6" class="mui-card-content  mui-row bottomborder">';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj">费用标准</p>';
-                    li = li + '                 <input id="fstandard" name="fstandard" type="number" value="" class="mui-text-center" placeholder="待填"/>';
+                    li = li + '                 <input id="fstandard" name="fstandard" type="number"  class="mui-text-center" placeholder="待填"/>';
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj">地区类别</p>';
-                    li = li + '                 <label id="farea" class="farea mui-text-center">二类</label>';
+                    li = li + '                 <input id="farea" name="farea" type="text" class="mui-text-center" value="二类" readonly="readonly" />';
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj"></p>';
@@ -1202,11 +1236,11 @@
                     li = li + '       <div id="sc-row-6" class="mui-card-content  mui-row bottomborder">';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj">费用标准</p>';
-                    li = li + '                 <input id="fstandard" name="fstandard" type="number" value="" class="mui-text-center" placeholder="待填"/>';
+                    li = li + '                 <input id="fstandard" name="fstandard" type="number"  class="mui-text-center" placeholder="待填"/>';
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj">地区类别</p>';
-                    li = li + '                 <label id="farea" class="farea mui-text-center">二类</label>';
+                    li = li + '                 <input id="farea" name="farea" type="text" class="mui-text-center" value="二类" readonly="readonly" />';
                     li = li + '              </div>';
                     li = li + '               <div class="mui-col-xs-4 mui-text-center">';
                     li = li + '                 <p class="p_adj"></p>';
@@ -1246,6 +1280,7 @@
                 $("#form_secondary").prepend(li);
                 isTp(flevel, fyxm, fxb, fno);
 
+                $(".mdate").mdater();
 
 
 
@@ -1305,6 +1340,8 @@
             $("#form_guide_extra").css("display", "none");
             $("#uploaddiv").css("display", "none");
             $("#segmentedControls").css("visibility", "visible");
+            $("#segmentedControlContents").css("visibility", "visible");
+            $("#segmentedControlContents").css("overflow", "auto");
             city_auto_focus_flag = i;
             anchor_context = context;
             auto_focus();
@@ -1321,6 +1358,8 @@
             $(".post_div").css("display", "block");
             $("#uploaddiv").css("display", "block");
             $("#segmentedControls").css("visibility", "hiddden");
+            $("#segmentedControlContents").css("visibility", "hiddden");
+            $("#segmentedControlContents").css("overflow", "hidden");
         }
         function deleteItem(context) {
             //console.log($(context).parent().parent().parent());
@@ -1358,7 +1397,8 @@
         }
     </script>
     <script>
-
+       
+       
         var xml = '<?xml version= "1.0" ?>';
         xml = xml + '      <Requests>';
         xml = xml + '     <Params>';
@@ -1399,6 +1439,9 @@
         xml = xml + '     <TableName>BPM_ZPJT_SCCLVFBX_JTGJ</TableName>';
         xml = xml + '           <OrderBy></OrderBy>';
         xml = xml + '       </Params>';
+
+       
+
         xml = xml + '   </Requests>';
         $.ajax({
             type: "POST",
@@ -1415,7 +1458,7 @@
 
                     var provideData = JSON.parse(unescape(data.replace(/\\(u[0-9a-fA-F]{4})/gm, '%$1')));
 
-
+                    console.log(provideData);
                     cityData = [];
                     var children;
                     for (var i = 0; i < provideData.Tables[4].Rows.length; i++) {
@@ -1449,6 +1492,7 @@
             }, error: function (e) {
 
             }, complete: function () {
+                $(".city_collection").css("display", "block");
                 var controls = document.getElementById("segmentedControls");
                 var contents = document.getElementById("segmentedControlContents");
                 var html = [];
@@ -1570,96 +1614,58 @@
                         var cityvalue = $(this).text();
                         var citytype;
                         var citymid;
-                        //处理城市类型和城市所属省份编码
-                        if (String($(this)[0].id).indexOf("hot") == -1 && String($(this)[0].id).indexOf("history") == -1) {
-                            citytype = $(this)[0].children.citytype.value;
-                            citymid = $(this)[0].children.citymid.value;
-                        } else if (String($(this)[0].id).indexOf("hot") != -1) {
-                            citytype = "一类";
-                            if (String($(this)[0].id).indexOf("3") != -1) {
-                                //深圳
-                                citytype = "二类";
-                                citymid = '19';
-                            }
-                            if (String($(this)[0].id).indexOf("4") != -1) {
-                                //广州
-                                citymid = '19';
-                            }
-                            if (String($(this)[0].id).indexOf("1") != -1) {
-                                //上海
-                                citymid = '9';
-                            }
-                            if (String($(this)[0].id).indexOf("2") != -1) {
-                                //北京
-                                citymid = '2';
-                            }
-                        } else {
-                            //威海 青岛
-                            citytype = "二类";
-                            citymid = '15';
-                        }
-                        //处理城市所属省份
                         var id = $(this)[0].id;
                         var province = '';
+
+                        //处理城市类型和城市所属省份编码
+                        if (String($(this)[0].id).indexOf("history") == -1) {
+                            citytype = $(this)[0].children.citytype.value;
+                            citymid = $(this)[0].children.citymid.value;
+                        }  else {
+
+                            //console.log($(this).parent().find(".historyprovince").val());
+                            citytype = $(this).parent().find(".historycitytype").val();
+                            citymid = $(this).parent().find(".historycitymid").val();
+                        }
+
+                        //处理城市所属省份
                         if (typeof ($(this)[0].children.provincename) != 'undefined') {
                             province = $(this)[0].children.provincename.value;
                         }
 
-                        if (id.indexOf("hot") == -1 && id.indexOf("history") == -1) {
+                        if (id.indexOf("history") == -1) {
                             if ($("#fdestination_chosen").is(":focus") || fdestination_chosen.hasAttribute('autofocus')) {
                                 $("#fdestination_province_chosen").val(province);
-
-
+                                if (isSafari()) {
+                                    $("#fdeparture_province_chosen").val(province);
+                                }
+                               
+                               
                             } else if ($("#fdeparture_chosen").is(":focus") || fdeparture_chosen.hasAttribute('autofocus')) {
+                               
                                 $("#fdeparture_province_chosen").val(province);
+                                if (isSafari()) {
+                                    $("#fdestination_province_chosen").val(province);
+                                }
+                               
                             } else {
-
+                                
                             }
-                        } else if (id.indexOf("hot") != -1) {
-                            //console.log($(this));
-                            if (id.indexOf("1") != -1) {
-                                //上海
-                                province = "上海市";
-                            } else if (id.indexOf("2") != -1) {
-                                //北京
-                                province = "北京市";
-                            } else if (id.indexOf("3") != -1) {
-                                //深圳
-                                province = "广东省";
-                            } else if (id.indexOf("4") != -1) {
-                                //广州
-                                province = "广东省";
-                            } else {
-
-                            }
+                        }  else if (id.indexOf("history") != -1) {
+                            //undo:处理省份
+                            province = $(this).parent().find(".historyprovince").val();
                             if ($("#fdestination_chosen").is(":focus") || fdestination_chosen.hasAttribute('autofocus')) {
                                 $("#fdestination_province_chosen").val(province);
+                                if (isSafari()) {
+                                    $("#fdeparture_province_chosen").val(province);
+                                }
+                              
                             } else if ($("#fdeparture_chosen").is(":focus") || fdeparture_chosen.hasAttribute('autofocus')) {
                                 $("#fdeparture_province_chosen").val(province);
-
-
-                            } else {
-                                console.log('省份出现问题');
-                            }
-                        } else if (id.indexOf("history") != -1) {
-                            if (id.indexOf("1") != -1) {
-                                //威海
-                                province = "山东省";
-                            } else if (id.indexOf("2") != -1) {
-                                //青岛
-                                province = "山东省";
-                            } else if (id.indexOf("3") != -1) {
-
-                            } else if (id.indexOf("4") != -1) {
-
-                            } else {
-
-                            }
-                            if ($("#fdestination_chosen").is(":focus") || fdestination_chosen.hasAttribute('autofocus')) {
-                                $("#fdestination_province_chosen").val(province);
-                            } else if ($("#fdeparture_chosen").is(":focus") || fdeparture_chosen.hasAttribute('autofocus')) {
-                                $("#fdeparture_province_chosen").val(province);
-
+                                if (isSafari()) {
+                                    $("#fdestination_province_chosen").val(province);
+                                }
+                               
                             } else {
                                 console.log('省份出现问题');
                             }
@@ -1715,15 +1721,18 @@
                     });
                     $("#complete_city").on('tap', function () {
                         var anchor_id = anchor_context.id;
-                        //console.log($("#"+anchor_id));
-                        $("#" + anchor_id).parent().parent().find("#departure_province").val($("#fdeparture_province_chosen").val());
-                        $("#" + anchor_id).parent().parent().find("#destination_province").val($("#fdestination_province_chosen").val());
-                        $("#" + anchor_id).parent().parent().find("#departure_city").text($("#fdeparture_chosen").val());
-                        $("#" + anchor_id).parent().parent().find("#destination_city").text($("#fdestination_chosen").val());
+                        //alert($("#fdeparture_province_chosen").val());
+                        //console.log($(anchor_context).parent().parent().find("#departure_province"));
+                        $(anchor_context).parent().parent().find("#departure_province").val($("#fdeparture_province_chosen").val());
+                        $(anchor_context).parent().parent().find("#destination_province").val($("#fdestination_province_chosen").val());
+                        $(anchor_context).parent().parent().find("#departure_city").text($("#fdeparture_chosen").val());
+                        $(anchor_context).parent().parent().find("#destination_city").text($("#fdestination_chosen").val());
                         //console.log($("#" + anchor_id).parent().parent().parent());
-                        $("#" + anchor_id).parent().parent().parent().find("#farea").text($("#citytype_chosen").val());
-                        $("#" + anchor_id).parent().parent().find("#citymid").val($("#fdestination_citymid").val());
-                        $("#" + anchor_id).parent().parent().find("#kscitymid").val($("#fdeparture_citymid").val());
+                        //alert($(anchor_context).parent().parent().find("#departure_province").val());
+                        //alert($(anchor_context).parent().parent().find("#destination_province").val());
+                        $(anchor_context).parent().parent().parent().find("#farea").val($("#citytype_chosen").val());
+                        $(anchor_context).parent().parent().find("#citymid").val($("#fdestination_citymid").val());
+                        $(anchor_context).parent().parent().find("#kscitymid").val($("#fdeparture_citymid").val());
                         // console.log($("#" + anchor_id).parent().parent().find("#kscitymid").val());
                         hiddencity();
                     });
@@ -1754,8 +1763,9 @@
         function initMsg() {
             var url = window.location.href;
             if (String(url).indexOf("DraftGuid") != -1) {
-                DraftGuid = '399d008b-dcb0-4e60-b72e-beb7329da40f';
-
+                url = url.split("?")[1];
+                DraftGuid = url.split("&")[0].replace("DraftGuid=", "");
+                version = url.split("&")[1].replace("version=","");
                 $.ajax({
 
                     type: 'get',
@@ -1832,7 +1842,7 @@
                                 li = li + '                  <p>出发地<i>*</i></p>';
                                 li = li + '                <input type="hidden" id="kscitymid" name="kscitymid" value="' + item_b[i].kscitymid + '"/>';
                                 li = li + '                  <input type="hidden" id="departure_province" name="departure_province" value="' + item_b[i].cfdd_pro + '"/>';
-                                li = li + '                  <span id="departure_city" class="mdcity">' + item_b[i].cfdd_city + '</span>';
+                                li = li + '                  <span id="departure_city" class="mdcity" onclick="showcity(0,this)">' + item_b[i].cfdd_city + '</span>';
                                 li = li + '             </div>';
                                 li = li + '            <div class="mui-col-xs-4 mui-text-center" id="transport_div">';
                                 li = li + '                 <span class="mui-icon mui-icon-pengyouquan" id="change_transpotation"></span>';
@@ -1842,7 +1852,7 @@
                                 li = li + '                <p>目的地<i>*</i></p>';
                                 li = li + '                <input type="hidden" id="citymid" name="citymid" value="' + item_b[i].citymid + '"/>';
                                 li = li + '                <input type="hidden" id="destination_province" name="destination_province" value="' + item_b[i].dddd_pro + '"/>';
-                                li = li + '                <span id="destination_city" class="mdcity">' + item_b[i].dddd_city + '</span>';
+                                li = li + '                <span id="destination_city" class="mdcity" onclick="showcity(1,this)">' + item_b[i].dddd_city + '</span>';
                                 li = li + '           </div>';
                                 li = li + '          </div>';
                                 li = li + '         <div id="sc-row-2" class="mui-card-content mui-row bottomborder">';
@@ -1906,7 +1916,7 @@
 
                                 $("#form_secondary").append(li);
 
-                              
+                                $(".mdate").mdater();
                                
                                    
 
@@ -2066,7 +2076,7 @@
 
 
             } else {
-                version = url.split("=")[1];
+               
             }
            
             var fno;
@@ -2150,6 +2160,17 @@
                     xml = xml + '    </Filter>';
                     xml = xml + ' </Params>';
 
+                    xml = xml + '      <Params>';
+                    xml = xml + '       <DataSource>BPM_EXPENSE</DataSource>';
+                    xml = xml + '          <ID>p_ZPJTSCCL_city</ID>';
+                    xml = xml + '         <Type>2</Type>';
+                    xml = xml + '           <Method>GetUserDataProcedure</Method>';
+                    xml = xml + '          <ProcedureName>p_ZPJTSCCL_city</ProcedureName>';
+                    xml = xml + '          <Filter>';
+                    xml = xml + '                <_x0040_fuser_no>' + fno + '</_x0040_fuser_no>';
+                    xml = xml + '           </Filter>';
+                    xml = xml + '      </Params>';
+
                     xml = xml + '   </Requests>';
                     $.ajax({
                         type: "POST",
@@ -2213,6 +2234,17 @@
                                 var dateString = FormatterTime_Y_M_S(year, month, day);
                                 //console.log(dateString);
                                 $("#freimburselast").val(dateString);
+
+
+                                //获取历史城市信息部分
+                                var historycitydata = provideData.Tables[6].Rows;
+                                for (var i = 0; i < historycitydata.length; i++){
+                                    $("#history" + (i + 1) + "city").text(historycitydata[i].cityname);
+                                    $("#history" + (i + 1) + "province").val(historycitydata[i].dddd_pro);
+                                    $("#history" + (i + 1) + "citytype").val(historycitydata[i].citytype);
+                                    $("#history" + (i + 1) + "citymid").val(historycitydata[i].proId);
+
+                                }
 
                             }
 
@@ -2380,7 +2412,7 @@
                 var dddd_pro = $(this).find("#destination_province").val();
                 var dddd_city = $(this).find("#destination_city").text();
                 var citymid = $(this).find("#citymid").val();
-                var fdqlb = $(this).find("#farea").text();
+                var fdqlb = $(this).find("#farea").val();
                 var fccts = $(this).find("#fday").val();
                 var fjtgj = $(this).find("#transpotation").text();
 
@@ -2600,7 +2632,7 @@
                 var dddd_pro = $(this).find("#destination_province").val();
                 var dddd_city = $(this).find("#destination_city").text();
                 var citymid = $(this).find("#citymid").val();
-                var fdqlb = $(this).find("#farea").text();
+                var fdqlb = $(this).find("#farea").val();
                 var fccts = $(this).find("#fday").val();
                 var fjtgj = $(this).find("#transpotation").text();
 

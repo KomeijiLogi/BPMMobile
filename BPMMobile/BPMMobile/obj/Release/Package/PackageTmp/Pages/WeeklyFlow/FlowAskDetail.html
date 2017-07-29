@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
     <script type="text/javascript" src="../../Scripts/fx.js"></script>
     <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
@@ -17,6 +18,7 @@
     <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
     <link rel="stylesheet" href="../../Content/mui.min.css" />
     <link rel="stylesheet" href="../../Content/upload.css" />
+    <link rel="stylesheet" href="../../Content/ApprovalUtils.css"/>
     <title></title>
     <meta charset="utf-8" />
     <style>
@@ -287,7 +289,7 @@
             </div>
         </form>
         <div class="mui-table-view" style="margin-bottom:1rem;">
-            <div class="mui-table-view-cell  mui-collapse">
+            <div class="mui-table-view-cell  mui-collapse mui-active">
                 <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
 
                     历史签核意见
@@ -341,7 +343,7 @@
             </div>
         </div>
     </div>
-
+    
     <input value="" id="stepId" name="stepId" type="hidden" />
     <input type="hidden" id="flowPerId" name="flowPerId" value="" />
     <input type="hidden" id="processName" name="processName" value="" />
@@ -476,11 +478,7 @@
                     localStorage.setItem("BPM_ZGZHBMsg", msg);
                     setTimeout("window.location.href = '/Pages/WeeklyFlow/FlowCreate.html?reset=true'", 1000);
                 } else if (callBackId == 'callback3') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                     
                 }
             }
