@@ -115,7 +115,78 @@ function uploadFiles() {
 
     var uploadurl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx';
 
+    $("#filefj").upload({
+        uploadUrl: '/api/bpm/UploadFiles',
+
+        previewWrap: '.upload-file-list',
+        isFile: true,
+        previewUrl: uploadurl + '?{id}',
+        onUploadStart: function (xhr) {
+            var $progress = this.find('.progress', true);
+            //保存进度节点
+            $progress.html('0%').addClass('uploading');
+         
+           
+
+        },
+
+        //上传成功
+        onUploadSuccess: function (fileInfo) {
+
+
+            this.getRoot$().data('fileid', fileInfo.id)
+                .addClass('success');
+            //隐藏进度
+            this.find('.progress', true).html('').removeClass('uploading');
+            //显示删除按钮
+            this.find('.del', true).fadeIn();
+
+            //计算上传成功图片总大小
+            // totalSize += fileInfo.size;
+            //图片总大小未换算
+            me.data.totalSize += fileInfo.size;
+
+            var totalSize = me.data.totalSize;
+
+            if (totalSize >= 1024 * 1024) {
+                $('.totalsize i').text((totalSize / (1024 * 1024)).toFixed(2) + 'MB');
+            } else {
+                $('.totalsize i').text((totalSize / 1024).toFixed(2) + 'kb');
+            }
+
+            //上传图片信息
+            me.data.photoInfo.push(fileInfo);
+            var photsInfos = me.data.photoInfo;
+
+            var photosInfosLength = photsInfos.length;
+
+           
+
+
+
+
+        },
+        //上传进度
+        onUploadProgress: function (loaded, total) {
+            var $progress = this.find('.progress', true);
+            //修改进度
+            $progress.html(Math.floor(loaded / total * 100) + '%');
+            //$('.ceshi').html(loaded);
+        },
+        //上传失败
+        onUploadFail: function (xhr) {
+            var $progress = this.find('.progress', true);
+            $progress.removeClass('uploading');
+        },
+        //删除图片 
+        onDelImage: function (fileInfo) {
+           
+
+
+        }
+
     
+    });
 }
 
 

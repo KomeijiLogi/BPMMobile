@@ -511,6 +511,10 @@
     <Content Include="Pages\SC0200001\FlowCreate.html" />
     <Content Include="Pages\SC0200001\FlowDoneDetail.html" />
     <Content Include="Pages\SC0200001\FlowUndoDetail.html" />
+    <Content Include="Pages\SC0200002\FlowAskDetail.html" />
+    <Content Include="Pages\SC0200002\FlowCreate.html" />
+    <Content Include="Pages\SC0200002\FlowDoneDetail.html" />
+    <Content Include="Pages\SC0200002\FlowUndoDetail.html" />
     <Content Include="Pages\SCGL0703002\FlowAskDetail.html" />
     <Content Include="Pages\SCGL0703002\FlowCreate.html" />
     <Content Include="Pages\SCGL0703002\FlowDoneDetail.html" />

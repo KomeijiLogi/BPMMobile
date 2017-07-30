@@ -228,6 +228,7 @@ div >span{
     background-color: white;
     font-size: 0.75rem;
     z-index:1;
+    border:none !important;
 }
 .city_collection {
     /*display: none;*/
@@ -309,4 +310,8 @@ div >span{
 }
 .fdate_adj {
     text-align:center;
+}
+.p_adj {
+   color:#a7a7a7 !important;
+
 }

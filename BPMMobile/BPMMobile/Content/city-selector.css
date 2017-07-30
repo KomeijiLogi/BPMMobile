@@ -43,9 +43,10 @@ input[type=color], input[type=date], input[type=datetime-local], input[type=date
 }
 
 .city_show {
-    border: groove;
+    border: none;
     background-color: #81C1EF;
     position:fixed; 
+    top:0rem;
     padding-left: 0.4rem;
     padding-right: 0.4rem;
     z-index: 996;

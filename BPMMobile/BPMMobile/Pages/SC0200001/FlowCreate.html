@@ -81,19 +81,19 @@
                     <div class="upload-img-list"></div>
                 </div>
             </div>
-            <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv_file">
+            <!--<div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv_file">
                 <div class="border border-t upload-img" style="top:0rem;">
                     
                     <div class="clearfix upload-btn" id="children-bg">
                         <label class="label">附件</label>
                         <span class="tips" id="fileCount"></span>    
                         <span class="upload-addbtn" id="uploadfile">
-                            
+                            <input type="text" multiple="multiple" name="file" id="filefj" accept="*"/>
                         </span>
                     </div>
                     <div class="upload-file-list"></div>
                 </div>
-            </div>
+            </div>-->
             <a class="mui-btn mui-btn-yellow mui-btn-block mui-btn-outlined" id="tjmx">
                 添加外贸计划
                 <span class="mui-icon mui-icon-plusempty"></span>
@@ -118,6 +118,7 @@
             upload();
             watch();
             prepMsg();
+            uploadFiles();
         });
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
         XuntongJSBridge.call('getPersonInfo', {}, function (result) {
@@ -224,7 +225,7 @@
                 var li = '<div id="mx" class="mui-card">';
                 li = li + '   <div class="mui-input-row itemtitle">';
                 li = li + '        <label>明细列表项</label> ';
-                li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
+                li = li + '        <span class="mui-icon mui-icon-close mui-pull-right" style="margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row">';
                 li = li + '        <label for="fcname">客户名称</label>';
@@ -273,13 +274,7 @@
                 li = li + '</div>';
                 $("#mxlist").prepend(li);
             });
-            $("#uploadfile").on('tap', function () {
-                XuntongJSBridge.call('selectFile', {}, function (result) {
-
-                    alert(JSON.stringify(result));
-
-                });
-            });
+           
         }
 
 

@@ -502,8 +502,12 @@ function cancelConfirm() {
 
 //删除明细列表项 
 function deleteItem(context) {
-
-    $(context).parent().parent().remove();
+    var btnArray = ['否', '是'];
+    mui.confirm('确认删除？', '', btnArray, function (e) {
+        if (e.index == 1) {
+            $(context).parent().parent().remove();
+        }
+    });
 
   
 }

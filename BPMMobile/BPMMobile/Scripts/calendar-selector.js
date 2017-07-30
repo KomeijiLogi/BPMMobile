@@ -277,6 +277,9 @@
                 var startdate = $("#" + input_id).parent().parent().find("#fstartdate").val();
                 var enddate = $("#" + input_id).parent().parent().find("#fenddate").val();
                 var day = GetDateDiff(startdate, enddate);
+                if (day == 0) {
+                    day = 1;
+                }
                 $("#" + input_id).parent().parent().parent().find("#fday").val(day);
             },
             afterShowPanel: function(mask, panel) {
