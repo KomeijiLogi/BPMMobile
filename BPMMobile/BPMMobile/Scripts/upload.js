@@ -272,9 +272,6 @@
                 var resp = JSON.parse(xhr.responseText);
 
                 
-
-             
-               
                 this._fileId = resp[0].FileID;
                 
                 var fileInfo = this._getFileInfo();

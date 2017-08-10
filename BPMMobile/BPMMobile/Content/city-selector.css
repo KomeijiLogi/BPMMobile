@@ -34,6 +34,7 @@ input[type=color], input[type=date], input[type=datetime-local], input[type=date
     padding-left: 0.4rem;
     padding-right:0.4rem;
     padding-top:6.4rem;
+
 }
 .province_city_div{
     position: absolute;
@@ -44,7 +45,7 @@ input[type=color], input[type=date], input[type=datetime-local], input[type=date
 
 .city_show {
     border: none;
-    background-color: #81C1EF;
+    background-color: white;
     position:fixed; 
     top:0rem;
     padding-left: 0.4rem;

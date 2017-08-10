@@ -7,8 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
+  
     <script type="text/javascript" src="../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
@@ -324,6 +323,7 @@
                 mui.toast("请选择样品类型");
                 return;
             }
+            var mxflag = false;
             var yplistArr = new Array();
             $("#yplist").find("#yp").each(function () {
 
@@ -333,12 +333,15 @@
                 var fsl = $(this).find("#fsl").val();
                 var fremark = $(this).find("#fremark").val();
                 if (Ypitem(fwlno, fwlname, fggxh, fsl, fremark) == null) {
+                    mxflag = true;
                     return;
                 }
                 var yp = Ypitem(fwlno, fwlname, fggxh, fsl, fremark);
                 yplistArr.push(yp);
             });
-
+            if (mxflag == true) {
+                return false;
+            }
             var btnArry = ["取消", "确定"];
 
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {

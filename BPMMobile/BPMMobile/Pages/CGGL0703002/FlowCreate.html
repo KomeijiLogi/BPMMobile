@@ -7,8 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
+   
     <script type="text/javascript" src="../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
@@ -253,7 +252,7 @@
                 mui.toast("请填写采购部门");
                 return;
             }
-
+            var mxflag = false;
             var lxlistArr = new Array();
             $("#lxlist").find("#lx").each(function () {
 
@@ -266,13 +265,16 @@
                 var fbz = $("#fbz").val();
 
                 if (LxItem(fsyadd, fwlname, fgg, fdw, fsl, fyt, fbz) == null) {
+                    mxflag = true;
                     return;
                 }
                 var lx = LxItem(fsyadd, fwlname, fgg, fdw, fsl, fyt, fbz);
                 lxlistArr.push(lx);
 
             });
-
+            if (mxflag) {
+                return;
+            }
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                 if (e.index == 1) {

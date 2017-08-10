@@ -5,65 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
-    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/xdate.js"></script>
-    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
-    <script type="text/javascript" src="../../Scripts/util.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/xdate.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.detail.js"></script>
 
-    <link rel="stylesheet" href="../../Content/mui.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
-    <link rel="stylesheet" href="../../Content/upload.css" />
-    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
-    <link rel="stylesheet" href="../../Content/DoneOrMyApproval.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
+    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css" />
     <meta charset="utf-8" />
     <title></title>
 </head>
 <body>
     <div class="mui-content" style="background-color:white;">
         <form class="mui-input-group" style="left:0rem;right:0rem;margin-bottom:1rem;padding-bottom:4rem;">
-            <div class="mui-input-row">
-                <label for="fname">申请人<i style="color:red;">*</i></label>
-                <input type="text" id="fname" name="fname" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fzhiwu">职务<i style="color:red;">*</i></label>
-                <input type="text" id="fzhiwu" name="fzhiwu" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="flevel">级别<i style="color:red;">*</i></label>
-                <input type="text" id="flevel" name="flevel" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fdate">日期<i style="color:red;">*</i></label>
-                <input type="date" id="fdate" name="fdate" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fcompany">公司名称<i style="color:red;">*</i></label>
-                <input type="text" id="fcompany" name="fcompany" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="ffcompany">销售分公司<i style="color:red;">*</i></label>
-                <input type="text" id="ffcompany" name="ffcompany" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fsalezone">大区</label>
-                <input type="text" id="fsalezone" name="fsalezone" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fdept">办事处</label>
-                <input type="text" id="fdept" name="fdept" readonly="readonly" />
-            </div>
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell mui-collapse">
+                    <a class="mui-navigate-right mui-row" href="#">
+                        <label for="fname">申请人<i style="color:red;">*</i><input type="text" id="fname" name="fname" readonly="readonly" value="111" /></label>
+
+                    </a>
+                    <div class="mui-collapse-content">
+
+                        <div class="mui-input-row">
+                            <label for="fxb">性别<i style="color:red;">*</i></label>
+                            <input type="text" id="fxb" name="fxb" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="fzhiwu">职务<i style="color:red;">*</i></label>
+                            <input type="text" id="fzhiwu" name="fzhiwu" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="flevel">级别<i style="color:red;">*</i></label>
+                            <input type="text" id="flevel" name="flevel" readonly="readonly" />
+                        </div>
+
+                        <div class="mui-input-row">
+                            <label for="fcompany">公司名称<i style="color:red;">*</i></label>
+                            <input type="text" id="fcompany" name="fcompany" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="ffcompany">销售分公司<i style="color:red;">*</i></label>
+                            <input type="text" id="ffcompany" name="ffcompany" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="fsalezone">大区</label>
+                            <input type="text" id="fsalezone" name="fsalezone" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="fdept">办事处</label>
+                            <input type="text" id="fdept" name="fdept" readonly="readonly" />
+                        </div>
+                    </div>
+                </li>
+            </ul>
             <div class="mui-input-row">
                 <label for="fcwdate">财务审核时间</label>
                 <input type="hidden" id="fcwdate" name="fcwdate" readonly="readonly" />
@@ -531,30 +538,30 @@
 
                                         } else if ((data[i].Ext).indexOf("xls") != -1) {
 
-                                            li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/xlsx@2x.png"/></div>';
+                                            li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/xlsx@2x.png"/></div>';
 
                                         } else if ((data[i].Ext).indexOf("doc") != -1) {
 
-                                            li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/docx@2x.png"/></div>';
+                                            li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/docx@2x.png"/></div>';
 
                                         } else if ((data[i].Ext).indexOf("ppt") != -1) {
 
-                                            li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/ppt@2x.png"/></div>';
+                                            li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/ppt@2x.png"/></div>';
 
                                         } else if ((data[i].Ext).indexOf("pdf") != -1) {
 
-                                            li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/pdf@2x.png"/></div>';
+                                            li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/pdf@2x.png"/></div>';
 
                                         } else if ((data[i].Ext).indexOf("zip") != -1 || (data[i].Ext).indexOf("rar") != -1 || (data[i].Ext).indexOf("7z") != -1) {
 
-                                            li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/zip@2x.png"/></div>';
+                                            li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/zip@2x.png"/></div>';
 
                                         } else if ((data[i].Ext).indexOf("txt") != -1) {
 
-                                            li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
+                                            li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/txt@2x.png"/></div>';
 
                                         } else {
-                                            li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
+                                            li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/unkown@2x.png"/></div>';
                                         }
 
                                         li = li + ' </div>';

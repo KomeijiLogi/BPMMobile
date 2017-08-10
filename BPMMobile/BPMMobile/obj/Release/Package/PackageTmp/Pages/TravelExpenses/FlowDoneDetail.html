@@ -7,27 +7,27 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta charset="utf-8" />
     <title>差旅费报销</title>
-    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
-    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
+   
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>
-    <script type="text/javascript" src="../../Scripts/calendar-selector.js"></script>
-    <script type="text/javascript" src="../../Scripts/city.data.js"></script>
-    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
-    <link rel="stylesheet" href="../../Content/mui.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
-    <link rel="stylesheet" href="../../Content/upload.css" />
-    <link rel="stylesheet" href="../../Content/maintanse.css" />
-    <link rel="stylesheet" href="../../Content/city-selector.css" />
-    <link rel="stylesheet" href="../../Content/calendar-selector.css" />
-    <link rel="stylesheet" href="../../Content/DoneOrMyApproval.css"/>
+    <script type="text/javascript" src="../../../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.detail.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/calendar-selector.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/city.data.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/maintanse.css" />
+    <link rel="stylesheet" href="../../../../Content/city-selector.css" />
+    <link rel="stylesheet" href="../../../../Content/calendar-selector.css" />
+    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css"/>
 </head>
 <body>
 
@@ -772,97 +772,485 @@
                             if (item_b[i].fbz == null) {
                                 item_b[i].fbz = "";
                             }
-                            var li = '<form class="mui-card" id="sc-form">';
-                            li = li + '     <div class="sc-bg">';
-                            li = li + '<ul class="mui-table-view">';
-                            li = li + '<li class="mui-table-view-cell mui-collapse mui-active">';
-                            li = li + ' <a href="#" class="mui-navigate-right mui-row">';
-                            li = li + '<h5 class="mui-col-xs-4">' + item_b[i].ffyxm + '</h5>';
-                            //li = li + '<button type="button" class="mui-btn mui-btn-link " onclick="deleteItem(this)">删除</button>';
-                            li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary">' + item_b[i].fbxje +'</span></h5 >';
-                            li = li + '</a> ';
-                           
-                            li = li + '<div class="mui-collapse-content">';
-                           
-                            li = li + '                <input type="hidden" id="ffyxm" name="ffyxm" value="' + item_b[i].ffyxm + '"/>';
-                           
-                            li = li + '           <div id="sc-row-1" class="mui-card-header mui-row" >';
-                            li = li + '             <div class="mui-col-xs-4 mui-text-center" id="departure">';
-                            li = li + '                  <p>出发地<i>*</i></p>';
-                            li = li + '                <input type="hidden" id="kscitymid" name="kscitymid" value="' + item_b[i].kscitymid + '"/>';
-                            li = li + '                  <input type="hidden" id="departure_province" name="departure_province" value="' + item_b[i].cfdd_pro + '"/>';
-                            li = li + '                  <span id="departure_city" class="mdcity">' + item_b[i].cfdd_city + '</span>';
-                            li = li + '             </div>';
-                            li = li + '            <div class="mui-col-xs-4 mui-text-center" id="transport_div">';
-                            li = li + '                 <span class="mui-icon mui-icon-pengyouquan" id="change_transpotation"></span>';
-                            li = li + '                 <p id="transpotation">' + item_b[i].fjtgj + '</p>';
-                            li = li + '            </div>';
-                            li = li + '            <div class="mui-col-xs-4 mui-text-center" id="destination">';
-                            li = li + '                <p>目的地<i>*</i></p>';
-                            li = li + '                <input type="hidden" id="citymid" name="citymid" value="' + item_b[i].citymid + '"/>';
-                            li = li + '                <input type="hidden" id="destination_province" name="destination_province" value="' + item_b[i].dddd_pro + '"/>';
-                            li = li + '                <span id="destination_city" class="mdcity">' + item_b[i].dddd_city + '</span>';
-                            li = li + '           </div>';
-                            li = li + '          </div>';
-                            li = li + '         <div id="sc-row-2" class="mui-card-content mui-row bottomborder">';
-                            li = li + '             <div class="mui-col-xs-6 mui-text-center">';
-                            li = li + '               <input type="text" id="fstartdate" name="fstartdate" readonly="readonly" value="' + FormatterTimeYMS( item_b[i].fksdate) + '" class="mdate" />';
-                            li = li + '             </div>';
-                            li = li + '             <div class="mui-col-xs-6 mui-text-center">';
-                            li = li + '               <input type="text" id="fenddate" name="fenddate" readonly="readonly" value="' + FormatterTimeYMS(item_b[i].fjsdate) + '" class="mdate" />';
-                            li = li + '             </div>';
-                            li = li + '       </div>';
-                            li = li + '       <div id="sc-row-4" class="mui-card-content mui-row bottomborder">';
-                            li = li + '              <div class="mui-col-xs-3 mui-text-center">';
-                            li = li + '                 <p>天数</p>';
-                            li = li + '                <input type="number" id="fday" name="fday" readonly="readonly" value="' + item_b[i].fccts + '"/>';
-                            li = li + '              </div>';
-                            li = li + '             <div class="mui-col-xs-3 mui-text-center">';
-                            li = li + '                <p>报销金额</p>';
-                            li = li + '               <input type="number" id="fsubmit_expense" name="fsubmit_expense" value="' + item_b[i].fbxje+'" class="bxje" />';
-                            li = li + '             </div>';
-                            li = li + '             <div class="mui-col-xs-3 mui-text-center">';
-                            li = li + '               <p>会计审核</p>';
-                            li = li + '               <input type="number" id="faccountant_expense" name="faccountant_expense" value="' + item_b[i].fkjshje + '" readonly="readonly"/>';
-                            li = li + '              </div>';
-                            li = li + '             <div class="mui-col-xs-3 mui-text-center">';
-                            li = li + '               <p>财务审核</p>';
-                            li = li + '               <input type="number" id="ffinance_expense" name="ffinance_expense" value="' + item_b[i].fcwshje + '" readonly="readonly"/>';
-                            li = li + '             </div>';
-                            li = li + '       </div>';
-                            li = li + '       <div id="sc-row-6" class="mui-card-content  mui-row bottomborder">';
-                            li = li + '               <div class="mui-col-xs-4 mui-text-center">';
-                            li = li + '                 <p class="p_adj">费用标准</p>';
-                            li = li + '                 <input id="fstandard" name="fstandard" type="number" value="' + item_b[i].fccbzhj + '" class="mui-text-center" placeholder="待填"/>';
-                            li = li + '              </div>';
-                            li = li + '               <div class="mui-col-xs-4 mui-text-center">';
-                            li = li + '                 <p class="p_adj">地区类别</p>';
-                            li = li + '                 <label id="farea" class="farea mui-text-center">' + item_b[i].fdqlb + '</label>';
-                            li = li + '              </div>';
-                            li = li + '               <div class="mui-col-xs-4 mui-text-center">';
-                            li = li + '                 <p class="p_adj"></p>';
-                            if (item_b[i].fistp == "是") {
-                                li = li + ' <label id= "fspecially"> 特批 <input type= "hidden" id= "ftp" name= "ftp" value= "是" /></label> ';
-                            } else {
-                               li = li + ' <label id= "fspecially" class="label_tp"> 特批 <input type= "hidden" id= "ftp" name= "ftp" value= "否" /></label> ';
+                            if (item_b[i].ffyxm == '住宿费') {
+                                var li = '<form class="mui-card" id="sc-form">';
+                                li = li + '     <div class="sc-bg">';
+                                li = li + '<ul class="mui-table-view">';
+                                li = li + '<li class="mui-table-view-cell mui-collapse mui-active">';
+                                li = li + ' <a href="#" class="mui-navigate-right mui-row">';
+                                li = li + '<h5 class="mui-col-xs-4">' + item_b[i].ffyxm + '</h5>';
+                                //li = li + '<button type="button" class="mui-btn mui-btn-link " onclick="deleteItem(this)">删除</button>';
+                                li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary">' + item_b[i].fbxje + '</span></h5 >';
+                                li = li + '</a> ';
+
+                                li = li + '<div class="mui-collapse-content">';
+
+                                li = li + '                <input type="hidden" id="ffyxm" name="ffyxm" value="' + item_b[i].ffyxm + '"/>';
+
+                                li = li + '           <div id="sc-row-1" class="mui-card-header mui-row" >';
+                                li = li + '             <div class="mui-col-xs-4 mui-text-center" id="departure" style="display:none;">';
+                                li = li + '                  <p>出发地<i>*</i></p>';
+                                li = li + '                <input type="hidden" id="kscitymid" name="kscitymid" value="' + item_b[i].kscitymid + '"/>';
+                                li = li + '                  <input type="hidden" id="departure_province" name="departure_province" value="' + item_b[i].cfdd_pro + '"/>';
+                                li = li + '                  <span id="departure_city" class="mdcity" onclick="showcity(0,this)">' + item_b[i].cfdd_city + '</span>';
+                                li = li + '             </div>';
+                                li = li + '            <div class="mui-col-xs-4 mui-text-center" id="transport_div" style="display:none;">';
+                                li = li + '                 <span class="mui-icon mui-icon-pengyouquan" id="change_transpotation"></span>';
+                                li = li + '                 <p id="transpotation">' + item_b[i].fjtgj + '</p>';
+                                li = li + '            </div>';
+                                li = li + '            <div class="mui-col-xs-12 mui-text-center" id="destination">';
+                                li = li + '                <p>目的地<i>*</i></p>';
+                                li = li + '                <input type="hidden" id="citymid" name="citymid" value="' + item_b[i].citymid + '"/>';
+                                li = li + '                <input type="hidden" id="destination_province" name="destination_province" value="' + item_b[i].dddd_pro + '"/>';
+                                li = li + '                <span id="destination_city" class="mdcity" onclick="showcity(1,this)">' + item_b[i].dddd_city + '</span>';
+                                li = li + '           </div>';
+                                li = li + '          </div>';
+                                li = li + '         <div id="sc-row-2" class="mui-card-content mui-row bottomborder">';
+                                li = li + '             <div class="mui-col-xs-5 mui-text-center">';
+                                li = li + '               <input type="text" id="fstartdate" name="fstartdate" readonly="readonly" value="' + FormatterTimeYMS(item_b[i].fksdate) + '" class="mdate" />';
+                                li = li + '             </div>';
+                                li = li + '             <div class="mui-col-xs-2 mui-text-center">';
+                                li = li + '                <input type="text" value="至"/>';
+                                li = li + '             </div>';
+                                li = li + '             <div class="mui-col-xs-5 mui-text-center">';
+                                li = li + '               <input type="text" id="fenddate" name="fenddate" readonly="readonly" value="' + FormatterTimeYMS(item_b[i].fjsdate) + '" class="mdate" />';
+                                li = li + '             </div>';
+                                li = li + '       </div>';
+                                li = li + '       <div id="sc-row-4" class="mui-card-content mui-row bottomborder">';
+                                li = li + '              <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '                 <p>天数</p>';
+                                li = li + '                <input type="number" id="fday" name="fday" readonly="readonly" value="' + item_b[i].fccts + '"/>';
+                                li = li + '              </div>';
+                                li = li + '             <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '                <p>报销金额</p>';
+                                li = li + '               <input type="number" id="fsubmit_expense" name="fsubmit_expense" value="' + item_b[i].fbxje + '" class="bxje" />';
+                                li = li + '             </div>';
+                                li = li + '             <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '               <p>会计审核</p>';
+                                li = li + '               <input type="number" id="faccountant_expense" name="faccountant_expense" value="' + item_b[i].fkjshje + '" readonly="readonly"/>';
+                                li = li + '              </div>';
+                                li = li + '             <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '               <p>财务审核</p>';
+                                li = li + '               <input type="number" id="ffinance_expense" name="ffinance_expense" value="' + item_b[i].fcwshje + '" readonly="readonly"/>';
+                                li = li + '             </div>';
+                                li = li + '       </div>';
+                                li = li + '       <div id="sc-row-6" class="mui-card-content  mui-row bottomborder">';
+                                li = li + '               <div class="mui-col-xs-4 mui-text-center">';
+                                li = li + '                 <p class="p_adj">费用标准</p>';
+                                li = li + '                 <input id="fstandard" name="fstandard" type="number" value="' + item_b[i].fccbzhj + '" class="mui-text-center" placeholder="待填"/>';
+                                li = li + '              </div>';
+                                li = li + '               <div class="mui-col-xs-4 mui-text-center">';
+                                li = li + '                 <p class="p_adj">地区类别</p>';
+                                li = li + '                 <input id="farea" class="mui-text-center" type="text" value="' + item_b[i].fdqlb + '"/>';
+                                li = li + '              </div>';
+                                li = li + '               <div class="mui-col-xs-4 mui-text-center">';
+                                li = li + '                 <p class="p_adj"></p>';
+                                if (item_b[i].fistp == "是") {
+                                    li = li + ' <label id= "fspecially"> 特批 <input type= "hidden" id= "ftp" name= "ftp" value= "是" /></label> ';
+                                } else {
+                                    li = li + ' <label id= "fspecially" class="label_tp"> 特批 <input type= "hidden" id= "ftp" name= "ftp" value= "否" /></label> ';
+                                }
+                                li = li + '                 <label id="fspecially" class="label_tp">特批<input type="hidden" id="ftp" name="ftp" value="否"/></label>';
+                                li = li + '              </div>';
+                                li = li + '      </div>';
+
+                                li = li + '       <div id="sc-row-7" class="mui-card-footer mui-row bottom_border">';
+                                li = li + '               <p>备注</p>';
+                                li = li + '              <input type="text" id="fbz" name="fbz" value="' + item_b[i].fbz + '" />';
+                                li = li + '      </div>';
+
+                                li = li + '</div>';
+                                li = li + '</li>';
+                                li = li + '</ul>';
+
+                                li = li + '    </div>';
+                                li = li + '  </form>';
+
+
+                                $("#form_secondary").append(li);
+                            } else if (item_b[i].ffyxm == '市内交通费') {
+                                var li = '<form class="mui-card" id="sc-form">';
+                                li = li + '     <div class="sc-bg">';
+                                li = li + '<ul class="mui-table-view">';
+                                li = li + '<li class="mui-table-view-cell mui-collapse mui-active">';
+                                li = li + ' <a href="#" class="mui-navigate-right mui-row">';
+                                li = li + '<h5 class="mui-col-xs-4">' + item_b[i].ffyxm + '</h5>';
+                                //li = li + '<button type="button" class="mui-btn mui-btn-link " onclick="deleteItem(this)">删除</button>';
+                                li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary">' + item_b[i].fbxje + '</span></h5 >';
+                                li = li + '</a> ';
+
+                                li = li + '<div class="mui-collapse-content">';
+
+                                li = li + '                <input type="hidden" id="ffyxm" name="ffyxm" value="' + item_b[i].ffyxm + '"/>';
+
+                                li = li + '           <div id="sc-row-1" class="mui-card-header mui-row" >';
+                                li = li + '             <div class="mui-col-xs-4 mui-text-center" id="departure" style="display:none;">';
+                                li = li + '                  <p>出发地<i>*</i></p>';
+                                li = li + '                <input type="hidden" id="kscitymid" name="kscitymid" value="' + item_b[i].kscitymid + '"/>';
+                                li = li + '                  <input type="hidden" id="departure_province" name="departure_province" value="' + item_b[i].cfdd_pro + '"/>';
+                                li = li + '                  <span id="departure_city" class="mdcity" onclick="showcity(0,this)">' + item_b[i].cfdd_city + '</span>';
+                                li = li + '             </div>';
+                                li = li + '            <div class="mui-col-xs-4 mui-text-center" id="transport_div" style="display:none;">';
+                                li = li + '                 <span class="mui-icon mui-icon-pengyouquan" id="change_transpotation"></span>';
+                                li = li + '                 <p id="transpotation">' + item_b[i].fjtgj + '</p>';
+                                li = li + '            </div>';
+                                li = li + '            <div class="mui-col-xs-12 mui-text-center" id="destination">';
+                                li = li + '                <p>目的地<i>*</i></p>';
+                                li = li + '                <input type="hidden" id="citymid" name="citymid" value="' + item_b[i].citymid + '"/>';
+                                li = li + '                <input type="hidden" id="destination_province" name="destination_province" value="' + item_b[i].dddd_pro + '"/>';
+                                li = li + '                <span id="destination_city" class="mdcity" onclick="showcity(1,this)">' + item_b[i].dddd_city + '</span>';
+                                li = li + '           </div>';
+                                li = li + '          </div>';
+                                li = li + '         <div id="sc-row-2" class="mui-card-content mui-row bottomborder">';
+                                li = li + '             <div class="mui-col-xs-5 mui-text-center">';
+                                li = li + '               <input type="text" id="fstartdate" name="fstartdate" readonly="readonly" value="' + FormatterTimeYMS(item_b[i].fksdate) + '" class="mdate" />';
+                                li = li + '             </div>';
+                                li = li + '             <div class="mui-col-xs-2 mui-text-center">';
+                                li = li + '                <input type="text" value="至"/>';
+                                li = li + '             </div>';
+                                li = li + '             <div class="mui-col-xs-5 mui-text-center">';
+                                li = li + '               <input type="text" id="fenddate" name="fenddate" readonly="readonly" value="' + FormatterTimeYMS(item_b[i].fjsdate) + '" class="mdate" />';
+                                li = li + '             </div>';
+                                li = li + '       </div>';
+                                li = li + '       <div id="sc-row-4" class="mui-card-content mui-row bottomborder">';
+                                li = li + '              <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '                 <p>天数</p>';
+                                li = li + '                <input type="number" id="fday" name="fday" readonly="readonly" value="' + item_b[i].fccts + '"/>';
+                                li = li + '              </div>';
+                                li = li + '             <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '                <p>报销金额</p>';
+                                li = li + '               <input type="number" id="fsubmit_expense" name="fsubmit_expense" value="' + item_b[i].fbxje + '" class="bxje" />';
+                                li = li + '             </div>';
+                                li = li + '             <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '               <p>会计审核</p>';
+                                li = li + '               <input type="number" id="faccountant_expense" name="faccountant_expense" value="' + item_b[i].fkjshje + '" readonly="readonly"/>';
+                                li = li + '              </div>';
+                                li = li + '             <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '               <p>财务审核</p>';
+                                li = li + '               <input type="number" id="ffinance_expense" name="ffinance_expense" value="' + item_b[i].fcwshje + '" readonly="readonly"/>';
+                                li = li + '             </div>';
+                                li = li + '       </div>';
+                                li = li + '       <div id="sc-row-6" class="mui-card-content  mui-row bottomborder">';
+                                li = li + '               <div class="mui-col-xs-4 mui-text-center">';
+                                li = li + '                 <p class="p_adj">费用标准</p>';
+                                li = li + '                 <input id="fstandard" name="fstandard" type="number" value="' + item_b[i].fccbzhj + '" class="mui-text-center" placeholder="待填"/>';
+                                li = li + '              </div>';
+                                li = li + '               <div class="mui-col-xs-4 mui-text-center">';
+                                li = li + '                 <p class="p_adj">地区类别</p>';
+                                li = li + '                 <input id="farea" class="mui-text-center" type="text" value="' + item_b[i].fdqlb + '"/>';
+                                li = li + '              </div>';
+                                li = li + '               <div class="mui-col-xs-4 mui-text-center">';
+                                li = li + '                 <p class="p_adj"></p>';
+                                if (item_b[i].fistp == "是") {
+                                    li = li + ' <label id= "fspecially"> 特批 <input type= "hidden" id= "ftp" name= "ftp" value= "是" /></label> ';
+                                } else {
+                                    li = li + ' <label id= "fspecially" class="label_tp"> 特批 <input type= "hidden" id= "ftp" name= "ftp" value= "否" /></label> ';
+                                }
+                                li = li + '                 <label id="fspecially" class="label_tp">特批<input type="hidden" id="ftp" name="ftp" value="否"/></label>';
+                                li = li + '              </div>';
+                                li = li + '      </div>';
+
+                                li = li + '       <div id="sc-row-7" class="mui-card-footer mui-row bottom_border">';
+                                li = li + '               <p>备注</p>';
+                                li = li + '              <input type="text" id="fbz" name="fbz" value="' + item_b[i].fbz + '" />';
+                                li = li + '      </div>';
+
+                                li = li + '</div>';
+                                li = li + '</li>';
+                                li = li + '</ul>';
+
+                                li = li + '    </div>';
+                                li = li + '  </form>';
+
+
+                                $("#form_secondary").append(li);
+                            } else if (item_b[i].ffyxm == '餐补费') {
+                                var li = '<form class="mui-card" id="sc-form">';
+                                li = li + '     <div class="sc-bg">';
+                                li = li + '<ul class="mui-table-view">';
+                                li = li + '<li class="mui-table-view-cell mui-collapse mui-active">';
+                                li = li + ' <a href="#" class="mui-navigate-right mui-row">';
+                                li = li + '<h5 class="mui-col-xs-4">' + item_b[i].ffyxm + '</h5>';
+                                //li = li + '<button type="button" class="mui-btn mui-btn-link " onclick="deleteItem(this)">删除</button>';
+                                li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary">' + item_b[i].fbxje + '</span></h5 >';
+                                li = li + '</a> ';
+
+                                li = li + '<div class="mui-collapse-content">';
+
+                                li = li + '                <input type="hidden" id="ffyxm" name="ffyxm" value="' + item_b[i].ffyxm + '"/>';
+
+                                li = li + '           <div id="sc-row-1" class="mui-card-header mui-row" >';
+                                li = li + '             <div class="mui-col-xs-4 mui-text-center" id="departure" style="display:none;">';
+                                li = li + '                  <p>出发地<i>*</i></p>';
+                                li = li + '                <input type="hidden" id="kscitymid" name="kscitymid" value="' + item_b[i].kscitymid + '"/>';
+                                li = li + '                  <input type="hidden" id="departure_province" name="departure_province" value="' + item_b[i].cfdd_pro + '"/>';
+                                li = li + '                  <span id="departure_city" class="mdcity" onclick="showcity(0,this)">' + item_b[i].cfdd_city + '</span>';
+                                li = li + '             </div>';
+                                li = li + '            <div class="mui-col-xs-4 mui-text-center" id="transport_div" style="display:none;">';
+                                li = li + '                 <span class="mui-icon mui-icon-pengyouquan" id="change_transpotation"></span>';
+                                li = li + '                 <p id="transpotation">' + item_b[i].fjtgj + '</p>';
+                                li = li + '            </div>';
+                                li = li + '            <div class="mui-col-xs-12 mui-text-center" id="destination">';
+                                li = li + '                <p>目的地<i>*</i></p>';
+                                li = li + '                <input type="hidden" id="citymid" name="citymid" value="' + item_b[i].citymid + '"/>';
+                                li = li + '                <input type="hidden" id="destination_province" name="destination_province" value="' + item_b[i].dddd_pro + '"/>';
+                                li = li + '                <span id="destination_city" class="mdcity" onclick="showcity(1,this)">' + item_b[i].dddd_city + '</span>';
+                                li = li + '           </div>';
+                                li = li + '          </div>';
+                                li = li + '         <div id="sc-row-2" class="mui-card-content mui-row bottomborder">';
+                                li = li + '             <div class="mui-col-xs-5 mui-text-center">';
+                                li = li + '               <input type="text" id="fstartdate" name="fstartdate" readonly="readonly" value="' + FormatterTimeYMS(item_b[i].fksdate) + '" class="mdate" />';
+                                li = li + '             </div>';
+                                li = li + '             <div class="mui-col-xs-2 mui-text-center">';
+                                li = li + '                <input type="text" value="至"/>';
+                                li = li + '             </div>';
+                                li = li + '             <div class="mui-col-xs-5 mui-text-center">';
+                                li = li + '               <input type="text" id="fenddate" name="fenddate" readonly="readonly" value="' + FormatterTimeYMS(item_b[i].fjsdate) + '" class="mdate" />';
+                                li = li + '             </div>';
+                                li = li + '       </div>';
+                                li = li + '       <div id="sc-row-4" class="mui-card-content mui-row bottomborder">';
+                                li = li + '              <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '                 <p>天数</p>';
+                                li = li + '                <input type="number" id="fday" name="fday" readonly="readonly" value="' + item_b[i].fccts + '"/>';
+                                li = li + '              </div>';
+                                li = li + '             <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '                <p>报销金额</p>';
+                                li = li + '               <input type="number" id="fsubmit_expense" name="fsubmit_expense" value="' + item_b[i].fbxje + '" class="bxje" />';
+                                li = li + '             </div>';
+                                li = li + '             <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '               <p>会计审核</p>';
+                                li = li + '               <input type="number" id="faccountant_expense" name="faccountant_expense" value="' + item_b[i].fkjshje + '" readonly="readonly"/>';
+                                li = li + '              </div>';
+                                li = li + '             <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '               <p>财务审核</p>';
+                                li = li + '               <input type="number" id="ffinance_expense" name="ffinance_expense" value="' + item_b[i].fcwshje + '" readonly="readonly"/>';
+                                li = li + '             </div>';
+                                li = li + '       </div>';
+                                li = li + '       <div id="sc-row-6" class="mui-card-content  mui-row bottomborder">';
+                                li = li + '               <div class="mui-col-xs-4 mui-text-center">';
+                                li = li + '                 <p class="p_adj">费用标准</p>';
+                                li = li + '                 <input id="fstandard" name="fstandard" type="number" value="' + item_b[i].fccbzhj + '" class="mui-text-center" placeholder="待填"/>';
+                                li = li + '              </div>';
+                                li = li + '               <div class="mui-col-xs-4 mui-text-center">';
+                                li = li + '                 <p class="p_adj">地区类别</p>';
+                                li = li + '                 <input id="farea" class="mui-text-center" type="text" value="' + item_b[i].fdqlb + '"/>';
+                                li = li + '              </div>';
+                                li = li + '               <div class="mui-col-xs-4 mui-text-center">';
+                                li = li + '                 <p class="p_adj"></p>';
+                                if (item_b[i].fistp == "是") {
+                                    li = li + ' <label id= "fspecially"> 特批 <input type= "hidden" id= "ftp" name= "ftp" value= "是" /></label> ';
+                                } else {
+                                    li = li + ' <label id= "fspecially" class="label_tp"> 特批 <input type= "hidden" id= "ftp" name= "ftp" value= "否" /></label> ';
+                                }
+                                li = li + '                 <label id="fspecially" class="label_tp">特批<input type="hidden" id="ftp" name="ftp" value="否"/></label>';
+                                li = li + '              </div>';
+                                li = li + '      </div>';
+
+                                li = li + '       <div id="sc-row-7" class="mui-card-footer mui-row bottom_border">';
+                                li = li + '               <p>备注</p>';
+                                li = li + '              <input type="text" id="fbz" name="fbz" value="' + item_b[i].fbz + '" />';
+                                li = li + '      </div>';
+
+                                li = li + '</div>';
+                                li = li + '</li>';
+                                li = li + '</ul>';
+
+                                li = li + '    </div>';
+                                li = li + '  </form>';
+
+
+                                $("#form_secondary").append(li);
+                            } else if (item_b[i].ffyxm == '车船费') {
+                                var li = '<form class="mui-card" id="sc-form">';
+                                li = li + '     <div class="sc-bg">';
+                                li = li + '<ul class="mui-table-view">';
+                                li = li + '<li class="mui-table-view-cell mui-collapse mui-active">';
+                                li = li + ' <a href="#" class="mui-navigate-right mui-row">';
+                                li = li + '<h5 class="mui-col-xs-4">' + item_b[i].ffyxm + '</h5>';
+                                //li = li + '<button type="button" class="mui-btn mui-btn-link " onclick="deleteItem(this)">删除</button>';
+                                li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary">' + item_b[i].fbxje + '</span></h5 >';
+                                li = li + '</a> ';
+
+                                li = li + '<div class="mui-collapse-content">';
+
+                                li = li + '                <input type="hidden" id="ffyxm" name="ffyxm" value="' + item_b[i].ffyxm + '"/>';
+
+                                li = li + '           <div id="sc-row-1" class="mui-card-header mui-row" >';
+                                li = li + '             <div class="mui-col-xs-4 mui-text-center" id="departure">';
+                                li = li + '                  <p>出发地<i>*</i></p>';
+                                li = li + '                <input type="hidden" id="kscitymid" name="kscitymid" value="' + item_b[i].kscitymid + '"/>';
+                                li = li + '                  <input type="hidden" id="departure_province" name="departure_province" value="' + item_b[i].cfdd_pro + '"/>';
+                                li = li + '                  <span id="departure_city" class="mdcity" onclick="showcity(0,this)">' + item_b[i].cfdd_city + '</span>';
+                                li = li + '             </div>';
+                                li = li + '            <div class="mui-col-xs-4 mui-text-center" id="transport_div">';
+                                li = li + '                 <span class="mui-icon mui-icon-pengyouquan" id="change_transpotation"></span>';
+                                li = li + '                 <p id="transpotation">' + item_b[i].fjtgj + '</p>';
+                                li = li + '            </div>';
+                                li = li + '            <div class="mui-col-xs-4 mui-text-center" id="destination">';
+                                li = li + '                <p>目的地<i>*</i></p>';
+                                li = li + '                <input type="hidden" id="citymid" name="citymid" value="' + item_b[i].citymid + '"/>';
+                                li = li + '                <input type="hidden" id="destination_province" name="destination_province" value="' + item_b[i].dddd_pro + '"/>';
+                                li = li + '                <span id="destination_city" class="mdcity" onclick="showcity(1,this)">' + item_b[i].dddd_city + '</span>';
+                                li = li + '           </div>';
+                                li = li + '          </div>';
+                                li = li + '         <div id="sc-row-2" class="mui-card-content mui-row bottomborder">';
+                                li = li + '             <div class="mui-col-xs-6 mui-text-center">';
+                                li = li + '               <input type="text" id="fstartdate" name="fstartdate" readonly="readonly" value="' + FormatterTimeYMS(item_b[i].fksdate) + '" class="mdate" />';
+                                li = li + '             </div>';
+                                li = li + '             <div class="mui-col-xs-6 mui-text-center">';
+                                li = li + '               <input type="text" id="fenddate" name="fenddate" readonly="readonly" value="' + FormatterTimeYMS(item_b[i].fjsdate) + '" class="mdate" />';
+                                li = li + '             </div>';
+                                li = li + '       </div>';
+                                li = li + '       <div id="sc-row-4" class="mui-card-content mui-row bottomborder">';
+                                li = li + '              <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '                 <p>天数</p>';
+                                li = li + '                <input type="number" id="fday" name="fday" readonly="readonly" value="' + item_b[i].fccts + '"/>';
+                                li = li + '              </div>';
+                                li = li + '             <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '                <p>报销金额</p>';
+                                li = li + '               <input type="number" id="fsubmit_expense" name="fsubmit_expense" value="' + item_b[i].fbxje + '" class="bxje" />';
+                                li = li + '             </div>';
+                                li = li + '             <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '               <p>会计审核</p>';
+                                li = li + '               <input type="number" id="faccountant_expense" name="faccountant_expense" value="' + item_b[i].fkjshje + '" readonly="readonly"/>';
+                                li = li + '              </div>';
+                                li = li + '             <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '               <p>财务审核</p>';
+                                li = li + '               <input type="number" id="ffinance_expense" name="ffinance_expense" value="' + item_b[i].fcwshje + '" readonly="readonly"/>';
+                                li = li + '             </div>';
+                                li = li + '       </div>';
+                                li = li + '       <div id="sc-row-6" class="mui-card-content  mui-row bottomborder">';
+                                li = li + '               <div class="mui-col-xs-4 mui-text-center">';
+                                li = li + '                 <p class="p_adj">费用标准</p>';
+                                li = li + '                 <input id="fstandard" name="fstandard" type="number" value="' + item_b[i].fccbzhj + '" class="mui-text-center" placeholder="待填"/>';
+                                li = li + '              </div>';
+                                li = li + '               <div class="mui-col-xs-4 mui-text-center">';
+                                li = li + '                 <p class="p_adj">地区类别</p>';
+                                li = li + '                 <input id="farea" class="mui-text-center" type="text" value="' + item_b[i].fdqlb + '"/>';
+                                li = li + '              </div>';
+                                li = li + '               <div class="mui-col-xs-4 mui-text-center">';
+                                li = li + '                 <p class="p_adj"></p>';
+                                if (item_b[i].fistp == "是") {
+                                    li = li + ' <label id= "fspecially"> 特批 <input type= "hidden" id= "ftp" name= "ftp" value= "是" /></label> ';
+                                } else {
+                                    li = li + ' <label id= "fspecially" class="label_tp"> 特批 <input type= "hidden" id= "ftp" name= "ftp" value= "否" /></label> ';
+                                }
+                                li = li + '                 <label id="fspecially" class="label_tp">特批<input type="hidden" id="ftp" name="ftp" value="否"/></label>';
+                                li = li + '              </div>';
+                                li = li + '      </div>';
+
+                                li = li + '       <div id="sc-row-7" class="mui-card-footer mui-row bottom_border">';
+                                li = li + '               <p>备注</p>';
+                                li = li + '              <input type="text" id="fbz" name="fbz" value="' + item_b[i].fbz + '" />';
+                                li = li + '      </div>';
+
+                                li = li + '</div>';
+                                li = li + '</li>';
+                                li = li + '</ul>';
+
+                                li = li + '    </div>';
+                                li = li + '  </form>';
+
+
+                                $("#form_secondary").append(li);
+                            } else if (item_b[i].ffyxm == '飞机费') {
+                                var li = '<form class="mui-card" id="sc-form">';
+                                li = li + '     <div class="sc-bg">';
+                                li = li + '<ul class="mui-table-view">';
+                                li = li + '<li class="mui-table-view-cell mui-collapse mui-active">';
+                                li = li + ' <a href="#" class="mui-navigate-right mui-row">';
+                                li = li + '<h5 class="mui-col-xs-4">' + item_b[i].ffyxm + '</h5>';
+                                //li = li + '<button type="button" class="mui-btn mui-btn-link " onclick="deleteItem(this)">删除</button>';
+                                li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary">' + item_b[i].fbxje + '</span></h5 >';
+                                li = li + '</a> ';
+
+                                li = li + '<div class="mui-collapse-content">';
+
+                                li = li + '                <input type="hidden" id="ffyxm" name="ffyxm" value="' + item_b[i].ffyxm + '"/>';
+
+                                li = li + '           <div id="sc-row-1" class="mui-card-header mui-row" >';
+                                li = li + '             <div class="mui-col-xs-4 mui-text-center" id="departure">';
+                                li = li + '                  <p>出发地<i>*</i></p>';
+                                li = li + '                <input type="hidden" id="kscitymid" name="kscitymid" value="' + item_b[i].kscitymid + '"/>';
+                                li = li + '                  <input type="hidden" id="departure_province" name="departure_province" value="' + item_b[i].cfdd_pro + '"/>';
+                                li = li + '                  <span id="departure_city" class="mdcity" onclick="showcity(0,this)">' + item_b[i].cfdd_city + '</span>';
+                                li = li + '             </div>';
+                                li = li + '            <div class="mui-col-xs-4 mui-text-center" id="transport_div">';
+                                li = li + '                 <span class="mui-icon mui-icon-pengyouquan" id="change_transpotation"></span>';
+                                li = li + '                 <p id="transpotation">' + item_b[i].fjtgj + '</p>';
+                                li = li + '            </div>';
+                                li = li + '            <div class="mui-col-xs-4 mui-text-center" id="destination">';
+                                li = li + '                <p>目的地<i>*</i></p>';
+                                li = li + '                <input type="hidden" id="citymid" name="citymid" value="' + item_b[i].citymid + '"/>';
+                                li = li + '                <input type="hidden" id="destination_province" name="destination_province" value="' + item_b[i].dddd_pro + '"/>';
+                                li = li + '                <span id="destination_city" class="mdcity" onclick="showcity(1,this)">' + item_b[i].dddd_city + '</span>';
+                                li = li + '           </div>';
+                                li = li + '          </div>';
+                                li = li + '         <div id="sc-row-2" class="mui-card-content mui-row bottomborder">';
+                                li = li + '             <div class="mui-col-xs-6 mui-text-center">';
+                                li = li + '               <input type="text" id="fstartdate" name="fstartdate" readonly="readonly" value="' + FormatterTimeYMS(item_b[i].fksdate) + '" class="mdate" />';
+                                li = li + '             </div>';
+
+                                li = li + '             <div class="mui-col-xs-6 mui-text-center">';
+                                li = li + '               <input type="text" id="fenddate" name="fenddate" readonly="readonly" value="' + FormatterTimeYMS(item_b[i].fjsdate) + '" class="mdate" />';
+                                li = li + '             </div>';
+                                li = li + '       </div>';
+                                li = li + '       <div id="sc-row-4" class="mui-card-content mui-row bottomborder">';
+                                li = li + '              <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '                 <p>天数</p>';
+                                li = li + '                <input type="number" id="fday" name="fday" readonly="readonly" value="' + item_b[i].fccts + '"/>';
+                                li = li + '              </div>';
+                                li = li + '             <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '                <p>报销金额</p>';
+                                li = li + '               <input type="number" id="fsubmit_expense" name="fsubmit_expense" value="' + item_b[i].fbxje + '" class="bxje" />';
+                                li = li + '             </div>';
+                                li = li + '             <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '               <p>会计审核</p>';
+                                li = li + '               <input type="number" id="faccountant_expense" name="faccountant_expense" value="' + item_b[i].fkjshje + '" readonly="readonly"/>';
+                                li = li + '              </div>';
+                                li = li + '             <div class="mui-col-xs-3 mui-text-center">';
+                                li = li + '               <p>财务审核</p>';
+                                li = li + '               <input type="number" id="ffinance_expense" name="ffinance_expense" value="' + item_b[i].fcwshje + '" readonly="readonly"/>';
+                                li = li + '             </div>';
+                                li = li + '       </div>';
+                                li = li + '       <div id="sc-row-6" class="mui-card-content  mui-row bottomborder">';
+                                li = li + '               <div class="mui-col-xs-4 mui-text-center">';
+                                li = li + '                 <p class="p_adj">费用标准</p>';
+                                li = li + '                 <input id="fstandard" name="fstandard" type="number" value="' + item_b[i].fccbzhj + '" class="mui-text-center" placeholder="待填"/>';
+                                li = li + '              </div>';
+                                li = li + '               <div class="mui-col-xs-4 mui-text-center">';
+                                li = li + '                 <p class="p_adj">地区类别</p>';
+                                li = li + '                 <input id="farea" class="mui-text-center" type="text" value="' + item_b[i].fdqlb + '"/>';
+                                li = li + '              </div>';
+                                li = li + '               <div class="mui-col-xs-4 mui-text-center">';
+                                li = li + '                 <p class="p_adj"></p>';
+                                if (item_b[i].fistp == "是") {
+                                    li = li + ' <label id= "fspecially"> 特批 <input type= "hidden" id= "ftp" name= "ftp" value= "是" /></label> ';
+                                } else {
+                                    li = li + ' <label id= "fspecially" class="label_tp"> 特批 <input type= "hidden" id= "ftp" name= "ftp" value= "否" /></label> ';
+                                }
+                                li = li + '                 <label id="fspecially" class="label_tp">特批<input type="hidden" id="ftp" name="ftp" value="否"/></label>';
+                                li = li + '              </div>';
+                                li = li + '      </div>';
+
+                                li = li + '       <div id="sc-row-7" class="mui-card-footer mui-row bottom_border">';
+                                li = li + '               <p>备注</p>';
+                                li = li + '              <input type="text" id="fbz" name="fbz" value="' + item_b[i].fbz + '" />';
+                                li = li + '      </div>';
+
+                                li = li + '</div>';
+                                li = li + '</li>';
+                                li = li + '</ul>';
+
+                                li = li + '    </div>';
+                                li = li + '  </form>';
+
+
+                                $("#form_secondary").append(li);
                             }
-                            li = li + '                 <label id="fspecially" class="label_tp">特批<input type="hidden" id="ftp" name="ftp" value="否"/></label>';
-                            li = li + '              </div>';
-                            li = li + '      </div>';
-                         
-                            li = li + '       <div id="sc-row-7" class="mui-card-footer mui-row bottom_border">';
-                            li = li + '               <p>备注</p>';
-                            li = li + '              <input type="text" id="fbz" name="fbz" value="' + item_b[i].fbz + '" />';
-                            li = li + '      </div>';
-                            
-                            li = li + '</div>';
-                            li = li + '</li>';
-                            li = li + '</ul>';
 
-                            li = li + '    </div>';
-                            li = li + '  </form>';
 
-                            $("#form_secondary").append(li);
+
                         }
 
                         if (item_a.fj != null && item_a.fj != "") {

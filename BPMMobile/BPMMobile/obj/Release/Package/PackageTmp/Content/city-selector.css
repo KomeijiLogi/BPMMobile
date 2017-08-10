@@ -31,7 +31,10 @@ input[type=color], input[type=date], input[type=datetime-local], input[type=date
 }
 .city_main{
     margin-top: 0.2rem;
-    padding: 0.4rem;
+    padding-left: 0.4rem;
+    padding-right:0.4rem;
+    padding-top:6.4rem;
+
 }
 .province_city_div{
     position: absolute;
@@ -40,15 +43,21 @@ input[type=color], input[type=date], input[type=datetime-local], input[type=date
     overflow: auto;
 }
 
-.city_show{
-
+.city_show {
+    border: none;
+    background-color: white;
+    position:fixed; 
+    top:0rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    z-index: 996;
 }
 .city_list{
     /*overflow: auto;*/
 }
 .city_collection{
     font-size: 0.75rem;
-    top: 17rem;
+    top: 15rem;
     height: 20rem;
 }
 #city_header{
@@ -82,4 +91,14 @@ input[type=color], input[type=date], input[type=datetime-local], input[type=date
     /*bottom: 0rem;*/
     overflow: auto;
 
+}
+#complete_city {
+   font-size:1.8rem;
+}
+#cancel_city {
+    font-size: 1.8rem;
+}
+.arrow_adj {
+   padding-top:0.4rem;
+   margin-top:0.4rem;
 }

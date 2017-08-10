@@ -7,8 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
+    
     <script type="text/javascript" src="../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
@@ -111,7 +110,7 @@
 
         });
 
-
+        
         function prepMsg() {
 
             tapEvent();
@@ -191,8 +190,8 @@
                         li = li + '   </div>';
 
                         $("#bllist").append(li);
+                        
                         var picker = new mui.PopPicker();
-
                         picker.setData(fwzlxdata);
 
                         $("#bllist").find("#fwzlx").each(function () {
@@ -408,6 +407,11 @@
             $("#fjetotal").val(FormatMoney(ftotal.toString()));
         }
 
+        function deleteItem(context) {
+
+            $(context).parent().parent().remove();
+            amountCountAndPrice();
+        }
 
         function Save() {
 
@@ -418,7 +422,7 @@
             var fdepot = $("#fdepot").val();
             var fsltotal = $("#fsltotal").val();
             var fjetotal = $("#fjetotal").val();
-
+            var mxflag = false;
             var bllistArr = new Array();
             $("#bllist").find("#bl").each(function () {
                 var fwlno = $(this).find("#fwlno").val();
@@ -432,11 +436,13 @@
                 var fcsyy = $(this).find("#fcsyy").val();
 
                 if (BlItem(fwlno, fwlname, fggxh, fdw, fsl, fckdj, fje, fwzlx, fcsyy) == null) {
+                    mxflag = true;
                     return;
                 }
                 var bl = BlItem(fwlno, fwlname, fggxh, fdw, fsl, fckdj, fje, fwzlx, fcsyy);
                 bllistArr.push(bl);
             });
+           
 
             if (!fdept || fdept=="") {
 
@@ -448,6 +454,9 @@
                 return;
 
             } 
+            if (mxflag == true) {
+                return;
+            }
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                 if (e.index == 1) {

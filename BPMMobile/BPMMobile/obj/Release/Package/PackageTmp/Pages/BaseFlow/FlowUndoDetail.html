@@ -8,8 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
+   
     <script type="text/javascript" src="../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
@@ -72,7 +71,9 @@
     <div class="mui-content" style="background-color:white;display:block;z-index:998;" id="wrapper">
         <div class="" id="scroller">
             <form class="mui-input-group" style="left:0rem;right:0rem;">
-              
+                <!--<div id="xx">
+
+                </div>--> 
                 <div class="mui-input-row">
                     <label>标题<i style="color:red;">*</i></label>
                     <input type="text" class="mui-input-clear" placeholder="请输入标题" id="flowTitle" name="flowTitle"/>
@@ -289,14 +290,15 @@
                 var consignNameArr = new Array();
                 consignOpenIdArr=new Array();
                 if (result.success == true || result.success == "true") {
-                    
+                    //$("#xx").text(JSON.stringify( result.data.persons));
                     for (var i = 0; i < result.data.persons.length;i++){
                         consignNameArr.push(result.data.persons[i].name);
                         consignOpenIdArr.push((String)(result.data.persons[i].openId));
+                        
                     }
                     $('#signPer').val(consignNameArr);
                     $('#consignOpenId').val(consignOpenIdArr);
-                    
+                   
                     
                 }
 
@@ -315,9 +317,6 @@
        
         var attachArray = new Array();
         function getTaskMsg() {
-
-           
-
 
             var url = window.location.href;
             if (url != null && url.indexOf("tid") != -1 && url.indexOf("pid") != -1) {
@@ -761,9 +760,10 @@
                         if (status == "success") {
 
 
-
+                            
                             for (var i = 0; i < data.data.length; i++) {
                                 consignUserId.push(data.data[i].phone);
+                               
                             }
                             $('#consignUser').val(consignUserId);
                             consignUserStr = (String)($('#consignUser').val()).replace(",", ";");

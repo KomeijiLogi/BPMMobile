@@ -130,7 +130,7 @@ div >span{
 }
 #form_secondary{
     /*display: none;*/
-    padding-bottom: 2.5rem;
+   
     z-index: 30;
    
 }
@@ -142,8 +142,9 @@ div >span{
     text-align: center;*/
     text-align: center;
     /*padding-bottom: 0.2rem;*/
-    background-color:transparent;
-   
+    background-color: transparent;
+    
+    padding-bottom: 2.5rem;
 }
 #form_guide_city{
     display: none;
@@ -209,7 +210,7 @@ div >span{
 }
 .post_div{
     z-index: 998;
-    bottom: 0.4rem;
+    bottom: 0rem;
     position: fixed;
     width: 100%;
 }
@@ -268,7 +269,11 @@ div >span{
 #button_tjmx {
     /*width: 95%;*/
     /*padding: 0.25rem 1rem;*/
-    margin-bottom:0rem;
+    margin-bottom:1rem;
+    padding-top:0.35rem;
+    padding-bottom:0.35rem;
+    font-size:0.75rem;
+
 }
 #tjmx {
   
@@ -314,4 +319,9 @@ div >span{
 .p_adj {
    color:#a7a7a7 !important;
 
+}
+.mui-collapse > a {
+   padding-bottom:0.15rem !important;
+   padding-top:0.15rem !important;
+   font-size:0.5rem !important;
 }

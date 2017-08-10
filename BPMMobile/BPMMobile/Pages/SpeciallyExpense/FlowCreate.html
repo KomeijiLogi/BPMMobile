@@ -5,109 +5,122 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
-    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/xdate.js"></script>
-    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
-    <script type="text/javascript" src="../../Scripts/util.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/xdate.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.detail.js"></script>
    
-    <link rel="stylesheet" href="../../Content/mui.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
-    <link rel="stylesheet" href="../../Content/upload.css" />
-    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
     <meta charset="utf-8" />
     <title></title>
 </head>
 <body>
     <div class="mui-content" style="background-color:white;">
-       <form class="mui-input-group" style="left:0rem;right:0rem;margin-bottom:1rem;padding-bottom:4rem;">
-       
-           <div class="mui-input-row">
-               <label for="fname">申请人<i style="color:red;">*</i></label>
-               <input type="text" id="fname" name="fname" readonly="readonly" />
-           </div>
-           <div class="mui-input-row">
-               <label for="fzhiwu">职务<i style="color:red;">*</i></label>
-               <input type="text" id="fzhiwu" name="fzhiwu" readonly="readonly" />
-           </div>
-           <div class="mui-input-row">
-               <label for="flevel">级别<i style="color:red;">*</i></label>
-               <input type="text" id="flevel" name="flevel" readonly="readonly" />
-           </div>
-           <div class="mui-input-row">
-               <label for="fdate">日期<i style="color:red;">*</i></label>
-               <input type="date" id="fdate" name="fdate" readonly="readonly" />
-           </div>
-           <div class="mui-input-row">
-               <label for="fcompany">公司名称<i style="color:red;">*</i></label>
-               <input type="text" id="fcompany" name="fcompany" readonly="readonly" />
-           </div>
-           <div class="mui-input-row">
-               <label for="ffcompany">销售分公司<i style="color:red;">*</i></label>
-               <input type="text" id="ffcompany" name="ffcompany" readonly="readonly" />
-           </div>
-           <div class="mui-input-row">
-               <label for="fsalezone">大区</label>
-               <input type="text" id="fsalezone" name="fsalezone" readonly="readonly" />
-           </div>
-           <div class="mui-input-row">
-               <label for="fdept">办事处</label>
-               <input type="text" id="fdept" name="fdept" readonly="readonly" />
-           </div>
-           <div class="mui-card">
-               <h5 class="mui-content-padded" style="color:black;">地区类别<i style="color:red;">*</i></h5>
-               <input type="hidden" id="fdqlb" name="fdqlb" value="二类"/>
-               <ul class="mui-table-view mui-table-view-radio">
-                   <li class="mui-table-view-cell">
-                       <a class="mui-navigate-right">
-                           一类
-                       </a>
-                   </li>
-                   <li class="mui-table-view-cell mui-selected">
-                       <a class="mui-navigate-right">
-                          二类
-                       </a>
-                   </li>
-                  
-               </ul>
-           </div>
-           <div class="mui-input-row">
-               <label for="fxb">性别<i style="color:red;">*</i></label>
-               <input type="text" id="fxb" name="fxb" readonly="readonly"/>
-           </div>
-           <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
-               <div class="border border-t upload-img" style="top:0rem;">
-                   <!--上传图片-->
-                   <div class="clearfix upload-btn" id="children-bg">
-                       <label class="label">附件</label>
-                       <span class="tips" id="imageCount"><!--已添加0张--></span>
-                       <!--上传图片按钮  -->
-                       <span class="upload-addbtn">
-                           <input type="file" accept="image/jpeg,image/jpg,image/png,image/jp2,image/bmp" id="file" style="opacity:0;">
-                       </span>
+        <form class="mui-input-group" style="left:0rem;right:0rem;margin-bottom:1rem;padding-bottom:4rem;">
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell mui-collapse">
+                    <a class="mui-navigate-right mui-row" href="#">
+                         <label for="fname">申请人<i style="color:red;">*</i><input type="text" id="fname" name="fname" readonly="readonly" value=""/></label>
+                    
+                    </a>
+                     <div class="mui-collapse-content">
+                         <!--<div class="mui-input-row">
+                             <label for="fname">申请人<i style="color:red;">*</i></label>
+                             <input type="text" id="fname" name="fname" readonly="readonly" />
+                         </div>-->
+                         <div class="mui-input-row">
+                             <label for="fxb">性别<i style="color:red;">*</i></label>
+                             <input type="text" id="fxb" name="fxb" readonly="readonly" />
+                         </div>
+                         <div class="mui-input-row">
+                             <label for="fzhiwu">职务<i style="color:red;">*</i></label>
+                             <input type="text" id="fzhiwu" name="fzhiwu" readonly="readonly" />
+                         </div>
+                         <div class="mui-input-row">
+                             <label for="flevel">级别<i style="color:red;">*</i></label>
+                             <input type="text" id="flevel" name="flevel" readonly="readonly" />
+                         </div>
+                        
+                         <div class="mui-input-row">
+                             <label for="fcompany">公司名称<i style="color:red;">*</i></label>
+                             <input type="text" id="fcompany" name="fcompany" readonly="readonly" />
+                         </div>
+                         <div class="mui-input-row">
+                             <label for="ffcompany">销售分公司<i style="color:red;">*</i></label>
+                             <input type="text" id="ffcompany" name="ffcompany" readonly="readonly" />
+                         </div>
+                         <div class="mui-input-row">
+                             <label for="fsalezone">大区</label>
+                             <input type="text" id="fsalezone" name="fsalezone" readonly="readonly" />
+                         </div>
+                         <div class="mui-input-row">
+                             <label for="fdept">办事处</label>
+                             <input type="text" id="fdept" name="fdept" readonly="readonly" />
+                         </div>
+                     </div>   
+                </li>
+            </ul>
+                    
+            <div class="mui-input-row">
+                <label for="fdate">日期<i style="color:red;">*</i></label>
+                <input type="date" id="fdate" name="fdate" readonly="readonly" />
+            </div>
 
-                   </div>
-                   <div class="upload-img-list"></div>
-               </div>
-           </div>
-           <a class="mui-btn mui-btn-green mui-btn-block mui-btn-outlined" id="tjmx">
-              添加特殊费用标准明细
-               <span class="mui-icon mui-icon-plusempty"></span>
-           </a>
-           <div id="mxlist" style="padding-bottom:2rem;">
+                    <div class="mui-card">
+                        <h5 class="mui-content-padded" style="color:black;">地区类别<i style="color:red;">*</i></h5>
+                        <input type="hidden" id="fdqlb" name="fdqlb" value="二类" />
+                        <ul class="mui-table-view mui-table-view-radio">
+                            <li class="mui-table-view-cell">
+                                <a class="mui-navigate-right">
+                                    一类
+                                </a>
+                            </li>
+                            <li class="mui-table-view-cell mui-selected">
+                                <a class="mui-navigate-right">
+                                    二类
+                                </a>
+                            </li>
 
-           </div> 
-       </form> 
+                        </ul>
+                    </div>
+
+                    <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
+                        <div class="border border-t upload-img" style="top:0rem;">
+                            <!--上传图片-->
+                            <div class="clearfix upload-btn" id="children-bg">
+                                <label class="label">附件</label>
+                                <span class="tips" id="imageCount"><!--已添加0张--></span>
+                                <!--上传图片按钮  -->
+                                <span class="upload-addbtn">
+                                    <input type="file" accept="image/jpeg,image/jpg,image/png,image/jp2,image/bmp" id="file" style="opacity:0;">
+                                </span>
+
+                            </div>
+                            <div class="upload-img-list"></div>
+                        </div>
+                    </div>
+
+                    <div id="mxlist">
+
+                    </div>
+                    <a class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" id="tjmx">
+                        添加特殊费用标准明细
+                        <span class="mui-icon mui-icon-plusempty"></span>
+                    </a>
+        </form> 
        
         <input type="hidden" id="fbm" name="fbm" value="" />
         <input type="hidden" id="fempno" name="fempno" value="" />
@@ -214,7 +227,7 @@
 
                 complete: function () {
 
-                    $("#fempno").val('00027772');
+                   // $("#fempno").val('00027772');
 
                     if ($("#fempno").val() == '') {
                         if (typeof (BPMOU) != 'undefined') {
@@ -411,8 +424,9 @@
                 li = li + '      <input type="text" id="fbz" name="fbz" placeholder="请填写备注"/>';
                 li = li + '   </div>';
                 li = li + '</form>';
-                $('#mxlist').prepend(li);
+                $('#mxlist').append(li);
 
+                document.getElementById('tjmx').scrollIntoView();
                 var flevel = $("#flevel").val();
                 var picker = new mui.PopPicker();
                 picker.setData(ffyxmdata);
@@ -568,7 +582,7 @@
             var fzgkjsp = $("#fzgkjsp").val();
             var fzjlzlno = $("#fzjlzlno").val();
             var fzjlzlsp = $("#fzjlzlsp").val();
-
+            var mxflag = false;
             var mxlistArr = new Array();
             $("#mxlist").find("#mx").each(function () {
 
@@ -583,12 +597,15 @@
                 var fdate2 = $(this).find("#fdate2").val() + " 00:00:00";
                 var fykzfs = $(this).find("#fykzfs").val();
                 if (mxItem(fyxm, fdate1, fstartdate, fdate2, fenddate, fykzfs, fybz, fsqbz, fspbz, fbz) == null) {
+                    mxflag = true;
                     return;
                 }
                 var mx = mxItem(fyxm, fdate1, fstartdate, fdate2, fenddate, fykzfs, fybz, fsqbz, fspbz, fbz);
                 mxlistArr.push(mx);
             });
-
+            if (mxflag) {
+                return;
+            }
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                 if (e.index == 1) {

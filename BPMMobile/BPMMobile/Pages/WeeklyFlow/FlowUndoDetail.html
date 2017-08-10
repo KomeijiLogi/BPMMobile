@@ -7,8 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
+    
     <script type="text/javascript" src="../../Scripts/mui.js"></script>
     <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
     <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
@@ -580,7 +579,7 @@
 
         //同意
         function AgreeOrConSign() {
-
+            var comment = $("#signSuggest").val();
             var fname = $("#fname").val();
             var fno = $("#fno").val();
             var pid = $("#stepId").val();//stepId
@@ -606,7 +605,7 @@
             xml = xml + '    <Method>Process</Method>';
             xml = xml + '    <PID>' + pid+'</PID>';
             xml = xml + '   <Action>同意</Action>';
-            xml = xml + '   <Comment></Comment>';
+            xml = xml + '   <Comment>' + comment + '</Comment>';
             xml = xml + '   <InviteIndicateUsers></InviteIndicateUsers>';
             xml = xml + '  </Header>';
             xml = xml + '<FormData>';

@@ -127,7 +127,8 @@
 				};
 				groupIndex = currentIndex;
 				itemCount = 0;
-			}
+            }
+            console.log(liArray);
 			liArray.forEach(function(item) {
 				var currentIndex = liArray.indexOf(item);
 				if (item.classList.contains($.className('indexed-list-group'))) {

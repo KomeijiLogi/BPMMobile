@@ -7,26 +7,27 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta charset="utf-8" />
     <title>差旅费报销</title>
-    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
-    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
+   
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>
-    <script type="text/javascript" src="../../Scripts/calendar-selector.js"></script>
-    <script type="text/javascript" src="../../Scripts/city.data.js"></script>
-    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
-    <link rel="stylesheet" href="../../Content/mui.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
-    <link rel="stylesheet" href="../../Content/upload.css" />
-    <link rel="stylesheet" href="../../Content/maintanse.css" />
-    <link rel="stylesheet" href="../../Content/city-selector.css" />
-    <link rel="stylesheet" href="../../Content/calendar-selector.css" />
+    <script type="text/javascript" src="../../../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.detail.js"></script>
+   
+    <script type="text/javascript" src="../../../../Scripts/calendar-selector.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/city.data.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/maintanse.css" />
+    <link rel="stylesheet" href="../../../../Content/city-selector.css" />
+    <link rel="stylesheet" href="../../../../Content/calendar-selector.css" />
 </head>
 <body>
    
@@ -446,16 +447,17 @@
                     </div>
                  
                    
-                    <div id="form_guide_project" class="mui-card">
-                        <a id="button_tjmx" name="button_tjmx" class="mui-btn mui-btn-royal mui-btn-block mui-btn-outlined" href="#tjmx">
-                            添加费用明细
-                            <span class="mui-icon mui-icon-plusempty"></span>
-                        </a>
-                    </div>
+                    
                     <div id="form_secondary">
                        
                         
                     </div>
+                     <div id="form_guide_project" class="mui-card">
+                         <a id="button_tjmx" name="button_tjmx" class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" href="#tjmx">
+                             添加费用明细
+                             <span class="mui-icon mui-icon-plusempty"></span>
+                         </a>
+                     </div>
                         <div id="form_guide_city_all">
                             <div id="form_guide_city">
                                 <section id="city_header">
@@ -463,9 +465,9 @@
 
                                     <div id="city_show mui-card" class="city_show">
                                         <div class="mui-row">
-                                            <span class="mui-icon mui-icon-arrowthinleft mui-pull-left mui-col-xs-2" id="cancel_city"></span>
+                                            <button class="mui-btn mui-btn-primary mui-pull-left mui-col-xs-2" id="cancel_city" style="font-size:0.75rem;">取消</button>
                                             <h4 class="mui-text-center city_h mui-col-xs-8">城市选择</h4>
-                                            <span class="mui-icon mui-icon-checkmarkempty mui-pull-right mui-col-xs-2" id="complete_city"></span>
+                                            <button class="mui-btn mui-btn-primary mui-pull-right mui-col-xs-2" id="complete_city" style="font-size:0.75rem;">完成</button>
                                         </div>
                                         <form class="mui-row">
                                             <div class="mui-col-xs-5 aim_div">
@@ -476,7 +478,7 @@
                                             </div>
                                             <div class="mui-col-xs-2 mui-text-center">
                                                 
-                                                <span class="mui-icon mui-icon-redo arrow_adj" ></span>
+                                                <span class="mui-icon mui-icon-arrowthinright arrow_adj" ></span>
                                                 <input type="hidden" id="citytype_chosen" name="citytype_chosen" />
                                             </div>
                                             <div class="mui-col-xs-5 aim_div">
@@ -489,7 +491,7 @@
 
                                     </div>
                                     <div id="city_main" class="city_main">
-                                        <h5 class="mui-text-left">历史城市</h5>
+                                        <h5 class="mui-text-left" id="historycitylist">历史城市</h5>
                                         <div class="mui-row">
                                             <div class="mui-col-xs-4">
                                                 <input type="hidden" id="history1province" name="history1province" value="山东省" class="historyprovince" />
@@ -576,6 +578,7 @@
 
         </div>
     </div>
+    
     <div class="mui-btn-row post_div" id="commit_div">
         <button class="mui-btn mui-btn-primary post_button" type="button" id="commit_button" onclick="Save()">提交</button>
         <button class="mui-btn mui-btn-success hidden_button" type="button" id="hidden_button" onclick="hiddendetail()">返回主页面</button>
@@ -806,9 +809,9 @@
                     li = li + '<ul class="mui-table-view">';
                     li = li + '<li class="mui-table-view-cell mui-collapse">';
                     li = li + ' <a href="#" class="mui-navigate-right mui-row">';
-                    li = li + '<h5 class="mui-col-xs-4">' + button_id + '</h5>';
+                    li = li + '<p id="fentryno" class="mui-col-xs-1"></p><h5 class="mui-col-xs-3">' + button_id + '</h5>';
                     li = li + '<button type="button" class="mui-btn mui-btn-link " onclick="deleteItem(this)">删除</button>';
-                    li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary">0</span></h5 >';
+                    li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary mui-pull-right">0</span></h5 >';
                     li = li + '</a> ';
                     li = li + '<div class="mui-collapse-content">';       
                     li = li + '           <input type="hidden" id="ffyxm" name="ffyxm" value="住宿费"/>';                   
@@ -902,9 +905,9 @@
                     li = li + '<ul class="mui-table-view">';
                     li = li + '<li class="mui-table-view-cell mui-collapse">';
                     li = li + ' <a href="#" class="mui-navigate-right mui-row">';
-                    li = li + '<h5 class="mui-col-xs-4">' + button_id + '</h5>';
+                    li = li + '<p id="fentryno" class="mui-col-xs-1"></p><h5 class="mui-col-xs-3">' + button_id + '</h5>';
                     li = li + '<button type="button" class="mui-btn mui-btn-link " onclick="deleteItem(this)">删除</button>';
-                    li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary">0</span></h5 >';
+                    li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary mui-pull-right">0</span></h5 >';
                     li = li + '</a> ';
                     li = li + '<div class="mui-collapse-content">';
                 
@@ -1001,9 +1004,9 @@
                     li = li + '<ul class="mui-table-view">';
                     li = li + '<li class="mui-table-view-cell mui-collapse">';
                     li = li + ' <a href="#" class="mui-navigate-right mui-row">';
-                    li = li + '<h5 class="mui-col-xs-4">' + button_id + '</h5>';
+                    li = li + '<p id="fentryno" class="mui-col-xs-1"></p><h5 class="mui-col-xs-3">' + button_id + '</h5>';
                     li = li + '<button type="button" class="mui-btn mui-btn-link " onclick="deleteItem(this)">删除</button>';
-                    li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary">0</span></h5 >';
+                    li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary mui-pull-right">0</span></h5 >';
                     li = li + '</a> ';
                     li = li + '<div class="mui-collapse-content">';
                   
@@ -1097,9 +1100,9 @@
                     li = li + '<ul class="mui-table-view">';
                     li = li + '<li class="mui-table-view-cell mui-collapse">';
                     li = li + ' <a href="#" class="mui-navigate-right mui-row">';
-                    li = li + '<h5 class="mui-col-xs-4">' + button_id + '</h5>';
+                    li = li + '<p id="fentryno" class="mui-col-xs-1"></p><h5 class="mui-col-xs-3">' + button_id + '</h5>';
                     li = li + '<button type="button" class="mui-btn mui-btn-link " onclick="deleteItem(this)">删除</button>';
-                    li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary">0</span></h5 >';
+                    li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary mui-pull-right">0</span></h5 >';
                     li = li + '</a> ';
                     li = li + '<div class="mui-collapse-content">';
                   
@@ -1190,9 +1193,9 @@
                     li = li + '<ul class="mui-table-view">';
                     li = li + '<li class="mui-table-view-cell mui-collapse">';
                     li = li + ' <a href="#" class="mui-navigate-right mui-row">';
-                    li = li + '<h5 class="mui-col-xs-4">' + button_id + '</h5>';
+                    li = li + '<p id="fentryno" class="mui-col-xs-1"></p><h5 class="mui-col-xs-3">' + button_id + '</h5>';
                     li = li + '<button type="button" class="mui-btn mui-btn-link " onclick="deleteItem(this)">删除</button>';
-                    li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary">0</span></h5 >';
+                    li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary mui-pull-right">0</span></h5 >';
                     li = li + '</a> ';
                     li = li + '<div class="mui-collapse-content">';
                   
@@ -1286,13 +1289,16 @@
                 var fxb = $("#fsex").val();
                 var fno = $("#fno").val();
 
-                $("#form_secondary").prepend(li);
+                
+                $("#form_secondary").append(li);
+               
                 isTp(flevel, fyxm, fxb, fno);
 
                 $(".mdate").mdater();
 
+                autoSerial();
 
-
+               
                 if (button_id == '车船费') {
                     var element = document.getElementById('transport_div');
                     var aim = document.getElementById('transpotation');
@@ -1314,15 +1320,19 @@
                     var bxje = $(this).val();
                     $(this).parent().parent().parent().parent().find('#ffy').children().text(bxje);
                 });
-                //$("#form_secondary").children().find("li").removeClass('mui-acitve');
-                $("#form_secondary").children().first().find("li").addClass('mui-active');
+                //$("#form_secondary").children().find("li").each(function () {
+                //    $(this).removeClass('mui-acitve');
+                //}); 
+                $("#form_secondary").children().last().find("li").addClass('mui-active');
 
-                
+                document.getElementById('button_tjmx').scrollIntoView();
             });
 
             $("#freimbursedate").on('change', function () {
                 $("#freimbursedate2").text($(this).val());
             });
+
+           
         }
         //undo:重复绑定了click事件和tap事件
         function mdateTap(context) {
@@ -1355,6 +1365,7 @@
             anchor_context = context;
             auto_focus();
 
+            window.scrollTo(0, 0);
         }
         function hiddencity() {
 
@@ -1376,6 +1387,8 @@
             mui.confirm('确认删除？', '', btnArray, function (e) {
                 if (e.index == 1) {
                     $(context).parent().parent().parent().parent().parent().remove();
+                    autoSerial();
+                    CalculateExpenses();
                 } else {
                    
                 }
@@ -1390,7 +1403,8 @@
             $("#form_guide_extra").css("display", "none");
             $("#uploaddiv").css("display","none");
             $(".hidden_button").css("display", "block");
-            $(".extra_content").css("display","block");
+            $(".extra_content").css("display", "block");
+            
         }
 
         function hiddendetail() {
@@ -1403,6 +1417,15 @@
             $(".hidden_button").css("display", "none");
             $(".extra_content").css("display", "none");
 
+        }
+
+
+        function autoSerial() {
+            var i = 0;
+            $("#form_secondary").find("#fentryno").each(function () {
+                $(this).text((i + 1));
+                i++;
+            });
         }
     </script>
     <script>
@@ -1838,7 +1861,7 @@
                                     li = li + '<ul class="mui-table-view">';
                                     li = li + '<li class="mui-table-view-cell mui-collapse mui-active">';
                                     li = li + ' <a href="#" class="mui-navigate-right mui-row">';
-                                    li = li + '<h5 class="mui-col-xs-4">' + item_b[i].ffyxm + '</h5>';
+                                    li = li + '<p id="fentryno" class="mui-col-xs-1"></p><h5 class="mui-col-xs-3">' + item_b[i].ffyxm + '</h5>';
                                     li = li + '<button type="button" class="mui-btn mui-btn-link " onclick="deleteItem(this)">删除</button>';
                                     li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary">' + item_b[i].fbxje + '</span></h5 >';
                                     li = li + '</a> ';
@@ -1934,7 +1957,7 @@
                                     li = li + '<ul class="mui-table-view">';
                                     li = li + '<li class="mui-table-view-cell mui-collapse mui-active">';
                                     li = li + ' <a href="#" class="mui-navigate-right mui-row">';
-                                    li = li + '<h5 class="mui-col-xs-4">' + item_b[i].ffyxm + '</h5>';
+                                    li = li + '<p id="fentryno" class="mui-col-xs-1"></p><h5 class="mui-col-xs-3">' + item_b[i].ffyxm + '</h5>';
                                     li = li + '<button type="button" class="mui-btn mui-btn-link " onclick="deleteItem(this)">删除</button>';
                                     li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary">' + item_b[i].fbxje + '</span></h5 >';
                                     li = li + '</a> ';
@@ -2030,7 +2053,7 @@
                                     li = li + '<ul class="mui-table-view">';
                                     li = li + '<li class="mui-table-view-cell mui-collapse mui-active">';
                                     li = li + ' <a href="#" class="mui-navigate-right mui-row">';
-                                    li = li + '<h5 class="mui-col-xs-4">' + item_b[i].ffyxm + '</h5>';
+                                    li = li + '<p id="fentryno" class="mui-col-xs-1"></p><h5 class="mui-col-xs-3">' + item_b[i].ffyxm + '</h5>';
                                     li = li + '<button type="button" class="mui-btn mui-btn-link " onclick="deleteItem(this)">删除</button>';
                                     li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary">' + item_b[i].fbxje + '</span></h5 >';
                                     li = li + '</a> ';
@@ -2126,7 +2149,7 @@
                                     li = li + '<ul class="mui-table-view">';
                                     li = li + '<li class="mui-table-view-cell mui-collapse mui-active">';
                                     li = li + ' <a href="#" class="mui-navigate-right mui-row">';
-                                    li = li + '<h5 class="mui-col-xs-4">' + item_b[i].ffyxm + '</h5>';
+                                    li = li + '<p id="fentryno" class="mui-col-xs-1"></p><h5 class="mui-col-xs-3">' + item_b[i].ffyxm + '</h5>';
                                     li = li + '<button type="button" class="mui-btn mui-btn-link " onclick="deleteItem(this)">删除</button>';
                                     li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary">' + item_b[i].fbxje + '</span></h5 >';
                                     li = li + '</a> ';
@@ -2219,7 +2242,7 @@
                                     li = li + '<ul class="mui-table-view">';
                                     li = li + '<li class="mui-table-view-cell mui-collapse mui-active">';
                                     li = li + ' <a href="#" class="mui-navigate-right mui-row">';
-                                    li = li + '<h5 class="mui-col-xs-4">' + item_b[i].ffyxm + '</h5>';
+                                    li = li + '<p id="fentryno" class="mui-col-xs-1"></p><h5 class="mui-col-xs-3">' + item_b[i].ffyxm + '</h5>';
                                     li = li + '<button type="button" class="mui-btn mui-btn-link " onclick="deleteItem(this)">删除</button>';
                                     li = li + '<h5 id= "ffy" name= "ffy" class="mui-col-xs-4"> <span class="mui-badge mui-badge-primary">' + item_b[i].fbxje + '</span></h5 >';
                                     li = li + '</a> ';
@@ -2309,8 +2332,8 @@
                                     $("#form_secondary").append(li);
                                 }
 
-                             
 
+                                autoSerial();
                                 $(".mdate").mdater();
                                
                                    
@@ -2395,30 +2418,30 @@
 
                                                 } else if ((data[i].Ext).indexOf("xls") != -1) {
 
-                                                    li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/xlsx@2x.png"/></div>';
+                                                    li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/xlsx@2x.png"/></div>';
 
                                                 } else if ((data[i].Ext).indexOf("doc") != -1) {
 
-                                                    li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/docx@2x.png"/></div>';
+                                                    li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/docx@2x.png"/></div>';
 
                                                 } else if ((data[i].Ext).indexOf("ppt") != -1) {
 
-                                                    li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/ppt@2x.png"/></div>';
+                                                    li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/ppt@2x.png"/></div>';
 
                                                 } else if ((data[i].Ext).indexOf("pdf") != -1) {
 
-                                                    li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/pdf@2x.png"/></div>';
+                                                    li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/pdf@2x.png"/></div>';
 
                                                 } else if ((data[i].Ext).indexOf("zip") != -1 || (data[i].Ext).indexOf("rar") != -1 || (data[i].Ext).indexOf("7z") != -1) {
 
-                                                    li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/zip@2x.png"/></div>';
+                                                    li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/zip@2x.png"/></div>';
 
                                                 } else if ((data[i].Ext).indexOf("txt") != -1) {
 
-                                                    li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
+                                                    li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/txt@2x.png"/></div>';
 
                                                 } else {
-                                                    li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
+                                                    li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/unkown@2x.png"/></div>';
                                                 }
 
                                                 li = li + ' </div>';
@@ -2498,7 +2521,7 @@
 
                 complete: function () {
 
-                    $("#fno").val('00027772');
+                    //$("#fno").val('00027772');
 
                     if ($("#fno").val() == '') {
                         if (typeof (BPMOU) != 'undefined') {
@@ -2518,7 +2541,8 @@
                     xml = xml + '     <Params>';
                     xml = xml + '          <Method>GetFormPostData</Method>';
                     xml = xml + '        <ProcessName>市场差旅费用报销单</ProcessName>';
-                    xml = xml + '         <ProcessVersion>1.1</ProcessVersion>';
+                    //xml = xml + '         <ProcessVersion>1.1</ProcessVersion>';
+                    xml = xml + '         <ProcessVersion>' + version + '</ProcessVersion>';
                     xml = xml + '          <Owner></Owner>';
                     xml = xml + '      </Params>';
 
@@ -2871,10 +2895,10 @@
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                 if (e.index == 1) {
                     //测试数据部分
-                    fname = '王均友';
-                    fuser_no = '00027772';
-                    fbm = '医用制品公司本部';
-                    BPMOU = 'BPMOU://威高集团/医用制品集团/医用制品公司/医用制品公司本部/华北销售公司/辽宁大区/沈阳办事处/00027772';
+                    //fname = '王均友';
+                    //fuser_no = '00027772';
+                    //fbm = '医用制品公司本部';
+                    //BPMOU = 'BPMOU://威高集团/医用制品集团/医用制品公司/医用制品公司本部/华北销售公司/辽宁大区/沈阳办事处/00027772';
 
                     var xml = '<?xml version= "1.0" ?>';
                     xml = xml + ' <XForm>';

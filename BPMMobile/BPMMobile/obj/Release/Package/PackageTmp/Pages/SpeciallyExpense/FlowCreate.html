@@ -5,26 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
-    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/xdate.js"></script>
-    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
-    <script type="text/javascript" src="../../Scripts/util.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/xdate.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.detail.js"></script>
    
-    <link rel="stylesheet" href="../../Content/mui.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
-    <link rel="stylesheet" href="../../Content/upload.css" />
-    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
     <meta charset="utf-8" />
     <title></title>
 </head>
@@ -100,13 +99,14 @@
                    <div class="upload-img-list"></div>
                </div>
            </div>
-           <a class="mui-btn mui-btn-green mui-btn-block mui-btn-outlined" id="tjmx">
-              添加特殊费用标准明细
-               <span class="mui-icon mui-icon-plusempty"></span>
-           </a>
-           <div id="mxlist" style="padding-bottom:2rem;">
+          
+           <div id="mxlist" >
 
            </div> 
+           <a class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" id="tjmx">
+               添加特殊费用标准明细
+               <span class="mui-icon mui-icon-plusempty"></span>
+           </a>
        </form> 
        
         <input type="hidden" id="fbm" name="fbm" value="" />
@@ -214,7 +214,7 @@
 
                 complete: function () {
 
-                    $("#fempno").val('00027772');
+                    //$("#fempno").val('00027772');
 
                     if ($("#fempno").val() == '') {
                         if (typeof (BPMOU) != 'undefined') {
@@ -377,7 +377,7 @@
                 var li = '<form id="mx" class="mui-card">';
                 li = li + '  <div class="mui-input-row itemtitle">';
                 li = li + '        <label>明细列表项</label> ';
-                li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
+                li = li + '        <span class="mui-icon mui-icon-close mui-pull-right" style="margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row">';
                 li = li + '     <label for="fyxm">费用项目</label>';
@@ -411,8 +411,9 @@
                 li = li + '      <input type="text" id="fbz" name="fbz" placeholder="请填写备注"/>';
                 li = li + '   </div>';
                 li = li + '</form>';
-                $('#mxlist').prepend(li);
+                $('#mxlist').append(li);
 
+                document.getElementById('tjmx').scrollIntoView();
                 var flevel = $("#flevel").val();
                 var picker = new mui.PopPicker();
                 picker.setData(ffyxmdata);

@@ -7,8 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
+   
     <script type="text/javascript" src="../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
@@ -31,38 +30,48 @@
 <body>
     <div class="mui-content" style="background-color:white;">
         <form class="mui-input-group" style="left:0rem;right:0rem;margin-bottom:1rem;padding-bottom:4rem;">
-            <div class="mui-input-row">
-                <label for="fname">申请人<i style="color:red;">*</i></label>
-                <input type="text" id="fname" name="fname" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fzhiwu">职务<i style="color:red;">*</i></label>
-                <input type="text" id="fzhiwu" name="fzhiwu" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="flevel">级别<i style="color:red;">*</i></label>
-                <input type="text" id="flevel" name="flevel" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fdate">日期<i style="color:red;">*</i></label>
-                <input type="date" id="fdate" name="fdate" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fcompany">公司名称<i style="color:red;">*</i></label>
-                <input type="text" id="fcompany" name="fcompany" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="ffcompany">销售分公司<i style="color:red;">*</i></label>
-                <input type="text" id="ffcompany" name="ffcompany" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fsalezone">大区</label>
-                <input type="text" id="fsalezone" name="fsalezone" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fdept">办事处</label>
-                <input type="text" id="fdept" name="fdept" readonly="readonly" />
-            </div>
+            
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell mui-collapse">
+                    <a class="mui-navigate-right mui-row" href="#">
+                        <label for="fname">申请人<i style="color:red;">*</i><input type="text" id="fname" name="fname" readonly="readonly" value="" /></label>
+
+                    </a>
+                    <div class="mui-collapse-content">
+
+                        <div class="mui-input-row">
+                            <label for="fxb">性别<i style="color:red;">*</i></label>
+                            <input type="text" id="fxb" name="fxb" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="fzhiwu">职务<i style="color:red;">*</i></label>
+                            <input type="text" id="fzhiwu" name="fzhiwu" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="flevel">级别<i style="color:red;">*</i></label>
+                            <input type="text" id="flevel" name="flevel" readonly="readonly" />
+                        </div>
+
+                        <div class="mui-input-row">
+                            <label for="fcompany">公司名称<i style="color:red;">*</i></label>
+                            <input type="text" id="fcompany" name="fcompany" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="ffcompany">销售分公司<i style="color:red;">*</i></label>
+                            <input type="text" id="ffcompany" name="ffcompany" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="fsalezone">大区</label>
+                            <input type="text" id="fsalezone" name="fsalezone" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="fdept">办事处</label>
+                            <input type="text" id="fdept" name="fdept" readonly="readonly" />
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
             <div class="mui-input-row">
                 <label for="fcwdate">财务审核时间</label>
                 <input type="date" id="fcwdate" name="fcwdate" readonly="readonly" />
@@ -276,7 +285,7 @@
 
                 complete: function () {
 
-                    $("#fempno").val('00027772');
+                    //$("#fempno").val('00027772');
 
                     if ($("#fempno").val() == '') {
                         if (typeof (BPMOU) != 'undefined') {
@@ -562,11 +571,11 @@
                 li = li + '     <input type="text" id="fbz" name="fbz" placeholder="请填写备注"/>';
                 li = li + '   </div>';
                 li = li + '</form>';
-                $('#mxlist').prepend(li);
+                $('#mxlist').append(li);
                 var flevel = $("#flevel").val();
                 var fno = $("#fempno").val();
                 var fxb = $("#fxb").val();
-               
+                document.getElementById('tjmx').scrollIntoView();
                 var picker = new mui.PopPicker();
                 picker.setData(ffyxmdata);
 
@@ -672,6 +681,15 @@
 
             });
         }
+        function deleteItem(context) {
+            var btnArray = ['否', '是'];
+            mui.confirm('确认删除？', '', btnArray, function (e) {
+                if (e.index == 1) {
+                    $(context).parent().parent().remove();
+                    calcMoney();
+                }
+            });
+        }
 
         function calcMoney() {
 
@@ -747,7 +765,7 @@
             var fzgkjsp = $("#fzgkjsp").val();
             var fzjlzlno = $("#fzjlzlno").val();
             var fzjlzlsp = $("#fzjlzlsp").val();
-
+            var mxflag = false;
             var mxlistArr = new Array();
             $("#mxlist").find("#mx").each(function () {
                 var ffyxm = $(this).find("#ffyxm").val();
@@ -765,11 +783,15 @@
                 var fcw_bxje = $(this).find("#fcw_bxje").val();
                 var fbz = $(this).find("#fbz").val();
                 if (mxItem(ffyxm, ffykm, fdate1, fstartdate, kzlx, fdate2, fenddate, ffybz, fistp, fsl, fbxje, fkj_bxje, fcw_bxje, fbz) == null) {
+                    mxflag = true;
                     return false;
                 }
                 var mx = mxItem(ffyxm, ffykm, fdate1, fstartdate, kzlx, fdate2, fenddate, ffybz, fistp, fsl, fbxje, fkj_bxje, fcw_bxje, fbz);
                 mxlistArr.push(mx);
             });
+            if (mxflag) {
+                return;
+            }
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                 if (e.index == 1) {

@@ -12,6 +12,8 @@ var toStepIDs = new Array();
 var version="1.0";
 var DraftGuid = '';
 
+
+
 //提交,审批,加签,已阅
 function PostXml(xml) {
     $.ajax({
@@ -269,6 +271,12 @@ function getBPMParam() {
             if (status == "success") {
                 //console.log(data);
                 BPMOU = data.Position[0].FullName;
+                //if ($("#fdept").length>0) {
+                //    var fareaStr = String(BPMOU).split("/");
+
+                //    $("#fdept").val(fareaStr[fareaStr.length - 2]);
+                //}
+                
                 return BPMOU;
             } else {
                 return "";
@@ -391,6 +399,8 @@ function showPicker(el, data) {
 
     picker.setData(data);
 
+   
+
     element.addEventListener('tap', function () {
 
         picker.show(function (items) {
@@ -401,6 +411,7 @@ function showPicker(el, data) {
     }, false);
 
 }
+
 function showPickerByZepto(zeptoParentId, zeptoId,data) {
     var picker = new mui.PopPicker();
     picker.setData(data);
@@ -435,7 +446,12 @@ function openSignPer() {
         if (result.success == true || result.success == "true") {
 
             for (var i = 0; i < result.data.persons.length; i++) {
-                consignNameArr.push(result.data.persons[i].name);
+                if (typeof (result.data.persons[i].name) != "undefined") {
+                    consignNameArr.push(result.data.persons[i].name);
+                } else {
+                    consignNameArr.push(result.data.persons[i].personName);
+                }
+                
                 consignOpenIdArr.push((String)(result.data.persons[i].openId));
             }
             $('#signPer').val(consignNameArr);
@@ -502,8 +518,12 @@ function cancelConfirm() {
 
 //删除明细列表项 
 function deleteItem(context) {
-
-    $(context).parent().parent().remove();
+    var btnArray = ['否', '是'];
+    mui.confirm('确认删除？', '', btnArray, function (e) {
+        if (e.index == 1) {
+            $(context).parent().parent().remove();
+        }
+    });
 
   
 }
@@ -512,15 +532,18 @@ function watch() {
 
     var count = $('.upload-img-list >div').size();
 
-    if (count <= 4) {
-        $('#uploaddiv').css('height', '35vw');
+    if (count <= 3) {
+        $('#uploaddiv').css('height', '3rem');
 
 
-    } else if (count <= 8) {
-        $('#uploaddiv').css('height', '60vw');
+    } else if (count <= 6) {
+        $('#uploaddiv').css('height', '6rem');
 
-    } else if (count <= 12) {
-        $('#uploaddiv').css('height', '90vw');
+    } else if (count <= 9) {
+        $('#uploaddiv').css('height', '9rem');
+
+    } else if (count <=12) {
+        $('#uploaddiv').css('height', '12rem');
     }
 
 }
@@ -867,4 +890,183 @@ function getMonthLast(dateString) {
     endDate.setMonth(firstDate.getMonth() + 1);
     endDate.setDate(0);
     return new XDate(endDate).toString('yyyy-MM-dd');
+}
+
+//数组去重索引法
+function removeDuplicatedItem(array) {
+    var ret = [];
+
+    array.forEach(function (e, i, array) {
+        if (array.indexOf(e) === i) {
+            ret.push(e);
+        }
+    });
+
+    return ret;
+}
+
+
+//删除数组指定值
+function removeByValue(arr, val) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] == val) {
+            arr.splice(i, 1);
+            break;
+        }
+    }
+}
+
+
+//通过工号获取人员信息
+function getPersonInfo(fno) {
+
+    var xml = '<?xml version= "1.0" ?>';
+    xml = xml + '      <Requests>';
+    xml = xml + '     <Params>';
+    xml = xml + '         <DataSource>PS</DataSource>';
+    xml = xml + '         <ID>erpcloud_getPerInfo</ID>';
+    xml = xml + '         <Type>1</Type>';
+    xml = xml + '        <Method>GetUserDataProcedure</Method>';
+    xml = xml + '        <ProcedureName>erpcloud_getPerInfo</ProcedureName>';
+    xml = xml + '        <Filter>';
+    xml = xml + '            <fno>' + fno + '</fno>';
+    xml = xml + '        </Filter>';
+    xml = xml + '      </Params>';
+    xml = xml + '   </Requests>';
+
+    $.ajax({
+        type: "POST",
+        url: "/api/bpm/DataProvider",
+        data: { '': xml },
+
+        beforeSend: function (XHR) {
+            XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+        },
+        success: function (data, status) {
+
+            if (status == "success" || data.success == "true" || data.success == true) {
+
+                var provideData = JSON.parse(unescape(data.replace(/\\(u[0-9a-fA-F]{4})/gm, '%$1')));
+                //console.log(provideData);
+                var personInfoObject = provideData.Tables[0].Rows[0];
+                var personObject = ({
+                    name: personInfoObject.NAME,             //姓名
+                    account: personInfoObject.EMPLID,        //工号
+                    descript: personInfoObject.DEPT_DESCR,   //所在组织简约描述
+                    status: personInfoObject.DESCR1,          //状况 1-良好，2-特殊
+                    wedding: personInfoObject.DESCR2,         //婚姻状况
+                    residence: personInfoObject.DESCR4,       //户口状况
+                    nation: personInfoObject.DESCR50,         //民族
+                    deptdescript: personInfoObject.DESCR254,  //所在组织详细描述
+                    email: personInfoObject.EMAIL_ADDR,       //个人邮箱
+                    fzjsj: personInfoObject.FDEPZR,           //直接上级
+                    fzjsjno: personInfoObject.FDEPZRNUMBER,   //直接上级工号
+                    fzgsj: personInfoObject.FZR,              //最高上级 
+                    fzgsjno: personInfoObject.FZRNUMBER,      //最高上级工号
+                    fjoindate: personInfoObject.HPS_JOINWG_DT, //加入威高时间
+                    school: personInfoObject.HPS_VALUE01,      //毕业院校
+                    profession: personInfoObject.HPS_VALUE02,  //所学专业
+                    address: personInfoObject.HPS_VALUE03,     //家庭住址
+                    degree: personInfoObject.JPM_DESCR90,      //学历学位
+                    sex: personInfoObject.SEX,                 //性别 M/F
+                    fdeptname: personInfoObject.fdeptname,     //所属部门
+                    fgslj: personInfoObject.fgslj,             //所属部门详细路径
+                    fsscompany: personInfoObject.fsscompany,   //所属公司
+                    fssgroup: personInfoObject.fssgroup,       //所属组织
+                    fzwlevel: personInfoObject.fzwlevel,       //职位级别
+                    minzu: personInfoObject.minzu,              //民族
+                    jiguan: personInfoObject.jiguan,            //籍贯
+                    zhiwei: personInfoObject.zhiwei,             //职位 
+                    birthday: FormatterTime_Y_M_S(personInfoObject.BIRTHDATE.year, personInfoObject.BIRTHDATE.month, personInfoObject.BIRTHDATE.day),    //出生日期
+                    id: personInfoObject.NATIONAL_ID,             //身份证号 
+                    tel: personInfoObject.PHONE,                  //联系电话
+                    gradate: FormatterTime_Y_M_S(personInfoObject.HPS_DATE01.year, personInfoObject.HPS_DATE01.month, personInfoObject.HPS_DATE01.day),      //毕业时间
+                    depno: personInfoObject.DEPTID                 //部门编码        
+                });
+                console.log(personObject);
+                return personObject;
+            }
+        }, error: function (e) {
+
+        }, complete: function () {
+
+        }
+    });
+}
+
+
+
+//根据openid获取PS里人员信息
+function getPseronInfoByopenId(selecPersonOpenIdArr) {
+
+    var selectPerson = new Array();
+    var selectAccountArr = new Array();
+    //selecPersonOpenIdArr.push('2ea1588f-0073-11e7-b810-00505681025b');
+    var getAccount = $.ajax({
+        type: "POST",
+        url: "/api/bpm/PostAccount",
+        data: { "ids": selecPersonOpenIdArr },
+        beforeSend: function (XHR) {
+            XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+        }
+    }).done(function (data) {
+        console.log(JSON.stringify(data));
+        selectPerson = new Array();
+        selectAccountArr = new Array();
+        for (var i = 0; i < data.data.length; i++) {
+            var selectperson = ({
+                name: (data.data[i].name),              //姓名
+                account: (data.data[i].phone),          //工号
+                photoUrl: (data.data[i].photoUrl),      //头像
+                department: (data.data[i].department),   //所属部门
+                jobTitle: (data.data[i].jobTitle),        //职位
+                openId: (data.data[i].openId)            //openid
+            });
+            selectPerson.push(selectperson);
+            selectAccountArr.push(data.data[i].phone);
+        }
+
+    }).fail(function (e) {
+        console.log(e);
+    });
+
+    var getPersonInfo = getAccount.then(function (data) {
+
+
+        //console.log(selectAccountArr.toString());
+        var xml = '<?xml version= "1.0" ?>';
+        xml = xml + ' <Requests>';
+        xml = xml + '     <Params>';
+        xml = xml + '         <DataSource>PS</DataSource>';
+        xml = xml + '         <ID>erpcloud_getPerInfoByArr</ID>';
+        xml = xml + '         <Type>1</Type>';
+        xml = xml + '        <Method>GetUserDataProcedure</Method>';
+        xml = xml + '        <ProcedureName>erpcloud_getPerInfoByArr</ProcedureName>';
+        xml = xml + '        <Filter>';
+        xml = xml + '            <fnoarr>' + selectAccountArr.toString() + '</fnoarr>';
+        xml = xml + '        </Filter>';
+        xml = xml + '      </Params>';
+        xml = xml + '   </Requests>';
+
+        return $.ajax({
+
+            type: "POST",
+            url: "/api/bpm/DataProvider",
+            data: { '': xml },
+            beforeSend: function (XHR) {
+                XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+            }
+        })
+            .done(function (data) {
+                var provideData = JSON.parse(unescape(data.replace(/\\(u[0-9a-fA-F]{4})/gm, '%$1')));
+
+                console.log(provideData);
+            })
+            .fail(function (e) {
+                console.log(e);
+            });
+    });
+
 }

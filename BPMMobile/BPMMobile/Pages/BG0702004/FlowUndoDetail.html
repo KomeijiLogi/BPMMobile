@@ -7,8 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
     <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
+  
     <script type="text/javascript" src="../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
@@ -484,6 +483,7 @@
                             if (mxli[i].fremark == null) {
                                 mxli[i].fremark = "";
                             }
+                            itemidArr.push(mxli[i].itemid);
                             var li = '<div id="mx" class="mui-card">';
                             li = li + '   <div class="mui-input-row itemtitle">';
                             li = li + '        <label>明细列表项</label> ';
@@ -678,7 +678,7 @@
                     for (var i = 0; i < mxlistArr.length; i++) {
                         xml = xml + '<BPM_WGGCDJJLPLYSQ_B>';
                         xml = xml + ' <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
-                        xml = xml + '<RowPrimaryKeys></RowPrimaryKeys>';
+                        xml = xml + '<RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
                         xml = xml + '<entryno>' + (i + 1) + '</entryno>';
                         xml = xml + '<ftype>' + mxlistArr[i].ftype + '</ftype>';
                         xml = xml + '<fmc>' + mxlistArr[i].fmc + '</fmc>';
@@ -694,7 +694,7 @@
         }
 
         function AgreeOrConSign() {
-
+            var comment = $("#signSuggest").val();
             var fname = $("#fname").val();
             var fdate = $("#fdate").val() + " 00:00:00";
             var fdept = $("#fdept").val();
@@ -764,7 +764,7 @@
                             xml = xml + '<Method>Process</Method>';
                             xml = xml + '<PID>' + pid + '</PID>';
                             xml = xml + '<Action>同意</Action>';
-                            xml = xml + '<Comment></Comment>';
+                            xml = xml + '<Comment>'+comment+'</Comment>';
 
                             //加签差异部分
                             xml = xml + '<ConsignEnabled>True</ConsignEnabled>';
@@ -792,7 +792,7 @@
                             for (var i = 0; i < mxlistArr.length; i++) {
                                 xml = xml + '<BPM_WGGCDJJLPLYSQ_B>';
                                 xml = xml + ' <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
-                                xml = xml + '<RowPrimaryKeys></RowPrimaryKeys>';
+                                xml = xml + '<RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
                                 xml = xml + '<entryno>' + (i + 1) + '</entryno>';
                                 xml = xml + '<ftype>' + mxlistArr[i].ftype + '</ftype>';
                                 xml = xml + '<fmc>' + mxlistArr[i].fmc + '</fmc>';
@@ -815,7 +815,7 @@
                 xml = xml + '<Method>Process</Method>';
                 xml = xml + '<PID>' + pid + '</PID>';
                 xml = xml + '<Action>同意</Action>';
-                xml = xml + '<Comment></Comment>';
+                xml = xml + '<Comment>'+comment+'</Comment>';
 
 
                 xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
@@ -838,7 +838,7 @@
                 for (var i = 0; i < mxlistArr.length; i++) {
                     xml = xml + '<BPM_WGGCDJJLPLYSQ_B>';
                     xml = xml + ' <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
-                    xml = xml + '<RowPrimaryKeys></RowPrimaryKeys>';
+                    xml = xml + '<RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
                     xml = xml + '<entryno>' + (i + 1) + '</entryno>';
                     xml = xml + '<ftype>' + mxlistArr[i].ftype + '</ftype>';
                     xml = xml + '<fmc>' + mxlistArr[i].fmc + '</fmc>';

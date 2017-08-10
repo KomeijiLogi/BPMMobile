@@ -11,7 +11,7 @@
     <ViewPage>/Pages/BaseFlow/FlowCreate.html</ViewPage>
     <DisplayName>通用审批</DisplayName>
     <Css></Css>
-    <Icon>../../Content/images/undoApproval.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于洁瑞公司通用审批，提交至直接上级</Description>
   </Process>
@@ -26,7 +26,7 @@
     <ViewPage>/Pages/WeeklyFlow/FlowCreate.html</ViewPage>
     <DisplayName>周工作汇报</DisplayName>
     <Css></Css>
-    <Icon>../../Content/images/myApproval.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于集团总部信息化推进部工作汇报</Description>
 
@@ -42,7 +42,7 @@
     <ViewPage>/Pages/JRMaterial/FlowCreate.html</ViewPage>
     <DisplayName>洁瑞产品发货申请</DisplayName>
     <Css></Css>
-    <Icon>../../Content/images/doneApproval.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于洁瑞公司的产品发货申请流程</Description>
 
@@ -59,7 +59,7 @@
    <ViewPage>/Pages/JRPrototype/FlowCreate.html</ViewPage>
     <DisplayName>洁瑞样品申请</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204385.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于洁瑞公司的样品申请流程</Description>
 
@@ -76,7 +76,7 @@
     <ViewPage>/Pages/BG0702009/FlowCreate.html</ViewPage>
     <DisplayName>商管公司装修押金退还</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204338.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于商管公司装修押金退还审批流程</Description>
   </Process>  
@@ -91,7 +91,7 @@
   <ViewPage>/Pages/FLSW0702001/FlowCreate.html</ViewPage>
     <DisplayName>盛祥商管招商合同评审</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204339.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于盛祥商管招商合同评审流程</Description>
   </Process>
@@ -106,7 +106,7 @@
     <ViewPage>/Pages/BG0702002/FlowCreate.html</ViewPage>
     <DisplayName>商管公司部门联系</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204340.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于商管公司部门联系流程</Description>
   </Process>
@@ -121,7 +121,7 @@
     <ViewPage>/Pages/CW0701011/FlowCreate.html</ViewPage>
     <DisplayName>房地产集团推广费用申请</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204341.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于房地产集团推广费用申请流程</Description>
   </Process>
@@ -136,7 +136,7 @@
     <ViewPage>/Pages/CW0701009/FlowCreate.html</ViewPage>
     <DisplayName>房地产集团其他费用报销</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204342.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于房地产集团其他费用报销流程</Description>
   </Process>
@@ -151,7 +151,7 @@
    <ViewPage>/Pages/CW0701008/FlowCreate.html</ViewPage>
    <DisplayName>房地产集团其他费用申请</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204343.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于房地产集团其他费用报销流程</Description>
   </Process>
@@ -166,7 +166,7 @@
     <ViewPage>/Pages/BG0702001/FlowCreate.html</ViewPage>
     <DisplayName>商管公司内部请示</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204344.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于商管公司内部请示流程</Description>
   </Process>
@@ -182,7 +182,7 @@
      <ViewPage>/Pages/BG0702012/FlowCreate.html</ViewPage>
     <DisplayName>商管开业/履约保证金退还</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204346.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于商管公司开业保证金、履约保证金退还审批</Description>
   </Process>
@@ -198,7 +198,7 @@
     <ViewPage>/Pages/BG0702008/FlowCreate.html</ViewPage>
     <DisplayName>商管公司图纸会审</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204347.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于商管公司图纸会审</Description>
   </Process>
@@ -214,7 +214,7 @@
     <ViewPage>/Pages/FLSW0702002/FlowCreate.html</ViewPage>
     <DisplayName>盛祥商管公司其他合同评审</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204348.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于盛祥商管公司其他合同评审</Description>
   </Process>
@@ -229,7 +229,7 @@
     <ViewPage>/Pages/SCGL0703002/FlowCreate.html</ViewPage>
     <DisplayName>建设公司库存不良物资提报</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204345.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于建设公司库存不良物资提报</Description>
   </Process>
@@ -244,7 +244,7 @@
     <ViewPage>/Pages/CGGL0703002/FlowCreate.html</ViewPage>
     <DisplayName>建设公司安质部零星采购</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204349.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于建设公司库存不良物资提报</Description>
   </Process>
@@ -259,7 +259,7 @@
     <ViewPage>/Pages/98SGWeeklyFlow/FlowCreate.html</ViewPage> 
     <DisplayName>商管周工作汇报 </DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204350.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于商管周工作汇报</Description>
   </Process>
@@ -278,6 +278,7 @@
     <Group></Group>
     <Description>适用于商管公司月工作汇报</Description>
   </Process>
+  <!--undo:change file path!!!!-->
   <Process>
     <Name>盛祥商管公司合同评审</Name>
     <Path>\\07房地产集团\\02商管公司\\BG办公管理</Path>
@@ -289,7 +290,7 @@
     <ViewPage>/Pages/BG0702005/FlowCreate.html</ViewPage>
     <DisplayName>商管公司合同评审</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204352.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于商管公司合同评审</Description>
   </Process>
@@ -304,7 +305,7 @@
     <ViewPage>/Pages/BG0702004/FlowCreate.html</ViewPage>
     <DisplayName>威高广场代金劵、礼品领用申请</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204353.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于威高广场代金劵、礼品领用申请</Description>
   </Process>
@@ -319,11 +320,11 @@
     <ViewPage>/Pages/BG0702007/FlowCreate.html</ViewPage>
     <DisplayName>商管公司工装制作申请</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204354.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于商管公司工装制作申请</Description>
   </Process>
-  <Process>
+  <!--<Process>
     <Name>盛祥商管公司活动场地验收申请</Name>
     <Path>\\07房地产集团\\02商管公司\\BG办公管理</Path>
     <CanCreate>True</CanCreate>
@@ -334,10 +335,10 @@
     <ViewPage>/Pages/BG0702017/FlowCreate.html</ViewPage>
     <DisplayName>商管公司活动场地验收申请</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204355.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于商管公司活动场地验收申请</Description>
-  </Process>
+  </Process>-->
  <Process>
     <Name>市场差旅费用报销单</Name>
     <Path>\\94制品在线费用报销\\市场费用报销</Path>
@@ -349,7 +350,7 @@
     <ViewPage>/Pages/TravelExpenses/FlowCreate.html</ViewPage>
     <DisplayName>市场差旅费用报销</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204337.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于市场差旅费用报销</Description>
   </Process>
@@ -364,7 +365,7 @@
    <ViewPage>/Pages/SpeciallyExpense/FlowCreate.html</ViewPage>
     <DisplayName>费用特批</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204356.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于制品公司费用标准特批</Description>
   </Process>
@@ -379,7 +380,7 @@
     <ViewPage>/Pages/OtherExpense/FlowCreate.html</ViewPage>
     <DisplayName>其他费用报销</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204357.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于制品公司其他费用报销</Description>
   </Process>
@@ -395,8 +396,162 @@
     <ViewPage>/Pages/SC0200001/FlowCreate.html</ViewPage>
     <DisplayName>外贸公司计划评审</DisplayName>
     <Css></Css>
-    <Icon>../../Content/extraicon/1204358.png</Icon>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
     <Group></Group>
     <Description>适用于外贸公司计划评审</Description>
+  </Process>
+  <Process>
+    <Name>富森公司外贸订单评审</Name>
+    <Path>\\02医用制品集团\\00医用制品集团本部\\SC生产</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/SC0200002/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/SC0200002/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/SC0200002/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/SC0200002/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/SC0200002/FlowCreate.html</ViewPage>
+    <DisplayName>富森公司外贸订单评审</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
+    <Group></Group>
+    <Description>适用于富森公司外贸订单评审</Description>
+  </Process>
+<Process>
+    <Name>建设公司行管（销售）人员试用期转正申请</Name>
+    <Path>\\01威高集团总部\\06建设公司\\RLZY人力资源</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/RLZY0106002/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/RLZY0106002/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/RLZY0106002/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/RLZY0106002/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/RLZY0106002/FlowCreate.html</ViewPage>
+    <DisplayName>建设公司试用期转正申请</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
+    <Group></Group>
+    <Description>建设公司行管（销售）人员试用期转正申请</Description>
+  </Process>
+  
+  <Process>
+    <Name>建设公司车间生产过程检验记录备案</Name>
+    <Path>\\01威高集团总部\\06建设公司\\ZLGL质量管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/ZLGL0106001/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/ZLGL0106001/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/ZLGL0106001/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/ZLGL0106001/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/ZLGL0106001/FlowCreate.html</ViewPage>
+    <DisplayName>建设公司车间生产过程检验记录备案</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
+    <Group></Group>
+    <Description>建设公司车间生产过程检验记录备案</Description>
+  </Process>
+  <Process>
+    <Name>建设公司规章制度申请</Name>
+    <Path>\\01威高集团总部\\06建设公司\\建设管理平台</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/98JSGZZD/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/98JSGZZD/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/98JSGZZD/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/98JSGZZD/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/98JSGZZD/FlowCreate.html</ViewPage>
+    <DisplayName>建设公司规章制度申请 </DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
+    <Group></Group>
+    <Description>建设公司规章制度申请</Description>
+  </Process>
+<Process>
+    <Name>建设公司通知公告申请</Name>
+    <Path>\\01威高集团总部\\06建设公司\\建设管理平台</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/98JSTZGG/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/98JSTZGG/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/98JSTZGG/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/98JSTZGG/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/98JSTZGG/FlowCreate.html</ViewPage>
+    <DisplayName>建设公司通知公告申请 </DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
+    <Group></Group>
+    <Description>建设公司通知公告申请</Description>
+  </Process>
+<Process>
+    <Name>建设公司会议纪要申请</Name>
+    <Path>\\01威高集团总部\\06建设公司\\建设管理平台</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/98JSHYJY/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/98JSHYJY/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/98JSHYJY/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/98JSHYJY/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/98JSHYJY/FlowCreate.html</ViewPage>
+    <DisplayName>建设公司会议纪要申请 </DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
+    <Group></Group>
+    <Description>建设公司会议纪要申请</Description>
+  </Process>
+
+  <Process>
+    <Name>建设公司车间员工转正参保申请</Name>
+    <Path>\\01威高集团总部\\06建设公司\\RLZY人力资源</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/RLZY0106004/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/RLZY0106004/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/RLZY0106004/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/RLZY0106004/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/RLZY0106004/FlowCreate.html</ViewPage>
+    <DisplayName>建设车间员工转正参保</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
+    <Group></Group>
+    <Description>建设公司车间员工转正参保申请</Description>
+  </Process>
+<Process>
+    <Name>盛祥商管公司威高广场消费卡领用申请</Name>
+    <Path>\\07房地产集团\\02商管公司\\BG办公管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/BG0702003/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/BG0702003/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/BG0702003/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/BG0702003/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/BG0702003/FlowCreate.html</ViewPage>
+    <DisplayName>商管威高广场消费卡领用申请 </DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
+    <Group></Group>
+    <Description>盛祥商管公司威高广场消费卡领用申请</Description>
+  </Process>
+  
+
+  <Process>
+    <Name>建设公司工程签证备案申请</Name>
+    <Path>\\01威高集团总部\\06建设公司\\JJGC基建工程</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/JJGC0106001/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/JJGC0106001/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/JJGC0106001/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/JJGC0106001/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/JJGC0106001/FlowCreate.html</ViewPage>
+    <DisplayName>建设工程签证备案申请</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
+    <Group></Group>
+    <Description>建设公司工程签证备案申请</Description>
+  </Process>
+  <Process>
+    <Name>建设公司印章使用申请</Name>
+    <Path>\\01威高集团总部\\06建设公司\\XZBG行政办公</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/01WeGoHQ/06JianSheGongSi/XZBG0106002/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/01WeGoHQ/06JianSheGongSi/XZBG0106002/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/01WeGoHQ/06JianSheGongSi/XZBG0106002/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/01WeGoHQ/06JianSheGongSi/XZBG0106002/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/01WeGoHQ/06JianSheGongSi/XZBG0106002/FlowCreate.html</ViewPage>
+    <DisplayName>建设公司印章使用申请</DisplayName>
+    <Css></Css>
+    <Icon>../../Content/extraicon/1204351.png</Icon>
+    <Group></Group>
+    <Description>建设公司印章使用申请</Description>
   </Process>
 </ProcessList>

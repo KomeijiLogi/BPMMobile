@@ -5,61 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
-    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx.js"></script>
-    <script type="text/javascript" src="../../Scripts/fx_methods.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
-    <script type="text/javascript" src="../../Scripts/util.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>
-    <link rel="stylesheet" href="../../Content/mui.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
-    <link rel="stylesheet" href="../../Content/upload.css" />
-    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.detail.js"></script>
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
     <title></title>
     <meta charset="utf-8" />
 </head>
 <body>
     <div class="mui-content" style="background-color:white;" id="wrapper">
         <form class="mui-input-group" style="left:0rem;right:0rem;margin-bottom:1rem;padding-bottom:4rem;">
-            <div class="mui-input-row">
-                <label for="fname">申请人<i style="color:red;">*</i></label>
-                <input type="text" id="fname" name="fname" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fzhiwu">职务<i style="color:red;">*</i></label>
-                <input type="text" id="fzhiwu" name="fzhiwu" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="flevel">级别<i style="color:red;">*</i></label>
-                <input type="text" id="flevel" name="flevel" readonly="readonly" />
-            </div>
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell mui-collapse">
+                    <a class="mui-navigate-right mui-row" href="#">
+                        <label for="fname">申请人<i style="color:red;">*</i><input type="text" id="fname" name="fname" readonly="readonly" value="111" /></label>
+
+                    </a>
+                    <div class="mui-collapse-content">
+                       
+                        <div class="mui-input-row">
+                            <label for="fxb">性别<i style="color:red;">*</i></label>
+                            <input type="text" id="fxb" name="fxb" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="fzhiwu">职务<i style="color:red;">*</i></label>
+                            <input type="text" id="fzhiwu" name="fzhiwu" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="flevel">级别<i style="color:red;">*</i></label>
+                            <input type="text" id="flevel" name="flevel" readonly="readonly" />
+                        </div>
+
+                        <div class="mui-input-row">
+                            <label for="fcompany">公司名称<i style="color:red;">*</i></label>
+                            <input type="text" id="fcompany" name="fcompany" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="ffcompany">销售分公司<i style="color:red;">*</i></label>
+                            <input type="text" id="ffcompany" name="ffcompany" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="fsalezone">大区</label>
+                            <input type="text" id="fsalezone" name="fsalezone" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="fdept">办事处</label>
+                            <input type="text" id="fdept" name="fdept" readonly="readonly" />
+                        </div>
+                    </div>
+                </li>
+            </ul>
             <div class="mui-input-row">
                 <label for="fdate">日期<i style="color:red;">*</i></label>
                 <input type="date" id="fdate" name="fdate" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fcompany">公司名称<i style="color:red;">*</i></label>
-                <input type="text" id="fcompany" name="fcompany" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="ffcompany">销售分公司<i style="color:red;">*</i></label>
-                <input type="text" id="ffcompany" name="ffcompany" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fsalezone">大区</label>
-                <input type="text" id="fsalezone" name="fsalezone" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fdept">办事处</label>
-                <input type="text" id="fdept" name="fdept" readonly="readonly" />
             </div>
             <div class="mui-card">
                 <h5 class="mui-content-padded" style="color:black;">地区类别<i style="color:red;">*</i></h5>
@@ -109,13 +120,14 @@
                     <div class="upload-img-list"></div>
                 </div>
             </div>
-           <a class="mui-btn mui-btn-green mui-btn-block mui-btn-outlined" id="tjmx" style="display:none;">
-                添加特殊费用标准明细
-                <span class="mui-icon mui-icon-plusempty"></span>
-            </a>
+          
             <div id="mxlist" style="padding-bottom:2rem;">
 
             </div>
+            <a class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" id="tjmx" style="display:none;">
+                添加特殊费用标准明细
+                <span class="mui-icon mui-icon-plusempty"></span>
+            </a>
         </form>
         <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;display:none;" id="createD">
             <button class="mui-btn mui-btn-primary" type="button" style="width:100%;height:2.5rem;font-size:0.8rem;" id="commitbt" onclick="Save()">提交</button>
@@ -431,7 +443,7 @@
                             li = li + '      <input type="text" id="fbz" name="fbz" value="' + item_child[i].fbz + '" readonly="readonly"/>';
                             li = li + '   </div>';
                             li = li + '</form>';
-                            $('#mxlist').prepend(li);
+                            $('#mxlist').append(li);
                         }
 
 
@@ -1108,7 +1120,7 @@
         }
 
         function AgreeOrConSign() {
-
+            var comment = $("#signSuggest").val();
             var fbillno = $("#fbillno").val();
             var pid = $("#stepId").val();
 
@@ -1166,7 +1178,7 @@
             xml = xml + '<Method>Process</Method>';
             xml = xml + '<PID>' + pid + '</PID>';
             xml = xml + '<Action>同意</Action>';
-            xml = xml + '<Comment></Comment>';
+            xml = xml + '<Comment>' + comment + '</Comment>';
             xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
             xml = xml + '</Header>';
             xml = xml + '<FormData>';

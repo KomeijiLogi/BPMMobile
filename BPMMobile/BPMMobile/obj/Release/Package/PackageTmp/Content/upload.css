@@ -1,8 +1,7 @@
 ﻿
-/*html {
+/*html,body {
     font-size:20px;
-    height:100%;
-    width:100%;
+  
     
 }*/
 html[data-dpr="2"] .border-t:before {
@@ -286,12 +285,12 @@ input#fileFujian {
 	display: block;
 }
 
-#fileDetail li {
+.fileDetail li {
     margin-bottom: .2rem;
     padding: 0 .24rem;
     list-style: none;
 }
-#fileDetail .file-container {
+ .file-container {
     position: relative;
     padding: 0.15rem 0.2rem;
     background-color: #fbfcfd;
@@ -299,22 +298,22 @@ input#fileFujian {
     box-sizing: border-box;
     /*overflow: hidden;*/
 }
-#fileDetail .file-info {
+ .file-info {
     margin: 0;
     width: 4.15rem;
-    padding-left: .8rem;
+    padding-left: 1.2rem;
     color: #98a1a8;
 }
 
-#fileDetail li span {
+.fileDetail li span {
     display: inline-block;
-    width: 100%;
+    width: 350%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-#fileDetail li span.mask {
+.fileDetail li span.mask {
     height: .6rem;
     color: #fff;
     background-color: rgb(0,0,0);
@@ -326,27 +325,27 @@ input#fileFujian {
     left: 0;
 }
 
-#fileDetail li span.fail {
+.fileDetail li span.fail {
     color: #ff0000;
 }
 
-#fileDetail li button {
+.fileDetail li button {
     color: #c2cbd0;
     font-size: .4rem;
     line-height: .6rem;
-    width: .6rem;
+    /*width: .6rem;*/
     position: absolute;
-    right: .2rem;
+    right: .8rem;
     top: 50%;
     margin-top: -0.3rem;
     cursor: pointer;
 }
 
-#fileDetail li button:before {
+.fileDetail li button:before {
     content: "x";
 }
 
-#fileDetail li button.none {
+.fileDetail li button.none {
     display: none;
 }
 
@@ -360,11 +359,13 @@ input#fileFujian {
 }
 .file-icon {
     float: left;
-    width: 0.6rem;
-    height: 0.6rem;
+    width: 1.5rem;
+    height: 3.2rem;
+    /*width: 0.6rem;
+    height: 0.6rem;*/
     border-radius: 0.06rem;
     display: inline-block;
-    background-size: contain; /*设置成cover，取消center，在移动端会有一边遍消失掉*/
+    background-size: contain;         /*设置成cover，取消center，在移动端会有一边遍消失掉*/
     background-repeat: no-repeat;
     background-position: center center;
     background-origin: padding-box;
@@ -409,7 +410,7 @@ input#fileFujian {
     width: .6rem;
     text-align: center;
 }
-#fileDesk {
+.fileDesk {
     display: none;
 }
 .upload-addbtn .fileDeskLabel {
@@ -418,30 +419,59 @@ input#fileFujian {
     height: 100%;
     cursor: pointer;
 }
-.file-icon.docIcon {
-    background-image:url('../Content/images/docx@2x.png');
+ .docIcon {
+    background-image: url('../../Content/images/docx@2x.png');
 }
-.file-icon.xlsIcon {
-    background-image:url('../Content/images/xlsx@2x.png');
+ .xlsIcon {
+    background-image: url('../../Content/images/xlsx@2x.png');
 }
-.file-icon.pptIcon {
-    background-image:url('../Content/images/ppt@2x.png');
+ .pptIcon {
+    background-image: url('../../Content/images/ppt@2x.png');
 }
-.file-icon.pdfIcon {
-    background-image:url('../Content/images/pdf@2x.png');
+ .pdfIcon {
+    background-image: url('../../Content/images/pdf@2x.png');
 }
-.file-icon.txtIcon {
-    background-image:url('../Content/images/txt@2x.png');
+ .txtIcon {
+    background-image: url('../../Content/images/txt@2x.png');
 }
-.file-icon.zipIcon {
-    background-image:url('../Content/images/zip@2x.png');
+ .zipIcon {
+    background-image: url('../../Content/images/zip@2x.png');
 }
-.file-icon.musicIcon {
-    background-image:url('../Content/images/music@2x.png');
+ .musicIcon {
+    background-image: url('../../Content/images/music@2x.png');
 }
-.file-icon.pngIcon {
-    background-image:url('../Content/images/png@2x.png');
+ .pngIcon {
+    background-image: url('../../Content/images/png@2x.png');
 }
-.file-icon.unknownIcon {
-    background-image:url('../Content/images/unknown@2x.png');
+ .unknownIcon {
+    background-image:url('../../Content/images/unknown@2x.png');
+}
+ .file-container {
+    position: relative;
+    padding: 0.15rem 0.2rem;
+    background-color: #fbfcfd;
+    border: 1px solid #dce1e8;
+    box-sizing: border-box;
+    /*overflow: hidden;*/
+}
+ .file-info {
+    width: 4rem;
+}
+.removeSelectFile {
+
+    color: #c2cbd0;
+    font-size: 25px !important;
+    line-height: 30px;
+    width: 30px;
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    margin-top: -6px;
+    cursor: pointer;
+    border:none;
+
+}
+.file-size {
+    font-size: 0.8rem;
+    color: #98a1a8;
 }

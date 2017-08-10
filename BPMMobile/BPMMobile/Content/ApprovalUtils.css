@@ -88,3 +88,7 @@ li {
 .illustration_context_extra {
     font-size: 0.3rem;
 }
+#signd div  > button {
+   width:40%;
+   height:2rem;
+}
