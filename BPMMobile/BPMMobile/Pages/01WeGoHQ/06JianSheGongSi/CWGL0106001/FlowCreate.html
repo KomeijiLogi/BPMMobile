@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../../../Content/upload.css" />
     <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
-    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css" />
+
     <meta charset="utf-8" />
     <title></title>
 </head>
@@ -33,7 +33,7 @@
                 <label for="fname">申请人</label>
                 <input type="text" id="fname" name="fname" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="display:none;">
                 <!--<label for="fdept">申请部门</label>-->
                 <input type="text" id="fdept" name="fdept" value="" style="display:none;" />
             </div>
@@ -49,34 +49,34 @@
                 <label for="fmonth">计划付款月份<i style="color:red;">*</i></label>
                 <input type="number" id="fmonth" name="fmonth" value="" placeholder="请选择计划付款月份" />
             </div>
-            <div class="mui-input-row">
-                <label>付款计划明细（单位：万元）</label>
+            <div class="mui-input-row" style="height:2.75rem;">
+                <label>付款计划明细（单位:万元）</label>
                 <a href="#bottom"><span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;" id="addItem"></span></a>
             </div>
             <div class="mui-input-group" id="bllist">
 
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:2.75rem;">
                 <label for="fhzjhfk">汇总计划付款金额</label>
                 <input type="number" id="fhzjhfk" name="fhzjhfk" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:2.75rem;">
                 <label for="fhzjhyj">汇总计划约进贷款</label>
                 <input type="number" id="fhzjhyj" name="fhzjhyj" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:2.75rem;">
                 <label for="fhzzmye">汇总账面余额</label>
                 <input type="number" id="fhzzmye" name="fhzzmye" value="" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:2.75rem;">
                 <label for="fhzzgrk">汇总暂估入库</label>
                 <input type="number" id="fhzzgrk" name="fhzzgrk" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:2.75rem;">
                 <label for="fhzhjzm">汇总合计账面余额</label>
                 <input type="number" id="fhzhjzm" name="fhzhjzm" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:2.75rem;">
                 <label for="fhzjhzm">汇总计划账面比对</label>
                 <input type="number" id="fhzjhzm" name="fhzjhzm" value="" readonly="readonly" />
             </div>
@@ -482,8 +482,6 @@
                 var fjhzmbd = $(this).find("#fjhzmbd").val();
                 var fbz = $(this).find("#fbz").val();
 
-            });
-
                 if (!fyear || fyear == "") {
 
                     mui.toast("请选择年度");
@@ -514,6 +512,20 @@
                     return;
 
                 }
+
+                var bl = new Object;
+                bl.fgys = fgys;
+                bl.fjhfk = fjhfk;
+                bl.fjhyj = fjhyj;
+                bl.fzmye = fzmye;
+                bl.fzgrk = fzgrk;
+                bl.fhjzmye = fhjzmye;
+                bl.fjhzmbd = fjhzmbd;
+                bl.fbz = fbz;
+                bllistArr.push(bl);
+            });
+
+
                 var btnArry = ["取消", "确定"];
                 mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                     if (e.index == 1) {
@@ -567,6 +579,7 @@
 
                         xml = xml + '             </FormData>';
                         xml = xml + '         </XForm>';
+                        alert(xml);
                         PostXml(xml);
 
                     }

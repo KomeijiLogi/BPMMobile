@@ -500,7 +500,7 @@
 
 
                                         }
-
+                                        watch();
                                         $(".imgdiv").on('tap', function () {
                                             console.log($(this)[0].id);
                                             XuntongJSBridge.call('showFile', {
@@ -563,6 +563,7 @@
                            
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
+                            $("#csd").css("display", "none");
                         } else {
                             if (typeof (NodeName) != "undefined") {
                                 $("#approvalD").css("display", "block");

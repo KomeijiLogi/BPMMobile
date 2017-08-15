@@ -271,11 +271,7 @@ function getBPMParam() {
             if (status == "success") {
                 //console.log(data);
                 BPMOU = data.Position[0].FullName;
-                //if ($("#fdept").length>0) {
-                //    var fareaStr = String(BPMOU).split("/");
-
-                //    $("#fdept").val(fareaStr[fareaStr.length - 2]);
-                //}
+               
                 
                 return BPMOU;
             } else {
@@ -547,23 +543,22 @@ function deleteItem(context) {
 }
 
 function watch() {
-
+   
     var count = $('.upload-img-list >div').size();
 
-    if (count <= 3) {
-        $('#uploaddiv').css('height', '3rem');
+    if (count==0) {
+        $('#uploaddiv').css('height', '4rem');
+    } else if (count <= 4) {
+        $('#uploaddiv').css('height', '7rem');
 
+    } else if (count <= 8) {
+        $('#uploaddiv').css('height', '10rem');
 
-    } else if (count <= 6) {
-        $('#uploaddiv').css('height', '6rem');
+    } else if (count <= 12) {
+        $('#uploaddiv').css('height', '15rem');
 
-    } else if (count <= 9) {
-        $('#uploaddiv').css('height', '9rem');
-
-    } else if (count <=12) {
-        $('#uploaddiv').css('height', '12rem');
-    }
-
+    } 
+   
 }
 // 数字转换成大写金额函数
 function atoc(numberValue) {
@@ -651,6 +646,8 @@ function FormatMoney(s) {
         s = s.replace(re, "$1,$2");
     s = s.replace(/,(\d\d)$/, ".$1");
     return "" + s.replace(/^\./, "0.")
+
+   
 }
 
 

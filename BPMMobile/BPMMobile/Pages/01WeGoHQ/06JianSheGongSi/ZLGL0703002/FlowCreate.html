@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../../../Content/upload.css" />
     <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
-    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css" />
+
     <meta charset="utf-8" />
     <title></title>
 </head>
@@ -93,8 +93,7 @@
                    <td style="width: 25%;"><p onclick="getDetail2()">交角对严……</p></td>
                    <td style="width: 25%;">目测</td>
                    <td style="width: 25%;">
-                       <select id="ftest2" name="ftest2">
-                           
+                       <select id="ftest2" name="ftest2">                           
                            <option value="合格">合格</option>
                            <option value="不合格">不合格</option>
                        </select>
@@ -220,11 +219,8 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
+
                     //location.reload();
                 } else if (callBackId == 'callback2') {
 

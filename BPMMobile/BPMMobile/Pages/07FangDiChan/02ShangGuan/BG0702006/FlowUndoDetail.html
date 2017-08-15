@@ -763,7 +763,7 @@
         }
 
         function AgreeOrConSign() {
-
+           
             var fname = $("#fname").val();
             var fdate = $("#fdate").val() + " 00:00:00";
             var fdept = $("#fdept").val();
@@ -785,6 +785,7 @@
             var ffyje = $("#ffyje").val();
             var ffycl = $("#ffycl").val();
              
+            var signSuggest = $("#signSuggest").val();
             var fbillno = $("#fbillno").val();
             var pid = $("#stepId").val();
             var consignFlag = false;
@@ -835,7 +836,7 @@
                             xml = xml + '<Method>Process</Method>';
                             xml = xml + '<PID>' + pid + '</PID>';
                             xml = xml + '<Action>同意</Action>';
-                            xml = xml + '<Comment></Comment>';
+                            xml = xml + '<Comment>' + signSuggest + '</Comment>';
 
                             //加签差异部分
                             xml = xml + '<ConsignEnabled>True</ConsignEnabled>';
@@ -882,7 +883,7 @@
                 xml = xml + '<Method>Process</Method>';
                 xml = xml + '<PID>' + pid + '</PID>';
                 xml = xml + '<Action>同意</Action>';
-                xml = xml + '<Comment></Comment>';
+                xml = xml + '<Comment>' + signSuggest + '</Comment>';
                 xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
                 xml = xml + '</Header>';
                 xml = xml + '<FormData>';

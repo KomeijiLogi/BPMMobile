@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../../../Content/upload.css" />
     <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
-    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css" />
+    
 
     <title></title>
     <meta charset="utf-8" />
@@ -89,29 +89,29 @@
                 <label for="fbysj">毕业时间</label>
                 <input type="date" id="fbysj" name="fbysj" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:3.25rem;">
                 <label for="fjrwgsj">加入威高时间</label>
                 <input type="date" id="fjrwgsj" name="fjrwgsj" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:3.25rem;">
                 <label for="fdasz">档案所在机构</label>
                 <input type="text" id="fdasz" name="fdasz" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:3.25rem;">
                 <label for="fsbsz">社保所在机构<i style="color:red;">*</i></label>
                 <input type="text" id="fsbsz" name="fsbsz" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:3.25rem;">
                 <label for="fsbjzrq">社保缴至日期<i style="color:red;">*</i></label>
                 <input type="date" id="fsbjzrq" name="fsbjzrq" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fzzrq">转正日期<i style="color:red;">*</i></label>
-                <input type="date" id="fzzrq" name="fzzrq" value="" placeholder="请输入转正日期"/>
+                <input type="date" id="fzzrq" name="fzzrq" value="" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label for="fzzwork">转正后职位<i style="color:red;">*</i></label>
-                <input type="text" id="fzzwork" name="fzzwork" value="" placeholder="请输入转正后职位" />
+                <input type="text" id="fzzwork" name="fzzwork" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="display:none;">
                 <label for="fdeptid">部门编码<i style="color:red;">*</i></label>
@@ -414,6 +414,7 @@
                         console.log(data);
                         var item = data.FormDataSet.建设公司_行管人员_转正参保[0];
                         $("#taskId").val(item.TaskID);
+                        $("#stepId").val(stepId);
                         $("#fnumber").val(item.员工编号);
                         $("#fname").val(item.员工姓名);
                         $("#fdate").val(FormatterTimeYMS(item.申请日期));
@@ -422,17 +423,17 @@
                         $("#fdept").val(item.所在部门);
                         $("#fwork").val(item.现任职位);
                         $("#fsex").val(item.性别);
-                        $("#fbir").val(item.出生日期);
+                        $("#fbir").val(FormatterTimeYMS(item.出生日期));
                         $("#fidnum").val(item.身份证号);
                         $("#ftel").val(item.联系方式);
                         $("#fxl").val(item.最高学历);
                         $("#fschool").val(item.毕业院校);
                         $("#fzy").val(item.专业);
-                        $("#fbysj").val(item.毕业时间);
-                        $("#fjrwgsj").val(item.加入威高时间);
+                        $("#fbysj").val(FormatterTimeYMS(item.毕业时间));
+                        $("#fjrwgsj").val(FormatterTimeYMS(item.加入威高时间));
                         $("#fdasz").val(item.档案所在机构);
                         $("#fsbsz").val(item.社保所在机构);
-                        $("#fsbjzrq").val(item.社保缴至日期);
+                        $("#fsbjzrq").val(FormatterTimeYMS(item.社保缴至日期));
                         $("#fzzrq").val(item.转正日期);
                         $("#fzzwork").val(item.转正后职位);
                         $("#fdeptid").val(item.部门编码);
@@ -447,7 +448,7 @@
                             if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
 
 
-                                if (stepId.includes(data.Steps[i].StepID)) {
+                                if (String(stepId).indexOf(data.Steps[i].StepID)!=-1) {
 
                                     NodeName = data.Steps[i].NodeName;
 
@@ -460,11 +461,23 @@
                         if (NodeName == "开始") {
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
+                            $("#fdasz").removeAttr("readonly");
+                            $("#fsbsz").removeAttr("readonly");
+                            $("#fsbjzrq").removeAttr("readonly");
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
-                        } else {
+                        } else if (NodeName == "人力资源专员") {
+                            $("#fzzrq").removeAttr("readonly");
+                            $("#fzzwork").removeAttr("readonly");
                             $("#approvalD").css("display", "block");
+                            //缺少fzzwork的开窗查询
+                        }
+                        else {
+                            if (typeof (NodeName) != "undefined") {
+                                $("#approvalD").css("display", "block");
+                            }
+                            
                         }
 
                     }
@@ -507,9 +520,6 @@
 
 
 
-            if (BlItem(fsbsz,fsbjzrq) == null) {
-                    return;
-                }
 
 
 
@@ -595,12 +605,13 @@
                             xml = xml + '<社保所在机构>' + fsbsz + '</社保所在机构>';
                             xml = xml + '<社保缴至日期>' + fsbjzrq + '</社保缴至日期>';
                             xml = xml + '<转正日期>' + fzzrq + '</转正日期>';
-                            xml = xml + '<转正后职位>' + fzzwork + '</转正后日期>';
+                            xml = xml + '<转正后职位>' + fzzwork + '</转正后职位>';
                             xml = xml + '<部门编码>' + fdeptid + '</部门编码>';
                             xml = xml + '</建设公司_行管人员_转正参保>';
 
                             xml = xml + '</FormData>';
                             xml = xml + '</XForm>';
+                            alert(xml);
                             PostXml(xml);
                         }
                     }, error: function (e) {
@@ -647,11 +658,12 @@
                 xml = xml + '<社保所在机构>' + fsbsz + '</社保所在机构>';
                 xml = xml + '<社保缴至日期>' + fsbjzrq + '</社保缴至日期>';
                 xml = xml + '<转正日期>' + fzzrq + '</转正日期>';
-                xml = xml + '<转正后职位>' + fzzwork + '</转正后日期>';
+                xml = xml + '<转正后职位>' + fzzwork + '</转正后职位>';
                 xml = xml + '<部门编码>' + fdeptid + '</部门编码>';
                 xml = xml + '</建设公司_行管人员_转正参保>';
                 xml = xml + '</FormData>';
                 xml = xml + '</XForm>';
+                alert(xml);
                 PostXml(xml);
             }
 
@@ -692,44 +704,50 @@
                 }
 
 
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
+                if (e.index == 1) {
+                    comment = e.value;
 
-
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + '<XForm>';
-            xml = xml + ' <Header>';
-            xml = xml + '<Method>InformSubmit</Method>';
-            xml = xml + '<PID>' + pid + '</PID>';
-            xml = xml + '<Comment></Comment>';
-            xml = xml + '</Header>';
-            xml = xml + '<FormData>';
-            xml = xml + '<建设公司_行管人员_转正参保>';
-            xml = xml + '<单号>' + fbillno + '</单号>';
-            xml = xml + '<员工编号>' + fnumber + '</员工编号>';
-            xml = xml + '<员工姓名>' + fname + '</员工姓名>';
-            xml = xml + '<申请日期>' + fdate + '</申请日期>';
-            xml = xml + ' <所属集团>' + fjt + '</所属集团>';
-            xml = xml + ' <所属公司>' + fcom + '</所属公司>';
-            xml = xml + ' <所在部门>' + fdept + '</所在部门>';
-            xml = xml + ' <现任职位>' + fwork + '</现任职位>';
-            xml = xml + ' <性别>' + fsex + '</性别>';
-            xml = xml + '<出生日期>' + fbir + '</出生日期>';
-            xml = xml + '<身份证号>' + fidnum + '</身份证号>';
-            xml = xml + ' <联系方式>' + ftel + '</联系方式>';
-            xml = xml + ' <最高学历>' + fxl + '</最高学历>';
-            xml = xml + '<毕业院校>' + fschool + '</毕业院校>';
-            xml = xml + '<专业>' + fzy + '</专业>';
-            xml = xml + '<毕业时间>' + fbysj + '</毕业时间>';
-            xml = xml + '<加入威高时间>' + fjrwgsj + '</加入威高时间>';
-            xml = xml + '<档案所在机构>' + fdasz + '</档案所在机构>';
-            xml = xml + '<社保所在机构>' + fsbsz + '</社保所在机构>';
-            xml = xml + '<社保缴至日期>' + fsbjzrq + '</社保缴至日期>';
-            xml = xml + '<转正日期>' + fzzrq + '</转正日期>';
-            xml = xml + '<转正后职位>' + fzzwork + '</转正后日期>';
-            xml = xml + '<部门编码>' + fdeptid + '</部门编码>';
-            xml = xml + '</建设公司_行管人员_转正参保>';
-            xml = xml + '</FormData>';
-            xml = xml + '</XForm>';
-            PostXml(xml);
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + ' <Header>';
+                    xml = xml + '<Method>InformSubmit</Method>';
+                    xml = xml + '<PID>' + pid + '</PID>';
+                    xml = xml + '<Comment>' + comment + '</Comment>';
+                    xml = xml + '</Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<建设公司_行管人员_转正参保>';
+                    xml = xml + '<单号>' + fbillno + '</单号>';
+                    xml = xml + '<员工编号>' + fnumber + '</员工编号>';
+                    xml = xml + '<员工姓名>' + fname + '</员工姓名>';
+                    xml = xml + '<申请日期>' + fdate + '</申请日期>';
+                    xml = xml + ' <所属集团>' + fjt + '</所属集团>';
+                    xml = xml + ' <所属公司>' + fcom + '</所属公司>';
+                    xml = xml + ' <所在部门>' + fdept + '</所在部门>';
+                    xml = xml + ' <现任职位>' + fwork + '</现任职位>';
+                    xml = xml + ' <性别>' + fsex + '</性别>';
+                    xml = xml + '<出生日期>' + fbir + '</出生日期>';
+                    xml = xml + '<身份证号>' + fidnum + '</身份证号>';
+                    xml = xml + ' <联系方式>' + ftel + '</联系方式>';
+                    xml = xml + ' <最高学历>' + fxl + '</最高学历>';
+                    xml = xml + '<毕业院校>' + fschool + '</毕业院校>';
+                    xml = xml + '<专业>' + fzy + '</专业>';
+                    xml = xml + '<毕业时间>' + fbysj + '</毕业时间>';
+                    xml = xml + '<加入威高时间>' + fjrwgsj + '</加入威高时间>';
+                    xml = xml + '<档案所在机构>' + fdasz + '</档案所在机构>';
+                    xml = xml + '<社保所在机构>' + fsbsz + '</社保所在机构>';
+                    xml = xml + '<社保缴至日期>' + fsbjzrq + '</社保缴至日期>';
+                    xml = xml + '<转正日期>' + fzzrq + '</转正日期>';
+                    xml = xml + '<转正后职位>' + fzzwork + '</转正后职位>';
+                    xml = xml + '<部门编码>' + fdeptid + '</部门编码>';
+                    xml = xml + '</建设公司_行管人员_转正参保>';
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+                }
+            });
         }
         function Save() {
 
@@ -806,7 +824,7 @@
                     xml = xml + '<社保所在机构>' + fsbsz + '</社保所在机构>';
                     xml = xml + '<社保缴至日期>' + fsbjzrq + '</社保缴至日期>';
                     xml = xml + '<转正日期>' + fzzrq + '</转正日期>';
-                    xml = xml + '<转正后职位>' + fzzwork + '</转正后日期>';
+                    xml = xml + '<转正后职位>' + fzzwork + '</转正后职位>';
                     xml = xml + '<部门编码>' + fdeptid + '</部门编码>';
                     xml = xml + '</建设公司_行管人员_转正参保>';
 
@@ -822,26 +840,7 @@
 
 
 
-        function BlItem(fsbsz,fsbjzrq) {
 
-            
-            
-
-
-            if (!fsbsz || fsbsz == "") {
-
-                mui.toast("请输入社保所在机构");
-                return null;
-            }
-
-            if (!fsbjzrq || fsbjzrq == "") {
-
-                mui.toast("请输入社保缴至日期");
-                return null;
-            }
-           
-         
-        }
     </script>
 
 </body>

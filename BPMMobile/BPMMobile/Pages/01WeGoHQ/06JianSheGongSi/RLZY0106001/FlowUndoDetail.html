@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../../../Content/upload.css" />
     <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
-    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css" />
+    
 
     <title></title>
     <meta charset="utf-8" />
@@ -50,23 +50,23 @@
                 <input type="text" id="fcj" name="fcj" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row">
-                <label for="ftype">请假类型<i style="color:red;">*</i></label>
-                <input type="number" id="ftype" name="ftype" value="" readonly="readonly" />
+                <label for="fqjlx">请假类型<i style="color:red;">*</i></label>
+                <input type="text" id="fqjlx" name="fqjlx" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fstart">请假开始时间<i style="color:red;">*</i></label>
-                <input type="date" id="fstart" name="fstart" value="" readonly="readonly" />
+                <input type="datetime-local" id="fstart" name="fstart" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fend">请假结束时间<i style="color:red;">*</i></label>
-                <input type="date" id="fend" name="fend" value="" readonly="readonly" />
+                <input type="datetime-local" id="fend" name="fend" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fday">请假天数<i style="color:red;">*</i></label>
                 <input type="number" id="fday" name="fday" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row">
-                <label for="freason">请假理由<i style="color:red;">*</i></label>
+                <label for="freason">请假事由<i style="color:red;">*</i></label>
                 <input type="text" id="freason" name="freason" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
@@ -381,16 +381,17 @@
                         console.log(data);
                         var item = data.FormDataSet.建设公司_员工请假_主表[0];
                         $("#taskId").val(item.TaskID);
+                        $("#stepId").val(stepId);
                         $("#fname").val(item.发起人);
                         $("#fdate").val(FormatterTimeYMS(item.发起日期));
                         $("#fcom").val(item.所属公司);
                         $("#rname").val(item.请假人);
                         $("#fcj").val(item.所在车间);
-                        $("#ftype").val(item.请假类型);
+                        $("#fqjlx").val(item.请假类型);
                         $("#fstart").val(item.请假开始时间);
                         $("#fend").val(item.请假结束时间);
                         $("#fday").val(item.请假天数);
-                        $("#freason").val(item.请假理由);
+                        $("#freason").val(item.请假事由);
                         if (item.病假证明 != null && item.病假证明 != "") {
                             var fjtmp = (String)(item.病假证明);
 
@@ -421,7 +422,7 @@
                                             var size = String(data[i].Size);
 
                                             var time = String(data[i].LastUpdate).replace("T", " ");
-                                            var downurl = 'http://172.16.7.7/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;
+                                            var downurl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;
                                             var attach = attachItem(name, type, size, time, downurl);
                                             attachArray.push(attach);
 
@@ -434,7 +435,7 @@
                                             if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
 
                                                 //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://172.16.7.7/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("xls") != -1) {
 
@@ -479,6 +480,7 @@
 
 
                                         }
+                                        watch();
                                         $(".imgdiv").off('tap');
                                         $(".imgdiv").on('tap', function () {
                                             console.log($(this)[0].id);
@@ -515,7 +517,7 @@
                             if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
 
 
-                                if (stepId.includes(data.Steps[i].StepID)) {
+                                if (String(stepId).indexOf(data.Steps[i].StepID)!=-1) {
 
                                     NodeName = data.Steps[i].NodeName;
 
@@ -532,7 +534,10 @@
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
                         } else {
-                            $("#approvalD").css("display", "block");
+                            if (typeof (NodeName) != "undefined") {
+                                $("#approvalD").css("display", "block");
+                            }
+                            
                         }
 
                     }
@@ -553,7 +558,7 @@
             var fcom = $("#fcom").val();
             var rname = $("#rname").val();
             var fcj = $("#fcj").val();
-            var ftype = $("#ftype").val();
+            var fqjlx = $("#fqjlx").val();
             var fstart = $("#fstart").val() + " 00:00:00";
             var fend = $("#fend").val() + " 00:00:00";
             var fday = $("#fday").val();
@@ -563,7 +568,7 @@
            
 
 
-            if (BlItem(rname, ftype, fstart, fend, fday, freason) == null) {
+            if (BlItem(rname, fqjlx, fstart, fend, fday, freason) == null) {
                     return;
                 }
 
@@ -636,7 +641,7 @@
                             xml = xml + ' <所属公司>' + fcom + '</所属公司>';
                             xml = xml + ' <请假人>' + rname + '</请假人>';
                             xml = xml + '<所在车间>' + fcj + '</所在车间>';
-                            xml = xml + '<请假类型>' + ftype + '</请假类型>';
+                            xml = xml + '<请假类型>' + fqjlx + '</请假类型>';
                             xml = xml + ' <请假开始时间>' + fstart + '</请假开始时间>';
                             xml = xml + ' <请假结束时间>' + fend + '</请假结束时间>';
                             xml = xml + '<请假天数>' + fday + '</请假天数>';
@@ -681,7 +686,7 @@
                 xml = xml + ' <所属公司>' + fcom + '</所属公司>';
                 xml = xml + ' <请假人>' + rname + '</请假人>';
                 xml = xml + '<所在车间>' + fcj + '</所在车间>';
-                xml = xml + '<请假类型>' + ftype + '</请假类型>';
+                xml = xml + '<请假类型>' + fqjlx + '</请假类型>';
                 xml = xml + ' <请假开始时间>' + fstart + '</请假开始时间>';
                 xml = xml + ' <请假结束时间>' + fend + '</请假结束时间>';
                 xml = xml + '<请假天数>' + fday + '</请假天数>';
@@ -707,7 +712,7 @@
             var fcom = $("#fcom").val();
             var rname = $("#rname").val();
             var fcj = $("#fcj").val();
-            var ftype = $("#ftype").val();
+            var fqjlx = $("#fqjlx").val();
             var fstart = $("#fstart").val() + " 00:00:00";
             var fend = $("#fend").val() + " 00:00:00";
             var fday = $("#fday").val();
@@ -717,42 +722,48 @@
           
 
 
-            if (BlItem(rname, ftype, fstart, fend, fday, freason) == null) {
+            if (BlItem(rname, fqjlx, fstart, fend, fday, freason) == null) {
                     return;
                 }
 
 
             
-
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + '<XForm>';
-            xml = xml + ' <Header>';
-            xml = xml + '<Method>InformSubmit</Method>';
-            xml = xml + '<PID>' + pid + '</PID>';
-            xml = xml + '<Comment></Comment>';
-            xml = xml + '</Header>';
-            xml = xml + '<FormData>';
-            xml = xml + '<建设公司_员工请假_主表>';
-            xml = xml + '<单号>' + fbillno + '</单号>';
-            xml = xml + '<申请人>' + fname + '</申请人>';
-            xml = xml + '<申请日期>' + fdate + '</申请日期>';
-            xml = xml + ' <所属公司>' + fcom + '</所属公司>';
-            xml = xml + ' <请假人>' + rname + '</请假人>';
-            xml = xml + '<所在车间>' + fcj + '</所在车间>';
-            xml = xml + '<请假类型>' + ftype + '</请假类型>';
-            xml = xml + ' <请假开始时间>' + fstart + '</请假开始时间>';
-            xml = xml + ' <请假结束时间>' + fend + '</请假结束时间>';
-            xml = xml + '<请假天数>' + fday + '</请假天数>';
-            xml = xml + '<请假事由>' + freason + '</请假事由>';
-            if (fjArray.toString() != null && fjArray.toString() != "") {
-                xml = xml + '      <病假证明>' + fjArray.toString().replace(",", ";") + '</病假证明>';
-            } else {
-                xml = xml + '   <病假证明></病假证明>';
-            }
-            xml = xml + '</建设公司_员工请假_主表>';
-            xml = xml + '</FormData>';
-            xml = xml + '</XForm>';
-            PostXml(xml);
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
+                if (e.index == 1) {
+                    comment = e.value;
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + ' <Header>';
+                    xml = xml + '<Method>InformSubmit</Method>';
+                    xml = xml + '<PID>' + pid + '</PID>';
+                    xml = xml + '<Comment>' + comment + '</Comment>';
+                    xml = xml + '</Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<建设公司_员工请假_主表>';
+                    xml = xml + '<单号>' + fbillno + '</单号>';
+                    xml = xml + '<申请人>' + fname + '</申请人>';
+                    xml = xml + '<申请日期>' + fdate + '</申请日期>';
+                    xml = xml + ' <所属公司>' + fcom + '</所属公司>';
+                    xml = xml + ' <请假人>' + rname + '</请假人>';
+                    xml = xml + '<所在车间>' + fcj + '</所在车间>';
+                    xml = xml + '<请假类型>' + fqjlx + '</请假类型>';
+                    xml = xml + ' <请假开始时间>' + fstart + '</请假开始时间>';
+                    xml = xml + ' <请假结束时间>' + fend + '</请假结束时间>';
+                    xml = xml + '<请假天数>' + fday + '</请假天数>';
+                    xml = xml + '<请假事由>' + freason + '</请假事由>';
+                    if (fjArray.toString() != null && fjArray.toString() != "") {
+                        xml = xml + '      <病假证明>' + fjArray.toString().replace(",", ";") + '</病假证明>';
+                    } else {
+                        xml = xml + '   <病假证明></病假证明>';
+                    }
+                    xml = xml + '</建设公司_员工请假_主表>';
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+                }
+            });
         }
         function Save() {
 
@@ -763,14 +774,14 @@
             var fcom = $("#fcom").val();
             var rname = $("#rname").val();
             var fcj = $("#fcj").val();
-            var ftype = $("#ftype").val();
+            var fqjlx = $("#fqjlx").val();
             var fstart = $("#fstart").val() + " 00:00:00";
             var fend = $("#fend").val() + " 00:00:00";
             var fday = $("#fday").val();
             var freason = $("#freason").val();
 
 
-            if (BlItem(rname, ftype, fstart, fend, fday, freason) == null) {
+            if (BlItem(rname, fqjlx, fstart, fend, fday, freason) == null) {
                     return;
                 }
             
@@ -802,7 +813,7 @@
                     xml = xml + ' <所属公司>' + fcom + '</所属公司>';
                     xml = xml + ' <请假人>' + rname + '</请假人>';
                     xml = xml + '<所在车间>' + fcj + '</所在车间>';
-                    xml = xml + '<请假类型>' + ftype + '</请假类型>';
+                    xml = xml + '<请假类型>' + fqjlx + '</请假类型>';
                     xml = xml + ' <请假开始时间>' + fstart + '</请假开始时间>';
                     xml = xml + ' <请假结束时间>' + fend + '</请假结束时间>';
                     xml = xml + '<请假天数>' + fday + '</请假天数>';
@@ -826,11 +837,11 @@
 
 
 
-        function BlItem(rname,  ftype, fstart, fend, fday, freason) {
+        function BlItem(rname,  fqjlx, fstart, fend, fday, freason) {
 
             var bl = new Object;
             bl.rname = rname;
-            bl.ftype = ftype;
+            bl.fqjlx = fqjlx;
             bl.fstart = fstart;
             bl.fend = fend;
             bl.fday = fday;
@@ -843,7 +854,7 @@
                 return null;
             }
 
-            if (!ftype || ftype == "") {
+            if (!fqjlx || fqjlx == "") {
 
                 mui.toast("请选择请假类型");
                 return null;

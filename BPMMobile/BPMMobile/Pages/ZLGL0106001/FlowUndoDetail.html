@@ -436,7 +436,7 @@
             var mxlistArr = new Array();
             $("#mxlist").find("#mx").each(function () {
 
-                var fgcmc = $(this).find("#fgcmc").val();
+                var fgcmc = $(this).find("#fgcname").val();
                 var fgx = $(this).find("#fgx").val();
                 var fjybhgx = $(this).find("#fjybhgx").val();
                 var fjysl = $(this).find("#fjysl").val();
@@ -575,7 +575,7 @@
             mx.fjybhgx = fjybhgx;
             mx.fbhgsl = fbhgsl;
             mx.fhgl = fhgl;
-         
+            mx.fjysl = fjysl;
             return mx;
 
         }

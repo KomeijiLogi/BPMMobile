@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../../../Content/upload.css" />
     <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
-    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css" />
+    
     <title></title>
     <meta charset="utf-8" />
 </head>
@@ -414,7 +414,7 @@
                             if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
 
 
-                                if (stepId.includes(data.Steps[i].StepID)) {
+                                if (String(stepId).indexOf(data.Steps[i].StepID)!=-1) {
 
                                     NodeName = data.Steps[i].NodeName;
 
@@ -431,7 +431,10 @@
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
                         } else {
-                            $("#approvalD").css("display", "block");
+                            if (typeof (NodeName) != "undefined") {
+                                $("#approvalD").css("display", "block");
+                            }
+                           
                         }
 
                     }
@@ -645,43 +648,49 @@
                 bllistArr.push(bl);
 
             });
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
+                if (e.index == 1) {
+                    comment = e.value;
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + ' <Header>';
+                    xml = xml + '<Method>InformSubmit</Method>';
+                    xml = xml + '<PID>' + pid + '</PID>';
+                    xml = xml + '<Comment>' + comment + '</Comment>';
+                    xml = xml + '</Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<建设公司_门窗售后_主表>';
+                    xml = xml + '<单号>' + fbillno + '</单号>';
+                    xml = xml + '<申请人>' + fname + '</申请人>';
+                    xml = xml + ' <申请单位>' + fdept + '</申请单位>';
+                    xml = xml + '<申请日期>' + fdate + '</申请日期>';
+                    xml = xml + '<需求到货日期>' + qdate + '</需求到货日期>';
+                    xml = xml + '</建设公司_门窗售后_主表>';
+                    for (var i = 0; i < bllistArr.length; i++) {
 
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + '<XForm>';
-            xml = xml + ' <Header>';
-            xml = xml + '<Method>InformSubmit</Method>';
-            xml = xml + '<PID>' + pid + '</PID>';
-            xml = xml + '<Comment></Comment>';
-            xml = xml + '</Header>';
-            xml = xml + '<FormData>';
-            xml = xml + '<建设公司_门窗售后_主表>';
-            xml = xml + '<单号>' + fbillno + '</单号>';
-            xml = xml + '<申请人>' + fname + '</申请人>';
-            xml = xml + ' <申请单位>' + fdept + '</申请单位>';
-            xml = xml + '<申请日期>' + fdate + '</申请日期>';
-            xml = xml + '<需求到货日期>' + qdate + '</需求到货日期>';
-            xml = xml + '</建设公司_门窗售后_主表>';
-            for (var i = 0; i < bllistArr.length; i++) {
+                        xml = xml + '<建设公司_门窗售后_子表>';
+                        xml = xml + '  <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
+                        xml = xml + '  <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
+                        xml = xml + '  <序号>' + (i + 1) + '</序号>';
+                        xml = xml + '<维修地点>' + bllistArr[i].fwxdd + '</维修地点>';
+                        xml = xml + '<物料编码>' + bllistArr[i].fwlno + '</物料编码>';
+                        xml = xml + '<物料名称>' + bllistArr[i].fwlname + '</物料名称>';
+                        xml = xml + '<规格>' + bllistArr[i].fgg + '</规格>';
+                        xml = xml + '<单位>' + bllistArr[i].fdw + '</单位>';
+                        xml = xml + '<数量>' + bllistArr[i].fsl + '</数量>';
+                        xml = xml + '<维修原因>' + bllistArr[i].fwxyy + '</维修原因>';
+                        xml = xml + ' <送货方式>' + bllistArr[i].fshfs + '</送货方式>';
+                        xml = xml + '<费用承担方>' + bllistArr[i].ffycd + '</费用承担方>';
+                        xml = xml + '</建设公司_门窗售后_子表>';
 
-                xml = xml + '<建设公司_门窗售后_子表>';
-                xml = xml + '  <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
-                xml = xml + '  <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
-                xml = xml + '  <序号>' + (i + 1) + '</序号>';
-                xml = xml + '<维修地点>' + bllistArr[i].fwxdd + '</维修地点>';
-                xml = xml + '<物料编码>' + bllistArr[i].fwlno + '</物料编码>';
-                xml = xml + '<物料名称>' + bllistArr[i].fwlname + '</物料名称>';
-                xml = xml + '<规格>' + bllistArr[i].fgg + '</规格>';
-                xml = xml + '<单位>' + bllistArr[i].fdw + '</单位>';
-                xml = xml + '<数量>' + bllistArr[i].fsl + '</数量>';
-                xml = xml + '<维修原因>' + bllistArr[i].fwxyy + '</维修原因>';
-                xml = xml + ' <送货方式>' + bllistArr[i].fshfs + '</送货方式>';
-                xml = xml + '<费用承担方>' + bllistArr[i].ffycd + '</费用承担方>';
-                xml = xml + '</建设公司_门窗售后_子表>';
-
-            }
-            xml = xml + '</FormData>';
-            xml = xml + '</XForm>';
-            PostXml(xml);
+                    }
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+                }
+            });
         }
         function Save() {
 

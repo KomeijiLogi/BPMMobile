@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../../../Content/upload.css" />
     <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
-    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css" />
+
     <meta charset="utf-8" />
     <title></title>
     <style>
@@ -82,7 +82,7 @@
             </div>
             <div class="mui-input-row">
                 <label for="fqjlx">请假类型<i style="color:red;">*</i></label>
-                <input type="text" id="fqjlx" name="fqjlx" value="" placeholder="请选择请假类型"  onblur="changeQjlx()"/>
+                <input type="text" id="fqjlx" name="fqjlx" value="" placeholder="请选择请假类型"   />
             </div>
             <div class="mui-input-row">
                 <label for="fstart">请假开始时间<i style="color:red;">*</i></label>
@@ -101,7 +101,7 @@
                 <textarea rows="3" id="freason" name="freason" placeholder="请输入请假事由"></textarea>
             </div>
             <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
-                <div class="border border-t upload-img" style="top:0rem;" >
+                <div class="border border-t upload-img" style="top:0rem;"  onclick="changeQjlx()">
                     <!--上传图片-->
                     <div class="clearfix upload-btn" id="children-bg">
                         <label class="label">病假证明<i style="color:red;">*</i></label>
@@ -326,19 +326,19 @@
                      xml = xml + '<单号>自动生成</单号>';
                      xml = xml + '<发起人>' + fname + '</发起人>';
                      xml = xml + '<发起日期>' + fdate + '</发起日期>';
-                     xml = xml + '<所属公司>' + fcom + '</所属公司>';
+                     xml = xml + '<所属公司>' + fdept + '</所属公司>';
                      xml = xml + '<请假人>' + fqjr + '</请假人>';
                      xml = xml + '<所在车间>' + fszcj + '</所在车间>';
                      xml = xml + '<请假类型>' + fqjlx + '</请假类型>';
                      xml = xml + '<请假开始时间>' + fstart + '</请假开始时间>';
                      xml = xml + '<请假结束时间>' + fend + '</请假结束时间>';
                      xml = xml + '<请假天数>' + fday + '</请假天数>';
-                     xml = xml + '<请假事由>' + freason + '</请假开始时间>';
+                     xml = xml + '<请假事由>' + freason + '</请假事由>';
                      xml = xml + '<病假证明>' + fjArray.toString().replace(",", ";") + '</病假证明>';
                      xml = xml + '</建设公司_员工请假_主表>';
                      xml = xml + '</FormData>';
                      xml = xml + '</XForm>';
-                     alert(xml);
+                    // alert(xml);
                      PostXml(xml);
                  }
              });

@@ -21,8 +21,7 @@
     <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../../../Content/upload.css" />
     <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
-    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css" />
-
+    
     <title></title>
     <meta charset="utf-8" />
 </head>
@@ -49,34 +48,34 @@
                 <label for="fmonth">计划付款月份<i style="color:red;">*</i></label>
                 <input type="number" id="fmonth" name="fmonth" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
-                <label>付款计划明细（单位：万元）</label>
+            <div class="mui-input-row" style="height:2.75rem;">
+                <label>付款计划明细（单位:万元）</label>
                 <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;" id="addItem"></span>
             </div>
             <div class="mui-input-group" id="bllist">
 
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:2.75rem;">
                 <label for="fhzjhfk">汇总计划付款金额</label>
                 <input type="number" id="fhzjhfk" name="fhzjhfk" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:2.75rem;">
                 <label for="fhzjhyj">汇总计划约进贷款</label>
                 <input type="number" id="fhzjhyj" name="fhzjhyj" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:2.75rem;">
                 <label for="fhzzmye">汇总账面余额</label>
                 <input type="number" id="fhzzmye" name="fhzzmye" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:2.75rem;">
                 <label for="fhzzgrk">汇总暂估入库</label>
                 <input type="number" id="fhzzgrk" name="fhzzgrk" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:2.75rem;">
                 <label for="fhzhjzm">汇总合计账面余额</label>
                 <input type="number" id="fhzhjzm" name="fhzhjzm" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:2.75rem;">
                 <label for="fhzjhzm">汇总计划账面比对</label>
                 <input type="number" id="fhzjhzm" name="fhzjhzm" value="" readonly="readonly" />
             </div>
@@ -367,7 +366,7 @@
                         $("#taskId").val(item.TaskID);
                         $("#fname").val(item.申请人);
                         $("#fdept").val(item.申请部门);
-                        $("#fdate").val(FormatterTimeYMS(item.提报日期));
+                        $("#fdate").val(FormatterTimeYMS(item.申请日期));
                         $("#fyear").val(item.年度);
                         $("#fmonth").val(item.计划付款月份);
                         $("#fhzjhfk").val(item.汇总计划付款金额);

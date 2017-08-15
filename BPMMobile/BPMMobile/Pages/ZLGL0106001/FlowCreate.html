@@ -662,10 +662,11 @@
             var mxlistArr = new Array();
             $("#mxlist").find("#mx").each(function () {
 
-                var fgcmc = $(this).find("#fgcmc").val();
+                var fgcmc = $(this).find("#fgcname").val();
                 var fgx = $(this).find("#fgx").val();
                 var fjybhgx = $(this).find("#fjybhgx").val();
                 var fjysl = $(this).find("#fjysl").val();
+                //alert(fjysl);
                 var fbhgsl = $(this).find("#fbhgsl").val();
                 var fhgl = $(this).find("#fhgl").val();
                 if (mxItem(fgcmc, fgx, fjybhgx, fjysl, fbhgsl, fhgl) == null) {
@@ -816,6 +817,7 @@
             mx.fgx = fgx;
             mx.fjybhgx = fjybhgx;
             mx.fbhgsl = fbhgsl;
+            mx.fjysl = fjysl;
             mx.fhgl = fhgl;
             if (fgcmc == '') {
                 mui.toast('请填写工程名称');

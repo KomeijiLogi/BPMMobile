@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../../../Content/upload.css" />
     <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
-    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css" />
+  
 
     <meta charset="utf-8" />
     <title></title>
@@ -498,7 +498,7 @@
                             if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
 
 
-                                if (stepId.includes(data.Steps[i].StepID)) {
+                                if (String(stepId).indexOf(data.Steps[i].StepID)!=-1) {
 
                                     NodeName = data.Steps[i].NodeName;
 
@@ -515,7 +515,10 @@
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
                         } else {
-                            $("#approvalD").css("display", "block");
+                            if (typeof (NodeName) != "undefined") {
+                                $("#approvalD").css("display", "block");
+                            }
+                            
                         }
 
                     }
@@ -724,41 +727,47 @@
                 return;
             }
 
-                                                                       
-            
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + '<XForm>';
-            xml = xml + ' <Header>';
-            xml = xml + '<Method>InformSubmit</Method>';
-            xml = xml + '<PID>' + pid + '</PID>';
-            xml = xml + '<Comment></Comment>';
-            xml = xml + '</Header>';
-            xml = xml + '<FormData>';
-            xml = xml + '<建设公司_出厂检验_记录备案>';
-            xml = xml + '<单号>' + fbillno + '</单号>';
-            xml = xml + '<检验人>' + fname + '</检验人>';
-            xml = xml + '<检验部门>' + fdept + '</检验部门>';
-            xml = xml + '<检验日期>' + fdate + '</检验日期>';
-            xml = xml + '<产品类型>' + ftype + '</产品类型>';
-            xml = xml + '<工程名称>' + fgcmc + '</工程名称>';
-            xml = xml + '<生产车间>' + fsccj + '</生产车间>';
-            xml = xml + '<成品数量>' + fcpsl + '</成品数量>';
-            xml = xml + '<规格型号>' + fgg + '</规格型号>';
-            xml = xml + '<抽检数量>' + fcjsl + '</抽检数量>';
-            xml = xml + '<合格率>' + frate + '</合格率>';
-            xml = xml + '<检测结果1>' + ftest1 + '</检测结果1>';
-            xml = xml + '<检测结果2>' + ftest2 + '</检测结果2>';
-            xml = xml + '<检测结果3>' + ftest3 + '</检测结果3>';
-            xml = xml + '<检测结果4>' + ftest4 + '</检测结果4>';
-            xml = xml + '<检测结果5>' + ftest5 + '</检测结果5>';
-            xml = xml + '<检测结果6>' + ftest6 + '</检测结果6>';
-            xml = xml + '<检测结果7>' + ftest7 + '</检测结果7>';
-            xml = xml + '<检测结果8>' + ftest8 + '</检测结果8>';
-            xml = xml + '<检测结果9>' + ftest9 + '</检测结果9>';
-            xml = xml + '</建设公司_出厂检验_记录备案>';
-            xml = xml + '</FormData>';
-            xml = xml + '</XForm>';
-            PostXml(xml);
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
+                if (e.index == 1) {
+                    comment = e.value;
+
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + ' <Header>';
+                    xml = xml + '<Method>InformSubmit</Method>';
+                    xml = xml + '<PID>' + pid + '</PID>';
+                    xml = xml + '<Comment>' + comment + '</Comment>';
+                    xml = xml + '</Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<建设公司_出厂检验_记录备案>';
+                    xml = xml + '<单号>' + fbillno + '</单号>';
+                    xml = xml + '<检验人>' + fname + '</检验人>';
+                    xml = xml + '<检验部门>' + fdept + '</检验部门>';
+                    xml = xml + '<检验日期>' + fdate + '</检验日期>';
+                    xml = xml + '<产品类型>' + ftype + '</产品类型>';
+                    xml = xml + '<工程名称>' + fgcmc + '</工程名称>';
+                    xml = xml + '<生产车间>' + fsccj + '</生产车间>';
+                    xml = xml + '<成品数量>' + fcpsl + '</成品数量>';
+                    xml = xml + '<规格型号>' + fgg + '</规格型号>';
+                    xml = xml + '<抽检数量>' + fcjsl + '</抽检数量>';
+                    xml = xml + '<合格率>' + frate + '</合格率>';
+                    xml = xml + '<检测结果1>' + ftest1 + '</检测结果1>';
+                    xml = xml + '<检测结果2>' + ftest2 + '</检测结果2>';
+                    xml = xml + '<检测结果3>' + ftest3 + '</检测结果3>';
+                    xml = xml + '<检测结果4>' + ftest4 + '</检测结果4>';
+                    xml = xml + '<检测结果5>' + ftest5 + '</检测结果5>';
+                    xml = xml + '<检测结果6>' + ftest6 + '</检测结果6>';
+                    xml = xml + '<检测结果7>' + ftest7 + '</检测结果7>';
+                    xml = xml + '<检测结果8>' + ftest8 + '</检测结果8>';
+                    xml = xml + '<检测结果9>' + ftest9 + '</检测结果9>';
+                    xml = xml + '</建设公司_出厂检验_记录备案>';
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+                }
+            });
         }
 
 

@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../../../Content/upload.css" />
     <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
-    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css" />
+   
     <title></title>
     <meta charset="utf-8" />
 </head>
@@ -48,7 +48,7 @@
                 <label for="ftel">联系电话<i style="color:red;">*</i></label>
                 <input type="number" id="ftel" name="ftel" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:3.25rem;">
                 <label>证件借用申请明细</label>
                 <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;display:none;" id="addItem"></span>
             </div>
@@ -306,6 +306,7 @@
         });
 
 
+        var action = "同意"; 
 
         function getTaskMsg() {
             if ($('#myPhone').val() == "") {
@@ -322,7 +323,8 @@
                 if (url.split("pid=")[1].indexOf("ticket") != -1) {
                     stepId = url.split("pid=")[1];
                     stepId = stepId.split("&ticket")[0];
-
+                    var ticket = url.split("=")[3];
+                    localStorage.setItem('ticket', ticket);
                 } else {
                     stepId = url.split("pid=")[1];
                 }
@@ -353,13 +355,15 @@
                         console.log(data);
                         var item = data.FormDataSet.建设公司_证件借用_主表[0];
                         $("#taskId").val(item.TaskID);
+                        $("#stepId").val(stepId);
                         $("#fname").val(item.申请人);
-                        $("#fdate").val(FormatterTimeYMS(item.申请时间));
+                        $("#fdate").val(FormatterTimeYMS(item.申请日期));
                         $("#fcom").val(item.所属公司);
                         $("#fdept").val(item.所属部门);
                         $("#ftel").val(item.联系电话);
                         var bli = data.FormDataSet.建设公司_证件借用_子表;
                         for (var i = 0; i < bli.length; i++) {
+                            itemidArr.push(bli[i].itemid);
                             var li = '<div id="bl" class="mui-card">';
                             li = li + '   <div class="mui-input-row bgc">';
                             li = li + '        <label>明细列表项</label> ';
@@ -385,9 +389,9 @@
                             li = li + '        <label for="fjyrq">借用日期<i style="color:red;">*</i></label>';
                             li = li + '        <input type="date" id="fjyrq" name="fjyrq" value="' + FormatterTimeYMS(bli[i].借用日期) + '" readonly="readonly"/>';
                             li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
+                            li = li + '   <div class="mui-input-row" style="height:3.25rem;">';
                             li = li + '        <label for="fsjghrq">实际归还日期<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="date" id="fsjghrq" name="fsjghrq" value="" placeholder="请输入实际归还日期"/>';
+                            li = li + '        <input type="date" id="fsjghrq" name="fsjghrq" value="" readonly="readonly"/>';
                             li = li + '   </div>';
 
                             $("#bllist").append(li);
@@ -403,7 +407,7 @@
                             if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
 
 
-                                if (stepId.includes(data.Steps[i].StepID)) {
+                                if (String(stepId).indexOf(data.Steps[i].StepID)!=-1) {
 
                                     NodeName = data.Steps[i].NodeName;
 
@@ -419,8 +423,17 @@
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
-                        } else {
+                        } else if (NodeName == "行政专员") {
+                            $("#agreebt").text("确认");
+                            action = "确认";
                             $("#approvalD").css("display", "block");
+                            $("#fsjghrq").removeAttr("readonly");
+                        }
+                        else {
+                            if (typeof (NodeName) != "undefined") {
+                                $("#approvalD").css("display", "block");
+                            }
+                            
                         }
 
                     }
@@ -434,7 +447,7 @@
 
         function AgreeOrConSign() {
 
-            var comment = $("#signSuggest").val(); 
+           
             var pid = $("#stepId").val();
             var fname = $("#fname").val();
             var fdate = $("#fdate").val() + " 00:00:00";
@@ -454,14 +467,15 @@
                 var fsjghrq = $(this).find("#fsjghrq").val() + " 00:00:00";
           
 
-                if (BlItem(fzjmc, fzjlb, fnum, fytms, fjyrq) == null) {
+                if (BlItem(fzjmc, fzjlb, fnum, fytms, fjyrq, fsjghrq) == null) {
                     return;
                 }
-                var bl = BlItem(fzjmc, fzjlb, fnum, fytms, fjyrq);
+                var bl = BlItem(fzjmc, fzjlb, fnum, fytms, fjyrq, fsjghrq);
                 bllistArr.push(bl);
 
             });
 
+            var comment = $("#signSuggest").val(); 
             var consignUserId = new Array();
             var consignRoutingType;
             var consignReturnType;
@@ -509,7 +523,7 @@
                             xml = xml + '            <Header>';
                             xml = xml + '              <Method>Process</Method>';
                             xml = xml + '              <PID>' + pid + '</PID>';
-                            xml = xml + '              <Action>同意</Action>';
+                            xml = xml + '              <Action>' + action + '</Action>';
                             xml = xml + '              <Comment>' + comment + '</Comment>';
                             //加签差异xml部分
                             xml = xml + '<ConsignEnabled>True</ConsignEnabled>';
@@ -562,7 +576,7 @@
                 xml = xml + '            <Header>';
                 xml = xml + '              <Method>Process</Method>';
                 xml = xml + '              <PID>' + pid + '</PID>';
-                xml = xml + '              <Action>同意</Action>';
+                xml = xml + '              <Action>' + action + '</Action>';
                 xml = xml + '              <Comment></Comment>';
 
 
@@ -621,48 +635,54 @@
                 var fsjghrq = $(this).find("#fsjghrq").val() + " 00:00:00";
 
 
-                if (BlItem(fzjmc, fzjlb, fnum, fytms, fjyrq) == null) {
+                if (BlItem(fzjmc, fzjlb, fnum, fytms, fjyrq, fsjghrq) == null) {
                     return;
                 }
-                var bl = BlItem(fzjmc, fzjlb, fnum, fytms, fjyrq);
+                var bl = BlItem(fzjmc, fzjlb, fnum, fytms, fjyrq, fsjghrq);
                 bllistArr.push(bl);
 
             });
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
+                if (e.index == 1) {
+                    comment = e.value;
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + ' <Header>';
+                    xml = xml + '<Method>InformSubmit</Method>';
+                    xml = xml + '<PID>' + pid + '</PID>';
+                    xml = xml + '<Comment>' + comment + '</Comment>';
+                    xml = xml + '</Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<建设公司_证件借用_主表>';
+                    xml = xml + '<单号>' + fbillno + '</单号>';
+                    xml = xml + '<申请人>' + fname + '</申请人>';
+                    xml = xml + '<申请日期>' + fdate + '</申请日期>';
+                    xml = xml + ' <所属公司>' + fcom + '</所属公司>';
+                    xml = xml + ' <所属部门>' + fdept + '</所属部门>';
+                    xml = xml + '<联系电话>' + ftel + '</联系电话>';
+                    xml = xml + '</建设公司_证件借用_主表>';
+                    for (var i = 0; i < bllistArr.length; i++) {
 
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + '<XForm>';
-            xml = xml + ' <Header>';
-            xml = xml + '<Method>InformSubmit</Method>';
-            xml = xml + '<PID>' + pid + '</PID>';
-            xml = xml + '<Comment></Comment>';
-            xml = xml + '</Header>';
-            xml = xml + '<FormData>';
-            xml = xml + '<建设公司_证件借用_主表>';
-            xml = xml + '<单号>' + fbillno + '</单号>';
-            xml = xml + '<申请人>' + fname + '</申请人>';
-            xml = xml + '<申请日期>' + fdate + '</申请日期>';
-            xml = xml + ' <所属公司>' + fcom + '</所属公司>';
-            xml = xml + ' <所属部门>' + fdept + '</所属部门>';
-            xml = xml + '<联系电话>' + ftel + '</联系电话>';
-            xml = xml + '</建设公司_证件借用_主表>';
-            for (var i = 0; i < bllistArr.length; i++) {
+                        xml = xml + '<建设公司_证件借用_子表>';
+                        xml = xml + '  <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
+                        xml = xml + '  <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
+                        xml = xml + '  <序号>' + (i + 1) + '</序号>';
+                        xml = xml + '<证件名称>' + bllistArr[i].fzjmc + '</证件名称>';
+                        xml = xml + '<证件类别>' + bllistArr[i].fzjlb + '</证件类别>';
+                        xml = xml + '<份数>' + bllistArr[i].fnum + '</份数>';
+                        xml = xml + '<用途描述>' + bllistArr[i].fytms + '</用途描述>';
+                        xml = xml + '<借用日期>' + bllistArr[i].fjyrq + '</借用日期>';
+                        xml = xml + '<实际归还日期>' + bllistArr[i].fsjghrq + '</实际归还日期>';
+                        xml = xml + '</建设公司_证件借用_子表>';
 
-                xml = xml + '<建设公司_证件借用_子表>';
-                xml = xml + '  <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
-                xml = xml + '  <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
-                xml = xml + '  <序号>' + (i + 1) + '</序号>';
-                xml = xml + '<证件名称>' + bllistArr[i].fzjmc + '</证件名称>';
-                xml = xml + '<证件类别>' + bllistArr[i].fzjlb + '</证件类别>';
-                xml = xml + '<份数>' + bllistArr[i].fnum + '</份数>';
-                xml = xml + '<用途描述>' + bllistArr[i].fytms + '</用途描述>';
-                xml = xml + '<借用日期>' + bllistArr[i].fjyrq + '</借用日期>';
-                xml = xml + '<实际归还日期>' + bllistArr[i].fsjghrq + '</实际归还日期>';
-                xml = xml + '</建设公司_证件借用_子表>';
-
-            }
-            xml = xml + '</FormData>';
-            xml = xml + '</XForm>';
-            PostXml(xml);
+                    }
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+                }
+            });
         }
         function Save() {
 
@@ -686,10 +706,10 @@
                 var fsjghrq = $(this).find("#fsjghrq").val() + " 00:00:00";
 
 
-                if (BlItem(fzjmc, fzjlb, fnum, fytms, fjyrq) == null) {
+                if (BlItem(fzjmc, fzjlb, fnum, fytms, fjyrq, fsjghrq) == null) {
                     return;
                 }
-                var bl = BlItem(fzjmc, fzjlb, fnum, fytms, fjyrq);
+                var bl = BlItem(fzjmc, fzjlb, fnum, fytms, fjyrq, fsjghrq);
                 bllistArr.push(bl);
 
             });
@@ -750,7 +770,7 @@
 
 
 
-        function BlItem(fzjmc, fzjlb, fnum, fytms, fjyrq) {
+        function BlItem(fzjmc, fzjlb, fnum, fytms, fjyrq, fsjghrq) {
 
             var bl = new Object;
             bl.fzjmc = fzjmc;
@@ -758,6 +778,7 @@
             bl.fnum = fnum;
             bl.fytms = fytms;
             bl.fjyrq = fjyrq;
+            bl.fsjghrq = fsjghrq;
 
 
             if (!fzjmc || fzjmc == "") {
@@ -786,7 +807,10 @@
                 mui.toast("请输入借用日期");
                 return null;
             }
-            
+            if (!fsjghrq || fsjghrq == "") {
+                mui.toast("请输入实际归还日期");
+                return null;
+            }
             return bl;
         }
     </script>

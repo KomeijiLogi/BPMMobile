@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
+
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
+    <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
+    <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.detail.js"></script>
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div class="mui-content" style="background-color:white;">
+        <form class="mui-input-group" style="left:0rem;right:0rem;margin-bottom:1rem;padding-bottom:4rem;">
+            <div class="mui-input-row">
+                <label for="fname">申请人</label>
+                <input type="text" id="fname" name="fname" readonly="readonly"/>
+            </div>  
+            <div class="mui-input-row">
+                <label for="fdept">申请部门</label>
+                <input type="text" id="fdept" name="fdept" readonly="readonly"/>
+            </div>
+            <div class="mui-input-row">
+                <label for="fdate">申请时间</label>
+                <input type="text" id="fdate" name="fdate"/>
+            </div>
+            <div class="mui-input-row">
+                <label>知会综合部</label>
+                <input type="hidden" id="fzhzhb" name="fzhzhb" value="否"/>
+                <div class="mui-switch mui-switch-mini mui-switch-blue" id="fzhzhbd">
+                    <div class="mui-switch-handle"></div>
+                </div>  
+            </div>
+            <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
+                <div class="border border-t upload-img" style="top:0rem;">
+                    <!--上传图片-->
+                    <div class="clearfix upload-btn" id="children-bg">
+                        <label class="label">附件</label>
+                        <span class="tips" id="imageCount"><!--已添加0张--></span>
+                        <!--上传图片按钮  -->
+                        <span class="upload-addbtn">
+                            <input type="file" accept="image/jpeg,image/jpg,image/png,image/jp2,image/bmp" id="file" style="opacity:0;">
+                        </span>
+
+                    </div>
+                    <div class="upload-img-list"></div>
+                </div>
+            </div>
+            <div id="mxlist">
+
+            </div>
+            <a class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" id="tjmx" style="margin-top:0.5rem;">
+                添加激励人员明细
+                <span class="mui-icon mui-icon-plusempty"></span>
+            </a>
+            <input type="hidden" id="f50_t" name="f50_t"/>
+            <input type="hidden" id="f100_t" name="f100_t"/>
+            <input type="hidden" id="f200_t" name="f200_t"/>
+        </form>
+    </div>
+    <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;">
+        <button class="mui-btn mui-btn-primary" type="button" style="width:100%;height:2.5rem;font-size:0.8rem;" id="commitbt" onclick="Save()">提交</button>
+    </div>
+    <script>
+
+        mui.init();
+
+        mui.ready(function () {
+            getVersion('\\07房地产集团\\02商管公司\\BG办公管理', 'BG0702035_商管公司激励申请_流程');
+            prepMsg();
+            upload();
+            watch();
+        });
+
+        mui('#fzhzhbd').each(function () {
+
+            this.addEventListener('toggle', function (event) {
+                if (event.detail.isActive == 'true' || event.detail.isActive == true) {
+                    $("#fzhzhb").val("是");
+
+                } else {
+                    $("#fzhzhb").val("否");
+
+                }
+
+            });
+        });
+        XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
+        XuntongJSBridge.call('getPersonInfo', {}, function (result) {
+            if (typeof (result) == "string") {
+                result = JSON.parse(result);
+            }
+
+            if (result.success == true || result.success == "true") {
+                $("#fname").val(result.data.name);
+
+            }
+        });
+
+        XuntongJSBridge.call('createPop', {
+            'popTitle': '',
+            'popTitleCallBackId': '1',
+            'items': [{ 'text': '刷新', 'callBackId': 'callback1' }],
+            'menuList': [
+                'openWithBrowser'
+            ],
+
+        }, function (result) {
+            if (result.success == true || result.success == 'true') {
+                var callBackId = result.data ? result.data.callBackId : '';
+                if (callBackId == 'callback1') {
+                    window.location.reload();
+                    //location.reload();
+                } else if (callBackId == 'callback2') {
+
+                } else {
+
+                }
+            }
+
+        });
+
+        function prepMsg() {
+            tapEvent();
+            $("#fdate").val(getNowFormatDate(2));
+
+        }
+        var picker_fjlxz = new mui.PopPicker();
+        var selecPersonOpenIdArr = new Array();
+        var selectPerson = new Array();
+        function tapEvent() {
+
+            var fjlxzdata = [
+                {
+                    value: '',
+                    text:'奖励'
+                },
+                {
+                    value: '',
+                    text: '惩罚'
+                }
+            ];
+
+
+            $("#tjmx").on('tap', function () {
+                XuntongJSBridge.call('selectPersons', { 'isMulti': 'true', 'pType': '1' }, function (result) {
+                    if (typeof (result) == "string") {
+                        result = JSON.parse(result);
+                    }
+
+                    if (result.success == true || result.success == "true") {
+                        //selecPersonOpenIdArr = new Array();
+                        for (var i = 0; i < result.data.persons.length; i++) {
+
+
+                            selecPersonOpenIdArr.push((String)(result.data.persons[i].openId));
+
+                        }
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/api/bpm/PostAccount",
+                            data: { "ids": selecPersonOpenIdArr },
+                            beforeSend: function (XHR) {
+                                XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+                            }
+                        }).done(function (data) {
+                            console.log(data);
+                            selectPerson = new Array();
+                            for (var i = 0; i < data.data.length; i++) {
+
+                                var selectperson = {
+
+                                    name: (data.data[i].name),              //姓名
+                                    account: (data.data[i].phone),          //工号
+                                    department: (data.data[i].department)   //所属部门
+                                };
+                                selectPerson.push(selectperson);
+                            }
+                            $("#mxlist").empty();
+                            for (var i = 0; i < selectPerson.length; i++) {
+                                var li = '  <div id="mx" class="mui-card">';
+                                li = li + '    <div class="mui-input-row itemtitle">';
+                                li = li + '       <label>明细列表项</label>';
+                                li = li + '       <span class="mui-icon mui-icon-close mui-pull-right" style="margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
+                                li = li + '    </div>';
+                                li = li + '    <div class="mui-input-row">';
+                                li = li + '       <label for="fjlrname">姓名</label>';
+                                li = li + '       <input type="text" id="fjlrname" name="fjlrname" readonly="readonly" value="' + selectPerson[i].name + '"/>';
+                                li = li + '       <input type="hidden" id="fjlrno" name="fjlrno" readonly="readonly" value="' + selectPerson[i].account + '"/>';
+                                li = li + '    </div>';
+                                li = li + '     <div class="mui-input-row">';
+                                li = li + '        <label for="fbm">所属部门</label>';
+                                li = li + '        <input type="text" id="fbm" name="fbm" readonly="readonly" value="' + selectPerson[i].department + '"/>';
+                                li = li + '     </div>';
+                                li = li + '     <div class="mui-input-row">';
+                                li = li + '        <label for="fjlxz">激励性质<i style="color:red;">*</i></label>';
+                                li = li + '        <input type="text" id="fjlxz" name="fjlxz" readonly="readonly" placeholder="请选择激励性质"/>';
+                                li = li + '     </div>';
+                                li = li + '     <div class="mui-input-row">';
+                                li = li + '         <label for="fje">金额<i style="color:red;">*</i></label>';
+                                li = li + '         <input type="text" id="fje" name="fje" required="required"/>';
+                                li = li + '     </div>';
+                                li = li + '     <div class="mui-input-row">';
+                                li = li + '          <label for="fdel">是否处理</label>';
+                                li = li + '          <input type="text" id="fdel" name="fdel" readonly="readonly"/>';
+                                li = li + '     </div>';
+                                li = li + '     <div class="mui-input-row">';
+                                li = li + '          <label for="fsm">情况说明</label>';
+                                li = li + '          <input type="text" id="fsm" name="fsm" placeholder="请填写奖惩情况说明"/>';
+                                li = li + '     </div>';
+                                li = li + '      <input type="hidden" id="f50" name="f50" />';
+                                li = li + '      <input type="hidden" id="f100" name="f100" />';
+                                li = li + '      <input type="hidden" id="f200" name="f200"/>';
+                                li = li + '  </div>';
+                                $("#mxlist").append(li);
+                                document.getElementById('tjmx').scrollIntoView();
+                            }
+
+                        }).fail(function (e) {
+
+                        });
+
+                    }
+
+                });
+            });
+
+ }
+
+        function Save(){
+
+        }
+
+        function checkMoney(fje) {
+
+            if (fje < 50) {
+
+            } else if (fje < 100) {
+
+            } else if (fje < 200) {
+
+            } else {
+
+            }
+        }
+    </script>
+</body>
+</html>

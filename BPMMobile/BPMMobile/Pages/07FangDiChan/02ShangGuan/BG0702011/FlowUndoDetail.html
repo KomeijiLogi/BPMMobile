@@ -977,6 +977,7 @@
             var ftgbyj = $("#ftgbyj").val();
             var pid = $("#stepId").val();
             var fbillno = $("#fbillno").val();
+            var signSuggest = $("#signSuggest").val();
 
             var consignFlag = false;
             var consignUserId = new Array();
@@ -1033,7 +1034,7 @@
                                 xml = xml + '<Action>确认</Action>';
                             }
 
-                            xml = xml + '<Comment></Comment>';
+                            xml = xml + '<Comment>' + signSuggest + '</Comment>';
                             //加签差异xml部分
                             xml = xml + '<ConsignEnabled>True</ConsignEnabled>';
                             xml = xml + '<ConsignUsers>' + consignUserStr + '</ConsignUsers>';
@@ -1095,7 +1096,7 @@
                 }
                
 
-                xml = xml + '<Comment></Comment>';
+                xml = xml + '<Comment>' + signSuggest + '</Comment>';
                 xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
                 xml = xml + '</Header>';
                 xml = xml + '<FormData>';

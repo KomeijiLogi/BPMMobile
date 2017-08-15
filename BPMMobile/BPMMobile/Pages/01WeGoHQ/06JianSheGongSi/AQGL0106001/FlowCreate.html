@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../../../Content/upload.css" />
     <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
-    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css" />
     <title></title>
     <meta charset="utf-8" />
     <style>
@@ -116,7 +115,7 @@
         mui.init();
 
         mui.ready(function () {
-            getVersion('\\07房地产集团\\02商管公司\\BG办公管理', '盛祥商管公司图纸会签');
+            getVersion('\\01威高集团总部\\06建设公司\\AQGL安全管理', '建设公司安全检查问题反馈');
             upload();
             getBPMParam();
             watch();
@@ -266,10 +265,10 @@
                 mui.toast("请输入限期整改日期");
                 return;
             }
-            if (fjArray.toString() == null || fjArray.toString() == "") {
-                mui.toast("请上传整改前照片");
-                return;
-            }
+            //if (fjArray.toString() == null || fjArray.toString() == "") {
+            //    mui.toast("请上传整改前照片");
+            //    return;
+            //}
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                 if (e.index == 1) {
@@ -305,7 +304,7 @@
                     xml = xml + '</建设公司_安全检查_问题反馈>';
                     xml = xml + '</FormData>';
                     xml = xml + '</XForm>';
-                    alert(xml);
+                    //alert(xml);
                     PostXml(xml);
                 }
             });
