@@ -21,55 +21,10 @@
     <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
     <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../Content/upload.css" />
+    <link rel="stylesheet" href="../../Content/ApprovalUtils.css"/>
     <title></title>
     <meta charset="utf-8" />
-    <style>
-        html, body {
-            font-size: 20px;
-            height: 100%;
-            overflow: auto;
-            background-color: white;
-        }
-
-
-        label {
-            font-size: 0.75rem;
-        }
-
-        input {
-            font-size: 0.75rem;
-        }
-
-        textarea {
-            height: auto;
-            overflow: auto;
-            font-size: 0.75rem;
-        }
-
-        a {
-            font-size: 0.75rem;
-        }
-
-        #signbody {
-            display: none;
-        }
-
-        #signPer {
-            padding-top: 0.2rem;
-            line-break: auto;
-            white-space: normal;
-            padding-left: 0rem;
-        }
-
-        .adl {
-            background-color: #fea900;
-        }
-
-        .bgc {
-            color: white;
-            background-color: #00a0ea;
-        }
-    </style>
+   
 </head> 
 <body> 
     <div class="mui-content" style="background-color:white;" id="wrapper">
@@ -244,16 +199,16 @@
 
 
         </form>
-        <div class="mui-btn-row"  id="createD">
+        <div class="mui-btn-row"  id="createD" >
             <button class="mui-btn mui-btn-primary" type="button"  id="commitbt" onclick="Save()">提交</button>
         </div>
-        <div class="mui-btn-row"  id="approvalD">
+        <div class="mui-btn-row"  id="approvalD" >
             &nbsp;&nbsp;
             <button class="mui-btn mui-btn-primary" type="button" style="width:100%;" id="agreebt" onclick="showConfirm()">确认</button>&nbsp;&nbsp;&nbsp;
             <!--<button class="mui-btn mui-btn-danger" type="button" style="width:40%;height:2.5rem;font-size:0.8rem;" id="disagreebt" onclick="RecedeBack()">退回某步</button>&nbsp;&nbsp;&nbsp;-->
 
         </div>
-        <div class="mui-btn-row"  id="readD">
+        <div class="mui-btn-row"  id="readD" >
             <button class="mui-btn mui-btn-primary" type="button"  id="readbt" onclick="hasRead()">已阅</button>
         </div>
    </div> 

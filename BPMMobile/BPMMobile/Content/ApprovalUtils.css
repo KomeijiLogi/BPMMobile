@@ -70,8 +70,16 @@ li {
     color: white;
     background-color: #6BA2D0;
 }
-
-
+.bgl {
+    color: white;
+    background-color: #D55511;
+}
+.adjla {
+    /*margin-top:0.4rem;*/
+    border: groove;
+    border-color: #5191FD;
+    border-width: 0.01rem;
+}
 .itemcontenttitle {
     color: white;
     background-color: #5BC254;

@@ -88,3 +88,12 @@ i {
     color: white;
     background-color: #00a0ea;
 }
+.hrefin {
+    color: #36A3CA;
+}
+.adjla {
+    /*margin-top:0.4rem;*/
+    border: groove;
+    border-color: #5191FD;
+    border-width: 0.01rem;
+}
