@@ -47,7 +47,7 @@
             </div>
             <div class="mui-input-row" style="height:3.25rem;">
                 <label for="flx">租赁场地类型<i style="color:red;">*</i></label>
-                <input type="text" id="flx" name="flx" readonly="readonly"  />
+                <input type="text" id="flx" name="flx" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fwz">场地位置<i style="color:red;">*</i></label>
@@ -67,11 +67,11 @@
             </div>
             <div class="mui-input-row" style="height:3.25rem;">
                 <label for="fzlsj_ks">租赁开始时间<i style="color:red;">*</i></label>
-                <input type="datetime-local" id="fzlsj_ks" name="fzlsj_ks"  readonly="readonly"/>
+                <input type="datetime-local" id="fzlsj_ks" name="fzlsj_ks" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="height:3.25rem;">
                 <label for="fzlsj_js">租赁结束时间<i style="color:red;">*</i></label>
-                <input type="datetime-local" id="fzlsj_js" name="fzlsj_js"  readonly="readonly"/>
+                <input type="datetime-local" id="fzlsj_js" name="fzlsj_js" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="height:3.25rem;">
                 <label for="fzlfy">场地租赁费(元)<i style="color:red;">*</i></label>
@@ -117,41 +117,41 @@
                     <div class="list">
                         <ul id="signff">
                             <!--<li>
-                            <span class="lefttime"><i></i>05-19 08:06</span>
-                            <div class="righttext">
-                                <div>
-                                    <div class="flowmsg">发起<span>张成林<label class="flowstatus">提交</label></span></div>
-                                    <p>签核意见</p>
+                                <span class="lefttime"><i></i>05-19 08:06</span>
+                                <div class="righttext">
+                                    <div>
+                                        <div class="flowmsg">发起<span>张成林<label class="flowstatus">提交</label></span></div>
+                                        <p>签核意见</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="lefttime"><i></i>05-19 08:06</span>
-                            <div class="righttext">
-                                <div>
-                                    <div class="flowmsg">一审<span>AA<label class="flowstatus">同意</label></span></div>
-                                    <p>签核意见</p>
+                            </li>
+                            <li>
+                                <span class="lefttime"><i></i>05-19 08:06</span>
+                                <div class="righttext">
+                                    <div>
+                                        <div class="flowmsg">一审<span>AA<label class="flowstatus">同意</label></span></div>
+                                        <p>签核意见</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="lefttime"><i></i>05-19 08:06</span>
-                            <div class="righttext">
-                                <div>
-                                    <div class="flowmsg">二审<span>BB<label class="flowstatus">同意</label></span></div>
-                                    <p>签核意见</p>
+                            </li>
+                            <li>
+                                <span class="lefttime"><i></i>05-19 08:06</span>
+                                <div class="righttext">
+                                    <div>
+                                        <div class="flowmsg">二审<span>BB<label class="flowstatus">同意</label></span></div>
+                                        <p>签核意见</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="lefttime"><i></i>05-19 08:06</span>
-                            <div class="righttext">
-                                <div>
-                                    <div class="flowmsg signadd">加签<span>CC<label class="flowstatus">同意</label></span></div>
-                                    <p>签核意见</p>
+                            </li>
+                            <li>
+                                <span class="lefttime"><i></i>05-19 08:06</span>
+                                <div class="righttext">
+                                    <div>
+                                        <div class="flowmsg signadd">加签<span>CC<label class="flowstatus">同意</label></span></div>
+                                        <p>签核意见</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>-->
+                            </li>-->
                         </ul>
                     </div>
 
@@ -279,7 +279,7 @@
                 }
             }
 
-            });
+        });
 
         function getTaskMsg() {
             var url = window.location.href;
@@ -303,7 +303,202 @@
                 }
             }).done(function (data) {
                 console.log(data);
+                var item = data.FormDataSet.BPM_MSCCDSQSPB[0];
+                $("#fname").val(item.fname);
+                $("#fdept").val(item.fdept);
+                $("#fdate").val(FormatterTimeYMS(item.fdate));
+                $("#ftel").val(item.ftel);
+                $("#flx").val(item.flx);
+                $("#fwz").val(item.fwz);
+                $("#fzlf").val(item.fzlf);
+                $("#ffzr").val(item.ffzr);
+                $("#flxr").val(item.flxr);
+                $("#fzlsj_ks").val(item.fzlsj_ks);
+                $("#fzlsj_js").val(item.fzlsj_js);
+                $("#fzlfy").val(item.fzlfy);
+                $("#fyj").val(item.fyj);
+                $("#fnr").val(item.fnr);
+                $("#fsm").val(item.fsm);
 
+                if (item.ffj != null && item.ffj != "") {
+                    var fjtmp = (String)(item.ffj);
+
+                    fjArray = fjtmp.split(";");
+
+
+                    //console.log("fjArray:" + fjArray);
+
+                    //请求附件详细信息
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/bpm/GetAttachmentsInfo',
+                        //dataType:'json',
+                        data: { 'fileIds': fjArray },
+
+                        beforeSend: function (XHR) {
+                            XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+                        },
+                        success: function (data, status) {
+                            if (status == "success") {
+
+                                console.log(data);
+
+                                for (var i = 0; i < data.length; i++) {
+
+                                    var name = data[i].Name;
+                                    var type = (data[i].Ext).replace(".", "");
+                                    var size = String(data[i].Size);
+
+                                    var time = String(data[i].LastUpdate).replace("T", " ");
+                                    var downurl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;
+                                    var attach = attachItem(name, type, size, time, downurl);
+                                    attachArray.push(attach);
+
+
+
+                                    var li = '<div class="pic-preview smallyulan success">';
+                                    li = li + ' <div class="del none" style="opacity:1;z-index:999;"onclick="delPicture(this)">x</div>';
+
+                                    //类型判断
+                                    if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
+
+                                        //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
+                                        li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
+
+                                    } else if ((data[i].Ext).indexOf("xls") != -1) {
+
+                                        li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/xlsx@2x.png"/></div>';
+
+                                    } else if ((data[i].Ext).indexOf("doc") != -1) {
+
+                                        li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/docx@2x.png"/></div>';
+
+                                    } else if ((data[i].Ext).indexOf("ppt") != -1) {
+
+                                        li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/ppt@2x.png"/></div>';
+
+                                    } else if ((data[i].Ext).indexOf("pdf") != -1) {
+
+                                        li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/pdf@2x.png"/></div>';
+
+                                    } else if ((data[i].Ext).indexOf("zip") != -1 || (data[i].Ext).indexOf("rar") != -1 || (data[i].Ext).indexOf("7z") != -1) {
+
+                                        li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../../../Content/images/zip@2x.png"/></div>';
+
+                                    } else if ((data[i].Ext).indexOf("txt") != -1) {
+
+                                        li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
+
+                                    } else {
+                                        li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
+                                    }
+
+                                    li = li + ' </div>';
+                                    li = li + '</div>';
+                                    $(".upload-img-list").append(li);
+
+
+                                    $(".imgdiv").each(function () {
+
+                                        $(this).parent().find(".del.none").hide();
+
+                                    });
+
+
+
+
+                                }
+                                watch();
+                                $(".imgdiv").on('tap', function () {
+                                    console.log($(this)[0].id);
+                                    XuntongJSBridge.call('showFile', {
+                                        'fileName': attachArray[$(this)[0].id].name,
+                                        'fileExt': attachArray[$(this)[0].id].type,
+                                        'fileTime': attachArray[$(this)[0].id].time,
+                                        'fileSize': attachArray[$(this)[0].id].size,
+                                        'fileDownloadUrl': attachArray[$(this)[0].id].downurl
+                                    }, function (result) {
+                                        //alert(JSON.stringify(result));
+                                    });
+                                });
+
+
+                            }
+
+                        }, error: function (e) {
+                            console.log(e);
+
+                        }, complete: function () {
+
+                        }
+
+                    });
+
+                }
+
+
+                for (var i = 0; i < data.Steps.length; i++) {
+
+                    if (data.Steps[i].FinishAt == "0001-01-01T00:00:00") {
+                        data.Steps[i].FinishAt = "";
+                    }
+                    var time = FormatterTime(data.Steps[i].FinishAt);
+
+                    var stepName = data.Steps[i].NodeName;
+                    if (data.Steps[i].NodeName == "sysInform") {
+                        stepName = "知会";
+                    } else if (data.Steps[i].NodeName == "sysTaskOpt") {
+                        stepName = "任务操作";
+                    } else if (data.Steps[i].NodeName == "开始") {
+                        stepName = "开始";
+                    }
+
+                    var stepAction = locationAction(data.Steps[i].SelAction);
+                    if (data.Steps[i].SelAction == "sysInform") {
+                        stepAction = "发起知会";
+                    } else if (data.Steps[i].SelAction == "Submit") {
+                        stepAction = "已阅";
+                    } else if (data.Steps[i].SelAction == "null" || data.Steps[i].SelAction == null) {
+                        stepAction = "待处理";
+                    } else if (data.Steps[i].SelAction == "sysReject") {
+                        stepAction = "拒绝";
+                    } else if (data.Steps[i].SelAction == "sysRecedeRestart") {
+                        stepAction = "退回重填";
+                    }
+
+
+                    var contents = data.Steps[i].Comments;
+                    if (contents == null) {
+                        contents = "无";
+                    }
+                    //判断是否是加签
+                    if (data.Steps[i].IsConsignStep == false) {
+                        var li = ' <li>';
+                        li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                        li = li + '  <div class="righttext">';
+                        li = li + '     <div>';
+                        li = li + '        <div class="flowmsg">' + stepName + '<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                        li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                        li = li + '        <p>签核意见: ' + contents + '</p>';
+                        li = li + '     </div>';
+                        li = li + '   </div>';
+                        li = li + '</li>';
+
+                    } else {
+                        var li = ' <li>';
+                        li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                        li = li + '  <div class="righttext">';
+                        li = li + '     <div>';
+                        li = li + '        <div class="flowmsg signadd">加签<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                        li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                        li = li + '        <p>签核意见: ' + contents + '</p>';
+                        li = li + '     </div>';
+                        li = li + '   </div>';
+                        li = li + '</li>';
+
+                    }
+                    $("#signff").append(li);
+                }
 
             }).fail(function (e) {
 

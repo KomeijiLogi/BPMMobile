@@ -32,7 +32,7 @@
                <label for="fname">申请人</label>
                <input type="text" id="fname" name="fname" readonly="readonly"/>
            </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="display:none;">
                 <label for="fdept">申请部门</label>
                 <input type="text" id="fdept" name="fdept" readonly="readonly"/>
             </div>
@@ -258,10 +258,10 @@
                 return;
             }
 
-            //if (fjArray.length == 0) {
-            //    mui.toast('请上传附件');
-            //    return;
-            //}
+            if (fjArray.length == 0) {
+                mui.toast('请上传附件');
+                return;
+            }
 
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
