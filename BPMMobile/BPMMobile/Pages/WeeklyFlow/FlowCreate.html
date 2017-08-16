@@ -83,13 +83,13 @@
                  <label>周</label>
                  <input type="number" placeholder="请输入周信息" class="" id="fweek" name="fweek" readonly="readonly"/>
              </div>
-             <div class="mui-input-row" style="height:11.25rem;">
+             <div class="mui-input-row" style="height:auto;">
                  <label>工作内容记录</label>
-                 <textarea rows="10" id="fnrjl" name="fnrjl"></textarea>
+                 <textarea rows="8" id="fnrjl" name="fnrjl"></textarea>
              </div>
-             <div class="mui-input-row" style="height:11.25rem;">
+             <div class="mui-input-row" style="height:auto;">
                  <label>存在问题及改进思路</label>
-                 <textarea rows="10" id="fgjsl" name="fgjsl"></textarea>
+                 <textarea rows="8" id="fgjsl" name="fgjsl"></textarea>
              </div>
 
              <div class="mui-input-row">
@@ -203,7 +203,10 @@
                  <textarea rows="5" id="fgjjy_director" name="fgjjy_director" readonly="readonly"></textarea>
              </div>
          </form>
-        <button class="mui-btn mui-btn-primary" type="submit" style="top:1rem;width:100%;height:2.5rem;font-size:0.8rem;margin-bottom:1rem;" onclick="Save()">提交</button>
+        <!--<div class="mui-btn-row" id="SaveD">-->
+            <button class="mui-btn mui-btn-primary" type="submit" id="commitbt" onclick="Save()">提交</button>
+        <!--</div>-->
+      
     </div>
 
 

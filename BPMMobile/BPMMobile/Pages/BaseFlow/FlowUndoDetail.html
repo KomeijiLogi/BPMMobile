@@ -92,11 +92,11 @@
 
                 <div class="mui-input-row" style="height:5.25rem;">
                     <label>事由<i style="color:red;">*</i></label>
-                    <textarea rows="10" id="flowCause" style="overflow:auto;" name="flowCause"></textarea>
+                    <textarea rows="8" id="flowCause" style="overflow:auto;" name="flowCause"></textarea>
                 </div>
                 <div class="mui-input-row" style="display:none;height:5.25rem;" id="thd">
                     <label>退回原因</label>
-                    <textarea rows="10" id="backReason" style="overflow:auto;" name="backReason" readonly="readonly"></textarea>
+                    <textarea rows="8" id="backReason" style="overflow:auto;" name="backReason" readonly="readonly"></textarea>
                 </div>
                 <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                     <div class="border border-t upload-img" style="top:0rem;">
@@ -170,24 +170,24 @@
                
                 <div class="mui-input-row" style="height:5.25rem;font-size:0.8rem;display:none;" id="ssd">
                     <label>签核意见</label>
-                    <textarea rows="10" id="signSuggest" placeholder="请输入签核意见"></textarea>
+                    <textarea rows="8" id="signSuggest" placeholder="请输入签核意见"></textarea>
 
                 </div>
 
 
                
             </form>
-            <div style="display:none;z-index:999;bottom:0rem;width:100%;" id="approvalD" class="mui-btn-row">
+            <div  id="approvalD" class="mui-btn-row">
                 &nbsp;&nbsp;
-                <button class="mui-btn mui-btn-primary" type="button" style="top:1rem;width:40%;height:2.5rem;font-size:0.8rem;" id="agreebt" onclick="showConfirm()">同意</button>&nbsp;&nbsp;&nbsp;
+                <button class="mui-btn mui-btn-primary" type="button" style="width:40%;" id="agreebt" onclick="showConfirm()">同意</button>&nbsp;&nbsp;&nbsp;
                 <!--<button class="mui-btn mui-btn-danger" type="button" style="top:1rem;width:25%;height:2.5rem;font-size:0.8rem;display:none;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;-->
-                <button class="mui-btn mui-btn-warning" type="button" style="top:1rem;width:40%;height:2.5rem;font-size:0.8rem;margin-bottom:1rem;" id="refusebt" onclick="Refilled()">退回重填</button>
+                <button class="mui-btn mui-btn-warning" type="button" style="width:40%;" id="refusebt" onclick="Refilled()">退回重填</button>
             </div>
-            <div style="display:none;z-index:999;bottom:0rem;width:100%;" id="createD" class="mui-btn-row">
-                <button class="mui-btn mui-btn-primary" type="button" style="top:1rem;height:2.5rem;font-size:0.8rem;width:100%;margin-bottom:1rem;" id="commitbt" onclick="Save()">提交</button>
+            <div  id="createD" class="mui-btn-row">
+                <button class="mui-btn mui-btn-primary" type="button"  id="commitbt" onclick="Save()">提交</button>
             </div>
-            <div style="display:none;z-index:999;bottom:0rem;width:100%;" id="readD" class="mui-btn-row">
-                <button class="mui-btn mui-btn-primary" type="button" style="top:1rem;height:2.5rem;font-size:0.8rem;width:100%;margin-bottom:1rem;" id="readbt" onclick="hasRead()">已阅</button>
+            <div  id="readD" class="mui-btn-row">
+                <button class="mui-btn mui-btn-primary" type="button"  id="readbt" onclick="hasRead()">已阅</button>
             </div>
         </div>
         
@@ -209,7 +209,7 @@
     <div id="signd" style="display:none;">
         <div class="mui-input-row" style="height:5.25rem;font-size:0.8rem;border:groove;border-width:0.1rem;" id="ssd">
             <label>签核意见</label>
-            <textarea rows="10" id="signSuggest" placeholder="请输入签核意见"></textarea>
+            <textarea rows="8" id="signSuggest" placeholder="请输入签核意见"></textarea>
 
         </div>
         <div class="mui-btn-row mui-text-center" style="margin-top:1rem;">

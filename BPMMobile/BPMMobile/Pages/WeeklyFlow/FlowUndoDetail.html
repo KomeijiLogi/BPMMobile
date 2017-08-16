@@ -88,13 +88,13 @@
                 <label>周</label>
                 <input type="number" placeholder="请输入周信息" class="" id="fweek" name="fweek" readonly="readonly" />
             </div>
-            <div class="mui-input-row" style="height:11.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label>工作内容记录</label>
-                <textarea rows="10" id="fnrjl" name="fnrjl"></textarea>
+                <textarea rows="8" id="fnrjl" name="fnrjl"></textarea>
             </div>
-            <div class="mui-input-row" style="height:11.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label>存在问题及改进思路</label>
-                <textarea rows="10" id="fgjsl" name="fgjsl"></textarea>
+                <textarea rows="8" id="fgjsl" name="fgjsl"></textarea>
             </div>
             <div class="mui-input-row" style="display:none;height:7.25rem;" id="thd">
                 <label>退回原因</label>
@@ -224,17 +224,17 @@
             </div>
         </form>
 
-        <div style="display:none;z-index:999;bottom:0rem;width:100%;" id="approvalD" class="mui-btn-row">
+        <div  id="approvalD" class="mui-btn-row">
             &nbsp;&nbsp;
-            <button class="mui-btn mui-btn-primary" type="button" style="top:1rem;width:40%;height:2.5rem;font-size:0.8rem;" id="agreebt" onclick="showConfirm()">同意</button>&nbsp;&nbsp;&nbsp;
+            <button class="mui-btn mui-btn-primary" type="button" style="width:40%;" id="agreebt" onclick="showConfirm()">同意</button>&nbsp;&nbsp;&nbsp;
             <!--<button class="mui-btn mui-btn-danger" type="button" style="top:1rem;width:25%;height:2.5rem;font-size:0.8rem;display:none;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;-->
-            <button class="mui-btn mui-btn-warning" type="button" style="top:1rem;width:40%;height:2.5rem;font-size:0.8rem;margin-bottom:1rem;" id="refusebt" onclick="Refilled()">退回重填</button>
+            <button class="mui-btn mui-btn-warning" type="button" style="width:40%;" id="refusebt" onclick="Refilled()">退回重填</button>
         </div>
-        <div style="display:none;z-index:999;bottom:0rem;width:100%;" id="createD" class="mui-btn-row">
-            <button class="mui-btn mui-btn-primary" type="button" style="top:1rem;height:2.5rem;font-size:0.8rem;width:100%;margin-bottom:1rem;" id="commitbt" onclick="Save()">提交</button>
+        <div  id="createD" class="mui-btn-row">
+            <button class="mui-btn mui-btn-primary" type="button"  id="commitbt" onclick="Save()">提交</button>
         </div>
-        <div style="display:none;z-index:999;bottom:0rem;width:100%;" id="readD" class="mui-btn-row">
-            <button class="mui-btn mui-btn-primary" type="button" style="top:1rem;height:2.5rem;font-size:0.8rem;width:100%;margin-bottom:1rem;" id="readbt" onclick="hasRead()">已阅</button>
+        <div  id="readD" class="mui-btn-row">
+            <button class="mui-btn mui-btn-primary" type="button"  id="readbt" onclick="hasRead()">已阅</button>
         </div>
     </div>
 

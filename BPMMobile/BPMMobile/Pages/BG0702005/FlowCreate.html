@@ -56,17 +56,17 @@
                 <label for="fhtlb">合同类别<i style="color:red;">*</i></label>
                 <input type="text" id="fhtlb" name="fhtlb" readonly="readonly" placeholder="请选择合同类别"/>
             </div>
-            <div class="mui-input-row" style="height:11.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fht_mc_nr">合同名称及内容<i style="color:red;">*</i></label>
-                <textarea rows="10" id="fht_mc_nr" name="fht_mc_nr" placeholder="请输入合同名称及内容"></textarea>
+                <textarea rows="8" id="fht_mc_nr" name="fht_mc_nr" placeholder="请输入合同名称及内容"></textarea>
             </div>
-            <div class="mui-input-row" style="height:11.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fht_jk_fkfs">合同价款及付款方式<i style="color:red;">*</i></label>
-                <textarea rows="10" id="fht_jk_fkfs" name="fht_jk_fkfs" placeholder="请输入合同价款及付款方式"></textarea>
+                <textarea rows="8" id="fht_jk_fkfs" name="fht_jk_fkfs" placeholder="请输入合同价款及付款方式"></textarea>
             </div>
-            <div class="mui-input-row" style="height:11.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fydtk">特别约定条款<i style="color:red;">*</i></label>
-                <textarea rows="10" id="fydtk" name="fydtk" placeholder="请输入特别约定条款"></textarea>
+                <textarea rows="8" id="fydtk" name="fydtk" placeholder="请输入特别约定条款"></textarea>
             </div>
             <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                 <div class="border border-t upload-img" style="top:0rem;">
@@ -84,8 +84,8 @@
                 </div>
             </div>
         </form>
-        <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;">
-            <button class="mui-btn mui-btn-primary" type="button" style="width:100%;height:2.5rem;font-size:0.8rem;" id="commitbt" onclick="Save()">提交</button>
+        <div class="mui-btn-row" id="SaveD">
+            <button class="mui-btn mui-btn-primary" type="button"  id="commitbt" onclick="Save()">提交</button>
         </div>
       </div>
      <script>

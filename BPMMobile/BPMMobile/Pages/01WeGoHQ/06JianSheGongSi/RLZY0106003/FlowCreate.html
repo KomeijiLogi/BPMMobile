@@ -119,8 +119,8 @@
 
 
         </form>
-        <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;" id="createD">
-            <button class="mui-btn mui-btn-primary" type="button" style="width:100%;height:2.5rem;font-size:0.8rem;" id="commitbt" onclick="Save()">提交</button>
+        <div class="mui-btn-row"  id="SaveD">
+            <button class="mui-btn mui-btn-primary" type="button"  id="commitbt" onclick="Save()">提交</button>
         </div>
     </div>
     <script type="text/javascript">
@@ -270,7 +270,7 @@
              if (url != null && url != "") {
                  if (String(url).indexOf("reset") != -1) {
 
-                     var msg = JSON.parse(localStorage.getItem('BPM_RLZYMsg'));
+                     var msg = JSON.parse(localStorage.getItem('BPM_RLZY0106003Msg'));
                      $("#fnumber").val(msg.fnumber);
                      $("#fname").val(msg.fname);
                      $("#fdate").val(msg.fdate);
