@@ -462,6 +462,8 @@
                 $("#qt").css("display", "none");
             }
         }
+
+        var action = '同意';
         function getTaskMsg() {
 
             var url = window.location.href;
@@ -618,7 +620,7 @@
 
 
                                         }
-
+                                        watch();
                                         $(".imgdiv").on('tap', function () {
                                             console.log($(this)[0].id);
                                             XuntongJSBridge.call('showFile', {
@@ -683,6 +685,10 @@
                         } else {
                             if (typeof (NodeName) != "undefined") {
                                 $("#approvalD").css("display", "block");
+                                if (String(NodeName).indexOf("确认") != -1) {
+                                    action = '确认';
+                                    $("#agreebt").text(action);
+                                }
                             }
                         }
                     }
@@ -835,7 +841,7 @@
                             xml = xml + '<Header>';
                             xml = xml + '<Method>Process</Method>';
                             xml = xml + '<PID>' + pid + '</PID>';
-                            xml = xml + '<Action>同意</Action>';
+                            xml = xml + '<Action>' + action + '</Action>';
                             xml = xml + '<Comment>' + signSuggest + '</Comment>';
 
                             //加签差异部分
@@ -848,7 +854,7 @@
                             xml = xml + '</Header>';
                             xml = xml + '<FormData>';
                             xml = xml + '<BPM_SGGSBGSBWXGHSQB>';
-                            xml = xml + '<fbillno>自动生成</fbillno>';
+                            xml = xml + '<fbillno>' + fbillno + '</fbillno>';
                             xml = xml + '<fname>' + fname + '</fname>';
                             xml = xml + '<fdept>' + fdept + '</fdept>';
                             xml = xml + '<fdate>' + fdate + '</fdate>';
@@ -882,13 +888,13 @@
                 xml = xml + '<Header>';
                 xml = xml + '<Method>Process</Method>';
                 xml = xml + '<PID>' + pid + '</PID>';
-                xml = xml + '<Action>同意</Action>';
+                xml = xml + '<Action>' + action + '</Action>';
                 xml = xml + '<Comment>' + signSuggest + '</Comment>';
                 xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
                 xml = xml + '</Header>';
                 xml = xml + '<FormData>';
                 xml = xml + '<BPM_SGGSBGSBWXGHSQB>';
-                xml = xml + '<fbillno>自动生成</fbillno>';
+                xml = xml + '<fbillno>' + fbillno + '</fbillno>';
                 xml = xml + '<fname>' + fname + '</fname>';
                 xml = xml + '<fdept>' + fdept + '</fdept>';
                 xml = xml + '<fdate>' + fdate + '</fdate>';

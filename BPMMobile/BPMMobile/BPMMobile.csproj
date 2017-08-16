@@ -449,6 +449,10 @@
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702036\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702036\FlowDoneDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702036\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702002\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702002\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702002\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702002\FlowUndoDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702005\FlowAskDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702005\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702005\FlowDoneDetail.html" />
