@@ -401,6 +401,10 @@
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\ZLGL0703002\FlowCreate.html" />
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\ZLGL0703002\FlowDoneDetail.html" />
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\ZLGL0703002\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701001\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701001\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701001\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701001\FlowUndoDetail.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701003\FlowAskDetail.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701003\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701003\FlowDoneDetail.html" />

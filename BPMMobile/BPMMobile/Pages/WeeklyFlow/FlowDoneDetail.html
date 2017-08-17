@@ -388,22 +388,25 @@
 
                     var item = data.FormDataSet.BPM_ZGZHB[0];
 
-                    $("#fname").val(item.fname);
-                    $("#fno").val(item.fno);
-                    $("#fstartdate").val(FormatterTime(item.fstartdate));
-                    $("#foverdate").val(FormatterTime(item.foverdate));
-                    $("#fyear").val(item.fyear);
-                    $("#fmonth").val(item.fmonth);
-                    $("#fweek").val(item.fweek);
-                    $("#fnrjl").val(item.fnrjl);
-                    $("#fgjsl").val(item.fgjsl);
+                    $("#fname").val(item.姓名);
+                    $("#fno").val(item.工号);
+                    $("#fstartdate").val(FormatterTime(item.开始日期));
+                    $("#foverdate").val(FormatterTime(item.结束日期));
+                    $("#fyear").val(item.年);
+                    $("#fmonth").val(item.月);
+                    $("#fweek").val(item.周);
+                    $("#fnrjl").val(item.工作内容);
+                    $("#fgjsl").val(item.存在问题);
+                    $("#stepId").val(stepId);
+                    $("#taskId").val(item.TaskID);
+                    //$("#fbillno").val(item.fbillno);
+                    $("#zwpjg").val(item.自我评价);
+                    $("#jlpjg").val(item.经理评价);
+                    $("#zjpjg").val(item.总监评价);
 
-                    $("#zwpjg").val(item.fzwpj);
-                    $("#jlpjg").val(item.fjlpj);
-                    $("#zjpjg").val(item.fzjpj);
 
-                    $("#fgjjy_manager").val(item.fgjjy_manager);
-                    $("#fgjjy_director").val(item.fgjjy_director);
+                    $("#fgjjy_manager").val(item.经理意见);
+                    $("#fgjjy_director").val(item.总监意见);
 
 
                     for (var i = 0; i < data.Steps.length;i++){
@@ -494,35 +497,6 @@
             return ymd;
         }
 
-        //判断是否是Safari
-        function isSafari() {
-
-            if ( navigator.userAgent.indexOf("iPad") != -1 || navigator.userAgent.indexOf("iPhone") != -1) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        //ios刷新
-        function iosfresh() {
-
-
-            if ($('body').hasClass("no-cache")) {
-                document.body.style.display = "none";
-                window.location.reload();
-
-            }
-
-
-        }
-
-        function forbiddenCache() {
-            if (isSafari()) {
-                $('body').addClass("no-cache");
-              
-            }
-            
-        }
     </script>
 </body>
 

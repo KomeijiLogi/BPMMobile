@@ -505,6 +505,9 @@
 
                 var item_a = data.FormDataSet.BPM_SGZLPS_B1;
                 for (var i = 0; i < item_a.length; i++) {
+                    if (item_a[i].fbz == null) {
+                        item_a[i].fbz = '';
+                    }
                     itemid_b1.push(item_a[i].itemid);
                     var li = ' <div class="mui-card" id="mx_jbtj">';
                     li = li + '    <div class="mui-input-row itemtitle">';

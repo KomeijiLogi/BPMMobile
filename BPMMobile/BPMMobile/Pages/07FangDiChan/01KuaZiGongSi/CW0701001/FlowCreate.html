@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
+
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
+    <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
+    <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.detail.js"></script>
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div class="mui-content" style="background-color:white;">
+        <form class="mui-input-group" style="left:0rem;right:0rem;margin-bottom:1rem;padding-bottom:4rem;">
+            <div class="mui-input-row">
+                <label for="fcompany">公司名称</label>
+                <input type="text" id="fcompany" name="fcompany" readonly="readonly"/>
+            </div>
+            <div class="mui-input-row">
+                <label for="fdept">部门名称</label>
+                <input type="text" id="fdept" name="fdept" readonly="readonly"/>
+            </div>
+            <div class="mui-input-row">
+                 <label for="fname">申请人</label>
+                <input type="text" id="fname" name="fname" readonly="readonly"/>
+            </div>
+            <div class="mui-input-row">
+                <label for="fdate">申请日期</label>
+                <input type="date" id="fdate" name="fdate"/>
+            </div>
+            <div class="mui-input-row">
+                <label for="fcllb">差旅类别<i style="color:red;">*</i></label>
+                <input type="text" id="fcllb" name="fcllb" readonly="readonly" placeholder="请选择差旅类别"/>
+            </div>
+            <div class="mui-input-row">
+                <label for="fif_jk">是否借款<i style="color:red;">*</i></label>
+                <input type="hidden" id="fif_jk" name="fif_jk" readonly="readonly" value="否"/>
+                <div class="mui-switch mui-switch-mini mui-switch-blue " id="fif_jkd">
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </div>
+            <div class="mui-input-row">
+                <label for="fremark">备注</label>
+            </div>
+        </form>
+   </div>
+</body>
+</html>
