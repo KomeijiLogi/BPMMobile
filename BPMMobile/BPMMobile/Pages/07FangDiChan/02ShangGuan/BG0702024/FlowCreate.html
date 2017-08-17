@@ -435,7 +435,7 @@
                     if (!fnzwyf || fnzwyf == '' || isNaN(fnzwyf)) {
                         fnzwyf = 0;
                     }
-                    total = fnzzj * fnzwyf;
+                    total = fnzzj + fnzwyf;
                     $(this).parent().parent().find("#fhj").val(total);
                 });
 
@@ -619,12 +619,13 @@
 
                 var fnd = $(this).find("#fnd").val();
                 var fjbzj = $(this).find("#fjbzj").val();
-                var fcczj = $(this).find("#fbz").val();
-                if (mxItem_jbtj(fnd, fjbzj, fcczj) == null) {
+                var fcczj = $(this).find("#fcczj").val();
+                var fbz = $(this).find("#fbz").val();
+                if (mxItem_jbtj(fnd, fjbzj, fcczj, fbz) == null) {
                     mxflag = true;
                     return;
                 }
-                var mx_jbtj = mxItem_jbtj(fnd, fjbzj, fcczj);
+                var mx_jbtj = mxItem_jbtj(fnd, fjbzj, fcczj, fbz);
                 mxlistArr_jbtj.push(mx_jbtj);
             });
 
