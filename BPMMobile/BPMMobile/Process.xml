@@ -917,4 +917,20 @@
     <Group></Group>
     <Description>用于兴源文化创意公司场地短期租赁申请</Description>
   </Process>
+
+  <Process>
+    <Name>盛祥商管公司租赁协议评审</Name>
+    <Path>\\07房地产集团\\02商管公司\\BG办公管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/07FangDiChan/02ShangGuan/BG0702024/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/07FangDiChan/02ShangGuan/BG0702024/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/07FangDiChan/02ShangGuan/BG0702024/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/07FangDiChan/02ShangGuan/BG0702024/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/07FangDiChan/02ShangGuan/BG0702024/FlowCreate.html</ViewPage>
+    <DisplayName>盛祥商管公司租赁协议评审</DisplayName>
+    <Css></Css>
+    <Icon>../../../../Content/images/5.png</Icon>
+    <Group></Group>
+    <Description>用于盛祥商管公司租赁协议评审</Description>
+  </Process>
 </ProcessList>
