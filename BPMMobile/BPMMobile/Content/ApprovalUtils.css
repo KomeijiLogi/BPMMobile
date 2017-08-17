@@ -33,20 +33,20 @@
 
 
 label {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
 }
 
 textarea {
     height: auto;
     overflow: auto;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
 }
 
 a {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
 }
 input {
-    font-size:0.75rem;
+    font-size:0.65rem;
 }
 
 .mui-bar {
@@ -59,7 +59,7 @@ input {
 }
 
 li {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
 }
 
 .adl {

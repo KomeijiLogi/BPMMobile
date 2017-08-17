@@ -5,14 +5,14 @@ html,body{
     height: 100%;
 }
 label{
-    font-size: 0.75rem;
+    font-size: 0.65rem;
 }
 textarea{
-    font-size: 0.75rem;
+    font-size: 0.65rem;
 }
 
 input{
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     text-align: center;
 
 }
@@ -27,7 +27,7 @@ input[type=color], input[type=date], input[type=datetime-local], input[type=date
 
 .city_h{
     margin-top: 0.2rem;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
 }
 .city_main{
     margin-top: 0.2rem;
@@ -56,7 +56,7 @@ input[type=color], input[type=date], input[type=datetime-local], input[type=date
     /*overflow: auto;*/
 }
 .city_collection{
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     top: 15rem;
     height: 20rem;
 }

@@ -32,7 +32,7 @@
                 <label for="fname">报审人</label>
                 <input type="text" id="fname" name="fname" readonly="readonly"/>
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="display:none;">
                 <label for="fdept">报审部门</label>
                 <input type="text" id="fdept" name="fdept" readonly="readonly"/>
             </div>
@@ -110,7 +110,7 @@
                  <input type="number" id="fwyf" name="fwyf" placeholder="请填写物业费"/>
             </div>
             <div class="mui-input-row" style="height:3.25rem;">
-                <label for="fzxglf">装修管理费(元/平方米)</label>
+                <label for="fzxglf">装修管理费(元/平方米)<i style="color:red;">*</i></label>
                 <input type="number" id="fzxglf" name="fzxglf" placeholder="请填写装修管理费"/>
             </div>
             <div id="mxlist_jbtj">
@@ -141,7 +141,7 @@
             </div>
             <div class="mui-input-row" style="height:3.25rem;">
                 <label for="fif_syxtd">统一使用威高广场收银系统</label>
-                <input type="hidden" id="fif_syxt" name="fif_syxt" value="否"/>
+                <input type="hidden" id="fif_syxt" name="fif_syxt" value="不使用"/>
                 <div class="mui-switch mui-switch-mini mui-switch-blue " id="fif_syxtd">
                     <div class="mui-switch-handle"></div>
                 </div>
@@ -196,6 +196,19 @@
             watch();
         });
 
+        mui('#fif_syxtd').each(function () {
+
+            this.addEventListener('toggle', function (event) {
+                if (event.detail.isActive == 'true' || event.detail.isActive == true) {
+                    $("#fif_syxt").val("使用");
+
+                } else {
+                    $("#fif_syxt").val("不使用");
+
+                }
+
+            });
+        });
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
         XuntongJSBridge.call('getPersonInfo', {}, function (result) {
             if (typeof (result) == "string") {
@@ -238,6 +251,89 @@
 
         function tapEvent() {
 
+            var fwymcdata = [
+                {
+                    value: '',
+                    text: '威高广场'
+                },
+                {
+                    value: '',
+                    text: '时光城'
+                },
+                {
+                    value: '',
+                    text:'民俗邨'
+                },
+                {
+                    value: '',
+                    text:'好邻居'
+                }
+
+            ];
+            showPicker('fwymc', fwymcdata);
+
+
+            var fhzxsdata = [
+                {
+                    value: '',
+                    text:'基本租金'
+                },
+                {
+                    value: '',
+                    text:'抽成租金'
+                },
+                {
+                    value: '',
+                    text:'两者取其高'
+                }
+            ];
+
+            showPicker('fhzxs', fhzxsdata);
+
+            var fzjwyfzfdata = [
+
+                {
+                    value: '',
+                    text:'年付'
+                },
+                {
+                    value: '',
+                    text:'半年付'
+                },
+                {
+                    value: '',
+                    text:'季付'
+                },
+                {
+                    value: '',
+                    text:'月付'
+                }
+            ];
+
+            showPicker('fzjwyfzf', fzjwyfzfdata);
+
+            var fjsdata = [
+
+                {
+                    value: '',
+                    text:'0.78%'
+                },
+                {
+                    value: '',
+                    text:'2%'
+                },
+                {
+                    value: '',
+                    text:'3%'
+                },
+                {
+                    value: '',
+                    text:'5%'
+                }
+            ];
+
+            showPicker('fjs', fjsdata);
+
             $("#tjmx_jbtj").on('tap', function () {
 
                 var li = ' <div class="mui-card" id="mx_jbtj">';
@@ -251,11 +347,11 @@
                 li = li + '  </div>';
                 li = li + '    <div class="mui-input-row" style="height:3.25rem;">';
                 li = li + '       <label for="fjbzj">基本租金(元/月/m2)<i style="color:red;">*</i></label>';
-                li = li + '        <input type="number" id="fjbzj" name="fjbzj" placeholder="请填写基本租金" />';
+                li = li + '        <input type="number" id="fjbzj" name="fjbzj" placeholder="请填写基本租金" required="required"/>';
                 li = li + '     </div>';
                 li = li + '   <div class="mui-input-row" style="height:3.25rem;">';
                 li = li + '        <label for="fcczj">抽成租金(按营业额*%)<i style="color:red;">*</i></label>';
-                li = li + '       <input type="number" id="fcczj" name="fcczj" placeholder="请填写抽成租金" />';
+                li = li + '       <input type="number" id="fcczj" name="fcczj" placeholder="请填写抽成租金" required="required"/>';
                 li = li + '  </div>';
                 li = li + '   <div class="mui-input-row" style="height:auto;">';
                 li = li + '        <label for="fbz">备注</label>';
@@ -281,11 +377,11 @@
                 li = li + '    </div>';
                 li = li + '    <div class="mui-input-row" style="height:3.25rem;">';
                 li = li + '       <label for="fnzzj">年总租金(元)<i style="color:red;">*</i></label>';
-                li = li + '       <input type="number" id="fnzzj" name="fnzzj" placeholder="请填写年总租金"/>';
+                li = li + '       <input type="number" id="fnzzj" name="fnzzj" placeholder="请填写年总租金" required="required"/>';
                 li = li + '    </div>';
                 li = li + '    <div class="mui-input-row" style="height:3.25rem;">';
-                li = li + '        <label for="fnzwyf">年总物业费(元)<i style="color:red;">*</i></label>'; 
-                li = li + '        <input type="number" id="fnzwyf" name="fnzwyf" placeholder="请填写年总物业费"/>';
+                li = li + '        <label for="fnzwyf">年总物业费(元)<i style="color:red;">*</i></label>';
+                li = li + '        <input type="number" id="fnzwyf" name="fnzwyf" placeholder="请填写年总物业费" required="required"/>';
                 li = li + '    </div>';
                 li = li + '    <div class="mui-input-row">';
                 li = li + '        <label for="fhj">合计<i style="color:red;">*</i></label>';
@@ -295,7 +391,7 @@
                 $("#mxlist_ndsycs").append(li);
                 document.getElementById('tjmx_ndsycs').scrollIntoView();
                 calcMoney();
-               
+
                 calcYear("#mxlist_ndsycs", "#fyear");
             });
         }
@@ -329,22 +425,22 @@
             var total = 0;
             $("#mxlist_ndsycs").find("#fnzzj,#fnzwyf").each(function () {
 
-               
+
                 $(this).on('input', function () {
                     var fnzzj = parseFloat($(this).parent().parent().find("#fnzzj").val());
-                    if (!fnzzj || fnzzj==''){
+                    if (!fnzzj || fnzzj == '' || isNaN(fnzzj)) {
                         fnzzj = 0;
                     }
                     var fnzwyf = parseFloat($(this).parent().parent().find("#fnzwyf").val());
-                    if (!fnzwyf || fnzwyf == '') {
+                    if (!fnzwyf || fnzwyf == '' || isNaN(fnzwyf)) {
                         fnzwyf = 0;
                     }
-                    total = fnzzj * fnzwyf;  
+                    total = fnzzj * fnzwyf;
                     $(this).parent().parent().find("#fhj").val(total);
                 });
-               
+
             });
-           
+
         }
 
         function mxItem_jbtj(fnd, fjbzj, fcczj, fbz) {
@@ -383,7 +479,257 @@
             }
             return mx;
         }
-        
+
+        function Save() {
+
+            var fareaStr = String(BPMOU).split("/");
+            //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
+            $("#fdept").val(fareaStr[fareaStr.length - 2]);
+
+            var fname = $("#fname").val();
+            var fdept = $("#fdept").val();
+            var fdate = $("#fdate").val() + " 00:00:00";
+            var fwymc = $("#fwymc").val();
+            var fqw = $("#fqw").val();
+            var flc = $("#flc").val();
+            var fwzbh = $("#fwzbh").val();
+            var fmj = $("#fmj").val();
+            var fppmc = $("#fppmc").val();
+            var fjyyt = $("#fjyyt").val();
+            var fjyxz = $("#fjyxz").val();
+            var fgsmc = $("#fgsmc").val();
+            var flxrjzw = $("#flxrjzw").val();
+            var flxdh = $("#flxdh").val();
+            var fqx = $("#fqx").val();
+            var fzxmzq = $("#fzxmzq").val();
+            var fhzxs = $("#fhzxs").val();
+            var fwyf = $("#fwyf").val();
+            var fzxglf = $("#fzxglf").val();
+            var flybzj = $("#flybzj").val();
+            var fkysj = $("#fkysj").val() + " 00:00:00";
+            var fkybzj = $("#fkybzj").val();
+            var fzjwyfzf = $("#fzjwyfzf").val();
+            var fif_syxt = $("#fif_syxt").val();
+            var fjs = $("#fjs").val();
+            var ftsxq = $("#ftsxq").val();
+            var fqttk = $("#fqttk").val();
+
+            if (!fwymc || fwymc == '') {
+                mui.toast('请选择租赁物业名称');
+                return;
+            }
+            if (!fqw || fqw == '') {
+                mui.toast('请填写租赁区位');
+                return;
+            }
+            if (!flc || flc == '') {
+                mui.toast('请填写楼层');
+                return;
+            }
+            if (!fwzbh || fwzbh == '') {
+                mui.toast('请填写位置编号');
+                return;
+            }
+            if (!fmj || fmj == '') {
+                mui.toast('请填写面积');
+                return;
+            }
+            if (!fppmc || fppmc == '') {
+                mui.toast('请填写品牌名称');
+                return;
+            }
+            if (!fjyyt || fjyyt == '') {
+                mui.toast('请填写经营业态');
+                return;
+            }
+            if (!fjyxz || fjyxz == '') {
+                mui.toast('请填写经营性质');
+                return;
+            }
+            if (!fgsmc || fgsmc == '') {
+                mui.toast('请填写公司名称');
+                return;
+            }
+            if (!flxrjzw || flxrjzw == '') {
+                mui.toast('请填写联系人及职务');
+                return;
+            }
+            if (!flxdh || flxdh == '') {
+                mui.toast('请填写联系电话');
+                return;
+            }
+            if (!fqx || fqx == '') {
+                mui.toast('请填写租赁期限');
+                return;
+            }
+            if (!fzxmzq || fzxmzq == '') {
+                mui.toast('请填写装修免租期');
+                return;
+            }
+            if (!fhzxs || fhzxs == '') {
+                mui.toast('请选择合作形式');
+                return;
+            }
+            if (!fwyf || fwyf == '') {
+                mui.toast('请填写物业费');
+                return;
+            }
+            if (!fzxglf || fzxglf == '') {
+                mui.toast('请填写装修管理费');
+                return;
+            }
+            if (!flybzj || flybzj == '') {
+                mui.toast('请填写履约保证金');
+                return;
+            }
+            if (!$("#fkysj").val() || $("#fkysj").val() == '') {
+                mui.toast('请填写开业时间');
+                return;
+            }
+            if (!fkybzj || fkybzj == '') {
+                mui.toast('请填写开业保证金');
+                return;
+            }
+            if (!fzjwyfzf || fzjwyfzf == '') {
+                mui.toast('请选择租金物业费支付形式');
+                return;
+            }
+            if (!fjs || fjs == '') {
+                mui.toast('请选择可接受威高储值卡消费及手续费比例');
+                return;
+            }
+            if (!ftsxq || ftsxq == '') {
+                mui.toast('请填写特殊工程条件需求');
+                return;
+            }
+            if (!fqttk || fqttk == '') {
+                mui.toast('请填写其它补充条款');
+                return;
+            }
+
+            //if (fjArray.length == 0) {
+            //    mui.toast('请上传附件');
+            //    return;
+            //}
+
+            var mxflag = false;
+
+            var mxlistArr_jbtj = new Array();
+            $("#mxlist_jbtj").find("#mx_jbtj").each(function () {
+
+                var fnd = $(this).find("#fnd").val();
+                var fjbzj = $(this).find("#fjbzj").val();
+                var fcczj = $(this).find("#fbz").val();
+                if (mxItem_jbtj(fnd, fjbzj, fcczj) == null) {
+                    mxflag = true;
+                    return;
+                }
+                var mx_jbtj = mxItem_jbtj(fnd, fjbzj, fcczj);
+                mxlistArr_jbtj.push(mx_jbtj);
+            });
+
+            var mxlistArr_ndsycs = new Array();
+            $("#mxlist_ndsycs").find("#mx_ndsycs").each(function () {
+
+                var fyear = $(this).find("#fyear").val();
+                var fnzzj = $(this).find("#fnzzj").val();
+                var fnzwyf = $(this).find("#fnzwyf").val();
+                var fhj = $(this).find("#fhj").val();
+                if (mxItem_ndsycs(fyear, fnzzj, fnzwyf, fhj) == null) {
+                    mxflag = true;
+                    return;
+                }
+                var mx_ndsycs = mxItem_ndsycs(fyear, fnzzj, fnzwyf, fhj);
+                mxlistArr_ndsycs.push(mx_ndsycs);
+            });
+
+            if (mxflag) {
+                return;
+            }
+            var btnArry = ["取消", "确定"];
+            mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
+                if (e.index == 1) {
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '<Header>';
+                    xml = xml + '<Method>Post</Method>';
+                    xml = xml + '<ProcessName>盛祥商管公司租赁协议评审</ProcessName>';
+                    xml = xml + '<ProcessVersion>' + version + '</ProcessVersion>';
+                    xml = xml + ' <DraftGuid></DraftGuid>';
+                    xml = xml + '<OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
+                    xml = xml + '<Action>提交</Action>';
+                    xml = xml + '<Comment></Comment>';
+                    xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '</Header>';
+                    xml = xml + '<FormData>';
+
+                    xml = xml + '     <BPM_SGZLPS>';
+                    xml = xml + '        <fbillno>自动生成</fbillno>';
+                    xml = xml + '          <fname>' + fname + '</fname>';
+                    xml = xml + '         <fdept>' + fdept + '</fdept>';
+                    xml = xml + '         <fdate>' + fdate + '</fdate>';
+                    xml = xml + '          <fwymc>' + fwymc + '</fwymc>';
+                    xml = xml + '          <fqw>' + fqw + '</fqw>';
+                    xml = xml + '          <flc>' + flc + '</flc>';
+                    xml = xml + '          <fwzbh>' + fwzbh + '</fwzbh>';
+                    xml = xml + '           <fmj>' + fmj + '</fmj>';
+                    xml = xml + '          <fppmc>' + fppmc + '</fppmc>';
+                    xml = xml + '         <fjyyt>' + fjyyt + '</fjyyt>';
+                    xml = xml + '          <fjyxz>' + fjyxz + '</fjyxz>';
+                    xml = xml + '          <fgsmc>' + fgsmc + '</fgsmc>';
+                    xml = xml + '          <flxrjzw>' + flxrjzw + '</flxrjzw>';
+                    xml = xml + '          <flxdh>' + flxdh + '</flxdh>';
+                    xml = xml + '          <fqx>' + fqx + '</fqx>';
+                    xml = xml + '           <fzxmzq>' + fzxmzq + '</fzxmzq>';
+                    xml = xml + '           <fhzxs>' + fhzxs + '</fhzxs>';
+                    xml = xml + '           <fwyf>' + fwyf + '</fwyf>';
+                    xml = xml + '           <fzxglf>' + fzxglf + '</fzxglf>';
+                    xml = xml + '           <flybzj>' + flybzj + '</flybzj>';
+                    xml = xml + '           <fkysj>' + fkysj + '</fkysj>';
+                    xml = xml + '           <fkybzj>' + fkybzj + '</fkybzj>';
+                    xml = xml + '          <fzjwyfzf>' + fzjwyfzf + '</fzjwyfzf>';
+                    xml = xml + '           <fif_syxt>' + fif_syxt + '</fif_syxt>';
+                    xml = xml + '          <fjs>' + fjs + '</fjs>';
+                    xml = xml + '          <fzjwyfzffs></fzjwyfzffs>';
+                    xml = xml + '          <fqt></fqt>';
+                    xml = xml + '          <ftsxq>' + ftsxq + '</ftsxq>';
+                    xml = xml + '          <fqttk>' + fqttk + '</fqttk>';
+                    if (fjArray.length != 0) {
+                        xml = xml + '          <ffj>' + fjArray.toString().replace(",",";") + '</ffj>';
+                    } else {
+                        xml = xml + '          <ffj></ffj>';
+                    }
+                    
+                    xml = xml + '      </BPM_SGZLPS>';
+
+                    for (var i = 0; i < mxlistArr_jbtj.length;i++){
+                        xml = xml + '            <BPM_SGZLPS_B1>';
+                        xml = xml + '            <RelationRowGuid>'+(i+1)+'</RelationRowGuid>';
+                        xml = xml + '              <RowPrimaryKeys></RowPrimaryKeys>';
+                        xml = xml + '               <fnd>' + mxlistArr_jbtj[i].fnd + '</fnd>';
+                        xml = xml + '               <fjbzj>' + mxlistArr_jbtj[i].fjbzj + '</fjbzj>';
+                        xml = xml + '              <fcczj>' + mxlistArr_jbtj[i].fcczj + '</fcczj>';
+                        xml = xml + '              <fbz>' + mxlistArr_jbtj[i].fbz + '</fbz>';
+                        xml = xml + '          </BPM_SGZLPS_B1>';
+                    }
+                    for (var j = 0; j < mxlistArr_ndsycs.length;j++){
+                        xml = xml + '          <BPM_SGZLPS_B2>';
+                        xml = xml + '              <RelationRowGuid>'+(i+1)+j+'</RelationRowGuid>';
+                        xml = xml + '             <RowPrimaryKeys></RowPrimaryKeys>';
+                        xml = xml + '              <fyear>' + mxlistArr_ndsycs[j].fyear + '</fyear>';
+                        xml = xml + '             <fnzzj>' + mxlistArr_ndsycs[j].fnzzj + '</fnzzj>';
+                        xml = xml + '           <fnzwyf>' + mxlistArr_ndsycs[j].fnzwyf + '</fnzwyf>';
+                        xml = xml + '              <fhj>' + mxlistArr_ndsycs[j].fhj + '</fhj>';
+                        xml = xml + '           </BPM_SGZLPS_B2>';
+
+                    }
+                    
+                    xml = xml + ' </FormData>';
+                    xml = xml + ' </XForm> ';
+                    PostXml(xml);
+                }
+            });
+        }
     </script>
 </body>
 </html>
