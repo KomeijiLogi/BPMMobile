@@ -27,10 +27,10 @@
     <style>
        
        
-        input[type="date"]:before {
+        /*input[type="date"]:before {
             content: attr(placeholder);
             
-        }
+        }*/
       
     </style>
 </head>
@@ -39,11 +39,11 @@
          <form class="mui-input-group" style="left:0rem;right:0rem;">
              <div class="mui-input-row">
                  <label>员工姓名</label>
-                 <input type="text" placeholder="请输入员工姓名信息" class="mui-input-clear" id="fname" name="fname" />
+                 <input type="text" placeholder="请输入员工姓名信息" readonly="readonly" id="fname" name="fname" />
              </div>
              <div class="mui-input-row" style="display:none;">
                  <label>员工工号</label>
-                 <input type="text" placeholder="请输入员工工号信息" class="mui-input-clear" id="fno" name="fno" />
+                 <input type="text" placeholder="请输入员工工号信息" readonly="readonly" id="fno" name="fno" />
              </div>
              <div class="mui-input-row">
                  <label>起始时间</label>
@@ -53,17 +53,17 @@
                  <label>终止时间</label>
                  <input type="date" placeholder="请选择终止时间" class="mui-input-clear" id="foverdate" name="foverdate"/>
              </div>
-             <div class="mui-input-row" style="display:none;">
+             <div class="mui-input-row">
                  <label>年度</label>
-                 <input type="text" placeholder="请输入年度信息" class="" id="fyear" name="fyear" readonly="readonly"/>
+                 <input type="text"  class="" id="fyear" name="fyear" readonly="readonly"/>
              </div>
-             <div class="mui-input-row" style="display:none;">
+             <div class="mui-input-row">
                  <label>月度</label>
-                 <input type="text" placeholder="请输入月度信息" class="" id="fmonth" name="fmonth" readonly="readonly"/>
+                 <input type="text"  class="" id="fmonth" name="fmonth" readonly="readonly"/>
              </div>
-             <div class="mui-input-row" style="display:none;">
+             <div class="mui-input-row">
                  <label>周</label>
-                 <input type="number" placeholder="请输入周信息" class="" id="fweek" name="fweek" readonly="readonly"/>
+                 <input type="number" placeholder="请选择起止日期" class="" id="fweek" name="fweek" readonly="readonly"/>
              </div>
              <div class="mui-input-row" style="height:auto;">
                  <label>工作内容记录</label>
@@ -79,12 +79,12 @@
                  <input value="" id="zwpjg" name="zwpjg" type="text" readonly="readonly" class="adi"/>
              </div>
 
-             <div class="mui-input-row" style="display:none;">
+             <div class="mui-input-row">
                  <label>经理评价<i style="color:red;">*</i></label>
                  <input value="" id="jlpjg" name="jlpjg" type="text" readonly="readonly" class="adi" />
              </div>
 
-             <div class="mui-input-row" style="display:none;">
+             <div class="mui-input-row">
                  <label>总监评价<i style="color:red;">*</i></label>
                  <input value="" id="zjpjg" name="zjpjg" type="text" readonly="readonly" class="adi" />
              </div>
@@ -176,11 +176,11 @@
              </div>-->
              
 
-             <div class="mui-input-row" style="height:5.25rem;display:none;" >
+             <div class="mui-input-row" style="height:auto;" >
                  <label>改进意见(部门经理)</label>
                  <textarea rows="5" id="fgjjy_manager" name="fgjjy_manager" readonly="readonly"></textarea>
              </div>
-             <div class="mui-input-row" style="height:5.25rem;display:none;">
+             <div class="mui-input-row" style="height:auto;">
                  <label>改进意见(总监)</label>
                  <textarea rows="5" id="fgjjy_director" name="fgjjy_director" readonly="readonly"></textarea>
              </div>
@@ -200,21 +200,21 @@
             getBPMParam();
             getTimeMsg();
            
-            var fs= document.getElementById('fstartdate');
-            fs.onfocus = function () {
-                this.removeAttribute('placeholder');
-            };
-            fs.onblur = function () {
-                if (this.value == '') this.setAttribute('placeholder', '请输入起始时间');
-            };
+            //var fs= document.getElementById('fstartdate');
+            //fs.onfocus = function () {
+            //    this.removeAttribute('placeholder');
+            //};
+            //fs.onblur = function () {
+            //    if (this.value == '') this.setAttribute('placeholder', '请输入起始时间');
+            //};
 
-            var fo = document.getElementById('foverdate');
-            fo.onfocus = function () {
-                this.removeAttribute('placeholder');
-            };
-            fo.onblur = function () {
-                if (this.value == '') this.setAttribute('placeholder', '请输入终止时间');
-            };
+            //var fo = document.getElementById('foverdate');
+            //fo.onfocus = function () {
+            //    this.removeAttribute('placeholder');
+            //};
+            //fo.onblur = function () {
+            //    if (this.value == '') this.setAttribute('placeholder', '请输入终止时间');
+            //};
 
 
             $("#zwpjg").attr("placeholder", "请选择自我评价");
@@ -222,7 +222,7 @@
 
             prepMsg();
 
-            forbiddenCache();
+           
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
@@ -309,36 +309,16 @@
             });
         }
 
-        var BPMOU;
-        function getBPMParam() {
-            $.ajax({
-
-                type: 'get',
-                url: "/api/bpm/GetBPMParam",
-                data: {},
-                beforeSend: function (XHR) {
-                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
-                },
-                success: function (data, status) {
-                    if (status == "success") {
-                        
-                        BPMOU = data.Position[0].FullName;
-                    }
-                },
-                error: function (e) {
-                },
-
-                complete: function () { }
-
-            });
-
-        }
+       
         function Save() {
+           
+          
+            var BPMOUStr = String(BPMOU).split("/");
+            var fdept = String(BPMOUStr[BPMOUStr.length - 2]);
             if ($("#fno").val() == "") {
-                var myPhone = String(BPMOU).split("/");
-                $('#fno').val(String(myPhone[myPhone.length - 1]));
+                
+                $('#fno').val(String(BPMOUStr[BPMOUStr.length - 1]));
             }
-
             var fname = $("#fname").val();
             var fno = $("#fno").val();
             var fstartdate = $("#fstartdate").val() + " 00:00:00";

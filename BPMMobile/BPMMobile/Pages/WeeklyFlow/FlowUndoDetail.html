@@ -32,39 +32,39 @@
            
             <div class="mui-input-row">
                 <label>员工姓名</label>
-                <input type="text" placeholder="请输入员工姓名信息" class="" id="fname" name="fname" />
+                <input type="text" placeholder="请输入员工姓名信息"  id="fname" name="fname" readonly="readonly"/>
             </div>
-            <div class="mui-input-row" style="display:none;">
+            <div class="mui-input-row">
                 <label>员工工号</label>
-                <input type="text" placeholder="请输入员工姓名信息" class="" id="fno" name="fno" />
+                <input type="text" placeholder="请输入员工姓名信息"  id="fno" name="fno" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>起始时间</label>
-                <input type="date" placeholder="请选择起始时间信息" class="" id="fstartdate" name="fstartdate" />
+                <input type="date" placeholder="请选择起始时间信息"  id="fstartdate" name="fstartdate" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>终止时间</label>
-                <input type="date" placeholder="请选择终止时间信息" class="" id="foverdate" name="foverdate" />
+                <input type="date" placeholder="请选择终止时间信息"  id="foverdate" name="foverdate" readonly="readonly"/>
             </div>
-            <div class="mui-input-row" style="display:none;">
+            <div class="mui-input-row">
                 <label>年度</label>
-                <input type="text" placeholder="请输入年度信息" class="" id="fyear" name="fyear" readonly="readonly" />
+                <input type="text" placeholder="请输入年度信息" readonly="readonly" id="fyear" name="fyear" readonly="readonly" />
             </div>
-            <div class="mui-input-row" style="display:none;">
+            <div class="mui-input-row">
                 <label>月度</label>
-                <input type="text" placeholder="请输入月度信息" class="" id="fmonth" name="fmonth" readonly="readonly" />
+                <input type="text" placeholder="请输入月度信息" readonly="readonly" id="fmonth" name="fmonth" readonly="readonly" />
             </div>
-            <div class="mui-input-row" style="display:none;">
+            <div class="mui-input-row">
                 <label>周</label>
-                <input type="number" placeholder="请输入周信息" class="" id="fweek" name="fweek" readonly="readonly" />
+                <input type="number" placeholder="请输入周信息" readonly="readonly" id="fweek" name="fweek" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="height:auto;">
                 <label>工作内容记录</label>
-                <textarea rows="8" id="fnrjl" name="fnrjl"></textarea>
+                <textarea rows="8" id="fnrjl" name="fnrjl" readonly="readonly"></textarea>
             </div>
             <div class="mui-input-row" style="height:auto;">
                 <label>存在问题及改进思路</label>
-                <textarea rows="8" id="fgjsl" name="fgjsl"></textarea>
+                <textarea rows="8" id="fgjsl" name="fgjsl" readonly="readonly"></textarea>
             </div>
             <div class="mui-input-row" style="display:none;height:7.25rem;" id="thd">
                 <label>退回原因</label>
@@ -86,109 +86,14 @@
                 <input value="" id="zjpjg" name="zjpjg" type="text" readonly="readonly" class="adi"/>
             </div>
 
-            <!--<div class="mui-input-group">
-                <ul class="mui-table-view">
-                    <li class="mui-table-view-cell mui-collapse" id="zwpjl" >
-                        <a class="mui-navigate-right" href="#">自我评价
-                           <input id="zwpji" name="zwpji" class="mui-pull-right adi" readonly="readonly" value=""/>
-                        </a>
-                        <div class="mui-collapse-content">
-
-                     
-
-                            <div class="mui-input-row mui-radio mui-left">
-                                <label>优秀</label>
-                                <input type="radio" name="zwpj" value="优秀"  class="zwpj" />
-                            </div>
-                            <div class="mui-input-row mui-radio mui-left">
-                                <label>良好</label>
-                                <input type="radio" name="zwpj" value="良好" class="zwpj" />
-                            </div>
-                            <div class="mui-input-row mui-radio mui-left">
-                                <label>中等</label>
-                                <input type="radio" name="zwpj" value="中等" class="zwpj" />
-                            </div>
-                            <div class="mui-input-row mui-radio mui-left">
-                                <label>一般</label>
-                                <input type="radio" name="zwpj" value="一般" class="zwpj" />
-                            </div>
-
-                        </div>
-                    </li>
-                </ul>
-
-            </div>
-
-            <div class="mui-input-group">
-
-                <ul class="mui-table-view">
-                    <li class="mui-table-view-cell mui-collapse" id="jlpjl">
-                        <a class="mui-navigate-right" href="#">经理评价
-                           <input id="jlpji" name="jlpji" class="mui-pull-right adi" readonly="readonly" value=""/>
-                        </a>
-                        <div class="mui-collapse-content">
-                            <div class="mui-input-row mui-radio mui-left">
-                                <label>优秀</label>
-                                <input type="radio" name="jlpj" value="优秀" class="jlpj" />
-                            </div>
-                            <div class="mui-input-row mui-radio mui-left">
-                                <label>良好</label>
-                                <input type="radio" name="jlpj" value="良好" class="jlpj" checked/>
-                            </div>
-                            <div class="mui-input-row mui-radio mui-left">
-                                <label>中等</label>
-                                <input type="radio" name="jlpj" value="中等" class="jlpj" />
-                            </div>
-                            <div class="mui-input-row mui-radio mui-left">
-                                <label>一般</label>
-                                <input type="radio" name="jlpj" value="一般" class="jlpj" />
-                            </div>
-
-                        </div>
-                    </li>
-                </ul>
-
-            </div>
-
-            <div class="mui-input-group">
-
-                <ul class="mui-table-view">
-                    <li class="mui-table-view-cell mui-collapse" id="zipjl">
-                        <a class="mui-navigate-right" href="#">总监评价
-                            <input id="zjpji" name="zjpji" class="mui-pull-right adi" readonly="readonly" value="" />
-                        </a>
-                        <div class="mui-collapse-content">
-                            <div class="mui-input-row mui-radio mui-left">
-                                <label>优秀</label>
-                                <input type="radio" name="zjpj" value="优秀" class="zjpj" />
-                            </div>
-                            <div class="mui-input-row mui-radio mui-left">
-                                <label>良好</label>
-                                <input type="radio" name="zjpj" value="良好" class="zjpj" checked/>
-                            </div>
-                            <div class="mui-input-row mui-radio mui-left">
-                                <label>中等</label>
-                                <input type="radio" name="zjpj" value="中等" class="zjpj" />
-                            </div>
-                            <div class="mui-input-row mui-radio mui-left">
-                                <label>一般</label>
-                                <input type="radio" name="zjpj" value="一般" class="zjpj" />
-                            </div>
-
-                        </div>
-                    </li>
-                </ul>
-            </div>-->
 
 
 
-
-
-            <div class="mui-input-row" style="height:8.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label>改进意见(部门经理)</label>
                 <textarea rows="5" id="fgjjy_manager" name="fgjjy_manager" ></textarea>
             </div>
-            <div class="mui-input-row" style="height:8.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label>改进意见(总监)</label>
                 <textarea rows="5" id="fgjjy_director" name="fgjjy_director"></textarea>
             </div>
@@ -235,23 +140,23 @@
             getTaskMsg();
             getBPMParam();
 
-            var fs = document.getElementById('fstartdate');
-            fs.onfocus = function () {
-                this.removeAttribute('placeholder');
-            };
-            fs.onblur = function () {
-                if (this.value == '') this.setAttribute('placeholder', '请输入起始时间');
-            };
+            //var fs = document.getElementById('fstartdate');
+            //fs.onfocus = function () {
+            //    this.removeAttribute('placeholder');
+            //};
+            //fs.onblur = function () {
+            //    if (this.value == '') this.setAttribute('placeholder', '请输入起始时间');
+            //};
 
-            var fo = document.getElementById('foverdate');
-            fo.onfocus = function () {
-                this.removeAttribute('placeholder');
-            };
-            fo.onblur = function () {
-                if (this.value == '') this.setAttribute('placeholder', '请输入终止时间');
-            };
+            //var fo = document.getElementById('foverdate');
+            //fo.onfocus = function () {
+            //    this.removeAttribute('placeholder');
+            //};
+            //fo.onblur = function () {
+            //    if (this.value == '') this.setAttribute('placeholder', '请输入终止时间');
+            //};
 
-            forbiddenCache();
+           
         });
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
 
@@ -485,38 +390,26 @@
                         $("#backReason").val(data.Steps[data.Steps.length - 2].Comments);
                         $("#flowPerId").val(data.Steps[data.Steps.length - 1].RecipientAccount);
                         $("#processName").val(data.Steps[data.Steps.length - 1].ProcessName);
-                        $("#fgjjy_manager").attr("readonly", "readonly");
-                        $("#fgjjy_director").attr("readonly", "readonly");
+                        $("#fstartdate").removeAttr("readonly");
+                        $("#foverdate").removeAttr("readonly");
+                        $("#fnrjl").removeAttr("readonly");
+                        $("#fgjsl").removeAttr("readonly");
                         showPicker('zwpjg');
                        
                     } else if (NodeName == "sysInform") {
                         //知会的处理
-                        $("#fnrjl").attr("readonly", "readonly");
-                        $("#fgjsl").attr("readonly", "readonly");
-                        $("#fgjjy_manager").attr("readonly", "readonly");
-                        $("#fgjjy_director").attr("readonly", "readonly");
+                      
                         $("#readD").css("display", "block");
                        
-                        $("#fstartdate").attr("readonly", "readonly");
-                        $("#foverdate").attr("readonly", "readonly");
-
-                        $("#fname").attr("readonly", "readonly");
-                        $("#fno").attr("readonly", "readonly");
+                       
 
                     } else {
                         if (typeof (NodeName) != "undefined") {
                             //审批的处理
-                            $("#fnrjl").attr("readonly", "readonly");
-                            $("#fgjsl").attr("readonly", "readonly");
-                            $("#fgjjy_manager").attr("readonly", "readonly");
-                            $("#fgjjy_director").attr("readonly", "readonly");
-                            $("#fstartdate").attr("readonly", "readonly");
-                            $("#foverdate").attr("readonly", "readonly");
+                           
                             $("#approvalD").css("display", "block");
 
-                            $("#fname").attr("readonly", "readonly");
-                            $("#fno").attr("readonly", "readonly");
-
+                           
                             if (NodeName == "部门经理") {
 
                                 $("#fgjjy_manager").removeAttr("readonly");
@@ -525,8 +418,7 @@
                             } else if (NodeName == "分管领导") {
                                 $("#zjpjg").attr("placeholder", "请选择总监评价");
                                 $("#fgjjy_director").removeAttr("readonly");
-                                //$("#agreebt").css("width", "100%");
-                                //$("#refusebt").css("display", "none");
+                               
                                 showPicker('zjpjg');
                             }
                         }

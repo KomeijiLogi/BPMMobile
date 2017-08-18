@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../../Content/mui.min.css" />
     <link rel="stylesheet" href="../../Content/upload.css" />
     <link rel="stylesheet" href="../../Content/ApprovalUtils.css"/>
+    <link rel="stylesheet" href="../../Content/DoneOrMyApproval.css"/>
     <title></title>
     <meta charset="utf-8" />
    
@@ -27,31 +28,31 @@
         <form class="mui-input-group" style="left:0rem;right:0rem;">
             <div class="mui-input-row">
                 <label>员工姓名</label>
-                <input type="text" placeholder="员工姓名信息" class="mui-input-clear" id="fname" name="fname" readonly="readonly"/>
+                <input type="text"  id="fname" name="fname" readonly="readonly"/>
             </div>
-            <div class="mui-input-row" style="display:none;">
+            <div class="mui-input-row" >
                 <label>员工工号</label>
-                <input type="text" placeholder="员工姓名信息" class="mui-input-clear" id="fno" name="fno" readonly="readonly"/>
+                <input type="text"  id="fno" name="fno" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>起始时间</label>
-                <input type="date" placeholder="起始时间信息" class="mui-input-clear" id="fstartdate" name="fstartdate" readonly="readonly"/>
+                <input type="date" placeholder="起始时间信息"  id="fstartdate" name="fstartdate" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>终止时间</label>
-                <input type="date" placeholder="终止时间信息" class="mui-input-clear" id="foverdate" name="foverdate" readonly="readonly" />
+                <input type="date" placeholder="终止时间信息"  id="foverdate" name="foverdate" readonly="readonly" />
             </div>
-            <div class="mui-input-row" style="display:none;">
+            <div class="mui-input-row" >
                 <label>年度</label>
-                <input type="text" placeholder="年度信息" class="" id="fyear" name="fyear" readonly="readonly" />
+                <input type="text"  id="fyear" name="fyear" readonly="readonly" />
             </div>
-            <div class="mui-input-row" style="display:none;">
+            <div class="mui-input-row" >
                 <label>月度</label>
-                <input type="text" placeholder="月度信息" class="" id="fmonth" name="fmonth" readonly="readonly" />
+                <input type="text"  id="fmonth" name="fmonth" readonly="readonly" />
             </div>
-            <div class="mui-input-row" style="display:none;">
+            <div class="mui-input-row" >
                 <label>周</label>
-                <input type="number" placeholder="周信息" class="" id="fweek" name="fweek" readonly="readonly" />
+                <input type="number"  id="fweek" name="fweek" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="height:auto;">
                 <label>工作内容记录</label>
@@ -170,11 +171,11 @@
             </div>-->
 
 
-            <div class="mui-input-row" style="height:8.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label>改进意见(部门经理)</label>
                 <textarea rows="5" id="fgjjy_manager" name="fgjjy_manager" readonly="readonly"></textarea>
             </div>
-            <div class="mui-input-row" style="height:8.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label>改进意见(总监)</label>
                 <textarea rows="5" id="fgjjy_director" name="fgjjy_director" readonly="readonly"></textarea>
             </div>
@@ -247,7 +248,7 @@
 
            
             getTaskMsg();
-            forbiddenCache();
+         
             
         });
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
@@ -401,7 +402,7 @@
                 success: function (data, status) {
                     console.log(data);
 
-                    var item = data.FormDataSet.BPM_ZGZHB[0];
+                    var item = data.FormDataSet.BPM_周工作汇报[0];
 
                     $("#fname").val(item.姓名);
                     $("#fno").val(item.工号);
