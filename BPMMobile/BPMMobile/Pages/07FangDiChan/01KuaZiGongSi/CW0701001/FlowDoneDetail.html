@@ -1,10 +1,209 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
+
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
+    <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
+    <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../Scripts/vue.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.detail.js"></script>
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
+    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css" />
     <title></title>
+    <meta charset="utf-8" />
 </head>
 <body>
+    <div class="mui-content" style="background-color:white;" id="wrapper">
+        <form class="mui-input-group" style="left:0rem;right:0rem;margin-bottom:1rem;padding-bottom:4rem;">
+            <div class="mui-input-row">
+                <label for="fcompany">公司名称</label>
+                <input type="text" id="fcompany" name="fcompany" readonly="readonly" />
+            </div>
+            <div class="mui-input-row">
+                <label for="fdept">部门名称</label>
+                <input type="text" id="fdept" name="fdept" readonly="readonly" />
+            </div>
+            <div class="mui-input-row">
+                <label for="fname">申请人</label>
+                <input type="text" id="fname" name="fname" readonly="readonly" />
+            </div>
+            <div class="mui-input-row">
+                <label for="fdate">申请日期</label>
+                <input type="date" id="fdate" name="fdate" readonly="readonly"/>
+            </div>
+            <div class="mui-input-row">
+                <label for="fcllb">差旅类别<i style="color:red;">*</i></label>
+                <input type="text" id="fcllb" name="fcllb" readonly="readonly"  />
+            </div>
+            <div class="mui-input-row">
+                <label for="fif_jk">是否借款<i style="color:red;">*</i></label>
+                <input type="hidden" id="fif_jk" name="fif_jk" readonly="readonly" value="否" />
+                <div class="mui-switch mui-switch-mini mui-switch-blue mui-disabled" id="fif_jkd">
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </div>
+            <div class="mui-input-row" style="height:auto;">
+                <label for="fremark">备注</label>
+                <textarea rows="3" id="fremark" name="fremark" readonly="readonly"></textarea>
+            </div>
+            <div class="mui-card mui-input-group" id="fjkcard" style="display:none;">
+                <div class="mui-input-row itemtitle">
+                    <label>借款申请单</label>
+                </div>
+                <div class="mui-input-row">
+                    <label for="fjktotal">借款金额<i style="color:red;">*</i></label>
+                    <input type="number" id="fjktotal" name="fjktotal" placeholder="请填写借款金额" />
+                </div>
 
+                <div class="mui-input-row">
+                    <label for="fjkbillno">借款单号</label>
+                    <input type="text" id="fjkbillno" name="fjkbillno" readonly="readonly" />
+                </div>
+                <div class="mui-input-row" style="height:auto;">
+                    <label for="fjkremark">借款事由</label>
+                    <textarea rows="7" id="fjkremark" name="fjkremark"></textarea>
+                </div>
+            </div>
+            <div id="mxlist">
+
+            </div>
+            <a class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" id="tjmx" style="margin-top:0.5rem;display:none;">
+                添加出差明细
+                <span class="mui-icon mui-icon-plusempty"></span>
+            </a>
+            <div class="mui-card">
+                <div class="mui-input-row itemtitle">
+                    <label>差旅费明细</label>
+                </div>
+                <div class="mui-row mui-text-center">
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <h5>费用项目</h5>
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <h5>有效天数<i style="color:red;">*</i></h5>
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <h5>分项标准<i style="color:red;">*</i></h5>
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <h5>申请金额<i style="color:red;">*</i></h5>
+                    </div>
+                </div>
+                <div class="mui-row mui-text-center">
+                    <div class="mui-col-xs-3 col-div-adjust-forInput cutOffLine">
+                        <h5 class="h5-adjust-forInput">长途交通费</h5>
+                    </div>
+                    <div class="mui-col-xs-3">
+
+                    </div>
+                    <div class="mui-col-xs-3">
+
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fje_ctjtf" name="fje_ctjtf" readonly="readonly" class="mui-text-center" />
+                    </div>
+                </div>
+                <div class="mui-row mui-text-center">
+                    <div class="mui-col-xs-3 col-div-adjust-forInput cutOffLine">
+                        <h5 class="h5-adjust-forInput">住宿费</h5>
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fd_zsf" name="fd_zsf" readonly="readonly" class="mui-text-center" />
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fbz_zsf" name="fbz_zsf" readonly="readonly" class="mui-text-center" />
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fje_zsf" name="fje_zsf" readonly="readonly" class="mui-text-center" />
+                    </div>
+                </div>
+                <div class="mui-row mui-text-center">
+                    <div class="mui-col-xs-3 col-div-adjust-forInput cutOffLine">
+                        <h5 class="h5-adjust-forInput">餐费</h5>
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fd_cf" name="fd_cf" readonly="readonly" class="mui-text-center" />
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fbz_cf" name="fbz_cf" readonly="readonly" class="mui-text-center" />
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fje_cf" name="fje_cf" readonly="readonly" class="mui-text-center" />
+                    </div>
+                </div>
+                <div class="mui-row mui-text-center">
+                    <div class="mui-col-xs-3 col-div-adjust-forInput cutOffLine">
+                        <h5 class="h5-adjust-forInput">市内交通费</h5>
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fd_snjtf" name="fd_snjtf" readonly="readonly" class="mui-text-center" />
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fbz_snjtf" name="fbz_snjtf" readonly="readonly" class="mui-text-center" />
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fje_snjtf" name="fje_snjtf" placeholder="待填" class="mui-text-center" />
+                    </div>
+                </div>
+                <div class="mui-row mui-text-center">
+                    <div class="mui-col-xs-3 col-div-adjust-forInput cutOffLine">
+                        <h5 class="h5-adjust-forInput">其他差旅费</h5>
+                    </div>
+                    <div class="mui-col-xs-3 ">
+
+                    </div>
+                    <div class="mui-col-xs-3">
+
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fje_qtclf" name="fje_qtclf" placeholder="待填" class="mui-text-center" />
+                    </div>
+                </div>
+                <div class="mui-row mui-text-center">
+                    <div class="mui-col-xs-3">
+
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine col-div-adjust-forInput">
+                        <h5 class="h5-adjust-forInput">合计</h5>
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fbz_total" name="fbz_total" readonly="readonly" class="mui-text-center" value="0" />
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="ftotal" name="ftotal" readonly="readonly" class="mui-text-center" value="0" />
+                    </div>
+                </div>
+                <div class="mui-input-row">
+                    <label for="fcbz">超标准情况%</label>
+                    <input type="number" id="fcbz" name="fcbz" readonly="readonly" value="0.00" />
+                </div>
+                <div class="mui-input-row" style="height:auto;">
+                    <label for="fccrw">出差任务内容<i style="color:red;">*</i></label>
+                    <textarea rows="8" id="fccrw" name="fccrw" placeholder="请填写出差任务内容"></textarea>
+                </div>
+            </div>
+
+
+        </form>
+    </div>   
+    
+   
 </body>
 </html>

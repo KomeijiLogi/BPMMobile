@@ -420,6 +420,11 @@
                         if (NodeName == "开始") {
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
+                            $("#mxlist").find("#fzjmc,#fnum,#fytms,#fjyrq").each(function () {
+                                $(this).removeAttr("readonly");
+                            });
+                            tapEvent();
+                            $("#addItem").css("display", "block");
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -427,7 +432,7 @@
                             $("#agreebt").text("确认");
                             action = "确认";
                             $("#approvalD").css("display", "block");
-                            $("#fsjghrq").removeAttr("readonly");
+                            $("#mxlist").find("#fsjghrq").removeAttr("readonly");
                         }
                         else {
                             if (typeof (NodeName) != "undefined") {
@@ -813,6 +818,283 @@
             }
             return bl;
         }
+
+
+        function tapEvent() {
+            var fzjlbdata = [
+                {
+                    value: "yj",
+                    text: "原件"
+                },
+                {
+                    value: "fyj",
+                    text: "复印件"
+                }
+            ];
+
+            var fzjmcdata = [
+                {
+                    value: "yyzzzb",
+                    text: "营业执照正本"
+                },
+                {
+                    value: "yyzzfb",
+                    text: "营业执照副本"
+                },
+                {
+                    value: "zxbzqr",
+                    text: "威海市企业执行标准确认证书"
+                },
+                {
+                    value: "fwfcfh",
+                    text: "房屋分层分户平面图"
+                },
+                {
+                    value: "jgxydm",
+                    text: "机构信用代码证"
+                },
+                {
+                    value: "shfrxy",
+                    text: "荣成市社会法人信用报告（复印件）"
+                },
+                {
+                    value: "qyxybg",
+                    text: "企业信用报告"
+                },
+                {
+                    value: "wgjsgs",
+                    text: "威高建设公司章程复印件"
+                },
+                {
+                    value: "cspsxk",
+                    text: "城市排水许可证"
+                },
+                {
+                    value: "xxjnhbbg",
+                    text: "新型节能环保门窗生产项目变更报告"
+                },
+                {
+                    value: "xxjnhbxm",
+                    text: "新型节能环保门窗生产项目"
+                },
+                {
+                    value: "yyzzfb",
+                    text: "建设项目竣工环境保护验收监测报告表"
+                },
+                {
+                    value: "hpysbg",
+                    text: "环评验收报告"
+                },
+                {
+                    value: "wsjcbg",
+                    text: "（污水）检测报告"
+                },
+                {
+                    value: "gltxsh",
+                    text: "管理体系审核报告"
+                },
+                {
+                    value: "yyzzfb",
+                    text: "金属门窗二级资质、幕墙三级资质证书（副本）"
+                },
+                {
+                    value: "jzmqzb",
+                    text: "建筑幕墙工程专业承包贰级资质（正本）"
+                },
+                {
+                    value: "jzmqfb",
+                    text: "建筑幕墙工程专业承包贰级资质（副本）"
+                },
+                {
+                    value: "mcsczb",
+                    text: "门窗安全生产许可证（正本）"
+                },
+                {
+                    value: "mcscfb",
+                    text: "门窗安全生产许可证（副本）"
+                },
+                {
+                    value: "jsmcsc",
+                    text: "金属门窗生产加工项目抗震设防要求的审核意见"
+                },
+                {
+                    value: "bzjsfw",
+                    text: "威海市企业标准技术服务确认证书"
+                },
+                {
+                    value: "lhjjnzb",
+                    text: "平开铝合金窗节能认定证书正本"
+                },
+                {
+                    value: "lhjjnfb",
+                    text: "平开铝合金窗节能认定证书副本"
+                },
+                {
+                    value: "sljnzb",
+                    text: "平开塑料窗节能认定证书正本"
+                },
+                {
+                    value: "sljnfb",
+                    text: "平开塑料窗节能认定证书副本"
+                },
+                {
+                    value: "mczzfb",
+                    text: "建筑门窗行业资格证书（建筑门窗产品）副本"
+                },
+                {
+                    value: "mcazfb",
+                    text: "建筑门窗行业资格证书（建筑门窗产品）副本"
+                },
+                {
+                    value: "xtyfmc3",
+                    text: "关于增补山东省系统门窗研发企业的通知（3家）"
+                },
+                {
+                    value: "xtyfmc3",
+                    text: "关于增补山东省系统门窗研发企业的通知（4家）"
+                },
+                {
+                    value: "npkslc",
+                    text: "室外用内平开塑料窗（检测报告）"
+                },
+                {
+                    value: "pklhjc",
+                    text: "平开铝合金窗（隔热型材）"
+                },
+                {
+                    value: "lmfhpk",
+                    text: "铝木复合平开下悬窗"
+                },
+                {
+                    value: "sjzzzb",
+                    text: "三级资质证书（正本）"
+                },
+                {
+                    value: "sjzzfb",
+                    text: "三级资质证书（副本）"
+                },
+                {
+                    value: "aqsczb",
+                    text: "安全生产许可证（正本）"
+                },
+                {
+                    value: "aqscfb",
+                    text: "安全生产许可证（副本）"
+                },
+                {
+                    value: "aqscxzjds",
+                    text: "安全生产许可证行政许可决定书"
+                },
+                {
+                    value: "sgzcbzb",
+                    text: "建筑工程施工总承包叁级（正本）"
+                },
+                {
+                    value: "sgzcbfb",
+                    text: "建筑工程施工总承包叁级（副本）"
+                },
+                {
+                    value: "jcyyzb",
+                    text: "建材营业执照（正本）"
+                },
+                {
+                    value: "jcyyfb",
+                    text: "建材营业执照（副本）"
+                },
+                {
+                    value: "jcdsh",
+                    text: "建材董事会决议书"
+                },
+                {
+                    value: "jcgdjds",
+                    text: "建材股东决定书"
+                },
+            ];
+
+
+            $("#addItem").on('tap', function () {
+
+
+                var li = '<div id="bl" class="mui-card">';
+                li = li + '   <div class="mui-input-row bgc">';
+                li = li + '        <label>明细列表项</label> ';
+                li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fzjmc">证件名称<i style="color:red;">*</i></label>';
+                li = li + '        <input type="text" id="fzjmc" name="fzjmc" value="" placeholder="请选择证件名称"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fzjlb">证件类别<i style="color:red;">*</i></label>';
+                li = li + '        <input type="text" id="fzjlb" name="fzjlb" value="" placeholder="请选择证件类别"/> ';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fnum">份数<i style="color:red;">*</i></label>';
+                li = li + '        <input type="number" id="fnum" name="fnum" value="" placeholder="请输入份数"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fytms">用途描述<i style="color:red;">*</i></label>';
+                li = li + '        <input type="text" id="fytms" name="fytms" value="" placeholder="请输入用途描述"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fjyrq">借用日期<i style="color:red;">*</i></label>';
+                li = li + '        <input type="date" id="fjyrq" name="fjyrq" value="" placeholder="请输入借用日期"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row" style="height:3.25rem;">';
+                li = li + '        <label for="fsjghrq">实际归还日期<i style="color:red;">*</i></label>';
+                li = li + '        <input type="date" id="fsjghrq" name="fsjghrq" value="" readonly="readonly"/>';
+                li = li + '   </div>';
+
+
+
+
+
+                $("#bllist").append(li);
+
+
+                var picker = new mui.PopPicker();
+
+                picker.setData(fzjlbdata);
+
+                $("#bllist").find("#fzjlb").each(function () {
+
+                    var self = this;
+                    $(this).off('tap');
+                    $(this).on('tap', function () {
+                        picker.show(function (items) {
+                            self.value = (items[0].text);
+                        });
+                    });
+
+                });
+
+
+                var picker1 = new mui.PopPicker();
+
+                picker1.setData(fzjmcdata);
+
+                $("#bllist").find("#fzjmc").each(function () {
+
+                    var self = this;
+                    $(this).off('tap');
+                    $(this).on('tap', function () {
+                        picker1.show(function (items) {
+                            self.value = (items[0].text);
+                        });
+                    });
+
+                });
+
+
+
+            });
+
+
+
+
+        }
+
+
     </script>
    
 </body>

@@ -481,7 +481,7 @@
             var fdept = $("#fdept").val();
             var ftel = $("#ftel").val();
 
-
+            var mxflag = false;
             var bllistArr = new Array();
             $("#bllist").find("#bl").each(function () {
                 var fzjmc = $(this).find("#fzjmc").val();
@@ -495,27 +495,33 @@
                 if (!fzjmc || fzjmc == "") {
 
                     mui.toast("请选择证件名称");
+                    mxflag = true;
                     return;
                 }
 
                 if (!fzjlb || fzjlb == "") {
 
                     mui.toast("请选择证件类别");
+
+                    mxflag = true;
                     return;
                 }
                 if (!fnum || fnum == "") {
 
                     mui.toast("请输入份数");
+                    mxflag = true;
                     return;
                 }
                 if (!fytms || fytms == "") {
 
                     mui.toast("请输入用途描述");
+                    mxflag = true;
                     return;
 
                 }
                 if (!fjyrq || fjyrq == "") {
                     mui.toast("请输入借用日期");
+                    mxflag = true;
                     return;
                 }
 
@@ -536,7 +542,9 @@
                 bllistArr.push(bl);
             });
 
-
+            if (mxflag) {
+                return;
+            }
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                 if (e.index == 1) {

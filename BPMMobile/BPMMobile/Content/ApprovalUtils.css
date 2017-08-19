@@ -184,3 +184,15 @@ li {
     margin-right:0.2rem;
     margin-top:1rem;
 }
+.col-div-adjust-forInput {
+   height:2rem;
+}
+.h5-adjust-forInput {
+    height:1.6rem;
+    padding-top:0.4rem;
+}
+.cutOffLine {
+  border:outset;
+  border-width:0.05rem;
+  
+}
