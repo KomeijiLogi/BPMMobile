@@ -75,7 +75,7 @@
                     <label for="fjkbillno">{{fjkbillno}}</label>
                     <input type="text" id="fjkbillno" name="fjkbillno"  v-bind:readonly="isReadonly" ref="fjkbillno"/>
                 </div>
-                <div class="mui-input-row">
+                <div class="mui-input-row" style="height:auto;">
                     <label for="fjkremark">{{fjkremark}}</label>
                     <textarea rows="7" id="fjkremark" name="fjkremark" v-bind:readonly="isReadonly" ref="fjkremark"></textarea>
                 </div>
@@ -368,6 +368,8 @@
                 fremark: '备注',
                 fjkcard: '借款申请单',
                 fjktotal: '借款金额',
+                fjkbillno: '借款单号',
+                fjkremark:'借款事由',
                 fccrw: '出差任务内容',
                 fcbz: '超标准情况%',
                 ctjtf: '长途交通费',
@@ -392,7 +394,7 @@
                         history.go(-1);
 
                     }
-
+                    itemidArr = new Array();
                     $.ajax({
                         type: "get",
                         url: "/api/bpm/GetTaskData",
@@ -409,9 +411,14 @@
                         context.$refs.fdate.value = FormatterTimeYMS(item.fdate);
                         context.$refs.fcllb.value = item.fcllb;
                         context.$refs.fif_jk.value = item.fif_jk;
-                        if (item.fif_jk=='是') {
-
+                        if (item.fif_jk == '是') {
+                            $('#fif_jkd').addClass('mui-active');
+                            $('#fjkcard').css("display", "block");
+                            context.$refs.fjktotal.value = item.fjktotal;
+                            context.$refs.fjkbillno.value = item.fjkbillno;
+                            context.$refs.fjkremark.value = item.fjkremark;
                         }
+
                         context.$refs.fremark.value = item.fremark;
                         context.$refs.fje_ctjtf.value = item.fje_ctjtf;
                         context.$refs.fccrw.value = item.fccrw;
@@ -423,7 +430,120 @@
                         context.$refs.fbz_cf.value = item.fbz_cf;
                         context.$refs.fje_cf.value = item.fje_cf;
                         context.$refs.fd_snjtf.value = item.fd_snjtf;
-                        
+                        context.$refs.fbz_snjtf.value = item.fbz_snjtf;
+                        context.$refs.fje_snjtf.value = item.fje_snjtf;
+                        context.$refs.fje_qtclf.value = item.fje_qtclf;
+                        context.$refs.fbz_total.value = item.fbz_total;
+                        context.$refs.ftotal.value = item.ftotal;
+
+                        var item_c = data.FormDataSet.BPM_FDCBX_CLFYSQ_B;
+
+                        for (var i = 0; i < item_c.length; i++){
+                            itemidArr.push(item_c[i].itemid);
+                            var li = ' <div class="mui-card" id="mx">';
+                            li = li + '   <div class="mui-input-row itemtitle">';
+                            li = li + '       <label>明细列表项</label>';
+                            li = li + '        <span class="mui-icon mui-icon-close mui-pull-right" style="margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;display:none;" id="deleteProduct" onclick="deleteItem(this)"></span>';
+                            li = li + '    </div>';
+                            li = li + '     <div class="mui-input-row">';
+                            li = li + '        <label for="fzwjb">职务级别<i style="color:red;">*</i></label>';
+                            li = li + '        <input type="text" id="fzwjb" name="fzwjb"  readonly="readonly" value="' + item_c[i].fzwjb + '"/>';
+                            li = li + '    </div>';
+                            li = li + '    <div class="mui-input-row">';
+                            li = li + '       <label for="fsdate">开始时间<i style="color:red;">*</i></label>';
+                            li = li + '        <input type="date" id="fsdate" name="fsdate" readonly="readonly" value="' + FormatterTimeYMS( item_c[i].fsdate) + '"/>';
+                            li = li + '    </div>';
+                            li = li + '    <div class="mui-input-row">';
+                            li = li + '       <label for="fedate">结束时间<i style="color:red;">*</i></label>';
+                            li = li + '        <input type="date" id="fedate" name="fedate" readonly="readonly" value="' + FormatterTimeYMS( item_c[i].fedate) + '"/>';
+                            li = li + '   </div>';
+                            li = li + '   <div class="mui-input-row">';
+                            li = li + '     <label for="fjtgj">交通工具<i style="color:red;">*</i></label>';
+                            li = li + '      <input type="text" id="fjtgj" name="fjtgj" readonly="readonly" value="' + item_c[i].fjtgj + '" />';
+                            li = li + '  </div>';
+                            li = li + '  <div class="mui-input-row">';
+                            li = li + '      <label for="fcity">出差地点<i style="color:red;">*</i></label>';
+                            li = li + '      <input type="text" id="fcity" name="fcity" readonly="readonly" value="' + item_c[i].fcity + '" />';
+                            li = li + '    </div>';
+                            li = li + '   <div class="mui-input-row">';
+                            li = li + '      <label for="fdqlb">地区类别<i style="color:red;">*</i></label>';
+                            li = li + '      <input type="text" id="fdqlb" name="fdqlb" readonly="readonly"  value="' + item_c[i].fdqlb + '"/>';
+                            li = li + '   </div>';
+                            li = li + '   <div class="mui-input-row">';
+                            li = li + '      <label for="fccrs">出差人数<i style="color:red;">*</i></label>';
+                            li = li + '     <input type="number" id="fccrs" name="fccrs" readonly="readonly" value="' + item_c[i].fccrs + '" />';
+                            li = li + '   </div>';
+                            li = li + '    <div class="mui-input-row">';
+                            li = li + '        <label for="fday">出差天数<i style="color:red;">*</i></label>';
+                            li = li + '        <input type="number" id="fday" name="fday" readonly="readonly" value="' + item_c[i].fday + '"/>';
+                            li = li + '   </div>';
+                            li = li + '  </div>';
+                            $("#mxlist").append(li);
+                        }
+                       
+
+                        for (var i = 0; i < data.Steps.length; i++) {
+
+                            if (data.Steps[i].FinishAt == "0001-01-01T00:00:00") {
+                                data.Steps[i].FinishAt = "";
+                            }
+                            var time = FormatterTime(data.Steps[i].FinishAt);
+
+                            var stepName = data.Steps[i].NodeName;
+                            if (data.Steps[i].NodeName == "sysInform") {
+                                stepName = "知会";
+                            } else if (data.Steps[i].NodeName == "sysTaskOpt") {
+                                stepName = "任务操作";
+                            } else if (data.Steps[i].NodeName == "开始") {
+                                stepName = "开始";
+                            }
+
+                            var stepAction = locationAction(data.Steps[i].SelAction);
+                            if (data.Steps[i].SelAction == "sysInform") {
+                                stepAction = "发起知会";
+                            } else if (data.Steps[i].SelAction == "Submit") {
+                                stepAction = "已阅";
+                            } else if (data.Steps[i].SelAction == "null" || data.Steps[i].SelAction == null) {
+                                stepAction = "待处理";
+                            } else if (data.Steps[i].SelAction == "sysReject") {
+                                stepAction = "拒绝";
+                            } else if (data.Steps[i].SelAction == "sysRecedeRestart") {
+                                stepAction = "退回重填";
+                            }
+
+
+                            var contents = data.Steps[i].Comments;
+                            if (contents == null) {
+                                contents = "无";
+                            }
+                            //判断是否是加签
+                            if (data.Steps[i].IsConsignStep == false) {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg">' + stepName + '<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            } else {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg signadd">加签<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            }
+                            $("#signff").append(li);
+                        }
 
                     }).fail(function (e) {
 
