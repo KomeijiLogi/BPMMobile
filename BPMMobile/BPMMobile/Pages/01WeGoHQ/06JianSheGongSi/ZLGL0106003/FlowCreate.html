@@ -24,38 +24,7 @@
 
     <title></title>
     <meta charset="utf-8" />
-    <style>
-        html, body {
-            font-size: 20px;
-            background-color: white;
-            height: 100%;
-            overflow: auto;
-        }
-
-        label {
-            font-size: 0.75rem;
-        }
-
-
-        textarea {
-            height: auto;
-            overflow: auto;
-            font-size: 0.75rem;
-        }
-
-        a {
-            font-size: 0.75rem;
-        }
-
-        input {
-            font-size: 0.75rem;
-        }
-
-        .bgc {
-            color: white;
-            background-color: #5191FD;
-        }
-    </style>
+    
 </head>
 <body>
     <div class="mui-content" style="background-color:white;">
@@ -102,7 +71,7 @@
                     <div class="upload-img-list"></div>
                 </div>
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:3.25rem;">
                 <label for="fxqdate">限期整改日期<i style="color:red;">*</i></label>
                 <input type="date" id="fxqdate" name="fxqdate" value="" placeholder="请输入限期整改日期" />
             </div>
@@ -260,10 +229,10 @@
                 mui.toast("请输入限期整改日期");
                 return;
             }
-            //if (fjArray.toString() == null || fjArray.toString() == "") {
-            //    mui.toast("请上传整改前照片");
-            //    return;
-            //}
+            if (fjArray.toString() == null || fjArray.toString() == "") {
+                mui.toast("请上传整改前照片");
+                return;
+            }
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                 if (e.index == 1) {
@@ -300,7 +269,7 @@
                     xml = xml + '</建设公司_生产质量_问题反馈>';
                     xml = xml + '</FormData>';
                     xml = xml + '</XForm>';
-                    alert(xml);
+                    //alert(xml);
                     PostXml(xml);
                 }
             });

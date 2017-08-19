@@ -519,7 +519,8 @@
                     return;
 
                 }
-                if (!fjyrq || fjyrq == "") {
+               
+                if (!$(this).find("#fjyrq").val() || $(this).find("#fjyrq").val() == "") {
                     mui.toast("请输入借用日期");
                     mxflag = true;
                     return;

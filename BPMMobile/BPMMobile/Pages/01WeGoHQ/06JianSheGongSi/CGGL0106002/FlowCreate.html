@@ -744,6 +744,7 @@
              var i = 0;
              var j = 0;
              var k = 0;
+             var mxflag = false;
              var bllistArr = new Array();
              var bllistArr_xc = new Array();
              var bllistArr_pj = new Array();
@@ -757,36 +758,39 @@
                  var fmj = $(this).find("#fmj").val();
                  var fblbz = $(this).find("#fblbz").val();
                  if (!fblwlbm || fblwlbm == "") {
-
+                     mxflag = true;
                      mui.toast("请输入物料编码");
                      return;
                  }
 
                  if (!fazbw || fazbw == "") {
-
+                     mxflag = true;
                      mui.toast("请输入安装部位");
                      return;
                  }
                  if (!fblgg || fblgg == "") {
-
+                     mxflag = true;
                      mui.toast("请输入玻璃规格");
                      return;
                  }
                  if (!fblk || fblk == "") {
-
+                     mxflag = true;
                      mui.toast("请输入玻璃宽");
                      return;
 
                  }
                  if (!fblg || fblg == "") {
+                     mxflag = true;
                      mui.toast("请输入玻璃高");
                      return;
                  }
                  if (!fblsl || fblsl == "") {
+                     mxflag = true;
                      mui.toast("请输入数量");
                      return;
                  }
                  if (!fmj || fmj == "") {
+                     mxflag = true;
                      mui.toast("请输入面积");
                      return;
                  }
@@ -805,6 +809,7 @@
                  bllistArr.push(bl);
 
              });
+
              $("#bllist_xc").find("#xc").each(function () {
 
                  var fxcwlbm = $(this).find("#fxcwlbm").val();
@@ -818,36 +823,39 @@
                  var fxcbz = $(this).find("#fxcbz").val();
 
                  if (!fxcwlbm || fxcwlbm == "") {
-
+                     mxflag = true;
                      mui.toast("请输入物料编码");
                      return;
                  }
 
                  if (!fxcxcmc || fxcxcmc == "") {
-
+                     mxflag = true;
                      mui.toast("请输入型材名称");
                      return;
                  }
                  if (!fxcxcdh || fxcxcdh == "") {
-
+                     mxflag = true;
                      mui.toast("请输入型材代号");
                      return;
                  }
                  if (!fxcysxh || fxcysxh == "") {
-
+                     mxflag = true;
                      mui.toast("请输入颜色型号");
                      return;
 
                  }
                  if (!fxcmz || fxcmz == "") {
+                     mxflag = true;
                      mui.toast("请输入米重");
                      return;
                  }
                  if (!fxcdc || fxcdc == "") {
+                     mxflag = true;
                      mui.toast("请输入定尺");
                      return;
                  }
                  if (!fxcsl || fxcsl == "") {
+                     mxflag = true;
                      mui.toast("请输入数量");
                      return;
                  }
@@ -878,32 +886,34 @@
 
 
                  if (!fpjwlbm || fpjwlbm == "") {
-
+                     mxflag = true;
                      mui.toast("请输入物料编码");
                      return;
                  }
 
                  if (!fpjwlmc || fpjwlmc == "") {
-
+                     mxflag = true;
                      mui.toast("请输入物料名称");
                      return;
                  }
                  if (!fggxh || fggxh == "") {
-
+                     mxflag = true;
                      mui.toast("请输入规格型号");
                      return;
                  }
                  if (!fdw || fdw == "") {
-
+                     mxflag = true;
                      mui.toast("请输入单位");
                      return;
 
                  }
                  if (!fpjsl || fpjsl == "") {
+                     mxflag = true;
                      mui.toast("请输入数量");
                      return;
                  }
                  if (!fpjgys || fpjgys == "") {
+                     mxflag = true;
                      mui.toast("请输入配件供应商");
                      return;
                  }
@@ -921,6 +931,10 @@
                  bllistArr_pj.push(pj);
 
              });
+
+             if (mxflag) {
+                 return;
+             }
              var btnArry = ["取消", "确定"];
              mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                  if (e.index == 1) {
@@ -942,7 +956,7 @@
                      xml = xml + '<建设公司_物资采购_主表>';
                      xml = xml + '<单号>自动生成</单号>';
                      xml = xml + '<申请人>' + fname + '</申请人>';
-                     xml = xml + '<申请部门>' + fdept + '</申请部门>';
+                     xml = xml + '<申请单位>' + fdept + '</申请单位>';
                      xml = xml + '<申请日期>' + fdate + '</申请日期>';
                      xml = xml + '<需求到货日期>' + qdate + '</需求到货日期>';
                      xml = xml + '<联系电话>' + ftel + '</联系电话>';

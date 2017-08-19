@@ -43,7 +43,7 @@
             </div>
             <div class="mui-input-row">
                 <label for="fyear">年度<i style="color:red;">*</i></label>
-                <input type="number" id="fyear" name="fyear" value="" placeholder="请选择年度" />
+                <input type="number" id="fyear" name="fyear" value="" placeholder="请选择年度" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label for="fmonth">计划付款月份<i style="color:red;">*</i></label>
@@ -347,9 +347,9 @@
 
         function calcPrice(context) {
 
-            var fjhfk = $(context).parent().parent().find("#fjhfk").val();
-            var fjhyj = $(context).parent().parent().find("#fjhyj").val();
-            var fzgrk = $(context).parent().parent().find("#fzgrk").val();
+            var fjhfk = parseFloat( $(context).parent().parent().find("#fjhfk").val());
+            var fjhyj = parseFloat($(context).parent().parent().find("#fjhyj").val());
+            var fzgrk = parseFloat( $(context).parent().parent().find("#fzgrk").val());
             var fjhzmbd;
 
             if ( !fjhfk || fjhfk =="")
@@ -470,7 +470,7 @@
             var fhzhjzm = $("#fhzhjzm").val();
             var fhzjhzm = $("#fhzjhzm").val();
 
-
+            var mxflag = false;
             var bllistArr = new Array();
             $("#bllist").find("#bl").each(function () {
                 var fgys = $(this).find("#fgys").val();
@@ -483,31 +483,34 @@
                 var fbz = $(this).find("#fbz").val();
 
                 if (!fyear || fyear == "") {
-
+                    mxflag = true;
                     mui.toast("请选择年度");
                     return;
                 }
                 if (!fmonth || fmonth == "") {
+                    mxflag = true;
                     mui.toast("请选择月份");
                     return;
 
                 }
                 if (!fgys || fgys == "") {
-
+                    mxflag = true;
                     mui.toast("请输入供应商");
                     return;
                 }
                 if (!fjhfk || fjhfk == "") {
+                    mxflag = true;
                     mui.toast("请输入计划付款金额");
                     return;
 
                 }
                 if (!fjhyj || fjhyj == "") {
-
+                    mxflag = true;
                     mui.toast("请输入计划约进贷款");
                     return;
                 }
                 if (!fzgrk || fzgrk == "") {
+                    mxflag = true;
                     mui.toast("请输入暂估入库");
                     return;
 
@@ -525,6 +528,9 @@
                 bllistArr.push(bl);
             });
 
+            if (mxflag) {
+                return;
+            }
 
                 var btnArry = ["取消", "确定"];
                 mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {

@@ -54,8 +54,8 @@
                 <input type="text" id="fgcnum" name="fgcnum" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row">
-                <label for="fgcname">工程名称</label>
-                <input type="text" id="fgcname" name="fgcname" value="" readonly="readonly" />
+                <label for="fgcmc">工程名称</label>
+                <input type="text" id="fgcmc" name="fgcmc" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fjsdw">建设单位</label>
@@ -773,10 +773,12 @@
 
                         }
 
-                        var fblcgmxitem = data.FormDataSet.建设公司_物资采购_玻璃;
-                        for (var i = 0; i < fblcgmxitem.length; i++) {
-
-                            itemidArr_bl.push(fblcgmxitem[i].itemid);
+                        var fblcgmxItem = data.FormDataSet.建设公司_物资采购_玻璃;
+                        for (var i = 0; i < fblcgmxItem.length; i++) {
+                            if (fblcgmxItem[i].备注 == null) {
+                                fblcgmxItem[i].备注 = '';
+                            }
+                            itemidArr_bl.push(fblcgmxItem[i].itemid);
                             var li = '<div id="bl" class="mui-card">';
                             li = li + '   <div class="mui-input-row bgc">';
                             li = li + '        <label>明细列表项</label> ';
@@ -819,10 +821,12 @@
                             $("#bllist_bl").append(li);
 
                         }
-                        var fxccgmxitem = data.FormDataSet.建设公司_物资采购_型材;
-                        for (var i = 0; i < fxccgmxitem.length; i++) {
-
-                            itemidArr_xc.push(fxccgmxitem[i].itemid);
+                        var fxccgmxItem = data.FormDataSet.建设公司_物资采购_型材;
+                        for (var i = 0; i < fxccgmxItem.length; i++) {
+                            if (fxccgmxItem[i].备注 == null) {
+                                fxccgmxItem[i].备注 = '';
+                            }
+                            itemidArr_xc.push(fxccgmxItem[i].itemid);
                             var li = '<div id="xc" class="mui-card">';
                             li = li + '   <div class="mui-input-row bgc">';
                             li = li + '        <label>明细列表项</label> ';
@@ -869,10 +873,12 @@
                             $("#bllist_xc").append(li);
 
                         }
-                        var fpjcgmxitem = data.FormDataSet.建设公司_物资采购_配件;
-                        for (var i = 0; i < fpjcgmxitem.length; i++) {
-
-                            itemidArr_pj.push(fpjcgmxitem[i].itemid);
+                        var fpjcgmxItem = data.FormDataSet.建设公司_物资采购_配件;
+                        for (var i = 0; i < fpjcgmxItem.length; i++) {
+                            if (fpjcgmxItem[i].备注 == null) {
+                                fpjcgmxItem[i].备注 = '';
+                            }
+                            itemidArr_pj.push(fpjcgmxItem[i].itemid);
                             var li = '<div id="pj" class="mui-card">';
                             li = li + '   <div class="mui-input-row bgc">';
                             li = li + '        <label>明细列表项</label> ';

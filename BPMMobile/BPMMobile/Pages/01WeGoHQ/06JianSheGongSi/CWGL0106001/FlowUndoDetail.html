@@ -705,26 +705,26 @@
                 var fbz = $(this).find("#fbz").val();
 
             });
-                if (!fgys || fgys == "") {
+                //if (!fgys || fgys == "") {
 
-                    mui.toast("请输入供应商");
-                    return;
-                }
-                if (!fjhfk || fjhfk == "") {
-                    mui.toast("请输入计划付款金额");
-                    return;
+                //    mui.toast("请输入供应商");
+                //    return;
+                //}
+                //if (!fjhfk || fjhfk == "") {
+                //    mui.toast("请输入计划付款金额");
+                //    return;
 
-                }
-                if (!fjhyj || fjhyj == "") {
+                //}
+                //if (!fjhyj || fjhyj == "") {
 
-                    mui.toast("请输入计划约进贷款");
-                    return;
-                }
-                if (!fzgrk || fzgrk == "") {
-                    mui.toast("请输入暂估入库");
-                    return;
+                //    mui.toast("请输入计划约进贷款");
+                //    return;
+                //}
+                //if (!fzgrk || fzgrk == "") {
+                //    mui.toast("请输入暂估入库");
+                //    return;
 
-                }
+                //}
 
             var comment = '';
             var btnArray = ['取消', '确定'];
@@ -792,6 +792,7 @@
             var fhzjhzm = $("#fhzjhzm").val();
             var fbillno = $("#fbillno").val();
 
+            var mxflag = false;
             var bllistArr = new Array();
             $("#bllist").find("#bl").each(function () {
 
@@ -806,37 +807,43 @@
 
 
             });
-                if (!fgys || fgys == "") {
-
+            if (!fgys || fgys == "") {
+                mxflag = true;
                     mui.toast("请输入供应商");
                     return;
                 }
-                if (!fjhfk || fjhfk == "") {
+            if (!fjhfk || fjhfk == "") {
+                mxflag = true;
                     mui.toast("请输入计划付款金额");
                     return;
 
                 }
                 if (!fjhyj || fjhyj == "") {
-
+                    mxflag = true;
                     mui.toast("请输入计划约进贷款");
                     return;
                 }
                 if (!fzgrk || fzgrk == "") {
+                    mxflag = true;
                     mui.toast("请输入暂估入库");
                     return;
 
                 }
 
                 if (!fyear || fyear == "") {
-
+                    mxflag = true;
                 mui.toast("请选择年度");
                 return;
             }
                 if (!fmonth || fmonth == "") {
+                    mxflag = true;
                 mui.toast("请选择计划付款月份");
                 return;
 
-            }
+                }
+                if (mxflag) {
+                    return;
+                }
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                 if (e.index == 1) {

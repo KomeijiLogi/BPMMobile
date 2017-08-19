@@ -333,7 +333,7 @@
                         $("#taskId").val(item.TaskID);
                         $("#fname").val(item.申请人);
                         $("#fdept").val(item.申请单位);
-                        $("#fdate").val(FormatterTimeYMS(item.申请时间));
+                        $("#fdate").val(FormatterTimeYMS(item.申请日期));
                         $("#qdate").val(FormatterTimeYMS(item.需求到货日期));
                         $("#ftel").val(item.联系电话);
                         $("#fgcnum").val(item.工程编码);
@@ -699,7 +699,9 @@
 
                         var fblcgmxItem = data.FormDataSet.建设公司_物资采购_玻璃;
                         for (var i = 0; i < fblcgmxItem.length; i++) {
-
+                            if (fblcgmxItem[i].备注 == null) {
+                                fblcgmxItem[i].备注 = '';
+                            }
                             itemidArr_bl.push(fblcgmxItem[i].itemid);
                             var li = '<div id="bl" class="mui-card">';
                             li = li + '   <div class="mui-input-row bgc">';
@@ -745,7 +747,9 @@
                         }
                         var fxccgmxItem = data.FormDataSet.建设公司_物资采购_型材;
                         for (var i = 0; i < fxccgmxItem.length; i++) {
-
+                            if (fxccgmxItem[i].备注 == null) {
+                                fxccgmxItem[i].备注 = '';
+                            }
                             itemidArr_xc.push(fxccgmxItem[i].itemid);
                             var li = '<div id="xc" class="mui-card">';
                             li = li + '   <div class="mui-input-row bgc">';
@@ -795,7 +799,9 @@
                         }
                         var fpjcgmxItem = data.FormDataSet.建设公司_物资采购_配件;
                         for (var i = 0; i < fpjcgmxItem.length; i++) {
-
+                            if (fpjcgmxItem[i].备注 == null) {
+                                fpjcgmxItem[i].备注 = '';
+                            }
                             itemidArr_pj.push(fpjcgmxItem[i].itemid);
                             var li = '<div id="pj" class="mui-card">';
                             li = li + '   <div class="mui-input-row bgc">';
