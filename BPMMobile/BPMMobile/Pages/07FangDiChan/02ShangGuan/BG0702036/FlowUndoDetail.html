@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../../../Content/upload.css" />
     <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
+    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css"/>
 
     <title></title>
     <meta charset="utf-8" />
@@ -154,6 +155,24 @@
                     </ul>
                 </div>
 
+            </div>
+
+            <div class="mui-table-view" style="margin-bottom:3.25rem;">
+                <div class="mui-table-view-cell  mui-collapse mui-active">
+                    <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
+
+                        历史签核意见
+                    </a>
+                    <div class="mui-collapse-content">
+
+                        <!--流程列表-->
+                        <div class="list">
+                            <ul id="signff"></ul>
+                        </div>
+
+
+                    </div>
+                </div>
             </div>
         </form>
         <div class="mui-btn-row" id="createD">
@@ -530,7 +549,7 @@
                 for (var i = 0; i < data.Steps.length; i++) {
                     //debugger;
 
-                    if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
+                    if (data.Steps[i].Finished == false && data.Steps[i].RecipientAccount == ($('#myPhone').val())) {
 
                         if (stepId.indexOf(data.Steps[i].StepID) != -1) {
 
@@ -566,6 +585,69 @@
                     if (typeof (NodeName) != "undefined") {
                         $("#approvalD").css("display", "block");
                     }
+                }
+
+                for (var i = 0; i < data.Steps.length; i++) {
+
+                    if (data.Steps[i].FinishAt == "0001-01-01T00:00:00") {
+                        data.Steps[i].FinishAt = "";
+                    }
+                    var time = FormatterTime(data.Steps[i].FinishAt);
+
+                    var stepName = data.Steps[i].NodeName;
+                    if (data.Steps[i].NodeName == "sysInform") {
+                        stepName = "知会";
+                    } else if (data.Steps[i].NodeName == "sysTaskOpt") {
+                        stepName = "任务操作";
+                    } else if (data.Steps[i].NodeName == "开始") {
+                        stepName = "开始";
+                    }
+
+                    var stepAction = locationAction(data.Steps[i].SelAction);
+                    if (data.Steps[i].SelAction == "sysInform") {
+                        stepAction = "发起知会";
+                    } else if (data.Steps[i].SelAction == "Submit") {
+                        stepAction = "已阅";
+                    } else if (data.Steps[i].SelAction == "null" || data.Steps[i].SelAction == null) {
+                        stepAction = "待处理";
+                    } else if (data.Steps[i].SelAction == "sysReject") {
+                        stepAction = "拒绝";
+                    } else if (data.Steps[i].SelAction == "sysRecedeRestart") {
+                        stepAction = "退回重填";
+                    }
+
+
+                    var contents = data.Steps[i].Comments;
+                    if (contents == null) {
+                        contents = "无";
+                    }
+                    //判断是否是加签
+                    if (data.Steps[i].IsConsignStep == false) {
+                        var li = ' <li>';
+                        li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                        li = li + '  <div class="righttext">';
+                        li = li + '     <div>';
+                        li = li + '        <div class="flowmsg">' + stepName + '<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                        li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                        li = li + '        <p>签核意见: ' + contents + '</p>';
+                        li = li + '     </div>';
+                        li = li + '   </div>';
+                        li = li + '</li>';
+
+                    } else {
+                        var li = ' <li>';
+                        li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                        li = li + '  <div class="righttext">';
+                        li = li + '     <div>';
+                        li = li + '        <div class="flowmsg signadd">加签<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                        li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                        li = li + '        <p>签核意见: ' + contents + '</p>';
+                        li = li + '     </div>';
+                        li = li + '   </div>';
+                        li = li + '</li>';
+
+                    }
+                    $("#signff").append(li);
                 }
 
             }).fail(function (e) {

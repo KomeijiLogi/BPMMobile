@@ -18,13 +18,13 @@
             border-left: none;
         }
 
-ul {
+#signff {
     list-style: none;
     padding-left: 0rem;
     left: 0rem;
 }
 
-i {
+#signff >i {
     display: inline-block;
     font-size: 0rem;
     vertical-align: top;

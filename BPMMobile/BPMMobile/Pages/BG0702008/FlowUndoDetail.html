@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../Content/upload.css" />
     <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
+    <link rel="stylesheet" href="../../Content/DoneOrMyApproval.css"/>
     <title></title>
     <meta charset="utf-8" />
    
@@ -128,6 +129,24 @@
                     </ul>
                 </div>
 
+            </div>
+
+            <div class="mui-table-view" style="margin-bottom:3.25rem;">
+                <div class="mui-table-view-cell  mui-collapse mui-active">
+                    <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
+
+                        历史签核意见
+                    </a>
+                    <div class="mui-collapse-content">
+
+                        <!--流程列表-->
+                        <div class="list">
+                            <ul id="signff"></ul>
+                        </div>
+
+
+                    </div>
+                </div>
             </div>
         </form>
         <div class="mui-btn-row"  id="createD">
@@ -495,7 +514,7 @@
                         for (var i = 0; i < data.Steps.length; i++) {
                             //debugger;
 
-                            if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
+                            if (data.Steps[i].Finished == false && data.Steps[i].RecipientAccount == ($('#myPhone').val())) {
 
 
                                 if (stepId.indexOf(data.Steps[i].StepID)!=-1) {

@@ -1,10 +1,273 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
+
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
+    <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
+    <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
+
+    <script type="text/javascript" src="../../../../Scripts/vue.min.js"></script>
+
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.detail.js"></script>
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
+    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css"/>
     <title></title>
+    <meta charset="utf-8" />
 </head>
 <body>
+    <div class="mui-content" v-bind:style="wrapper" id="wrapper">
+        <form class="mui-input-group" v-bind:style="form">
+            <div class="mui-input-row">
+                <label for="fcompany">{{fcompany}}</label>
+                <input type="text" id="fcompany" name="fcompany" v-bind:readonly="isReadonly" ref="fcompany" />
+            </div>
+            <div class="mui-input-row">
+                <label for="fdept">{{fdept}}</label>
+                <input type="text" id="fdept" name="fdept" v-bind:readonly="isReadonly" ref="fdept" />
+            </div>
+            <div class="mui-input-row">
+                <label for="fname">{{fname}}</label>
+                <input type="text" id="fname" name="fname" v-bind:readonly="isReadonly" ref="fname" />
+            </div>
+            <div class="mui-input-row">
+                <label for="fdate">{{fdate}}<i v-bind:style="i">*</i></label>
+                <input type="date" id="fdate" name="fdate" v-bind:readonly="isReadonly" ref="fdate" />
+            </div>
+            <div class="mui-input-row">
+                <label for="fcllb">{{fcllb}}<i v-bind:style="i">*</i></label>
+                <input type="text" id="fcllb" name="fcllb" v-bind:readonly="isReadonly" ref="fcllb" />
+            </div>
+            <div class="mui-input-row">
+                <label for="fif_jk">{{fif_jk}}<i v-bind:style="i">*</i></label>
+                <input type="hidden" id="fif_jk" name="fif_jk" v-bind:readonly="isReadonly" ref="fif_jk" />
+                <div class="mui-switch mui-switch-mini mui-switch-blue mui-disabled" id="fif_jkd">
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </div>
+            <div class="mui-input-row" style="height:auto;">
+                <label for="fremark">{{fremark}}</label>
+                <textarea id="fremark" name="fremark" rows="3" v-bind:readonly="isReadonly" ref="fremark"></textarea>
+            </div>
+            <div class="mui-card mui-input-group" id="fjkcard" style="display:none;">
+                <div class="mui-input-row itemtitle">
+                    <label>{{fjkcard}}</label>
+                </div>
+                <div class="mui-input-row">
+                    <label for="fjktotal">{{fjktotal}}<i v-bind:style="i">*</i></label>
+                    <input type="number" id="fjktotal" name="fjktotal" v-bind:readonly="isReadonly" ref="fjktotal" />
+                </div>
+                <div class="mui-input-row">
+                    <label for="fjkbillno">{{fjkbillno}}</label>
+                    <input type="text" id="fjkbillno" name="fjkbillno" v-bind:readonly="isReadonly" ref="fjkbillno" />
+                </div>
+                <div class="mui-input-row" style="height:auto;">
+                    <label for="fjkremark">{{fjkremark}}</label>
+                    <textarea rows="7" id="fjkremark" name="fjkremark" v-bind:readonly="isReadonly" ref="fjkremark"></textarea>
+                </div>
+                <div id="mxlist">
 
+                </div>
+                <a class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" id="tjmx" v-bind:style="tjmx">
+                    添加出差明细
+                    <span class="mui-icon mui-icon-plusempty"></span>
+                </a>
+            </div>
+            <div class="mui-card">
+                <div class="mui-input-row itemtitle">
+                    <label>差旅费明细</label>
+                </div>
+                <div class="mui-row mui-text-center">
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <h5>费用项目</h5>
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <h5>有效天数<i v-bind:style="i">*</i></h5>
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <h5>分项标准<i v-bind:style="i">*</i></h5>
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <h5>申请金额<i v-bind:style="i">*</i></h5>
+                    </div>
+                </div>
+                <div class="mui-row mui-text-center">
+                    <div class="mui-col-xs-3 col-div-adjust-forInput cutOffLine">
+                        <h5 class="h5-adjust-forInput">{{ctjtf}}</h5>
+                    </div>
+                    <div class="mui-col-xs-3">
+
+                    </div>
+                    <div class="mui-col-xs-3">
+
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fje_ctjtf" name="fje_ctjtf" v-bind:readonly="isReadonly" class="mui-text-center" ref="fje_ctjtf" />
+                    </div>
+                </div>
+                <div class="mui-row mui-text-center">
+                    <div class="mui-col-xs-3 col-div-adjust-forInput cutOffLine">
+                        <h5 class="h5-adjust-forInput">{{zsf}}</h5>
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fd_zsf" name="fd_zsf" v-bind:readonly="isReadonly" class="mui-text-center" ref="fd_zsf" />
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fbz_zsf" name="fbz_zsf" v-bind:readonly="isReadonly" class="mui-text-center" ref="fbz_zsf" />
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fje_zsf" name="fje_zsf" v-bind:readonly="isReadonly" class="mui-text-center" ref="fje_zsf" />
+                    </div>
+                </div>
+                <div class="mui-row mui-text-center">
+                    <div class="mui-col-xs-3 col-div-adjust-forInput cutOffLine">
+                        <h5 class="h5-adjust-forInput">{{cf}}</h5>
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fd_cf" name="fd_cf" v-bind:readonly="isReadonly" class="mui-text-center" ref="fd_cf" />
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fbz_cf" name="fbz_cf" v-bind:readonly="isReadonly" class="mui-text-center" ref="fbz_cf" />
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fje_cf" name="fje_cf" v-bind:readonly="isReadonly" class="mui-text-center" ref="fje_cf" />
+                    </div>
+                </div>
+                <div class="mui-row mui-text-center">
+                    <div class="mui-col-xs-3 col-div-adjust-forInput cutOffLine">
+                        <h5 class="h5-adjust-forInput">{{snjtf}}</h5>
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fd_snjtf" name="fd_snjtf" v-bind:readonly="isReadonly" class="mui-text-center" ref="fd_snjtf" />
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fbz_snjtf" name="fbz_snjtf" v-bind:readonly="isReadonly" class="mui-text-center" ref="fbz_snjtf" />
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fje_snjtf" name="fje_snjtf" v-bind:readonly="isReadonly" class="mui-text-center" ref="fje_snjtf" />
+                    </div>
+                </div>
+                <div class="mui-row mui-text-center">
+                    <div class="mui-col-xs-3 col-div-adjust-forInput cutOffLine">
+                        <h5 class="h5-adjust-forInput">{{qtclf}}</h5>
+                    </div>
+                    <div class="mui-col-xs-3 ">
+
+                    </div>
+                    <div class="mui-col-xs-3">
+
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fje_qtclf" name="fje_qtclf" v-bind:readonly="isReadonly" class="mui-text-center" ref="fje_qtclf" />
+                    </div>
+                </div>
+                <div class="mui-row mui-text-center">
+                    <div class="mui-col-xs-3">
+
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine col-div-adjust-forInput">
+                        <h5 class="h5-adjust-forInput">合计</h5>
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="fbz_total" name="fbz_total" v-bind:readonly="isReadonly" class="mui-text-center" value="0" ref="fbz_total" />
+                    </div>
+                    <div class="mui-col-xs-3 cutOffLine">
+                        <input type="number" id="ftotal" name="ftotal" v-bind:readonly="isReadonly" class="mui-text-center" value="0" ref="ftotal" />
+                    </div>
+                </div>
+                <div class="mui-input-row">
+                    <label for="fcbz">{{fcbz}}<i v-bind:style="i">*</i></label>
+                    <input type="number" id="fcbz" name="fcbz" v-bind:readonly="isReadonly" value="0.00" ref="fcbz" />
+                </div>
+                <div class="mui-input-row" style="height:auto;">
+                    <label for="fccrw">{{fccrw}}<i v-bind:style="i">*</i></label>
+                    <textarea rows="8" id="fccrw" name="fccrw" v-bind:readonly="isReadonly" ref="fccrw"></textarea>
+                </div>
+            </div>
+
+            <div class="mui-input-row" id="csd">
+                <label>加签</label>
+                <div class="mui-switch mui-switch-blue">
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </div>
+            <div id="signbody">
+
+                <div class="mui-input-row" id="signPerDiv">
+                    <label>加签人</label>
+                    <span class="mui-navigate-right"></span>
+                    <input name="signPer" id="signPer" value="" readonly="readonly" placeholder="请选择加签人" />
+                </div>
+                <div class="mui-input-row adl">
+                    <label>加签模式</label>
+                </div>
+                <div class="mui-input-row" id="signModeDiv" style="height:5.25rem;">
+
+                    <ul class="mui-table-view mui-table-view-radio">
+                        <li class="mui-table-view-cell mui-selected" id="sxsl">
+                            <a class="mui-navigate-right" id="sxsa">
+                                顺序加签
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell" id="pxsl">
+                            <a class="mui-navigate-right" id="pxsa">
+                                平行加签
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mui-input-row adl">
+                    <label>加签回转</label>
+                </div>
+                <div class="mui-input-row" id="signModeDiv" style="height:5.25rem;">
+
+                    <ul class="mui-table-view mui-table-view-radio">
+                        <li class="mui-table-view-cell mui-selected" id="hdbjdl">
+                            <a class="mui-navigate-right" id="hdbjda">
+                                回到本节点
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell" id="jrxjdl">
+                            <a class="mui-navigate-right" id="jrxjda">
+                                进入下一节点
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="mui-table-view" style="margin-bottom:3.25rem;">
+                <div class="mui-table-view-cell  mui-collapse mui-active">
+                    <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
+
+                        历史签核意见
+                    </a>
+                    <div class="mui-collapse-content">
+
+                        <!--流程列表-->
+                        <div class="list">
+                            <ul id="signff"></ul>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </form>
+   </div>
 </body>
 </html>

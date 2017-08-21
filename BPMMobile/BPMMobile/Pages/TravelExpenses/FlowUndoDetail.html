@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="../../../../Content/maintanse.css" />
     <link rel="stylesheet" href="../../../../Content/city-selector.css" />
     <link rel="stylesheet" href="../../../../Content/calendar-selector.css" />
-    
+    <link rel="stylesheet" href="../../Content/DoneOrMyApproval.css"/>
 </head>
 <body>
     <div class="mui-card extra_content" id="#expense_detail">
@@ -453,7 +453,7 @@
                 <div class="upload-img-list"></div>
             </div>
         </div>
-
+        
 
         
         <div id="form_secondary">
@@ -465,6 +465,23 @@
                 添加费用明细
                 <span class="mui-icon mui-icon-plusempty"></span>
             </a>
+        </div>
+        <div class="mui-table-view" style="margin-bottom:3.25rem;">
+            <div class="mui-table-view-cell  mui-collapse mui-active">
+                <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem !important;height:2rem;">
+
+                    历史签核意见
+                </a>
+                <div class="mui-collapse-content">
+
+                    <!--流程列表-->
+                    <div class="list">
+                        <ul id="signff"></ul>
+                    </div>
+
+
+                </div>
+            </div>
         </div>
         <div id="form_guide_city_all">
             <div id="form_guide_city">
@@ -867,7 +884,7 @@
                                 li = li + '                  <p>出发地<i>*</i></p>';
                                 li = li + '                <input type="hidden" id="kscitymid" name="kscitymid" value="' + item_b[i].kscitymid + '"/>';
                                 li = li + '                  <input type="hidden" id="departure_province" name="departure_province" value="' + item_b[i].cfdd_pro + '"/>';
-                                li = li + '                  <span id="departure_city" class="mdcity" onclick="showcity(0,this)">' + item_b[i].cfdd_city + '</span>';
+                                li = li + '                  <span id="departure_city" class="mdcity" >' + item_b[i].cfdd_city + '</span>';
                                 li = li + '             </div>';
                                 li = li + '            <div class="mui-col-xs-4 mui-text-center" id="transport_div" style="display:none;">';
                                 li = li + '                 <span class="mui-icon mui-icon-pengyouquan" id="change_transpotation"></span>';
@@ -877,7 +894,7 @@
                                 li = li + '                <p>目的地<i>*</i></p>';
                                 li = li + '                <input type="hidden" id="citymid" name="citymid" value="' + item_b[i].citymid + '"/>';
                                 li = li + '                <input type="hidden" id="destination_province" name="destination_province" value="' + item_b[i].dddd_pro + '"/>';
-                                li = li + '                <span id="destination_city" class="mdcity" onclick="showcity(1,this)">' + item_b[i].dddd_city + '</span>';
+                                li = li + '                <span id="destination_city" class="mdcity" >' + item_b[i].dddd_city + '</span>';
                                 li = li + '           </div>';
                                 li = li + '          </div>';
                                 li = li + '         <div id="sc-row-2" class="mui-card-content mui-row bottomborder">';
@@ -963,7 +980,7 @@
                                 li = li + '                  <p>出发地<i>*</i></p>';
                                 li = li + '                <input type="hidden" id="kscitymid" name="kscitymid" value="' + item_b[i].kscitymid + '"/>';
                                 li = li + '                  <input type="hidden" id="departure_province" name="departure_province" value="' + item_b[i].cfdd_pro + '"/>';
-                                li = li + '                  <span id="departure_city" class="mdcity" onclick="showcity(0,this)">' + item_b[i].cfdd_city + '</span>';
+                                li = li + '                  <span id="departure_city" class="mdcity" >' + item_b[i].cfdd_city + '</span>';
                                 li = li + '             </div>';
                                 li = li + '            <div class="mui-col-xs-4 mui-text-center" id="transport_div" style="display:none;">';
                                 li = li + '                 <span class="mui-icon mui-icon-pengyouquan" id="change_transpotation"></span>';
@@ -973,7 +990,7 @@
                                 li = li + '                <p>目的地<i>*</i></p>';
                                 li = li + '                <input type="hidden" id="citymid" name="citymid" value="' + item_b[i].citymid + '"/>';
                                 li = li + '                <input type="hidden" id="destination_province" name="destination_province" value="' + item_b[i].dddd_pro + '"/>';
-                                li = li + '                <span id="destination_city" class="mdcity" onclick="showcity(1,this)">' + item_b[i].dddd_city + '</span>';
+                                li = li + '                <span id="destination_city" class="mdcity" >' + item_b[i].dddd_city + '</span>';
                                 li = li + '           </div>';
                                 li = li + '          </div>';
                                 li = li + '         <div id="sc-row-2" class="mui-card-content mui-row bottomborder">';
@@ -1059,7 +1076,7 @@
                                 li = li + '                  <p>出发地<i>*</i></p>';
                                 li = li + '                <input type="hidden" id="kscitymid" name="kscitymid" value="' + item_b[i].kscitymid + '"/>';
                                 li = li + '                  <input type="hidden" id="departure_province" name="departure_province" value="' + item_b[i].cfdd_pro + '"/>';
-                                li = li + '                  <span id="departure_city" class="mdcity" onclick="showcity(0,this)">' + item_b[i].cfdd_city + '</span>';
+                                li = li + '                  <span id="departure_city" class="mdcity" >' + item_b[i].cfdd_city + '</span>';
                                 li = li + '             </div>';
                                 li = li + '            <div class="mui-col-xs-4 mui-text-center" id="transport_div" style="display:none;">';
                                 li = li + '                 <span class="mui-icon mui-icon-pengyouquan" id="change_transpotation"></span>';
@@ -1069,7 +1086,7 @@
                                 li = li + '                <p>目的地<i>*</i></p>';
                                 li = li + '                <input type="hidden" id="citymid" name="citymid" value="' + item_b[i].citymid + '"/>';
                                 li = li + '                <input type="hidden" id="destination_province" name="destination_province" value="' + item_b[i].dddd_pro + '"/>';
-                                li = li + '                <span id="destination_city" class="mdcity" onclick="showcity(1,this)">' + item_b[i].dddd_city + '</span>';
+                                li = li + '                <span id="destination_city" class="mdcity" >' + item_b[i].dddd_city + '</span>';
                                 li = li + '           </div>';
                                 li = li + '          </div>';
                                 li = li + '         <div id="sc-row-2" class="mui-card-content mui-row bottomborder">';
@@ -1155,7 +1172,7 @@
                                 li = li + '                  <p>出发地<i>*</i></p>';
                                 li = li + '                <input type="hidden" id="kscitymid" name="kscitymid" value="' + item_b[i].kscitymid + '"/>';
                                 li = li + '                  <input type="hidden" id="departure_province" name="departure_province" value="' + item_b[i].cfdd_pro + '"/>';
-                                li = li + '                  <span id="departure_city" class="mdcity" onclick="showcity(0,this)">' + item_b[i].cfdd_city + '</span>';
+                                li = li + '                  <span id="departure_city" class="mdcity" >' + item_b[i].cfdd_city + '</span>';
                                 li = li + '             </div>';
                                 li = li + '            <div class="mui-col-xs-4 mui-text-center" id="transport_div">';
                                 li = li + '                 <span class="mui-icon mui-icon-pengyouquan" id="change_transpotation"></span>';
@@ -1165,7 +1182,7 @@
                                 li = li + '                <p>目的地<i>*</i></p>';
                                 li = li + '                <input type="hidden" id="citymid" name="citymid" value="' + item_b[i].citymid + '"/>';
                                 li = li + '                <input type="hidden" id="destination_province" name="destination_province" value="' + item_b[i].dddd_pro + '"/>';
-                                li = li + '                <span id="destination_city" class="mdcity" onclick="showcity(1,this)">' + item_b[i].dddd_city + '</span>';
+                                li = li + '                <span id="destination_city" class="mdcity" >' + item_b[i].dddd_city + '</span>';
                                 li = li + '           </div>';
                                 li = li + '          </div>';
                                 li = li + '         <div id="sc-row-2" class="mui-card-content mui-row bottomborder">';
@@ -1248,7 +1265,7 @@
                                 li = li + '                  <p>出发地<i>*</i></p>';
                                 li = li + '                <input type="hidden" id="kscitymid" name="kscitymid" value="' + item_b[i].kscitymid + '"/>';
                                 li = li + '                  <input type="hidden" id="departure_province" name="departure_province" value="' + item_b[i].cfdd_pro + '"/>';
-                                li = li + '                  <span id="departure_city" class="mdcity" onclick="showcity(0,this)">' + item_b[i].cfdd_city + '</span>';
+                                li = li + '                  <span id="departure_city" class="mdcity" >' + item_b[i].cfdd_city + '</span>';
                                 li = li + '             </div>';
                                 li = li + '            <div class="mui-col-xs-4 mui-text-center" id="transport_div">';
                                 li = li + '                 <span class="mui-icon mui-icon-pengyouquan" id="change_transpotation"></span>';
@@ -1258,7 +1275,7 @@
                                 li = li + '                <p>目的地<i>*</i></p>';
                                 li = li + '                <input type="hidden" id="citymid" name="citymid" value="' + item_b[i].citymid + '"/>';
                                 li = li + '                <input type="hidden" id="destination_province" name="destination_province" value="' + item_b[i].dddd_pro + '"/>';
-                                li = li + '                <span id="destination_city" class="mdcity" onclick="showcity(1,this)">' + item_b[i].dddd_city + '</span>';
+                                li = li + '                <span id="destination_city" class="mdcity" >' + item_b[i].dddd_city + '</span>';
                                 li = li + '           </div>';
                                 li = li + '          </div>';
                                 li = li + '         <div id="sc-row-2" class="mui-card-content mui-row bottomborder">';
@@ -1453,7 +1470,7 @@
                         for (var i = 0; i < data.Steps.length; i++) {
                             //debugger;
 
-                            if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
+                            if (data.Steps[i].Finished == false && data.Steps[i].RecipientAccount == ($('#myPhone').val())) {
 
 
                                 if (stepId.indexOf(data.Steps[i].StepID) != -1) {
@@ -1493,6 +1510,68 @@
 
                                 }
                             }
+                        }
+                        for (var i = 0; i < data.Steps.length; i++) {
+
+                            if (data.Steps[i].FinishAt == "0001-01-01T00:00:00") {
+                                data.Steps[i].FinishAt = "";
+                            }
+                            var time = FormatterTime(data.Steps[i].FinishAt);
+
+                            var stepName = data.Steps[i].NodeName;
+                            if (data.Steps[i].NodeName == "sysInform") {
+                                stepName = "知会";
+                            } else if (data.Steps[i].NodeName == "sysTaskOpt") {
+                                stepName = "任务操作";
+                            } else if (data.Steps[i].NodeName == "开始") {
+                                stepName = "开始";
+                            }
+
+                            var stepAction = locationAction(data.Steps[i].SelAction);
+                            if (data.Steps[i].SelAction == "sysInform") {
+                                stepAction = "发起知会";
+                            } else if (data.Steps[i].SelAction == "Submit") {
+                                stepAction = "已阅";
+                            } else if (data.Steps[i].SelAction == "null" || data.Steps[i].SelAction == null) {
+                                stepAction = "待处理";
+                            } else if (data.Steps[i].SelAction == "sysReject") {
+                                stepAction = "拒绝";
+                            } else if (data.Steps[i].SelAction == "sysRecedeRestart") {
+                                stepAction = "退回重填";
+                            }
+
+
+                            var contents = data.Steps[i].Comments;
+                            if (contents == null) {
+                                contents = "无";
+                            }
+                            //判断是否是加签
+                            if (data.Steps[i].IsConsignStep == false) {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg">' + stepName + '<span style="font-size:0.65rem !important">' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            } else {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg signadd">加签<span style="font-size:0.65rem !important">' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            }
+                            $("#signff").append(li);
                         }
                     }
                 }, error: function (e) {
