@@ -426,6 +426,10 @@
                         $("#fbz").val(item.备注);
                         $("#stepId").val(stepId);
                         $("#fbillno").val(item.fbillno);
+                        $("#fpdwc").val(item.是否整改完成);
+                        $("#fzgwcqk").val(item.整改完成情况);
+                        $("#fpdcq").val(item.是否超期);
+                        $("#fcqyy").val(item.超期原因);
 
 
                         if (item.整改前照片 != null && item.整改前照片 != "") {
@@ -699,19 +703,23 @@
                         } else {
                             if (typeof (NodeName) != "undefined") {
                                 $("#approvalD").css("display", "block");
+
                                 if (NodeName == "安全员") {
                                     action = "同意";
                                     $("#agreebt").text("同意");
+                                    showPicker('fpdwc', fpdwcdata);
                                 } else if (NodeName == "安质部经理") {
                                     action = "确认";
                                     $("#agreebt").text("确认");
                                 }
 
-                                else if (String(NodeName).indexOf("车间主任") || String(NodeName).indexOf("负责人")) {
+                                else if (String(NodeName).indexOf("车间主任") != -1 || String(NodeName).indexOf("负责人") != -1) {
+
                                     $("#fpdwc").removeAttr("readonly");
                                     $("#fzgwcqk").removeAttr("readonly");
                                     action = "整改完成";
                                     $("#agreebt").text("整改完成");
+
                                 }
 
                                 else {
@@ -798,29 +806,31 @@
 
 
         }
+        var fpdwcdata = [
+            {
+                value: "yes",
+                text: "是"
+            },
+            {
+                value: "no",
+                text: "否"
+            }
+        ];
+        var fpdcqdata = [
+            {
+                value: "yes",
+                text: "是"
+            },
+            {
+                value: "no",
+                text: "否"
+            }
+        ];
         function tapEvent() {
-            var fpdwcdata = [
-                {
-                    value: "yes",
-                    text: "是"
-                },
-                {
-                    value: "no",
-                    text: "否"
-                }
-            ];
+           
 
             showPicker('fpdwc', fpdwcdata);
-            var fpdcqdata = [
-                {
-                    value: "yes",
-                    text: "是"
-                },
-                {
-                    value: "no",
-                    text: "否"
-                }
-            ];
+           
 
             showPicker('fpdcq', fpdcqdata);
 

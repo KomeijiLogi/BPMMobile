@@ -518,8 +518,8 @@
                     });
                 })();
 
-            }).fail(function (e) {
-
+                }).fail(function (e) {
+                    
             });
 
         }
@@ -698,7 +698,7 @@
 
         function calcPercent() {
             var fbz_total = parseFloat($("#fbz_total").val());
-            var ftotal = parseFloat($("#ftotal").val());
+            var ftotal = parseFloat($("#ftotal").val()) - parseFloat($("#fje_ctjtf").val());
             var fover = (ftotal - fbz_total) < 0 ? 0 : (ftotal - fbz_total);
             
             var fcbz = 0.00;

@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
+
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
+    <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
+    <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
+
+    <script type="text/javascript" src="../../../../Scripts/vue.min.js"></script>
+
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.detail.js"></script>
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        .mui-row.mui-fullscreen > [class*="mui-col-"] {
+            height: 100%;
+        }
+
+        .mui-col-xs-3,
+        .mui-col-xs-9 {
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        .mui-segmented-control .mui-control-item {
+            line-height: 50px;
+            width: 100%;
+        }
+
+        .mui-control-content {
+            display: block;
+        }
+
+        .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="mui-content" v-bind:style="wrapper" id="wrapper">
+        <form class="mui-input-group" v-bind:style="form">
+            <div class="mui-input-row">
+                <label for="fcompany">{{fcompany}}</label>
+                <input type="text" id="fcompany" name="fcompany" v-bind:readonly="isReadonly" ref="fcompany"/>
+            </div>
+            <div class="mui-input-row">
+                <label for="fdept">{{fdept}}</label>
+                <input type="text" id="fdept" name="fdept" v-bind:readonly="isReadonly" ref="fdept"/>
+            </div>
+            <div class="mui-input-row">
+                <label for="fname">{{fname}}</label>
+                <input type="text" id="fname" name="fname" v-bind:readonly="isReadonly" ref="fname"/>
+            </div>
+            <div class="mui-input-row">
+                <label for="fdate">{{fdate}}</label>
+                <input type="text" id="fdate" name="fdate" ref="fdate" />
+            </div>
+            <div class="mui-input-row">
+                <label for="fcllb">{{fcllb}}<i v-bind:style="i">*</i></label>
+                <input type="text" id="fcllb" name="fcllb" placeholder="请选择差旅类别" v-bind:readonly="isReadonly" ref="fcllb"/>
+            </div>
+            <div class="mui-input-row">
+                <label for="fif_jk">{{fif_jk}}<i v-bind:style="i">*</i></label>
+                <input type="hidden" id="fif_jk" name="fif_jk" value="否"/>
+                <div class="mui-switch mui-switch-mini mui-switch-blue " id="fif_jkd">
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </div>
+            <div class="mui-input-row">
+                <label for="fif_cl">{{fif_cl}}<i v-bind:style="i">*</i></label>
+                <input type="hidden" id="fif_cl" name="fif_cl" value="否"/>
+                <div class="mui-switch mui-switch-mini mui-switch-blue " id="fif_cld">
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </div>
+            <div class="mui-card mui-input-group" id="fjkcard" style="display:none;">
+                <div class="mui-input-row itemtitle">
+                    <label>借款申请单</label>
+                </div>
+                <div class="mui-input-row">
+                    <label for="fjktotal">借款金额<i style="color:red;">*</i></label>
+                    <input type="number" id="fjktotal" name="fjktotal" placeholder="请填写借款金额" />
+                </div>
+
+                <div class="mui-input-row">
+                    <label for="fjkbillno">借款单号</label>
+                    <input type="text" id="fjkbillno" name="fjkbillno" readonly="readonly" />
+                </div>
+                <div class="mui-input-row" style="height:auto;">
+                    <label for="fjkremark">借款事由</label>
+                    <textarea rows="7" id="fjkremark" name="fjkremark"></textarea>
+                </div>
+            </div>
+            <div id="mxlist_trainCourse">
+                <div id="mx_trainCourse" class="mui-input-group">
+                     <div class="mui-input-row itemtitle">
+                         <label>明细列表项</label>
+                         <span class="mui-icon mui-icon-close mui-pull-right" style="margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>
+                     </div>
+                     <div class="mui-input-row">
+                         <label for="fzwjb">{{fzwjb}}<i v-bind:style="i">*</i></label>
+                         <input type="text" id="fzwjb_trainCourse" name="fzwjb_trainCourse" ref="fzwjb_trainCourse" v-bind:readonly="isReadonly" placeholder="请选择职务级别"/>
+                     </div>
+                    <div class="mui-input-row">
+                        <label for="fsdate">{{fsdate}}<i v-bind:style="i">*</i></label>
+                        <input type="date" id="fsdate_trainCourse" name="fsdate_trainCourse" ref="fsdate_trainCourse"/>
+                    </div>
+                    <div class="mui-input-row">
+                        <label for="fedate">{{fedate}}<i v-bind:style="i">*</i></label>
+                        <input type="date" id="fedate_trainCourse" name="fedate_trainCourse" ref="fedate_trainCourse"/>
+                    </div>
+                    <div class="mui-input-row">
+                        <label for="fpxjg">{{fpxjg}}<i v-bind:style="i">*</i></label>
+                        <input type="text" id="fpxjg" name="fpxjg" placeholder="请填写培训机构名称" ref="fpxjg"/>
+                    </div>
+                    <div class="mui-input-row">
+                        <label for="fpxdd">{{fpxdd}}<i v-bind:style="i">*</i></label>
+                        <input type="text" id="fpxdd" name="fpxdd" placeholder="请填写培训地点" ref="fpxdd"/>
+                    </div>
+                    <div class="mui-input-row">
+                        <label for="fkcmc">{{fkcmc}}<i v-bind:style="i">*</i></label>
+                        <input type="text" id="fkcmc" name="fkcmc" placeholder="请填写课程名称" ref="fkcmc"/>
+                    </div>
+                    <div class="mui-input-row">
+                        <label for="fpxjs">{{fpxjs}}<i v-bind:style="i">*</i></label>
+                        <input type="text" id="fpxjs" name="fpxjs" placeholder="请填写培训讲师" ref="fpxjs"/>
+                    </div>
+                    <div class="mui-input-row">
+                        <label for="fif_zs">{{fif_zs}}<i v-bind:style="i">*</i></label>
+                        <input type="text" id="fif_zs" name="fif_zs" placeholder="请选择是否有证书" ref="fif_zs"/>
+                    </div>
+                </div>
+            </div>
+            <a class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" id="tjmx_pxkc" style="margin-top:0.5rem;">
+                添加培训课程明细
+                <span class="mui-icon mui-icon-plusempty"></span>
+            </a>
+            <div id="mxlist_offical">
+                <div id="mx_offical" class="mui-input-group">
+                    <div class="mui-input-row itemtitle">
+                        <label>明细列表项</label>
+                        <span class="mui-icon mui-icon-close mui-pull-right" style="margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>
+                    </div>
+                    <div class="mui-input-row">
+                        <label for="fzwjb_offical">{{fzwjb}}</label>
+                        <input type="text" id="fzwjb_offical" name="fzwjb_offical" ref="fzwjb_offical" v-bind:readonly="isReadonly" placeholder="请选择职务级别"/>
+                    </div>
+                    <div class="mui-input-row">
+                        <label for="fsdate_offical">{{fsdate}}</label>
+                        <input type="date" id="fsdate_offical" name="fsdate_offical" ref="fsdate_offical"/>
+                    </div>
+                    <div class="mui-input-row">
+                        <label for="fedate_offical">{{fedate}}</label>
+                        <input type="date" id="fedate_offical" name="fedate_offical" ref="fedate_offical"/>
+                    </div>
+                    <div class="mui-input-row">
+                        <label for="fjtgj">{{fjtgj}}</label>
+                        <input type="text" id="fjtgj" name="fjtgj" ref="fjtgj" placeholder="请选择交通工具" v-bind:readonly="isReadonly"/>
+                    </div>
+                    <div class="mui-input-row">
+                        <label for="fcity">{{fcity}}</label>
+                        <input type="text" id="fcity" name="fcity" ref="fcity" placeholder="请选择出差地点" v-bind:readonly="isReadonly"/>
+                    </div>
+                    <div class="mui-input-row">
+                        <label for="fdqlb">{{fdqlb}}</label>
+                        <input type="text" id="fdqlb" name="fdqlb" ref="fdqlb" placeholder="请"/>
+                    </div>
+                </div>
+            </div>
+            <a class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" id="tjmx_pxkc" style="margin-top:0.5rem;">
+                添加出差明细
+                <span class="mui-icon mui-icon-plusempty"></span>
+            </a>
+        </form>
+    </div>
+</body>
+</html>

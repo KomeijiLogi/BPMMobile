@@ -448,11 +448,14 @@
                 mui.toast('请填写标题');
                 return false;
             }
-            if (fjArray.length == 0) {
-                mui.toast('请上传附件');
+            if (!fwjjb || fwjjb == '') {
+                mui.toast('请选择文件级别');
                 return false;
             }
-
+            if (!fnr || fnr == '') {
+                mui.toast('请填写内容');
+                return false;
+            }
             for (var i = 0; i < selectOrgBPMOU.length; i++) {
                 var org = {
                     bpmou: selectOrgBPMOU[i],
@@ -498,7 +501,7 @@
 
                         xml = xml + '             <Attach>' + fjArray.toString().replace(",", ";") + '</Attach>';
                     } else {
-                        xml = xml + '             <Attach>201708040018</Attach>';
+                        xml = xml + '             <Attach></Attach>';
                     }
                     xml = xml + '               <lujing>' + selectOrgBPMOU.toString() + '</lujing>';
                     xml = xml + '               <lujing2>' + selectPersonAccount.toString() + '</lujing2>';

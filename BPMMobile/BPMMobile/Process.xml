@@ -948,5 +948,20 @@
     <Group></Group>
     <Description>用于房地产集团差旅费申请</Description>
   </Process>
+  <Process>
+    <Name>房地产集团培训费申请</Name>
+    <Path>\\07房地产集团\\01跨子公司\\CW财务管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/07FangDiChan/01KuaZiGongSi/CW0701005/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/07FangDiChan/01KuaZiGongSi/CW0701005/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/07FangDiChan/01KuaZiGongSi/CW0701005/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/07FangDiChan/01KuaZiGongSi/CW0701005/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/07FangDiChan/01KuaZiGongSi/CW0701005/FlowCreate.html</ViewPage>
+    <DisplayName>房地产集团培训费申请</DisplayName>
+    <Css></Css>
+    <Icon>../../../../Content/images/5.png</Icon>
+    <Group></Group>
+    <Description>用于房地产集团培训费申请</Description>
+  </Process>
 
 </ProcessList>

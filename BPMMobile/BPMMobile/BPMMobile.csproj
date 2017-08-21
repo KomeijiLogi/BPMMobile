@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -409,6 +410,10 @@
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701003\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701003\FlowDoneDetail.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701003\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701005\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701005\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701005\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701005\FlowUndoDetail.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701007\FlowAskDetail.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701007\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701007\FlowDoneDetail.html" />
