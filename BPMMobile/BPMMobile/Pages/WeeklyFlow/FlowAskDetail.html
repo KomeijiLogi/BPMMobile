@@ -35,6 +35,10 @@
                 <input type="text"  id="fno" name="fno" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
+                <label>部门</label>
+                <input type="text" id="fdept" name="fdept" readonly="readonly" />
+            </div>
+            <div class="mui-input-row">
                 <label>起始时间</label>
                 <input type="date" placeholder="起始时间信息"  id="fstartdate" name="fstartdate" readonly="readonly"/>
             </div>
@@ -406,6 +410,7 @@
 
                     $("#fname").val(item.姓名);
                     $("#fno").val(item.工号);
+                    $("#fdept").val(item.部门);
                     $("#fstartdate").val(FormatterTime(item.开始日期));
                     $("#foverdate").val(FormatterTime(item.结束日期));
                     $("#fyear").val(item.年);

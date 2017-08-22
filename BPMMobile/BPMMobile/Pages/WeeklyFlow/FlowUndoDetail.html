@@ -40,6 +40,10 @@
                 <input type="text" placeholder="请输入员工姓名信息"  id="fno" name="fno" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
+                <label>部门</label>
+                <input type="text" id="fdept" name="fdept" readonly="readonly"/>
+            </div>
+            <div class="mui-input-row">
                 <label>起始时间</label>
                 <input type="date" placeholder="请选择起始时间信息"  id="fstartdate" name="fstartdate" readonly="readonly"/>
             </div>
@@ -354,7 +358,8 @@
                     $("#fname").val(item.姓名);
                     $("#fno").val(item.工号);
                     $("#fstartdate").val(FormatterTime(item.开始日期));
-                    $("#foverdate").val( FormatterTime(item.结束日期));
+                    $("#foverdate").val(FormatterTime(item.结束日期));
+                    $("#fdept").val(item.部门);
                     $("#fyear").val(item.年);
                     $("#fmonth").val(item.月);
                     $("#fweek").val(item.周);
@@ -529,6 +534,7 @@
             var fname = $("#fname").val();
             var fno = $("#fno").val();
             var pid = $("#stepId").val();//stepId
+            var fdept = $("#fdept").val();
             var fstartdate = $("#fstartdate").val() + " 00:00:00";
             var foverdate = $("#foverdate").val() + " 00:00:00";
             var fyear = $("#fyear").val();
@@ -629,6 +635,7 @@
             var fname = $("#fname").val();
             var fno = $("#fno").val();
             var pid = $("#stepId").val();//stepId
+            var fdept = $("#fdept").val();
             var fstartdate = $("#fstartdate").val() + " 00:00:00";
             var foverdate = $("#foverdate").val() + " 00:00:00";
             var fyear = $("#fyear").val();
