@@ -68,7 +68,7 @@
             getVersion('\\01威高集团总部\\06建设公司\\XZBG行政办公', '建设公司证件借用申请');
             getBPMParam();
             prepMsg();
-           // forbiddenCache();
+          
 
         });
 
@@ -96,11 +96,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                     //location.reload();
                 } else if (callBackId == 'callback2') {
 
@@ -117,80 +113,7 @@
 
             $("#fdate").val(getNowFormatDate(2));
 
-            var url = window.location.href;
-            if (url != null && url != "") {
-                if (String(url).includes("reset")) {
-                    var msg = JSON.parse(localStorage.getItem('BPM_XZBG0106001Msg'));
-                    $("#fname").val(msg.fname);
-                    $("#fcom").val(msg.fcom);
-                    $("#fdept").val(msg.fdept);
-                    $("#fdate").val(msg.fdate);
-                    $("#ftel").val(msg.ftel);
-
-                    var fzjlbdata = [
-                        {
-                            value: "yj",
-                            text: "原件"
-                        },
-                        {
-                            value: "fyj",
-                            text: "复印件"
-                        }
-                    ];
-
-                    for (var i = 0; i < msg.fzjlb.length; i++) {
-
-                        var fzjlbItem = JSON.parse(msg.fzjlb[i]);
-                        var li = '<div id="bl" class="mui-card">';
-                        li = li + '   <div class="mui-input-row bgc">';
-                        li = li + '        <label>明细列表项</label> ';
-                        li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
-                        li = li + '   </div>';
-                        li = li + '   <div class="mui-input-row">';
-                        li = li + '        <label for="fzjmc">证件名称<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="text" id="fzjmc" name="fzjmc" value="' + fzjlbItem.fzjmc+ '" placeholder="请选择证件名称"/>';
-                        li = li + '   </div>';
-                        li = li + '   <div class="mui-input-row">';
-                        li = li + '        <label for="fzjlb">证件类别<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="text" id="fzjlb" name="fzjlb" value="' + fzjlbItem.fzjlb + '" placeholder="请选择证件类别"/> ';
-                        li = li + '   </div>';
-                        li = li + '   <div class="mui-input-row">';
-                        li = li + '        <label for="fnum">份数<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="number" id="fnum" name="fnum" value="' + fzjlbItem.fnum +  '" placeholder="请输入份数"/>';
-                        li = li + '   </div>';
-                        li = li + '   <div class="mui-input-row">';
-                        li = li + '        <label for="ftyms">用途描述<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="text" id="ftyms" name="fytms" value="' + fzjlbItem.fytms + '" placeholder="请输入用途描述"/>';
-                        li = li + '   </div>';
-                        li = li + '   <div class="mui-input-row">';
-                        li = li + '        <label for="fjyrq">借用日期<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="date" id="fjyrq" name="fjyrq" value="' + fzjlbItem.fjyrq + '" placeholder="请输入借用日期"/>';
-                        li = li + '   </div>';
-                        li = li + '   <div class="mui-input-row" style="height:3.25rem;">';
-                        li = li + '        <label for="fsjghrq">实际归还日期<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="date" id="fsjghrq" name="fsjghrq" value="' + fzjlbItem.fsjghrq + '" placeholder="请输入实际归还日期"/>';
-                        li = li + '   </div>';
-
-
-                        $("#bllist").append(li);
-                        var picker = new mui.PopPicker();
-
-                        picker.setData(fzjlbdata);
-
-                        $("#bllist").find("#fzjlb").each(function () {
-
-                            var self = this;
-                            $(this).off('tap');
-                            $(this).on('tap', function () {
-                                picker.show(function (items) {
-                                    self.value = (items[0].text);
-                                });
-                            });
-
-                        });
-                    }
-                }
-            }
+          
         }
         function tapEvent() {
             var fzjlbdata = [

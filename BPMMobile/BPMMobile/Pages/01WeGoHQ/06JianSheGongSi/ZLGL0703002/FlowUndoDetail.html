@@ -249,7 +249,7 @@
 
             });
 
-            forbiddenCache();
+           
         });
 
         mui('.mui-content .mui-switch').each(function () {
@@ -286,11 +286,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                 } else if (callBackId == 'callback2') {
                     XuntongJSBridge.call('selectPersons', { 'isMulti': 'true', 'pType': '1' }, function (result) {
 
@@ -505,6 +501,11 @@
                         $("#stepId").val(stepId);
                         $("#fbillno").val(item.单号);
 
+                        if ($('#myPhone').val() == "") {
+                            var myPhone = String(BPMOU).split("/");
+                            $('#myPhone').val(String(myPhone[myPhone.length - 1]));
+
+                        }
 
                         var NodeName;
                         //判断流程本节点是否结束，处理者是否为当前用户,

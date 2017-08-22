@@ -11,7 +11,9 @@
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
     <script type="text/javascript" src="../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../Scripts/vue.min.js"></script>
     <link rel="stylesheet" href="../Content/mui.min.css" />
+
     <title></title>
 	<meta charset="utf-8" />
    
@@ -107,18 +109,21 @@
         </ul>
 
         <ul class="mui-table-view flowslist">
-            <li class="mui-table-view-cell mui-collapse flowsitem mui-active">
+            <li class="mui-table-view-cell mui-collapse flowsitem" id="canCreateListTotal">
                 <a class="mui-navigate-right" href="#">
                     可发起的流程
                     <span class="mui-badge mui-badge-primary" id="badgeCreate">0</span>
                 </a>
-                <div class="mui-collapse-content">
-                    <ul class="mui-table-view" id="createFL">
+                <!--<div class="mui-collapse-content" id="canCreateList">
+                    <ul class="mui-table-view" id="createFL" >
                         
                     </ul>
+                   
+                   
 
-                </div>
+                </div>-->
             </li>
+
         </ul>
 
     </div>
@@ -137,7 +142,7 @@
               //$('.items').css('width', width + 'px');
               $('.items').css('width', '25%');
               getMsg();
-              forbiddenCache();
+             
           });
 
           XuntongJSBridge.call('setWebViewTitle', { 'title': '流程审批' });
@@ -214,13 +219,32 @@
                         $('#badgeCreate').text(data.length);
                         //console.log(data);
                         if (data.length == 0) {
-
-
+                            mui.toast('暂无移动端可发起流程');
                         } else {
+                            console.log(data);
+
+                            var groupArr = new Array();
+                            for (var n = 0; n < data.length; n++){
+                                groupArr.push(data[n].Group);
+                            }
+                            groupArr = removeDuplicatedItem(groupArr);
+                            
+                            for (var j = 0; j < groupArr.length;j++){
+                                var li = '   <li class="mui-table-view-cell  flowsitem mui-collapse mui-active">';
+                                li = li + '    <a class="mui-navigate-right" href="#">';
+                                li = li + groupArr[j];                                              
+                                li = li + '    </a>';
+                                li = li + '    <div class="mui-collapse-content" id="canCreateList">';
+                                li = li + '       <ul class="mui-table-view" id="createFL">';
+                                li = li + '       </ul>';            
+                                li = li + '    </div>';
+                                li = li + '   </li>';
+                                $(".flowslist").append(li);  
+                            }
 
 
                             for (var i = 0; i < data.length; i++) {
-
+                               
                                 var li = '   <li class="mui-table-view-cell mui-media accroditem">';
                                 li = li + '          <a href="' + data[i].CreatePage + '?version=' + data[i].Version + '" style="padding-left:0rem;">';
                                 li = li + '          <img class="mui-media-object mui-pull-left" src="' + data[i].Icon + '">';
@@ -230,9 +254,12 @@
                                 li = li + '           </div> ';
                                 li = li + '          </a> ';
                                 li = li + '   </li> ';
-
-                                $(li).prependTo("#createFL");
+                                $(".mui-navigate-right:contains('" + data[i].Group + "')").parent().find('ul').prepend(li);
+                                //console.log($(".mui-navigate-right:contains('" + data[i].Group + "')").parent().find('ul'));
+                                //$(li).prependTo("#createFL");
                             }
+
+                            
                         }
 
 

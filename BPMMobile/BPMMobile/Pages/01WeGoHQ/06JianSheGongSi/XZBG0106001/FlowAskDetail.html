@@ -46,7 +46,7 @@
             </div>
             <div class="mui-input-row">
                 <label for="ftel">联系电话<i style="color:red;">*</i></label>
-                <input type="number" id="ftel" name="ftel" value="" readonly="readonly" />
+                <input type="tel" id="ftel" name="ftel" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="height:3.25rem;">
                 <label>证件借用申请明细</label>
@@ -89,7 +89,7 @@
 
 
             getTaskMsg();
-            forbiddenCache();
+           
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
@@ -194,40 +194,8 @@
                     });
 
                 } else if (callBackId == 'callback2') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
-                } else if (callBackId == 'callback3') {
-                    var fzjjy = new Array();
-                    $("#bllist").find("#bl").each(function () {
-
-                        var fzjjyItem = JSON.stringify({
-                            "fzjmc": $(this).find("#fzjmc").val(),
-                            "fzjlb": $(this).find("#fzjlb").val(),
-                            "fnum": $(this).find("#fnum").val(),
-                            "fytms": $(this).find("#fytms").val(),
-                            "fjyrq": $(this).find("#fjyrq").val(),
-                            "fsjghrq": $(this).find("#fsjghrq").val(),
-                        })
-                        fzjjy.push(fzjjyItem);
-
-                    });
-
-                    var msg = JSON.stringify({
-
-                        "fname": $("#fname").val(),
-                        "fdate": $("#fdate").val(),
-                        "fcom": $("#fcom").val(),
-                        "fdept": $("#fdept").val(),
-                        "ftel": $("#ftel").val(),
-                        "fzjjy": fzjjy
-
-                    });
-                    localStorage.setItem('BPM_XZBG0106001Msg', msg);
-                    setTimeout("window.location.href = '/Pages/01WeGoHQ/06JianSheGongSi/XZBG0106001/FlowCreate.html?reset=true'", 1000);
-                }
+                    window.location.reload();
+                } 
             }
 
        });

@@ -102,7 +102,7 @@
 
 
             getTaskMsg();
-            forbiddenCache();
+           
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
@@ -205,11 +205,7 @@
                     });
 
                 } else if (callBackId == 'callback2') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                 } else {
 
                 }
@@ -248,10 +244,10 @@
                     $("#rname").val(item.请假人);
                     $("#fcj").val(item.所在车间);
                     $("#ftype").val(item.请假类型);
-                    $("#fstart").val(item.请假开始时间);
+                    $("#fstart").val( item.请假开始时间);
                     $("#fend").val(item.请假结束时间);
                     $("#fday").val(item.请假天数);
-                    $("#freason").val(item.请假理由);
+                    $("#freason").val(item.请假事由);
                     if (item.病假证明 != null && item.病假证明 != "") {
                         var fjtmp = (String)(item.病假证明);
 

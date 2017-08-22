@@ -170,7 +170,7 @@
 
             });
 
-            forbiddenCache();
+           
         });
 
         mui('.mui-content .mui-switch').each(function () {
@@ -206,11 +206,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                 } else if (callBackId == 'callback2') {
                     XuntongJSBridge.call('selectPersons', { 'isMulti': 'true', 'pType': '1' }, function (result) {
 
@@ -383,11 +379,7 @@
 
 
         function getTaskMsg() {
-            if ($('#myPhone').val() == "") {
-                var myPhone = String(BPMOU).split("/");
-                $('#myPhone').val(String(myPhone[myPhone.length - 1]));
-
-            }
+            
 
             var url = window.location.href;
             if (url != null && url.indexOf("tid") != -1 && url.indexOf("pid") != -1) {
@@ -483,7 +475,11 @@
                             $("#bllist").append(li);
 
                         }
+                        if ($('#myPhone').val() == "") {
+                            var myPhone = String(BPMOU).split("/");
+                            $('#myPhone').val(String(myPhone[myPhone.length - 1]));
 
+                        }
                         var NodeName;
                         //判断流程本节点是否结束，处理者是否为当前用户,
                         //流程步骤是否是传过来的流程步骤，再根据这三项查出对应的节点名称

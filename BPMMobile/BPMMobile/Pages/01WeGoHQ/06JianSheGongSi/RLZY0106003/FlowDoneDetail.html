@@ -30,7 +30,7 @@
         <form class="mui-input-group" style="left:0rem;right:0rem;margin-bottom:1rem;padding-bottom:4rem;">
             <div class="mui-input-row">
                 <label for="fnumber">员工编号</label>
-                <input type="number" id="fnumber" name="fnumber" value="" readonly="readonly" />
+                <input type="text" id="fnumber" name="fnumber" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fname">员工姓名</label>
@@ -149,7 +149,7 @@
 
 
             getTaskMsg();
-            forbiddenCache();
+           
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
@@ -252,11 +252,7 @@
                     });
 
                 } else if (callBackId == 'callback2') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                 } else {
 
                 }

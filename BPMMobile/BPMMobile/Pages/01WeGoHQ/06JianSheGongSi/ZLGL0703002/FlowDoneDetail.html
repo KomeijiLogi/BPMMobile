@@ -165,7 +165,7 @@
 
 
             getTaskMsg();
-            forbiddenCache();
+           
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
@@ -268,11 +268,7 @@
                     });
 
                 } else if (callBackId == 'callback2') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                 } else {
 
                 }

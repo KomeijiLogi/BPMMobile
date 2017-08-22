@@ -142,7 +142,7 @@
 
         mui.ready(function () {
             getTaskMsg();
-            forbiddenCache();
+           
 
         });
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
@@ -151,8 +151,8 @@
             'popTitleCallBackId': '1',
             'items': [
                 { 'text': '刷新', 'callBackId': 'callback1' },
-                { 'text': '重新发起', 'callBackId': 'callback2' },
-                {'text':'知会','callBackId':'callback3'}
+               
+                {'text':'知会','callBackId':'callback2'}
 
             ],
             'menuList': [
@@ -164,27 +164,7 @@
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
                     window.location.reload();
-                } else if (callBackId == 'callback2') {
-                    var msg = JSON.stringify({
-
-                        "fname": $("#fname").val(),
-                        "fdept": $("#fdept").val(),
-                        "fdate": $("#fdate").val(),
-                        "fsite": $("#fsite").val(),
-                        "fgcmc": $("#fgcmc").val(),
-                        "fwtms": $("#fwtms").val(),
-                        "fzgyq": $("#fzgyq").val(),
-                        "fxqdate": $("#fxqdate").val(),
-                        "fpdwc": $("#fpdwc").val(),
-                        "fzgwcqk": $("#fzgwcqk").val(),
-                        "fpdcq": $("#fpdcq").val(),
-                        "fcqyy": $("#fcqyy").val(),
-                        "fbz": $("#fbz").val()
-
-                    });
-                    localStorage.setItem('BPM_ZLGL0106003Msg', msg);
-                    setTimeout("window.location.href = '/Pages/01WeGoHQ/06JianSheGongSi/ZLGL0106003/FlowCreate.html?reset=true'", 1000);
-                } else if (callBackId=='callback3') {
+                }  else if (callBackId=='callback2') {
                     XuntongJSBridge.call('selectPersons', { 'isMulti': 'true', 'pType': '1' }, function (result) {
 
                         if (typeof (result) == "string") {

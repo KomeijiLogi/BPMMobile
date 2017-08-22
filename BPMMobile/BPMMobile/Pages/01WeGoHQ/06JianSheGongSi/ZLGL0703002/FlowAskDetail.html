@@ -167,7 +167,7 @@
 
 
             getTaskMsg();
-            forbiddenCache();
+           
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
@@ -177,9 +177,8 @@
             'popTitleCallBackId': '1',
             'items': [
                 { 'text': '知会', 'callBackId': 'callback1' },
-                { 'text': '刷新', 'callBackId': 'callback2' },
-                { 'text': '重新发起', 'callBackId': 'callback3' }
-
+                { 'text': '刷新', 'callBackId': 'callback2' }
+               
             ],
             'menuList': [
                 'openWithBrowser'
@@ -271,42 +270,8 @@
                     });
 
                 } else if (callBackId == 'callback2') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
-                } else if (callBackId == 'callback3') {
-
-                   
-
-                    var msg = JSON.stringify({
-
-                        "fname": $("#fname").val(),
-                        "fdept": $("#fdept").val(),
-                        "fdate": $("#fdate").val(),
-                        "ftype": $("#ftype").val(),
-                        "fgcmc": $("#fgcmc").val(),
-                        "fsccj": $("#fsccj").val(),
-                        "fcpsl": $("#fcpsl").val(),
-                        "fgg": $("#fgg").val(),
-                        "fcjsl": $("#fcjsl").val(),
-                        "frate": $("#frate").val(),
-                        "ftest1": $("#ftest1").val(),
-                        "ftest2": $("#ftest2").val(),
-                        "ftest3": $("#ftest3").val(),
-                        "ftest4": $("#ftest4").val(),
-                        "ftest5": $("#ftest5").val(),
-                        "ftest6": $("#ftest6").val(),
-                        "ftest7": $("#ftest7").val(),
-                        "ftest8": $("#ftest8").val(),
-                        "ftest9": $("#ftest9").val()
-                        
-
-                    });
-                    localStorage.setItem('BPM_ZLGL0703002Msg', msg);
-                    setTimeout("window.location.href = '/Pages/01WeGoHQ/06JianSheGongSi/ZLGL0703002/FlowCreate.html?reset=true'", 1000);
-                }
+                    window.location.reload();
+                } 
             }
 
             });

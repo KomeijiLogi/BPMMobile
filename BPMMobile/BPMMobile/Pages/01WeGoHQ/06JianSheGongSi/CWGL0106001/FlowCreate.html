@@ -93,7 +93,7 @@
             getVersion('\\01威高集团总部\\06建设公司\\SCGL生产管理', '建设公司库存不良物资提报');
             getBPMParam();
             prepMsg();
-            forbiddenCache();
+           
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
@@ -137,74 +137,7 @@
 
             $("#fdate").val(getNowFormatDate(2));
 
-            var url = window.location.href;
-            if (url != null && url != "") {
-                if (String(url).indexOf("reset") != -1) {
-
-                    var msg = JSON.parse(localStorage.getItem('BPM_CWGL0106001Msg'));
-                    $("#fname").val(msg.fname);
-                    $("#fdept").val(msg.fdept);
-                    $("#fdate").val(msg.fdate);
-                    $("#fyear").val(msg.fyear);
-                    $("#fmonth").val(msg.fmonth);
-                    $("#fhzjhfk").val(msg.fhzjhfk);
-                    $("#fhzjhyj").val(msg.fhzjhyj);
-                    $("#fhzzmye").val(msg.fhzzmye);
-                    $("#fhzzgrk").val(msg.fhzzgrk);
-                    $("#fhzhjzm").val(msg.fhzhjzm);
-                    $("#fhzjhzm").val(msg.fhzjhzm);
-
-                    
-
-                    for (var i = 0; i < msg.fjhmx.length; i++) {
-
-                        var fjhmxItem = JSON.parse(msg.fjhmx[i]);
-                        var li = '<div id="bl" class="mui-card">';
-                        li = li + '   <div class="mui-input-row bgc">';
-                        li = li + '        <label>明细列表项</label> ';
-                        li = li + '        <span class="mui-icon mui-icon-close mui-pull-right" style="margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
-                        li = li + '   </div>';
-                        li = li + '   <div class="mui-input-row">';
-                        li = li + '        <label for="fgys">供应商名称<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="text" id="fgys" name="fgys" value="' + fjhmxItem.fgys + '" placeholder="请输入供应商名称"/> ';
-                        li = li + '   </div>';
-                        li = li + '   <div class="mui-input-row">';
-                        li = li + '        <label for="fjhfk">计划付款金额<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="number" id="fjhfk" name="fjhfk" value="' + fjhmxItem.fjhfk + '" placeholder="请输入计划付款金额"/>';
-                        li = li + '   </div>';
-                        li = li + '   <div class="mui-input-row">';
-                        li = li + '        <label for="fjhyj">计划约进贷款<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="number" id="fjhyj" name="fjhyj" value="' + fjhmxItem.fjhyj + '" placeholder="请输入计划约进贷款"/>';
-                        li = li + '   </div>';
-                        li = li + '   <div class="mui-input-row">';
-                        li = li + '        <label for="fzmye">账面余额<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="number" id="fzmye" name="fzmye" value="' + fjhmxItem.fzmye + '"readonly="readonly"/>';
-                        li = li + '   </div>';
-                        li = li + '   <div class="mui-input-row">';
-                        li = li + '        <label for="fzgrk">暂估入库<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="number" id="fzgrk" name="fzgrk" value="' + fjhmxItem.fzgrk + '" placeholder="请输入暂估入库" onchange="calcPrice(this)"/>';
-                        li = li + '   </div>';
-                        li = li + '   <div class="mui-input-row">';
-                        li = li + '        <label for="fhjzmye">合计账面余额<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="number" id="fhjzmye" name="fhjzmye" value="' + fjhmxItem.fhjzmye + '"  readonly="readonly" onchange="calcPrice(this)"/>';
-                        li = li + '   </div>';
-                        li = li + '   <div class="mui-input-row">';
-                        li = li + '        <label for="fjhzmbd">计划账面比对</label>';
-                        li = li + '        <input type="number" id="fjhzmbd" name="fjhzmbd" value="' + fjhmxItem.fjhzmbd + '" readonly="readonly"/>';
-                        li = li + '   </div>';
-                        li = li + '   <div class="mui-input-row">';
-                        li = li + '        <label for="fbz">备注</label>';
-                        li = li + '        <input type="text" id="fbz" name="fbz" value="' + fjhmxItem.fbz + '" placeholder="请输入备注" />';
-                        li = li + '   </div>';
-
-
-                        $("#bllist").append(li);
-                        
-                    }
-                } else {
-
-                }
-            }
+         
         }
 
         function tapEvent() {
@@ -259,32 +192,32 @@
 
             });
 
-
+            var date = new Date();
 
             var fyeardata = [
                 {
-                    value: "2017",
-                    text: "2017"
+                    value: "",
+                    text: date.getFullYear()
                 },
                 {
-                    value: "2018",
-                    text: "2018"
+                    value: "",
+                    text: date.getFullYear()+1
                 },
                 {
-                    value: "2019",
-                    text: "2019"
+                    value: "",
+                    text: date.getFullYear()+2
                 },
                 {
-                    value: "2020",
-                    text: "2020"
+                    value: "",
+                    text: date.getFullYear()+3
                 },
                 {
-                    value: "2021",
-                    text: "2021"
+                    value: "",
+                    text: date.getFullYear()+4
                 },
                 {
-                    value: "2022",
-                    text:"2022"
+                    value: "",
+                    text: date.getFullYear()+5
                 }
             ];
             showPicker('fyear', fyeardata);
@@ -585,7 +518,7 @@
 
                         xml = xml + '             </FormData>';
                         xml = xml + '         </XForm>';
-                        alert(xml);
+                        //alert(xml);
                         PostXml(xml);
 
                     }

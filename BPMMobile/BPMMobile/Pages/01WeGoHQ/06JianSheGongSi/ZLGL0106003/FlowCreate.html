@@ -93,7 +93,7 @@
             upload();
             getBPMParam();
             watch();
-            forbiddenCache();
+           
             prepMsg();
 
         });
@@ -138,29 +138,7 @@
             tapEvent();
             $("#fdate").val(getNowFormatDate(2));
 
-            var url = window.location.href;
-            if (url != null && url != "") {
-                if (String(url).indexOf("reset") != -1) {
-
-                    var msg = JSON.parse(localStorage.getItem('BPM_ZLGL0106003Msg'));
-                    $("#fname").val(msg.fname);
-                    $("#fdept").val(msg.fdept);
-                    $("#fdate").val(msg.fdate);
-                    $("#fsite").val(msg.fsite);
-                    $("#fgcmc").val(msg.fgcmc);
-                    $("#fwtms").val(msg.fwtms);
-                    $("#fzgyq").val(msg.fzgyq);
-                    $("#fxqdate").val(msg.fxqdate);
-                    $("#fbz").val(msg.fbz);
-                    //    if (msg.fpd == "是") {
-                    //        $('#fpdd').addClass('mui-active');
-                    //        $("#fpd").val(msg.fpd);
-                    //    }
-                    //} else {
-
-                    //}
-                }
-            }
+          
         }
 
 

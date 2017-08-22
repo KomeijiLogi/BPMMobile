@@ -87,7 +87,7 @@
 
 
             getTaskMsg();
-            forbiddenCache();
+           
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
@@ -97,9 +97,8 @@
             'popTitleCallBackId': '1',
             'items': [
                 { 'text': '知会', 'callBackId': 'callback1' },
-                { 'text': '刷新', 'callBackId': 'callback2' },
-                { 'text': '重新发起', 'callBackId': 'callback3' }
-
+                { 'text': '刷新', 'callBackId': 'callback2' }
+               
 
             ],
             'menuList': [
@@ -192,42 +191,8 @@
                     });
 
                 } else if (callBackId == 'callback2') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
-                } else if (callBackId == 'callback3') {
-                    var fshfs = new Array();
-                    $("#bllist").find("#bl").each(function () {
-
-                        var fshfsItem = JSON.stringify({
-                            "fwxdd": $(this).find("#fwxdd").val(),
-                            "fwlno": $(this).find("#fwlno").val(),
-                            "fwlname": $(this).find("#fwlname").val(),
-                            "fgg": $(this).find("#fgg").val(),
-                            "fdw": $(this).find("#fdw").val(),
-                            "fsl": $(this).find("#fsl").val(),
-                            "fwxyy": $(this).find("#fwxyy").val(),
-                            "fshfs": $(this).find("#fshfs").val(),
-                            "ffycd": $(this).find("#ffycd").val(),
-                        })
-                        fshfs.push(fshfsItem);
-
-                    });
-
-                    var msg = JSON.stringify({
-
-                        "fname": $("#fname").val(),
-                        "fdept": $("#fdept").val(),
-                        "fdate": $("#fdate").val(),
-                        "qdate": $("#qdate").val(),
-                        "fshfs": fshfs
-
-                    });
-                    localStorage.setItem('BPM_SCYX0703001Msg', msg);
-                    setTimeout("window.location.href = '/Pages/01WeGoHQ/06JianSheGongSi/SCYX0703001/FlowCreate.html?reset=true'", 1000);
-                }
+                    window.location.reload();
+                } 
             }
 
        });
@@ -261,12 +226,13 @@
                     $("#fdept").val(item.申请部门);
                     $("#fdate").val(FormatterTimeYMS(item.申请日期));
                     $("#qdate").val(FormatterTimeYMS(item.需求到货日期));
+
                     var bli = data.FormDataSet.建设公司_门窗售后_子表;
                     for (var i = 0; i < bli.length;i++){
                         var li = '<div id="bl" class="mui-card">';
                         li = li + '   <div class="mui-input-row bgc">';
                         li = li + '        <label>明细列表项</label> ';
-                        li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
+                        li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;display:none;" id="deleteProduct" onclick="deleteItem(this)"></span>';
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row">';
                         li = li + '        <label for="fwxdd">维修地点<i style="color:red;">*</i></label>';

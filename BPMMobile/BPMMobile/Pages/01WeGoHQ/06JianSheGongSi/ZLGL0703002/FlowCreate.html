@@ -191,7 +191,7 @@
             getVersion('\\01威高集团总部\\06建设公司\\SCGL生产管理', '建设公司库存不良物资提报');
             getBPMParam();
             prepMsg();
-            // forbiddenCache();
+           
 
         });
 
@@ -273,34 +273,6 @@
 
             $("#fdate").val(getNowFormatDate(2));
 
-            var url = window.location.href;
-            if (url != null && url != "") {
-                if (String(url).indexOf("reset")!=-1) {
-                    var msg = JSON.parse(localStorage.getItem('BPM_ZLGL0703002Msg'));
-                    $("#fname").val(msg.fname);
-                    $("#fdept").val(msg.fdept);
-                    $("#fdate").val(msg.fdate);
-                    $("#ftype").val(msg.ftype);
-                    $("#fgcmc").val(msg.fgcmc);
-                    $("#fsccj").val(msg.fsccj);
-                    $("#fcpsl").val(msg.fcpsl);
-                    $("#fgg").val(msg.fgg);
-                    $("#fcjsl").val(msg.fcjsl);
-                    $("#frate").val(msg.frate);
-                    $("#ftest1").val(msg.ftest1);
-                    $("#ftest2").val(msg.ftest2);
-                    $("#ftest3").val(msg.ftest3);
-                    $("#ftest4").val(msg.ftest4);
-                    $("#ftest5").val(msg.ftest5);
-                    $("#ftest6").val(msg.ftest6);
-                    $("#ftest7").val(msg.ftest7);
-                    $("#ftest8").val(msg.ftest8);
-                    $("#ftest9").val(msg.ftest9);
-
-
-                 
-                }
-            }
         }
         function tapEvent() {
 
@@ -344,123 +316,6 @@
 
             showPicker('fsccj', fsccjdata);
 
-            //var ftest1data = [
-            //    {
-            //        value: "hg",
-            //        text: "合格"
-            //    },
-            //    {
-            //        value: "bhg",
-            //        text: "不合格"
-            //    }
-
-            //];
-
-            //showPicker('ftest1', ftest1data);
-            //var ftest2data = [
-            //    {
-            //        value: "hg",
-            //        text: "合格"
-            //    },
-            //    {
-            //        value: "bhg",
-            //        text: "不合格"
-            //    }
-
-            //];
-
-            //showPicker('ftest2', ftest2data);
-            //var ftest3data = [
-            //    {
-            //        value: "hg",
-            //        text: "合格"
-            //    },
-            //    {
-            //        value: "bhg",
-            //        text: "不合格"
-            //    }
-
-            //];
-
-            //showPicker('ftest3', ftest3data);
-            //var ftest4data = [
-            //    {
-            //        value: "hg",
-            //        text: "合格"
-            //    },
-            //    {
-            //        value: "bhg",
-            //        text: "不合格"
-            //    }
-
-            //];
-
-            //showPicker('ftest4', ftest4data);
-            //var ftest5data = [
-            //    {
-            //        value: "hg",
-            //        text: "合格"
-            //    },
-            //    {
-            //        value: "bhg",
-            //        text: "不合格"
-            //    }
-
-            //];
-
-            //showPicker('ftest5', ftest5data);
-            //var ftest6data = [
-            //    {
-            //        value: "hg",
-            //        text: "合格"
-            //    },
-            //    {
-            //        value: "bhg",
-            //        text: "不合格"
-            //    }
-
-            //];
-
-            //showPicker('ftest6', ftest6data);
-            //var ftest7data = [
-            //    {
-            //        value: "hg",
-            //        text: "合格"
-            //    },
-            //    {
-            //        value: "bhg",
-            //        text: "不合格"
-            //    }
-
-            //];
-
-            //showPicker('ftest7', ftest7data);
-            //var ftest8data = [
-            //    {
-            //        value: "hg",
-            //        text: "合格"
-            //    },
-            //    {
-            //        value: "bhg",
-            //        text: "不合格"
-            //    }
-
-            //];
-
-            //showPicker('ftest8', ftest8data);
-            //var ftest9data = [
-            //    {
-            //        value: "hg",
-            //        text: "合格"
-            //    },
-            //    {
-            //        value: "bhg",
-            //        text: "不合格"
-            //    }
-
-            //];
-
-            //showPicker('ftest9', ftest9data);
             
         }
         function Save() {

@@ -279,7 +279,7 @@
             });
             preUpload();
             watch();
-            forbiddenCache();
+           
 
         });
         mui('.mui-content .mui-switch').each(function () {
@@ -995,11 +995,13 @@
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
                             $(".upload-addbtn").css("display", "block");
-                            //$("#ftel").removeAttr("readonly");
-                            //$("#fshname").removeAttr("readonly");
-                            //$("#fdpno").removeAttr("readonly");
-                            //$("#fssxm").removeAttr("readonly");
-                            //$("#fpd").removeAttr("readonly");
+                            $("#qdate").removeAttr("readonly");
+                            $("#ftel").removeAttr("readonly");
+                            $("#fgcnum").removeAttr("readonly");
+                            $("#fgcname").removeAttr("readonly");
+                            $("#fjsdw").removeAttr("readonly");
+                            $("#fwlzl").removeAttr("readonly");
+                            $("#fgys").removeAttr("readonly");
 
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
@@ -1120,41 +1122,7 @@
                 var fblsl = $(this).find("#fblsl").val();
                 var fmj = $(this).find("#fmj").val();
                 var fblbz = $(this).find("#fblbz").val();
-                if (!fblwlbm || fblwlbm == "") {
-
-                    mui.toast("请输入物料编码");
-                    return;
-                }
-
-                if (!fazbw || fazbw == "") {
-
-                    mui.toast("请输入安装部位");
-                    return;
-                }
-                if (!fblgg || fblgg == "") {
-
-                    mui.toast("请输入玻璃规格");
-                    return;
-                }
-                if (!fblk || fblk == "") {
-
-                    mui.toast("请输入玻璃宽");
-                    return;
-
-                }
-                if (!fblg || fblg == "") {
-                    mui.toast("请输入玻璃高");
-                    return;
-                }
-                if (!fblsl || fblsl == "") {
-                    mui.toast("请输入数量");
-                    return;
-                }
-                if (!fmj || fmj == "") {
-                    mui.toast("请输入面积");
-                    return;
-                }
-
+               
 
 
                 var bl = new Object;
@@ -1179,40 +1147,6 @@
                 var fxczl = $(this).find("#fxczl").val();
                 var fxcbz = $(this).find("#fxcbz").val();
 
-                if (!fxcwlbm || fxcwlbm == "") {
-
-                    mui.toast("请输入物料编码");
-                    return;
-                }
-
-                if (!fxcxcmc || fxcxcmc == "") {
-
-                    mui.toast("请输入型材名称");
-                    return;
-                }
-                if (!fxcxcdh || fxcxcdh == "") {
-
-                    mui.toast("请输入型材代号");
-                    return;
-                }
-                if (!fxcysxh || fxcysxh == "") {
-
-                    mui.toast("请输入颜色型号");
-                    return;
-
-                }
-                if (!fxcmz || fxcmz == "") {
-                    mui.toast("请输入米重");
-                    return;
-                }
-                if (!fxcdc || fxcdc == "") {
-                    mui.toast("请输入定尺");
-                    return;
-                }
-                if (!fxcsl || fxcsl == "") {
-                    mui.toast("请输入数量");
-                    return;
-                }
 
 
 
@@ -1238,37 +1172,7 @@
                 var fpjgys = $(this).find("#fpjgys").val();
 
 
-                if (!fpjwlbm || fpjwlbm == "") {
-
-                    mui.toast("请输入物料编码");
-                    return;
-                }
-
-                if (!fpjwlmc || fpjwlmc == "") {
-
-                    mui.toast("请输入物料名称");
-                    return;
-                }
-                if (!fggxh || fggxh == "") {
-
-                    mui.toast("请输入规格型号");
-                    return;
-                }
-                if (!fdw || fdw == "") {
-
-                    mui.toast("请输入单位");
-                    return;
-
-                }
-                if (!fpjsl || fpjsl == "") {
-                    mui.toast("请输入数量");
-                    return;
-                }
-                if (!fpjgys || fpjgys == "") {
-                    mui.toast("请输入配件供应商");
-                    return;
-                }
-
+             
 
 
                 var pj = new Object;
@@ -1347,7 +1251,7 @@
                             xml = xml + '</Header>';
                             xml = xml + '<FormData>';
                             xml = xml + '<建设公司_物资采购_主表>';
-                            xml = xml + '<单号>自动生成</单号>';
+                            xml = xml + '<单号>' + fbillno + '</单号>';
                             xml = xml + '<申请人>' + fname + '</申请人>';
                             xml = xml + '<申请部门>' + fdept + '</申请部门>';
                             xml = xml + '<申请日期>' + fdate + '</申请日期>';
@@ -1465,7 +1369,7 @@
                 xml = xml + '</Header>';
                 xml = xml + '<FormData>';
                 xml = xml + '<建设公司_物资采购_主表>';
-                xml = xml + '<单号>自动生成</单号>';
+                xml = xml + '<单号>' + fbillno + '</单号>';
                 xml = xml + '<申请人>' + fname + '</申请人>';
                 xml = xml + '<申请部门>' + fdept + '</申请部门>';
                 xml = xml + '<申请日期>' + fdate + '</申请日期>';
@@ -1595,42 +1499,7 @@
                 var fblsl = $(this).find("#fblsl").val();
                 var fmj = $(this).find("#fmj").val();
                 var fblbz = $(this).find("#fblbz").val();
-                if (!fblwlbm || fblwlbm == "") {
-
-                    mui.toast("请输入物料编码");
-                    return;
-                }
-
-                if (!fazbw || fazbw == "") {
-
-                    mui.toast("请输入安装部位");
-                    return;
-                }
-                if (!fblgg || fblgg == "") {
-
-                    mui.toast("请输入玻璃规格");
-                    return;
-                }
-                if (!fblk || fblk == "") {
-
-                    mui.toast("请输入玻璃宽");
-                    return;
-
-                }
-                if (!fblg || fblg == "") {
-                    mui.toast("请输入玻璃高");
-                    return;
-                }
-                if (!fblsl || fblsl == "") {
-                    mui.toast("请输入数量");
-                    return;
-                }
-                if (!fmj || fmj == "") {
-                    mui.toast("请输入面积");
-                    return;
-                }
-
-
+              
 
                 var bl = new Object;
                 bl.fblwlbm = fblwlbm;
@@ -1654,43 +1523,7 @@
                 var fxczl = $(this).find("#fxczl").val();
                 var fxcbz = $(this).find("#fxcbz").val();
 
-                if (!fxcwlbm || fxcwlbm == "") {
-
-                    mui.toast("请输入物料编码");
-                    return;
-                }
-
-                if (!fxcxcmc || fxcxcmc == "") {
-
-                    mui.toast("请输入型材名称");
-                    return;
-                }
-                if (!fxcxcdh || fxcxcdh == "") {
-
-                    mui.toast("请输入型材代号");
-                    return;
-                }
-                if (!fxcysxh || fxcysxh == "") {
-
-                    mui.toast("请输入颜色型号");
-                    return;
-
-                }
-                if (!fxcmz || fxcmz == "") {
-                    mui.toast("请输入米重");
-                    return;
-                }
-                if (!fxcdc || fxcdc == "") {
-                    mui.toast("请输入定尺");
-                    return;
-                }
-                if (!fxcsl || fxcsl == "") {
-                    mui.toast("请输入数量");
-                    return;
-                }
-
-
-
+               
                 var xc = new Object;
                 xc.fxcwlbm = fxcwlbm;
                 xc.fxcxcmc = fxcxcmc;
@@ -1712,37 +1545,6 @@
                 var fpjbz = $(this).find("#fpjbz").val();
                 var fpjgys = $(this).find("#fpjgys").val();
 
-
-                if (!fpjwlbm || fpjwlbm == "") {
-
-                    mui.toast("请输入物料编码");
-                    return;
-                }
-
-                if (!fpjwlmc || fpjwlmc == "") {
-
-                    mui.toast("请输入物料名称");
-                    return;
-                }
-                if (!fggxh || fggxh == "") {
-
-                    mui.toast("请输入规格型号");
-                    return;
-                }
-                if (!fdw || fdw == "") {
-
-                    mui.toast("请输入单位");
-                    return;
-
-                }
-                if (!fpjsl || fpjsl == "") {
-                    mui.toast("请输入数量");
-                    return;
-                }
-                if (!fpjgys || fpjgys == "") {
-                    mui.toast("请输入配件供应商");
-                    return;
-                }
 
 
 
@@ -1773,7 +1575,7 @@
                     xml = xml + '</Header>';
                     xml = xml + '<FormData>';
                     xml = xml + '<建设公司_物资采购_主表>';
-                    xml = xml + '<单号>自动生成</单号>';
+                    xml = xml + '<单号>' + fbillno + '</单号>';
                     xml = xml + '<申请人>' + fname + '</申请人>';
                     xml = xml + '<申请部门>' + fdept + '</申请部门>';
                     xml = xml + '<申请日期>' + fdate + '</申请日期>';
@@ -1897,6 +1699,7 @@
             var bllistArr = new Array();
             var bllistArr_xc = new Array();
             var bllistArr_pj = new Array();
+            var mxflag = false;
             $("#bllist_bl").find("#bl").each(function () {
                 var fblwlbm = $(this).find("#fblwlbm").val();
                 var fazbw = $(this).find("#fazbw").val();
@@ -1907,36 +1710,39 @@
                 var fmj = $(this).find("#fmj").val();
                 var fblbz = $(this).find("#fblbz").val();
                 if (!fblwlbm || fblwlbm == "") {
-
+                    mxflag = true;
                     mui.toast("请输入物料编码");
                     return;
                 }
 
                 if (!fazbw || fazbw == "") {
-
+                    mxflag = true;
                     mui.toast("请输入安装部位");
                     return;
                 }
                 if (!fblgg || fblgg == "") {
-
+                    mxflag = true;
                     mui.toast("请输入玻璃规格");
                     return;
                 }
                 if (!fblk || fblk == "") {
-
+                    mxflag = true;
                     mui.toast("请输入玻璃宽");
                     return;
 
                 }
                 if (!fblg || fblg == "") {
+                    mxflag = true;
                     mui.toast("请输入玻璃高");
                     return;
                 }
                 if (!fblsl || fblsl == "") {
+                    mxflag = true;
                     mui.toast("请输入数量");
                     return;
                 }
                 if (!fmj || fmj == "") {
+                    mxflag = true;
                     mui.toast("请输入面积");
                     return;
                 }
@@ -1966,36 +1772,39 @@
                 var fxcbz = $(this).find("#fxcbz").val();
 
                 if (!fxcwlbm || fxcwlbm == "") {
-
+                    mxflag = true;
                     mui.toast("请输入物料编码");
                     return;
                 }
 
                 if (!fxcxcmc || fxcxcmc == "") {
-
+                    mxflag = true;
                     mui.toast("请输入型材名称");
                     return;
                 }
                 if (!fxcxcdh || fxcxcdh == "") {
-
+                    mxflag = true;
                     mui.toast("请输入型材代号");
                     return;
                 }
                 if (!fxcysxh || fxcysxh == "") {
-
+                    mxflag = true;
                     mui.toast("请输入颜色型号");
                     return;
 
                 }
                 if (!fxcmz || fxcmz == "") {
+                    mxflag = true;
                     mui.toast("请输入米重");
                     return;
                 }
                 if (!fxcdc || fxcdc == "") {
+                    mxflag = true;
                     mui.toast("请输入定尺");
                     return;
                 }
                 if (!fxcsl || fxcsl == "") {
+                    mxflag = true;
                     mui.toast("请输入数量");
                     return;
                 }
@@ -2025,32 +1834,34 @@
 
 
                 if (!fpjwlbm || fpjwlbm == "") {
-
+                    mxflag = true;
                     mui.toast("请输入物料编码");
                     return;
                 }
 
                 if (!fpjwlmc || fpjwlmc == "") {
-
+                    mxflag = true;
                     mui.toast("请输入物料名称");
                     return;
                 }
                 if (!fggxh || fggxh == "") {
-
+                    mxflag = true;
                     mui.toast("请输入规格型号");
                     return;
                 }
                 if (!fdw || fdw == "") {
-
+                    mxflag = true;
                     mui.toast("请输入单位");
                     return;
 
                 }
                 if (!fpjsl || fpjsl == "") {
+                    mxflag = true;
                     mui.toast("请输入数量");
                     return;
                 }
                 if (!fpjgys || fpjgys == "") {
+                    mxflag = true;
                     mui.toast("请输入配件供应商");
                     return;
                 }
@@ -2067,7 +1878,9 @@
                 pj.fpjgys = fpjgys;
                 bllistArr_pj.push(pj);
             });
-
+            if (mxflag) {
+                return;
+            }
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                 if (e.index == 1) {
@@ -2162,115 +1975,253 @@
         }
 
 
-        var toStepIDs = new Array();
-        //获取可退回步骤的列表
-        function getRecedableToSteps() {
-            var stepid = parseInt($("#stepId").val());
-            //console.log(parseInt($("#stepId").val()));
-            $.ajax({
-                type: "POST",
-                url: "/api/bpm/GetRecedableToSteps",
-                data: { '': stepid },
-                beforeSend: function (XHR) {
-                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+       
 
+
+     
+        function tapEvent() {
+
+
+
+            $("#addItem_bl").on('tap', function () {
+
+
+                var li = '<div id="bl" class="mui-card">';
+                li = li + '   <div class="mui-input-row bgc">';
+                li = li + '        <label>明细列表项</label> ';
+                li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fblwlbm">物料编码<i style="color:red;">*</i></label>';
+                li = li + '        <input type="text" id="fblwlbm" name="fblwlbm" value="" placeholder="请输入物料编码"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fazbw">安装部位<i style="color:red;">*</i></label>';
+                li = li + '        <input type="text" id="fazbw" name="fazbw" value="" placeholder="请输入安装部位"/> ';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fblgg">玻璃规格<i style="color:red;">*</i></label>';
+                li = li + '        <input type="text" id="fblgg" name="fblgg" value="" placeholder="请输入玻璃规格"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fblk">玻璃宽<i style="color:red;">*</i></label>';
+                li = li + '        <input type="number" id="fblk" name="fblk" value="" placeholder="请输入玻璃宽"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fblg">玻璃高<i style="color:red;">*</i></label>';
+                li = li + '        <input type="number" id="fblg" name="fblg" value="" placeholder="请输入玻璃高"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fblsl">数量<i style="color:red;">*</i></label>';
+                li = li + '        <input type="number" id="fblsl" name="fblsl" value="" placeholder="请输入数量"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fmj">面积<i style="color:red;">*</i></label>';
+                li = li + '        <input type="number" id="fmj" name="fmj" value="" placeholder="请输入面积"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fblbz">备注</label>';
+                li = li + '        <input type="text" id="fblbz" name="fblbz" value="" placeholder="请输入备注" />';
+                li = li + '   </div>';
+
+                $("#bllist_bl").append(li);
+
+            });
+            $("#addItem_xc").on('tap', function () {
+
+
+                var li = '<div id="xc" class="mui-card">';
+                li = li + '   <div class="mui-input-row bgc">';
+                li = li + '        <label>明细列表项</label> ';
+                li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fxcwlbm">物料编码<i style="color:red;">*</i></label>';
+                li = li + '        <input type="text" id="fxcwlbm" name="fxcwlbm" value="" placeholder="请输入物料编码"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fxcxcmc">型材名称<i style="color:red;">*</i></label>';
+                li = li + '        <input type="text" id="fxcxcmc" name="fxcxcmc" value="" placeholder="请输入型材名称"/> ';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fxcxcdh">型材代号<i style="color:red;">*</i></label>';
+                li = li + '        <input type="text" id="fxcxcdh" name="fxcxcdh" value="" placeholder="请输入型材代号"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fxcysxh">颜色型号<i style="color:red;">*</i></label>';
+                li = li + '        <input type="text" id="fxcysxh" name="fxcysxh" value="" placeholder="请输入颜色型号"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fxcmz">米重（kg/m）<i style="color:red;">*</i></label>';
+                li = li + '        <input type="number" id="fxcmz" name="fxcmz" value="" placeholder="请输入米重"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fxcdc">定尺（m）<i style="color:red;">*</i></label>';
+                li = li + '        <input type="number" id="fxcdc" name="fxcdc" value="" placeholder="请输入定尺"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fxcsl">数量（支）<i style="color:red;">*</i></label>';
+                li = li + '        <input type="number" id="fxcsl" name="fxcsl" value="" placeholder="请输入数量"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fxczl">重量（kg）<i style="color:red;">*</i></label>';
+                li = li + '        <input type="number" id="fxczl" name="fxczl" value="" placeholder="请输入重量"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fxcbz">备注</label>';
+                li = li + '        <input type="text" id="fxcbz" name="fxcbz" value="" placeholder="请输入备注" />';
+                li = li + '   </div>';
+
+                $("#bllist_xc").append(li);
+            });
+            $("#addItem_pj").on('tap', function () {
+
+
+                var li = '<div id="pj" class="mui-card">';
+                li = li + '   <div class="mui-input-row bgc">';
+                li = li + '        <label>明细列表项</label> ';
+                li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fpjwlbm">物料编码<i style="color:red;">*</i></label>';
+                li = li + '        <input type="text" id="fpjwlbm" name="fpjwlbm" value="" placeholder="请输入物料编码"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fpjwlmc">物料名称<i style="color:red;">*</i></label>';
+                li = li + '        <input type="text" id="fpjwlmc" name="fpjwlmc" value="" placeholder="请输入物料名称"/> ';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fggxh">规格型号<i style="color:red;">*</i></label>';
+                li = li + '        <input type="text" id="fggxh" name="fggxh" value="" placeholder="请输入规格型号"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fdw">单位<i style="color:red;">*</i></label>';
+                li = li + '        <input type="text" id="fdw" name="fdw" value="" placeholder="请输入单位"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fpjsl">数量<i style="color:red;">*</i></label>';
+                li = li + '        <input type="number" id="fpjsl" name="fpjsl" value="" placeholder="请输入数量"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fpjbz">备注</label>';
+                li = li + '        <input type="text" id="fpjbz" name="fpjbz" value="" placeholder="请输入备注" />';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fpjgys">供应商</label>';
+                li = li + '        <input type="text" id="fpjgys" name="fpjgys" value="" placeholder="请输入供应商" />';
+                li = li + '   </div>';
+
+                $("#bllist_pj").append(li);
+            });
+            //申请部门选择
+            var fdeptdata = [
+                {
+                    value: "lhptfgs",
+                    text: "绿化配套分公司"
                 },
-                success: function (data, status) {
-
-                    if (status == "success") {
-                        console.log(data);
-                        $("#wrapper").css("display", "none");
-
-                        if ($("#recedeWr").length != 0) {
-                            $("#recedeWr").remove();
-                        }
-
-
-                        var li = '<div class="mui-card" id="recedeWr" style="z-index:999;">';
-                        li = li + '  <form class="mui-input-group">';
-                        li = li + '  <div class="mui-input-row bgc">';
-                        li = li + '       <label>将任务退回</label>';
-                        li = li + '  </div>';
-                        for (var i = 0; i < data.length;i++){
-
-                            li = li + '     <div class="mui-input-row mui-checkbox mui-left">';
-                            li = li + '     <label>' + data[i].NodeName + '&nbsp;' + data[i].OwnerFullName + '&nbsp;' + FormatterTimeYMS(data[i].FinishAt) + '</label>';
-                            li = li + '     <input name="stepcbox" value="' + data[i].StepID + '" type="checkbox" >';
-                            li = li + '     </div>';
-
-                        }
-                        li = li + '   <div class="mui-btn-row mui-text-center" style="margin-top:1rem;">';
-                        li = li + '      <button class="mui-btn mui-btn-primary" type="button" style="height:2.5rem;width:40%;" onclick="RecedeBack()">确定</button>&nbsp;&nbsp;';
-                        li = li + '      <button class="mui-btn mui-btn-danger" type="button" style="height:2.5rem;width:40%;" onclick="goBack()">取消</button>';
-                        li = li + '   </div>';
-                        $("body").append(li);
-
-
-                    }
-                }, error: function (e) {
-
-                }, complete: function () {
-
+                {
+                    value: "mcfgs",
+                    text: "门窗分公司"
+                },
+                {
+                    value: "tycj",
+                    text: "铁艺车间"
+                },
+                {
+                    value: "mccj",
+                    text: "木窗车间"
+                },
+                {
+                    value: "lhjcj",
+                    text: "铝合金车间"
+                },
+                {
+                    value: "jzcj",
+                    text: "家装车间"
                 }
-            });
-        }
+            ];
+            showPicker("fdept", fdeptdata);
 
-
-        //退回某步
-        function RecedeBack() {
-            var stepId = $("#stepId").val();
-            var comments;
-            var list = document.getElementById('recedeWr');
-            var checkboxArray = [].slice.call(list.querySelectorAll('input[type="checkbox"]'));
-
-            checkboxArray.forEach(function (box) {
-                if (box.checked) {
-                    toStepIDs.push(box.value);
+            //是否加急选择
+            var fsfjjdata = [
+                {
+                    value: "yes",
+                    text: "是"
+                },
+                {
+                    value: "no",
+                    text: "否"
                 }
-            });
-            if (toStepIDs.length > 0) {
-                var btnArray = ['取消', '确定'];
-                mui.prompt('请输入原因：', '', '退回理由', btnArray, function (e) {
-                    if (e.index == 1) {
-                        comments = e.value;
+            ];
+            showPicker("fsfjj", fsfjjdata);
+
+            //物料种类选择
+            var fwlzldata = [
+                {
+                    value: "bl",
+                    text: "玻璃"
+                },
+                {
+                    value: "xc",
+                    text: "型材"
+                },
+                {
+                    value: "pj",
+                    text: "配件"
+                }
+            ];
+            //showPicker("fwlzl", fwlzldata);
 
 
-                        $.ajax({
-                            type: 'Post',
-                            url: '/api/bpm/PostRecedeBack',
-                            //dataType:'json',
-                            data: { 'stepid': stepId, 'comments': comments, 'toStepIDs': toStepIDs },
+            var element = document.getElementById("fwlzl");
 
-                            beforeSend: function (XHR) {
-                                XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
-                            },
-                            success: function (data, status) {
-                                if (status == "success") {
-                                    console.log(data);
-                                    mui.toast("退回到某步操作成功");
-                                    setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
-                                }
-                            }, error: function (e) {
+            var picker = new mui.PopPicker();
 
-                            }, complete: function () {
+            picker.setData(fwlzldata);
 
-                            }
-                        });
-                    }
+            element.addEventListener('tap', function () {
+
+                picker.show(function (items) {
+
+                    element.value = items[0].text;
+                    changeWlzl();
                 });
-            } else {
-                mui.toast("未选中任何节点");
-            }
 
+            }, false);
+
+            //送货地点选择
+            var fshdddata = [
+                {
+                    value: "gd",
+                    text: "工地"
+                },
+                {
+                    value: "gs",
+                    text: "公司"
+                }
+
+            ];
+            showPicker("fshdd", fshdddata);
+
+            //隔热条选择
+            var fgrtdata = [
+
+                {
+                    value: "gc",
+                    text: "国产"
+                },
+                {
+                    value: "jk",
+                    text: "进口"
+                },
+                {
+                    value: "wu",
+                    text: "无隔热条"
+                }
+            ];
+            showPicker("fgrt", fgrtdata);
 
         }
-
-        function goBack() {
-            $("#recedeWr").css("display", "none");
-            $("#wrapper").css("display", "block");
-
-        }
-
     </script>
 </body>
 </html>

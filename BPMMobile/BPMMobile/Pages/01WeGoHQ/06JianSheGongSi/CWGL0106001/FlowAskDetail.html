@@ -115,7 +115,7 @@
 
 
             getTaskMsg();
-            forbiddenCache();
+           
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
@@ -125,8 +125,8 @@
             'popTitleCallBackId': '1',
             'items': [
                 { 'text': '知会', 'callBackId': 'callback1' },
-                { 'text': '刷新', 'callBackId': 'callback2' },
-                {'text':'重新发起','callBackId':'callback3'}
+                { 'text': '刷新', 'callBackId': 'callback2' }
+               
 
             ],
             'menuList': [
@@ -220,43 +220,7 @@
 
                 } else if (callBackId == 'callback2') {
                     window.location.reload();
-                } else if (callBackId == 'callback3') {
-                    var fjhmx = new Array();
-                    $("#bllist").find("#bl").each(function () {
-
-                        var fjhmxItem = JSON.stringify({
-                            "fgys": $(this).find("#fgys").val(),
-                            "fjhfk": $(this).find("#fjhfk").val(),
-                            "fjhyj": $(this).find("#fjhyj").val(),
-                            "fzmye": $(this).find("#fzmye").val(),
-                            "fzgrk": $(this).find("#fzgrk").val(),
-                            "fhjzmye": $(this).find("#fhjzmye").val(),
-                            "fjhzmbd": $(this).find("#fjhzmbd").val(),
-                            "fbz": $(this).find("#fbz").val(),
-                        })
-                        fjhmx.push(fjhmxItem);
-
-                    });
-
-                    var msg = JSON.stringify({
-
-                        "fname": $("#fname").val(),
-                        "fdept": $("#fdept").val(),
-                        "fdate": $("#fdate").val(),
-                        "fyear": $("#fyear").val(),
-                        "fmonth": $("#fmonth").val(),
-                        "fhzjhfk": $("#fhzjhfk").val(),
-                        "fhzjhyj": $("#fhzjhyj").val(),
-                        "fhzzmye": $("#fhzzmye").val(),
-                        "fhzzgrk": $("#fhzzgrk").val(),
-                        "fhzhjzm": $("#fhzhjzm").val(),
-                        "fhzjhzm": $("#fhzjhzm").val(),
-                        "fjhmx": fjhmx
-
-                    });
-                    localStorage.setItem('BPM_CWGL0106001Msg', msg);
-                    setTimeout("window.location.href = '/Pages/01WeGoHQ/06JianSheGongSi/CWGL0106001/FlowCreate.html?reset=true'", 1000);
-                }
+                } 
             }
 
        });

@@ -201,7 +201,7 @@
 
             });
 
-            forbiddenCache();
+           
         });
 
         mui('.mui-content .mui-switch').each(function () {
@@ -237,11 +237,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                 } else if (callBackId == 'callback2') {
                     XuntongJSBridge.call('selectPersons', { 'isMulti': 'true', 'pType': '1' }, function (result) {
 
@@ -353,11 +349,7 @@
 
 
         function getTaskMsg() {
-            if ($('#myPhone').val() == "") {
-                var myPhone = String(BPMOU).split("/");
-                $('#myPhone').val(String(myPhone[myPhone.length - 1]));
-
-            }
+           
 
             var url = window.location.href;
             if (url != null && url.indexOf("tid") != -1 && url.indexOf("pid") != -1) {
@@ -523,6 +515,12 @@
                                 }
 
                             });
+
+                        }
+
+                        if ($('#myPhone').val() == "") {
+                            var myPhone = String(BPMOU).split("/");
+                            $('#myPhone').val(String(myPhone[myPhone.length - 1]));
 
                         }
                         var NodeName;

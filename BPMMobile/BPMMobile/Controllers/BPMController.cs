@@ -895,6 +895,7 @@ namespace BPMMobile.Controllers
                           ProcessName = t.ProcessName,
                           DraftGuid = t.DraftGuid,
                           Version=m.Version
+                          
                          
                           
                       };

@@ -31,7 +31,7 @@
             
             <div class="mui-input-row">
                 <label for="fnumber">员工编号</label>
-                <input type="number" id="fnumber" name="fnumber" value="" readonly="readonly" />
+                <input type="text" id="fnumber" name="fnumber" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fname">员工姓名</label>
@@ -151,7 +151,7 @@
 
 
             getTaskMsg();
-            forbiddenCache();
+           
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
@@ -161,8 +161,8 @@
             'popTitleCallBackId': '1',
             'items': [
                 { 'text': '知会', 'callBackId': 'callback1' },
-                { 'text': '刷新', 'callBackId': 'callback2' },
-                { 'text': '重新发起', 'callBackId': 'callback3' }
+                { 'text': '刷新', 'callBackId': 'callback2' }
+            
 
 
             ],
@@ -256,43 +256,8 @@
                     });
 
                 } else if (callBackId == 'callback2') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
-                } else if (callBackId == 'callback3') {
-
-
-                    var msg = JSON.stringify({
-
-                        "fnumber": $("#fnumber").val(),
-                        "fname": $("#fname").val(),
-                        "fdate": $("#fdate").val(),
-                        "fjt": $("#fjt").val(),
-                        "fcom": $("#fcom").val(),
-                        "fdept": $("#fdept").val(),
-                        "fwork": $("#fwork").val(),
-                        "fsex": $("#fsex").val(),
-                        "fbir": $("#fbir").val(),
-                        "fidnum": $("#fidnum").val(),
-                        "ftel": $("#ftel").val(),
-                        "fxl": $("#fxl").val(),
-                        "fschool": $("#fschool").val(),
-                        "fzy": $("#fzy").val(),
-                        "fbysj": $("#fbysj").val(),
-                        "fjrwgsj": $("#fjrwgsj").val(),
-                        "fdasz": $("#fdasz").val(),
-                        "fsbsz": $("#fsbsz").val(),
-                        "fsbjzrq": $("#fsbjzrq").val(),
-                        "fzzrq": $("#fzzrq").val(),
-                        "fzzwork": $("#fzzwork").val(),
-                        "fdeptid": $("#fdeptid").val(),
-
-                    });
-                    localStorage.setItem('BPM_RLZY0106003Msg', msg);
-                    setTimeout("window.location.href = '/Pages/01WeGoHQ/06JianSheGongSi/RLZY0106003/FlowCreate.html?reset=true'", 1000);
-                }
+                    window.location.reload();
+                } 
             }
 
        });

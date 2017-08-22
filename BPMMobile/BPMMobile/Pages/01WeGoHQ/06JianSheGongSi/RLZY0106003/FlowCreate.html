@@ -30,7 +30,7 @@
         <form class="mui-input-group" style="left:0rem;right:0rem;margin-bottom:1rem;padding-bottom:4rem;">
             <div class="mui-input-row">
                 <label for="fnumber">员工编号</label>
-                <input type="number" id="fnumber" name="fnumber" value="" readonly="readonly" />
+                <input type="text" id="fnumber" name="fnumber" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fname">员工姓名</label>
@@ -131,7 +131,7 @@
              upload();
              getBPMParam();
              watch();
-             forbiddenCache();
+            
              prepMsg();
 
          });
@@ -266,42 +266,7 @@
              tapEvent();
              $("#fdate").val(getNowFormatDate(2));
 
-             var url = window.location.href;
-             if (url != null && url != "") {
-                 if (String(url).indexOf("reset") != -1) {
-
-                     var msg = JSON.parse(localStorage.getItem('BPM_RLZY0106003Msg'));
-                     $("#fnumber").val(msg.fnumber);
-                     $("#fname").val(msg.fname);
-                     $("#fdate").val(msg.fdate);
-                     $("#fjt").val(msg.fjt);
-                     $("#fcom").val(msg.fcom);
-                     $("#fdept").val(msg.fdept);
-                     $("#fwork").val(msg.fwork);
-                     $("#fsex").val(msg.fsex);
-                     $("#fbir").val(msg.fbir);
-                     $("#fidnum").val(msg.fidnum);
-                     $("#ftel").val(msg.ftel);
-                     $("#fxl").val(msg.fxl);
-                     $("#fschool").val(msg.fschool);
-                     $("#fzy").val(msg.fzy);
-                     $("#fbysj").val(msg.fbysj);
-                     $("#fjrwgsj").val(msg.fjrwgsj);
-                     $("#fdasz").val(msg.fdasz);
-                     $("#fsbsz").val(msg.fsbsz);
-                     $("#fsbjzrq").val(msg.fsbjzrq);
-                     $("#fzzrq").val(msg.fzzrq);
-                     $("#fzzwork").val(msg.fzzwork);
-                     $("#fdeptid").val(msg.fdeptid);
-
-
-
-
-
-
-               
-                 }
-             }
+           
          }
 
 

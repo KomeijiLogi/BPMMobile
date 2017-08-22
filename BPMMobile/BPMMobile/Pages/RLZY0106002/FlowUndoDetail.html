@@ -393,7 +393,7 @@
                         //流程步骤是否是传过来的流程步骤，再根据这三项查出对应的节点名称
                         for (var i = 0; i < data.Steps.length; i++) {
                             //debugger;
-
+                            
                             if (data.Steps[i].Finished == false && data.Steps[i].RecipientAccount == ($('#myPhone').val())) {
 
 
@@ -406,10 +406,17 @@
                             }
 
                         }
+                        
                         $("#nodeName").val(NodeName);
+                        
                         if (NodeName == '开始') {
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
+                            $("#fksdate").removeAttr("readonly");
+                            $("#fjsdate").removeAttr("readonly");
+                            $("#fgw").removeAttr("readonly");
+                            $("#fzwpj").removeAttr("readonly");
+                            tapEvent();
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -856,6 +863,8 @@
             var fywbmdb = $("#fywbmdb").val();
             var fywbmdbno = $("#fywbmdbno").val();
             var fzwpj = $("#fzwpj").val();
+            var pid = $("#stepId").val();
+            var fbillno = $("#fbillno").val();
 
             if (!fgw || fgw == '') {
                 mui.toast('请填写岗位');
@@ -896,7 +905,7 @@
                     xml = xml + '  </Header>';
                     xml = xml + '         <FormData>';
                     xml = xml + '          <建设公司_行管人员_转正申请>';
-                    xml = xml + '              <单号>自动生成</单号>';
+                    xml = xml + '              <单号>' + fbillno + '</单号>';
                     xml = xml + '             <申请人>' + fname + '</申请人>';
                     xml = xml + '               <申请日期>' + fdate + '</申请日期>';
                     xml = xml + '               <所属部门>' + fdept + '</所属部门>';
@@ -926,6 +935,102 @@
                 }
             });
         }
+
+        function tapEvent() {
+
+            $("#fbmygdb").on('tap', function () {
+                XuntongJSBridge.call('selectPerson', { 'pType': '1' }, function (result) {
+
+                    if (typeof (result) == "string") {
+                        result = JSON.parse(result);
+                    }
+
+                    var chosenNameArr = new Array();
+                    var chosenOpenIdArr = new Array();
+                    if (result.success == true || result.success == "true") {
+                        for (var i = 0; i < result.data.persons.length; i++) {
+                            chosenNameArr.push(result.data.persons[i].personName);
+                            chosenOpenIdArr.push((String)(result.data.persons[i].openId));
+
+                        }
+                        $("#fbmygdb").val(chosenNameArr);
+                        var chosenUserIdArr = new Array();
+                        $.ajax({
+                            type: "POST",
+                            url: "/api/bpm/PostAccount",
+                            data: { "ids": chosenOpenIdArr },
+                            beforeSend: function (XHR) {
+                                XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+                            }, success: function (data, status) {
+
+                                if (status == "success") {
+
+
+                                    for (var i = 0; i < data.data.length; i++) {
+                                        chosenUserIdArr.push(data.data[i].phone);
+                                    }
+                                    $("#fbmygdbno").val(chosenUserIdArr);
+
+                                }
+                            }, error: function (e) {
+                            }, complete: function () {
+                            }
+                        });
+                    }
+                });
+
+            });
+
+
+            $("#fywbmdb").on('tap', function () {
+                XuntongJSBridge.call('selectPerson', { 'pType': '1' }, function (result) {
+
+                    if (typeof (result) == "string") {
+                        result = JSON.parse(result);
+                    }
+
+                    var chosenNameArr = new Array();
+                    var chosenOpenIdArr = new Array();
+
+                    if (result.success == true || result.success == "true") {
+                        for (var i = 0; i < result.data.persons.length; i++) {
+                            chosenNameArr.push(result.data.persons[i].personName);
+                            chosenOpenIdArr.push((String)(result.data.persons[i].openId));
+
+                        }
+
+                        $("#fywbmdb").val(chosenNameArr);
+                        var chosenUserIdArr = new Array();
+                        $.ajax({
+                            type: "POST",
+                            url: "/api/bpm/PostAccount",
+                            data: { "ids": chosenOpenIdArr },
+                            beforeSend: function (XHR) {
+                                XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+                            }, success: function (data, status) {
+
+                                if (status == "success") {
+
+
+                                    for (var i = 0; i < data.data.length; i++) {
+                                        chosenUserIdArr.push(data.data[i].phone);
+                                    }
+                                    $("#fywbmdbno").val(chosenUserIdArr);
+
+                                }
+                            }, error: function (e) {
+                            }, complete: function () {
+                            }
+                        });
+                    }
+                });
+
+            });
+        }
+
+
     </script>
 </body>
 </html>

@@ -88,7 +88,7 @@
             upload();
             getBPMParam();
             watch();
-            forbiddenCache();
+         
             prepMsg();
 
         });
@@ -133,28 +133,7 @@
             tapEvent();
             $("#fdate").val(getNowFormatDate(2));
 
-            var url = window.location.href;
-            if (url != null && url != "") {
-                if (String(url).indexOf("reset") != -1) {
-
-                    var msg = JSON.parse(localStorage.getItem('BPM_AQGL0106001Msg'));
-                    $("#fname").val(msg.fname);
-                    $("#fdept").val(msg.fdept);
-                    $("#fdate").val(msg.fdate);
-                    $("#fsite").val(msg.fsite);
-                    $("#fwtms").val(msg.fwtms);
-                    $("#fzgyq").val(msg.fzgyq);
-                    $("#fxqdate").val(msg.fxqdate);
-                    $("#fbz").val(msg.fbz);
-                    //    if (msg.fpd == "是") {
-                    //        $('#fpdd').addClass('mui-active');
-                    //        $("#fpd").val(msg.fpd);
-                    //    }
-                    //} else {
-
-                    //}
-                }
-            }
+           
         }
 
 
@@ -214,7 +193,7 @@
             var fsite = $("#fsite").val();
             var fwtms = $("#fwtms").val();
             var fzgyq = $("#fzgyq").val();
-            var fxqdate = $("#fxqdate").val();
+            var fxqdate = $("#fxqdate").val() + " 00:00:00";
             var fbz = $("#fbz").val();
 
 
@@ -230,7 +209,7 @@
                 mui.toast("请输入整改要求");
                 return;
             }
-            if (!fxqdate || fxqdate == "") {
+            if (!$("#fxqdate").val() || $("#fxqdate").val() == "") {
                 mui.toast("请输入限期整改日期");
                 return;
             }
@@ -273,7 +252,7 @@
                     xml = xml + '</建设公司_安全检查_问题反馈>';
                     xml = xml + '</FormData>';
                     xml = xml + '</XForm>';
-                    //alert(xml);
+                 
                     PostXml(xml);
                 }
             });

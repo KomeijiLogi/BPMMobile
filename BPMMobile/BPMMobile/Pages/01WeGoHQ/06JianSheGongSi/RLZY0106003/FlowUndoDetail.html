@@ -31,7 +31,7 @@
         <form class="mui-input-group" style="left:0rem;right:0rem;margin-bottom:1rem;padding-bottom:4rem;">
             <div class="mui-input-row">
                 <label for="fnumber">员工编号</label>
-                <input type="number" id="fnumber" name="fnumber" value="" readonly="readonly" />
+                <input type="text" id="fnumber" name="fnumber" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fname">员工姓名</label>
@@ -234,7 +234,7 @@
 
             });
 
-            forbiddenCache();
+           
         });
 
         mui('.mui-content .mui-switch').each(function () {
@@ -270,11 +270,7 @@
             if (result.success == true || result.success == 'true') {
                 var callBackId = result.data ? result.data.callBackId : '';
                 if (callBackId == 'callback1') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
+                    window.location.reload();
                 } else if (callBackId == 'callback2') {
                     XuntongJSBridge.call('selectPersons', { 'isMulti': 'true', 'pType': '1' }, function (result) {
 
@@ -386,11 +382,7 @@
 
 
         function getTaskMsg() {
-            if ($('#myPhone').val() == "") {
-                var myPhone = String(BPMOU).split("/");
-                $('#myPhone').val(String(myPhone[myPhone.length - 1]));
-
-            }
+            
 
             var url = window.location.href;
             if (url != null && url.indexOf("tid") != -1 && url.indexOf("pid") != -1) {
@@ -432,6 +424,7 @@
                         var item = data.FormDataSet.建设公司_行管人员_转正参保[0];
                         $("#taskId").val(item.TaskID);
                         $("#stepId").val(stepId);
+                        $("#fbillno").val(item.单号);
                         $("#fnumber").val(item.员工编号);
                         $("#fname").val(item.员工姓名);
                         $("#fdate").val(FormatterTimeYMS(item.申请日期));
@@ -455,7 +448,12 @@
                         $("#fzzwork").val(item.转正后职位);
                         $("#fdeptid").val(item.部门编码);
 
+                        if ($('#myPhone').val() == "") {
+                            var myPhone = String(BPMOU).split("/");
+                            $('#myPhone').val(String(myPhone[myPhone.length - 1]));
 
+                        }
+                        
                         var NodeName;
                         //判断流程本节点是否结束，处理者是否为当前用户,
                         //流程步骤是否是传过来的流程步骤，再根据这三项查出对应的节点名称
@@ -463,7 +461,7 @@
                             //debugger;
 
                             if (data.Steps[i].Finished == false && data.Steps[i].RecipientAccount == ($('#myPhone').val())) {
-
+                                
 
                                 if (String(stepId).indexOf(data.Steps[i].StepID)!=-1) {
 
@@ -474,7 +472,7 @@
                             }
 
                         }
-
+                      
                         if (NodeName == "开始") {
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -689,7 +687,7 @@
 
                             xml = xml + '</FormData>';
                             xml = xml + '</XForm>';
-                            alert(xml);
+                            //alert(xml);
                             PostXml(xml);
                         }
                     }, error: function (e) {
@@ -741,7 +739,7 @@
                 xml = xml + '</建设公司_行管人员_转正参保>';
                 xml = xml + '</FormData>';
                 xml = xml + '</XForm>';
-                alert(xml);
+                //alert(xml);
                 PostXml(xml);
             }
 
@@ -776,10 +774,6 @@
 
 
 
-
-            if (BlItem(fsbsz, fsbjzrq) == null) {
-                    return;
-                }
 
 
             var comment = '';
@@ -855,9 +849,15 @@
             var fdeptid = $("#fdeptid").val();
 
 
-            if (BlItem(fsbsz,fsbjzrq) == null) {
-                    return;
-                }
+            if (!fsbsz || fsbsz == "") {
+                mui.toast("请输入社保所在机构");
+                return;
+            }
+            if (!fsbjzrq || fsbjzrq == "") {
+                mui.toast("请输入社保缴至日期");
+                return;
+            }
+
 
 
 

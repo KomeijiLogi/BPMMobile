@@ -116,7 +116,7 @@
 
 
             getTaskMsg();
-            forbiddenCache();
+           
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
@@ -126,8 +126,8 @@
             'popTitleCallBackId': '1',
             'items': [
                 { 'text': '知会', 'callBackId': 'callback1' },
-                { 'text': '刷新', 'callBackId': 'callback2' },
-                { 'text': '重新发起', 'callBackId': 'callback3' }
+                { 'text': '刷新', 'callBackId': 'callback2' }
+              
 
 
             ],
@@ -221,31 +221,8 @@
                     });
 
                 } else if (callBackId == 'callback2') {
-                    if (isSafari()) {
-                        iosfresh();
-                    } else {
-                        history.go(0);
-                    }
-                } else if (callBackId == 'callback3') {
-                    
-
-                    var msg = JSON.stringify({
-
-                        "fname": $("#fname").val(),
-                        "fdate": $("#fdate").val(),
-                        "fcom": $("#fcom").val(),
-                        "rname": $("#rname").val(),
-                        "fcj": $("#fcj").val(),
-                        "ftype": $("#ftype").val(),
-                        "fstart": $("#fstart").val(),
-                        "fend": $("#fend").val(),
-                        "fday": $("#fday").val(),
-                        "freason": $("#freason").val(),
-
-                    });
-                    localStorage.setItem('BPM_RLZY0106001Msg', msg);
-                    setTimeout("window.location.href = '/Pages/01WeGoHQ/06JianSheGongSi/RLZY0106001/FlowCreate.html?reset=true'", 1000);
-                }
+                    window.location.reload();
+                } 
             }
 
        });
@@ -284,7 +261,7 @@
                     $("#fstart").val(item.请假开始时间);
                     $("#fend").val(item.请假结束时间);
                     $("#fday").val(item.请假天数);           
-                    $("#freason").val(item.请假理由);
+                    $("#freason").val(item.请假事由);
                     if (item.病假证明 != null && item.病假证明 != "") {
                         var fjtmp = (String)(item.病假证明);
 
