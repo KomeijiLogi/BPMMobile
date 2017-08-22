@@ -374,7 +374,8 @@
                                 $(this).attr("checked", "checked");
                             }
                         });
-                        if (khyj.indexOf("延长")!=-1) {
+                        if (khyj.indexOf("延长") != -1) {
+                            $("#fycbody").css("display", "block");
                             $("#fycys").val(item.延长月数);
                             $("#fycz").val(FormatterTimeYMS(item.延长到期日期));
                         }
@@ -434,7 +435,10 @@
 
 
                                         });
-
+                                        $("#fycys").removeAttr("readonly");
+                                        $("#fycz").removeAttr("readonly");
+                                        $("#fycbody").css("display", "block");
+                                        $("#fycbody").css("color", "black");
                                         $(".mui-input-row.mui-radio").find("input").on('tap', function () {
 
                                             if (String($(this).val()).indexOf("延长") != -1) {
@@ -448,6 +452,7 @@
                                                 $("#fycbody").css("color", "#a7a7a7");
                                                 $("#fycys").attr("readonly", "readonly");
                                                 $("#fycz").attr("readonly", "readonly");
+
                                             }
 
                                         });
@@ -591,6 +596,7 @@
                     if (fkpyj.indexOf("延长") != -1) {
                         fycys = $("#fycys").val();
                         fycz = $("#fycz").val() + " 00:00:00";
+
                     }
                 }
             });
@@ -618,6 +624,14 @@
             }
             if (String(nodeName).indexOf("直接上级") != -1 && fkpyj == '') {
                 mui.toast('请选择考核意见');
+                return false;
+            }
+            if (String(nodeName).indexOf("直接上级") != -1 && fycys == '' && fkpyj.indexOf("延长") != -1) {
+                mui.toast('请填写延长月份');
+                return false;
+            }
+            if (String(nodeName).indexOf("直接上级") != -1 && $("#fycz").val() == '' && fkpyj.indexOf("延长") != -1) {
+                mui.toast('请填写延长日期');
                 return false;
             }
             if (String(nodeName).indexOf("综合部经理") != -1 && fnx == '') {

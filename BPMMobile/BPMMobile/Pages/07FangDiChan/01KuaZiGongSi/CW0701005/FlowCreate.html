@@ -77,34 +77,46 @@
             </div>
             <div class="mui-input-row">
                 <label for="fif_jk">{{fif_jk}}<i v-bind:style="i">*</i></label>
-                <input type="hidden" id="fif_jk" name="fif_jk" value="否"/>
+                <input type="hidden" id="fif_jk" name="fif_jk" value="否" ref="fif_jk"/>
                 <div class="mui-switch mui-switch-mini mui-switch-blue " id="fif_jkd">
                     <div class="mui-switch-handle"></div>
                 </div>
             </div>
             <div class="mui-input-row">
                 <label for="fif_cl">{{fif_cl}}<i v-bind:style="i">*</i></label>
-                <input type="hidden" id="fif_cl" name="fif_cl" value="否"/>
+                <input type="hidden" id="fif_cl" name="fif_cl" value="否" ref="fif_cl"/>
                 <div class="mui-switch mui-switch-mini mui-switch-blue " id="fif_cld">
                     <div class="mui-switch-handle"></div>
                 </div>
             </div>
-            <div class="mui-card mui-input-group" id="fjkcard" style="display:none;">
+            <div class="mui-card mui-input-group" id="fjkcard" v-show="isLoan">
                 <div class="mui-input-row itemtitle">
-                    <label>借款申请单</label>
+                    <label>{{fjkcard}}</label>
                 </div>
                 <div class="mui-input-row">
-                    <label for="fjktotal">借款金额<i style="color:red;">*</i></label>
+                    <label for="fjktotal">{{fjktotal}}<i style="color:red;">*</i></label>
                     <input type="number" id="fjktotal" name="fjktotal" placeholder="请填写借款金额" />
                 </div>
 
                 <div class="mui-input-row">
-                    <label for="fjkbillno">借款单号</label>
+                    <label for="fjkbillno">{{fjkbillno}}</label>
                     <input type="text" id="fjkbillno" name="fjkbillno" readonly="readonly" />
                 </div>
                 <div class="mui-input-row" style="height:auto;">
-                    <label for="fjkremark">借款事由</label>
+                    <label for="fjkremark">{{fjkremark}}</label>
                     <textarea rows="7" id="fjkremark" name="fjkremark"></textarea>
+                </div>
+            </div>
+            <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
+                <div class="border border-t upload-img" style="top:0rem;">
+                    <div class="clearfix upload-btn" id="children-bg">
+                        <label class="label">附件</label>
+                        <span class="tips" id="imageCount"><!--已添加0张--></span>
+                        <span class="upload-addbtn">
+                            <input type="file" accept="image/jpeg,image/jpg,image/png,image/jp2,image/bmp" id="file" style="opacity:0;">
+                        </span>
+                    </div>
+                    <div class="upload-img-list"></div>
                 </div>
             </div>
             <div id="mxlist_trainCourse">
@@ -147,51 +159,51 @@
                     </div>
                 </div>
             </div>
-            <a class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" id="tjmx_pxkc" style="margin-top:0.5rem;">
+            <a class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" id="tjmx_trainCourse" v-bind:style="tjmx">
                 添加培训课程明细
                 <span class="mui-icon mui-icon-plusempty"></span>
             </a>
             <div id="mxlist_offical">
-                <div id="mx_offical" class="mui-input-group">
+                <div id="mx_offical" class="mui-input-group" v-show="isExpense">
                     <div class="mui-input-row itemtitle">
                         <label>明细列表项</label>
                         <span class="mui-icon mui-icon-close mui-pull-right" style="margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>
                     </div>
                     <div class="mui-input-row">
-                        <label for="fzwjb_offical">{{fzwjb}}</label>
+                        <label for="fzwjb_offical">{{fzwjb}}<i v-bind:style="i">*</i></label>
                         <input type="text" id="fzwjb_offical" name="fzwjb_offical" ref="fzwjb_offical" v-bind:readonly="isReadonly" placeholder="请选择职务级别"/>
                     </div>
                     <div class="mui-input-row">
-                        <label for="fsdate_offical">{{fsdate}}</label>
+                        <label for="fsdate_offical">{{fsdate}}<i v-bind:style="i">*</i></label>
                         <input type="date" id="fsdate_offical" name="fsdate_offical" ref="fsdate_offical"/>
                     </div>
                     <div class="mui-input-row">
-                        <label for="fedate_offical">{{fedate}}</label>
+                        <label for="fedate_offical">{{fedate}}<i v-bind:style="i">*</i></label>
                         <input type="date" id="fedate_offical" name="fedate_offical" ref="fedate_offical"/>
                     </div>
                     <div class="mui-input-row">
-                        <label for="fjtgj">{{fjtgj}}</label>
+                        <label for="fjtgj">{{fjtgj}}<i v-bind:style="i">*</i></label>
                         <input type="text" id="fjtgj" name="fjtgj" ref="fjtgj" placeholder="请选择交通工具" v-bind:readonly="isReadonly"/>
                     </div>
                     <div class="mui-input-row">
-                        <label for="fcity">{{fcity}}</label>
+                        <label for="fcity">{{fcity}}<i v-bind:style="i">*</i></label>
                         <input type="text" id="fcity" name="fcity" ref="fcity" placeholder="请选择出差地点" v-bind:readonly="isReadonly"/>
                     </div>
                     <div class="mui-input-row">
-                        <label for="fdqlb">{{fdqlb}}</label>
+                        <label for="fdqlb">{{fdqlb}}<i v-bind:style="i">*</i></label>
                         <input type="text" id="fdqlb" name="fdqlb" ref="fdqlb" v-bind:readonly="isReadonly"/>
                     </div>
                     <div class="mui-input-row">
-                        <label for="fccrs">{{fccrs}}</label>
-                        <input type="number" id="fccrs" name="fccrs" placeholder="请填写出差人数"/>
+                        <label for="fccrs">{{fccrs}}<i v-bind:style="i">*</i></label>
+                        <input type="number" id="fccrs" name="fccrs" placeholder="请填写出差人数" ref="fccrs"/>
                     </div>
                     <div class="mui-input-row">
-                        <label for="fday">{{fday}}</label>
-                        <input type="number" id="fday" name="fday" placeholder="请填写出差天数"/>
+                        <label for="fday">{{fday}}<i v-bind:style="i">*</i></label>
+                        <input type="number" id="fday" name="fday" placeholder="请填写出差天数" ref="fday"/>
                     </div>
                 </div>
             </div>
-            <a class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" id="tjmx_pxkc" style="margin-top:0.5rem;">
+            <a class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" id="tjmx_offical" v-bind:style="tjmx" v-show="isExpense">
                 添加出差明细
                 <span class="mui-icon mui-icon-plusempty"></span>
             </a>
@@ -224,7 +236,7 @@
 
                      </div>
                      <div class="mui-col-xs-3 cutOffLine">
-                         <input type="number" id="fje_pxf" name="fje_pxf" placeholder="待填" class="mui-text-center"/>
+                         <input type="number" id="fje_pxf" name="fje_pxf" ref="fje_pxf" placeholder="待填" class="mui-text-center"/>
                      </div>
                  </div> 
                 <div class="mui-row mui-text-center">
@@ -238,7 +250,7 @@
 
                     </div>
                     <div class="mui-col-xs-3 cutOffLine">
-                        <input type="number" id="fje_ctjtf" name="fje_ctjtf" placeholder="待填" class="mui-text-center" />
+                        <input type="number" id="fje_ctjtf" name="fje_ctjtf" ref="fje_ctjtf" placeholder="待填" class="mui-text-center" />
                     </div>
                 </div>
                 <div class="mui-row mui-text-center">
@@ -246,13 +258,13 @@
                         <h5 class="h5-adjust-forInput">住宿费</h5>
                     </div>
                     <div class="mui-col-xs-3 cutOffLine">
-                        <input type="number" id="fd_zsf" name="fd_zsf" placeholder="待填" class="mui-text-center" />
+                        <input type="number" id="fd_zsf" name="fd_zsf" ref="fd_zsf" placeholder="待填" class="mui-text-center" />
                     </div>
                     <div class="mui-col-xs-3 cutOffLine">
-                        <input type="number" id="fbz_zsf" name="fbz_zsf" placeholder="待填" class="mui-text-center" />
+                        <input type="number" id="fbz_zsf" name="fbz_zsf" ref="fbz_zsf" placeholder="待填" class="mui-text-center" />
                     </div>
                     <div class="mui-col-xs-3 cutOffLine">
-                        <input type="number" id="fje_zsf" name="fje_zsf" placeholder="待填" class="mui-text-center" />
+                        <input type="number" id="fje_zsf" name="fje_zsf" ref="fje_zsf" placeholder="待填" class="mui-text-center" />
                     </div>
                 </div>
                 <div class="mui-row mui-text-center">
@@ -260,13 +272,13 @@
                         <h5 class="h5-adjust-forInput">餐费</h5>
                     </div>
                     <div class="mui-col-xs-3 cutOffLine">
-                        <input type="number" id="fd_cf" name="fd_cf" placeholder="待填" class="mui-text-center" />
+                        <input type="number" id="fd_cf" name="fd_cf" ref="fd_cf" placeholder="待填" class="mui-text-center" />
                     </div>
                     <div class="mui-col-xs-3 cutOffLine">
-                        <input type="number" id="fbz_cf" name="fbz_cf" placeholder="待填" class="mui-text-center" />
+                        <input type="number" id="fbz_cf" name="fbz_cf" ref="fbz_cf" placeholder="待填" class="mui-text-center" />
                     </div>
                     <div class="mui-col-xs-3 cutOffLine">
-                        <input type="number" id="fje_cf" name="fje_cf" placeholder="待填" class="mui-text-center" />
+                        <input type="number" id="fje_cf" name="fje_cf" ref="fje_cf" placeholder="待填" class="mui-text-center" />
                     </div>
                 </div>
                 <div class="mui-row mui-text-center">
@@ -274,13 +286,13 @@
                         <h5 class="h5-adjust-forInput">市内交通费</h5>
                     </div>
                     <div class="mui-col-xs-3 cutOffLine">
-                        <input type="number" id="fd_snjtf" name="fd_snjtf" placeholder="待填" class="mui-text-center" />
+                        <input type="number" id="fd_snjtf" name="fd_snjtf" ref="fd_snjtf" placeholder="待填" class="mui-text-center" />
                     </div>
                     <div class="mui-col-xs-3 cutOffLine">
-                        <input type="number" id="fbz_snjtf" name="fbz_snjtf" placeholder="待填" class="mui-text-center" />
+                        <input type="number" id="fbz_snjtf" name="fbz_snjtf" ref="fbz_snjtf" placeholder="待填" class="mui-text-center" />
                     </div>
                     <div class="mui-col-xs-3 cutOffLine">
-                        <input type="number" id="fje_snjtf" name="fje_snjtf" placeholder="待填" class="mui-text-center" />
+                        <input type="number" id="fje_snjtf" name="fje_snjtf" ref="fje_snjtf" placeholder="待填" class="mui-text-center" />
                     </div>
                 </div>
                 <div class="mui-row mui-text-center">
@@ -294,7 +306,7 @@
 
                     </div>
                     <div class="mui-col-xs-3 cutOffLine">
-                        <input type="number" id="fje_qtclf" name="fje_qtclf" placeholder="待填" class="mui-text-center" />
+                        <input type="number" id="fje_qtclf" name="fje_qtclf" ref="fje_qtclf" placeholder="待填" class="mui-text-center" />
                     </div>
                 </div>
                 <div class="mui-row mui-text-center">
@@ -305,13 +317,13 @@
                         <h5 class="h5-adjust-forInput">合计</h5>
                     </div>
                     <div class="mui-col-xs-3 cutOffLine">
-                        <input type="number" id="fbz_total" name="fbz_total" readonly="readonly" class="mui-text-center" value="0" />
+                        <input type="number" id="fbz_total" name="fbz_total" ref="fbz_total" readonly="readonly" class="mui-text-center" value="0" />
                     </div>
                     <div class="mui-col-xs-3 cutOffLine">
-                        <input type="number" id="ftotal" name="ftotal" readonly="readonly" class="mui-text-center" value="0" />
+                        <input type="number" id="ftotal" name="ftotal" ref="ftotal" readonly="readonly" class="mui-text-center" value="0" />
                     </div>
                 </div>
-                <div class="mui-input-row">
+                <div class="mui-input-row" style="height:3.25rem;">
                     <label for="fcbz">{{fcbz}}</label>
                     <input type="number" id="fcbz" name="fcbz" readonly="readonly" value="0.00" />
                 </div>
@@ -352,5 +364,448 @@
     <div class="mui-btn-row" id="SaveD">
         <button class="mui-btn mui-btn-primary" type="button" id="commitbt" onclick="Save()">提交</button>
     </div>
+    <script>
+
+        mui.init();
+
+        mui.ready(function () {
+            getBPMParam();
+            upload();
+            v.prepMsg();
+        });
+        var v = new Vue({
+            el: '#wrapper',
+            data: {
+                wrapper: {
+                    'background-color': 'white'
+                },
+                form: {
+                    'left': '0rem',
+                    'right': '0rem',
+                    'margin-bottom': '1rem',
+                    'padding-bottom': '4rem'
+                },
+                i: {
+                    'color': 'red'
+                },
+                tjmx: {
+                    'margin-top': '0.5rem'
+                   
+                },
+                fcompany: '公司名称',
+                fdept: '部门名称',
+                fname: '申请人',
+                fdate: '申请日期',
+                fcllb: '差旅类别',
+                fif_jk: '是否借款',
+                fif_cl: '申请差旅费',
+                fcxry: '参加培训人员',
+                fcbz: '超标准情况%',
+                fpxmd: '培训目的',
+                fzhjh: '转化计划',
+                fzwjb: '职务级别',
+                fsdate: '开始时间',
+                fedate: '结束时间',
+                fpxjg: '培训机构名称',
+                fpxdd: '培训地点',
+                fkcmc: '课程名称',
+                fpxjs: '培训讲师',
+                fif_zs: '有无证书',
+                fjtgj: '交通工具',
+                fcity: '出差地点',
+                fdqlb: '出差地区类别',
+                fccrs: '出差人数',
+                fday: '出差天数',
+                fjkcard: '借款申请单',
+                fjktotal: '借款金额',
+                fjkbillno: '借款单号',
+                fjkremark: '借款事由',
+                isLoan: false,
+                isExpense: false,
+                isReadonly: true
+            },
+            methods: {
+                prepMsg: function () {
+                    var context = this;
+                    context.$refs.fdate.value = getNowFormatDate(2);
+                    showPickerByZepto('#mxlist_trainCourse', '#fzwjb_trainCourse', fzwjbdata);
+                    showPickerByZepto('#mxlist_trainCourse', '#fif_zs', fif_zsdata);
+                    showPickerByZepto('#mx_offical', '#fzwjb_offical', fzwjbdata);
+                    showPickerByZepto('#mx_offical','',);
+                    $.ajax({
+
+                        type: 'get',
+                        url: "/api/bpm/GetBPMParam",
+                        data: {},
+                        beforeSend: function (XHR) {
+                            XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+                        }
+                    }).done(function (data) {
+
+                        BPMOU = data.Position[0].FullName;
+                        console.log(BPMOU);
+                        var fareaStr = String(BPMOU).split("/");
+                        context.$refs.fcompany.value = fareaStr[4];
+                        context.$refs.fdept.value = fareaStr[fareaStr.length - 2];
+                        //$("#fcompany").val(fareaStr[4]);
+                        //$("#fdept").val(fareaStr[fareaStr.length - 2]);
+                    }).fail(function (e) {
+
+                    });
+                    var xml = '<?xml version= "1.0" ?>';
+                    xml = xml + '      <Requests>';
+                    xml = xml + '       <Params>';
+                    xml = xml + '          <DataSource>BPM_EXPENSE</DataSource>';
+                    xml = xml + '           <ID>sys_province</ID>';
+                    xml = xml + '         <Type>1</Type>';
+                    xml = xml + '        <Method>GetUserDataTable</Method>';
+                    xml = xml + '      <TableName>sys_province</TableName>';
+                    xml = xml + '          <OrderBy></OrderBy>';
+                    xml = xml + '     </Params>';
+                    xml = xml + '       <Params>';
+                    xml = xml + '          <DataSource>BPM_EXPENSE</DataSource>';
+                    xml = xml + '           <ID>sys_city_t</ID>';
+                    xml = xml + '         <Type>1</Type>';
+                    xml = xml + '        <Method>GetUserDataTable</Method>';
+                    xml = xml + '      <TableName>sys_city_t</TableName>';
+                    xml = xml + '          <OrderBy></OrderBy>';
+                    xml = xml + '     </Params>';
+                    xml = xml + '   </Requests>';
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/bpm/DataProvider",
+                        data: { '': xml },
+                        beforeSend: function (XHR) {
+                            XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+                        }
+                    }).done(function (data) {
+                        var provideData = JSON.parse(unescape(data.replace(/\\(u[0-9a-fA-F]{4})/gm, '%$1')));
+                        console.log(provideData);
+
+                        var children;
+                        for (var i = 0; i < provideData.Tables[0].Rows.length; i++) {
+                            var id_province = provideData.Tables[0].Rows[i].id;
+                            children = new Array();
+                            for (var j = 0; j < provideData.Tables[1].Rows.length; j++) {
+                                var id_city = provideData.Tables[1].Rows[j].id;
+                                if (id_province == id_city) {
+                                    var city = ({
+                                        value: provideData.Tables[1].Rows[j].cityid,
+                                        text: provideData.Tables[1].Rows[j].cityname,
+                                        type: provideData.Tables[1].Rows[j].citytype,
+                                        id: provideData.Tables[1].Rows[j].id,
+                                        province: provideData.Tables[0].Rows[i].provincename
+                                    });
+                                    children.push(city);
+                                } else if (id_city > 35 && id_province == 35) {
+                                    var city = ({
+                                        value: provideData.Tables[1].Rows[j].cityid,
+                                        text: provideData.Tables[1].Rows[j].cityname,
+                                        type: provideData.Tables[1].Rows[j].citytype,
+                                        id: provideData.Tables[1].Rows[j].id,
+                                        province: provideData.Tables[0].Rows[i].provincename
+                                    });
+                                    children.push(city);
+                                }
+
+                            }
+
+
+                            var province_city = ({
+                                value: provideData.Tables[0].Rows[i].provinceid,
+                                text: provideData.Tables[0].Rows[i].provincename,
+                                children: children
+                            });
+                            cityData.push(province_city);
+                        }
+
+
+
+                        //console.log(cityData);
+
+                        var controls = document.getElementById("segmentedControls");
+                        var contents = document.getElementById("segmentedControlContents");
+                        var html = [];
+                        var i = 0,
+                            j = 0,
+                            m = cityData.length, //左侧选项卡数量+1
+                            n = 21; //每个选项卡列表数量+1
+                        for (; i < cityData.length; i++) {
+                            html.push('<a class="mui-control-item" data-index="' + (i) + '" href="#content' + (i + 1) + '">' + cityData[i].text + '</a>');
+                        }
+                        controls.innerHTML = html.join('');
+                        html = [];
+                        for (i = 0; i < cityData.length; i++) {
+                            html.push('<div id="content' + i + '" class="mui-control-content"><ul class="mui-table-view">');
+                            for (j = 0; j < cityData[i].children.length; j++) {
+
+                                html.push('<li class="mui-table-view-cell city-chosen">' + cityData[i].children[j].text + '<input type="hidden" id="citytype" name="citytype" value="' + cityData[i].children[j].type + '"/><input type="hidden" id="provincename" name="provincename" value="' + cityData[i].children[j].province + '"/></li>');
+                            }
+                            html.push('</ul></div>');
+                        }
+                        contents.innerHTML = html.join('');
+                        //默认选中第一个
+                        controls.querySelector('.mui-control-item').classList.add('mui-active');
+                        //contents.querySelector('.mui-control-content').classList.add('mui-active');
+                        (function () {
+                            var controlsElem = document.getElementById("segmentedControls");
+                            var contentsElem = document.getElementById("segmentedControlContents");
+                            var controlListElem = controlsElem.querySelectorAll('.mui-control-item');
+                            var contentListElem = contentsElem.querySelectorAll('.mui-control-content');
+                            var controlWrapperElem = controlsElem.parentNode;
+                            var controlWrapperHeight = controlWrapperElem.offsetHeight;
+                            var controlMaxScroll = controlWrapperElem.scrollHeight - controlWrapperHeight;//左侧类别最大可滚动高度
+
+                            var maxScroll = contentsElem.scrollHeight - contentsElem.offsetHeight;//右侧内容最大可滚动高度
+
+                            var controlHeight = controlListElem[0].offsetHeight;//左侧类别每一项的高度
+                            var controlTops = []; //存储control的scrollTop值
+                            var contentTops = [0]; //存储content的scrollTop值
+                            var length = contentListElem.length;
+                            for (var i = 0; i < length; i++) {
+                                controlTops.push(controlListElem[i].offsetTop + controlHeight);
+                            }
+                            for (var i = 1; i < length; i++) {
+                                var offsetTop = contentListElem[i].offsetTop;
+                                if (offsetTop + 100 >= maxScroll) {
+                                    var height = Math.max(offsetTop + 100 - maxScroll, 100);
+                                    var totalHeight = 0;
+                                    var heights = [];
+                                    for (var j = i; j < length; j++) {
+                                        var offsetHeight = contentListElem[j].offsetHeight;
+                                        totalHeight += offsetHeight;
+                                        heights.push(totalHeight);
+                                    }
+                                    for (var m = 0, len = heights.length; m < len; m++) {
+                                        contentTops.push(parseInt(maxScroll - (height - heights[m] / totalHeight * height)));
+                                    }
+                                    break;
+                                } else {
+                                    contentTops.push(parseInt(offsetTop));
+                                }
+                            }
+                            contentsElem.addEventListener('scroll', function () {
+                                var scrollTop = contentsElem.scrollTop;
+                                for (var i = 0; i < length; i++) {
+                                    var offsetTop = contentTops[i];
+                                    var offset = Math.abs(offsetTop - scrollTop);
+                                    //						console.log("i:"+i+",scrollTop:"+scrollTop+",offsetTop:"+offsetTop+",offset:"+offset);
+                                    if (scrollTop < offsetTop) {
+                                        if (scrollTop >= maxScroll) {
+                                            onScroll(length - 1);
+                                        } else {
+                                            onScroll(i - 1);
+                                        }
+                                        break;
+                                    } else if (offset < 20) {
+                                        onScroll(i);
+                                        break;
+                                    } else if (scrollTop >= maxScroll) {
+                                        onScroll(length - 1);
+                                        break;
+                                    }
+                                }
+                            });
+                            var lastIndex = 0;
+                            //监听content滚动
+                            var onScroll = function (index) {
+                                if (lastIndex !== index) {
+                                    lastIndex = index;
+                                    var lastActiveElem = controlsElem.querySelector('.mui-active');
+                                    lastActiveElem && (lastActiveElem.classList.remove('mui-active'));
+                                    var currentElem = controlsElem.querySelector('.mui-control-item:nth-child(' + (index + 1) + ')');
+                                    currentElem.classList.add('mui-active');
+                                    //简单处理左侧分类滚动，要么滚动到底，要么滚动到顶
+                                    var controlScrollTop = controlWrapperElem.scrollTop;
+                                    if (controlScrollTop + controlWrapperHeight < controlTops[index]) {
+                                        controlWrapperElem.scrollTop = controlMaxScroll;
+                                    } else if (controlScrollTop > controlTops[index] - controlHeight) {
+                                        controlWrapperElem.scrollTop = 0;
+                                    }
+                                }
+                            };
+                            //滚动到指定content
+                            var scrollTo = function (index) {
+                                contentsElem.scrollTop = contentTops[index];
+                            };
+                            mui(controlsElem).on('tap', '.mui-control-item', function (e) {
+                                scrollTo(this.getAttribute('data-index'));
+                                return false;
+                            });
+
+                            $('.city-chosen').on('tap', function () {
+                                //console.log($(this));
+                                $(cityContext).val($(this).text());
+                                $(cityContext).parent().parent().find("#fdqlb").val($(this)[0].children.citytype.value);
+                                hiddenCity();
+                                document.getElementById('tjmx').scrollIntoView();
+                            });
+                        })();
+
+                    }).fail(function (e) {
+
+                    });
+                },
+                tapEvent: function () {
+                    var context = this;
+                    showPicker('fcllb', fcllbdata);
+                    $("#tjmx_trainCourse").on('tap', function () {
+
+
+                    });
+                    $("#tjmx_offical").on('tap', function () {
+
+                    });
+                },
+                calcPercent: function () {
+                    var context = this;
+                    var fbz_total = parseFloat(context.$refs.fbz_total.value);
+                    var ftotal = parseFloat(context.$refs.ftotal.value) - parseFloat(context.$refs.fje_ctjtf.value) - parseFloat(context.$refs.fje_pxf.value);
+                    var fover = (ftotal - fbz_total) < 0 ? 0 : (ftotal - fbz_total);
+
+                    var fcbz = 0.00;
+                    if (ftotal > 0) {
+
+                        fcbz = ((fover / fbz_total) * 100).toFixed(2);
+                    }
+                    context.$refs.fcbz.value = fcbz;
+                    
+                },
+
+
+            }
+
+
+        });
+        mui('#fif_jkd').each(function () {
+          
+            this.addEventListener('toggle', function (event) {
+                
+                if (event.detail.isActive == 'true' || event.detail.isActive == true) {
+
+                    v.isLoan = !v.isLoan;
+                    v.$refs.fif_jk.value = '是';
+
+                   
+                    
+                } else {
+                    v.isLoan = !v.isLoan;
+                    v.$refs.fif_jk.value = '否';
+
+                 
+                }
+               
+            });
+            
+        });
+        mui('#fif_cld').each(function () {
+
+            this.addEventListener('toggle', function (event) {
+               
+                if (event.detail.isActive == 'true' || event.detail.isActive == true) {
+                    v.isExpense = !v.isExpense;
+                    v.$refs.fif_cl.value = '是';
+                   
+
+                } else {
+                    v.isExpense = !v.isExpense;
+                    v.$refs.fif_cl.value = '否';
+                   
+                }
+
+            });
+        });
+        XuntongJSBridge.call('createPop', {
+            'popTitle': '',
+            'popTitleCallBackId': '1',
+            'items': [{ 'text': '刷新', 'callBackId': 'callback1' }],
+            'menuList': [
+                'openWithBrowser'
+            ],
+
+        }, function (result) {
+            if (result.success == true || result.success == 'true') {
+                var callBackId = result.data ? result.data.callBackId : '';
+                if (callBackId == 'callback1') {
+                    window.location.reload();
+                    //location.reload();
+                } else if (callBackId == 'callback2') {
+
+                } else {
+
+                }
+            }
+
+        });
+
+        var cityData = new Array();
+        var cityContext;
+        var fif_zsdata = [
+            {
+                value: '',
+                text:'是'
+            },
+            {
+                value: '',
+                text: '否'
+            }
+        ];
+
+        var fzwjbdata = [
+            {
+                value: '',
+                text: '高管以上'
+            },
+            {
+                value: '',
+                text: '部门经理'
+            },
+            {
+                value: '',
+                text: '一般员工'
+            }
+
+        ];
+
+        var fjtgjdata = [
+            {
+                value: '',
+                text: '飞机'
+            },
+            {
+                value: '',
+                text: '火车'
+            },
+            {
+                value: '',
+                text: '汽车'
+            },
+            {
+                value: '',
+                text: '轮船'
+            },
+            {
+                value: '',
+                text: '高铁'
+            },
+            {
+                value: '',
+                text: '其他'
+            }
+
+        ];
+        var fcllbdata = [
+            {
+                value: '',
+                text: '国内'
+            },
+            {
+                value: '',
+                text: '国外'
+            }
+        ];
+        
+    </script>
 </body>
 </html>

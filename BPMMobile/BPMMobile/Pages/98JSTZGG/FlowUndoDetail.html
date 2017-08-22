@@ -578,7 +578,7 @@
                          selectPerson = new Array();
                          for (var i = 0; i < item_child_ps.length; i++) {
 
-                             var li = ' <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#" onclick="deleteThis(this)">';
+                             var li = ' <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#" onclick="deleteThis(this)" class="deleteControl">';
                              li = li + '    <img src="' + photoUrl + '" style="border-radius:2rem;"/>';
                              li = li + '    <div class="mui-media-body">' + item_child_ps[i].UserName + '<input type="hidden" id="openid" name="openid" value=""/></div></a>';
                              li = li + ' </li>';
@@ -622,14 +622,28 @@
                          if (NodeName == "开始") {
                              $("#createD").css("display", "block");
                              $("#csd").css("display", "none");
+                             $("#ffbfw_ry").css("display", "block");
+                             $("#ffbfw_bm").css("display", "block");
+                             $("#done").removeClass('mui-disabled');
                              tapEvent();
                              getBPMOUInfo();
+                             $("#fbt").removeAttr("readonly");
+                             $("#fnr").removeAttr("readonly");
+                          
                          } else if (NodeName == "sysInform") {
                              $("#readD").css("display", "block");
                              $("#csd").css("display", "none");
+                             $("#rylist").find(".deleteControl").each(function () {
+                                 $(this).off('click');
+                             });
                          } else {
                              if (typeof (NodeName) != "undefined") {
                                  $("#approvalD").css("display", "block");
+                                 $("#rylist").find(".deleteControl").each(function () {
+                                    
+                                     $(this).off('click');
+                                   
+                                 });
                              }
                          }
                          for (var i = 0; i < data.Steps.length; i++) {
