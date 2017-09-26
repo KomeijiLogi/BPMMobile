@@ -109,19 +109,19 @@
         </ul>
 
         <ul class="mui-table-view flowslist">
-            <li class="mui-table-view-cell mui-collapse flowsitem" id="canCreateListTotal">
+            <li class="mui-table-view-cell mui-collapse flowsitem  mui-active" id="canCreateListTotal">
                 <a class="mui-navigate-right" href="#">
-                    可发起的流程
+                    我要发起
                     <span class="mui-badge mui-badge-primary" id="badgeCreate">0</span>
                 </a>
-                <!--<div class="mui-collapse-content" id="canCreateList">
+                <div class="mui-collapse-content" id="canCreateList">
                     <ul class="mui-table-view" id="createFL" >
                         
                     </ul>
                    
                    
 
-                </div>-->
+                </div>
             </li>
 
         </ul>
@@ -223,24 +223,24 @@
                         } else {
                             console.log(data);
 
-                            var groupArr = new Array();
-                            for (var n = 0; n < data.length; n++){
-                                groupArr.push(data[n].Group);
-                            }
-                            groupArr = removeDuplicatedItem(groupArr);
+                            //var groupArr = new Array();
+                            //for (var n = 0; n < data.length; n++){
+                            //    groupArr.push(data[n].Group);
+                            //}
+                            //groupArr = removeDuplicatedItem(groupArr);
                             
-                            for (var j = 0; j < groupArr.length;j++){
-                                var li = '   <li class="mui-table-view-cell  flowsitem mui-collapse mui-active">';
-                                li = li + '    <a class="mui-navigate-right" href="#">';
-                                li = li + groupArr[j];                                              
-                                li = li + '    </a>';
-                                li = li + '    <div class="mui-collapse-content" id="canCreateList">';
-                                li = li + '       <ul class="mui-table-view" id="createFL">';
-                                li = li + '       </ul>';            
-                                li = li + '    </div>';
-                                li = li + '   </li>';
-                                $(".flowslist").append(li);  
-                            }
+                            //for (var j = 0; j < groupArr.length;j++){
+                            //    var li = '   <li class="mui-table-view-cell  flowsitem mui-collapse mui-active">';
+                            //    li = li + '    <a class="mui-navigate-right" href="#">';
+                            //    li = li + groupArr[j];                                              
+                            //    li = li + '    </a>';
+                            //    li = li + '    <div class="mui-collapse-content" id="canCreateList">';
+                            //    li = li + '       <ul class="mui-table-view" id="createFL">';
+                            //    li = li + '       </ul>';            
+                            //    li = li + '    </div>';
+                            //    li = li + '   </li>';
+                            //    $(".flowslist").append(li);  
+                            //}
 
 
                             for (var i = 0; i < data.length; i++) {
@@ -254,9 +254,9 @@
                                 li = li + '           </div> ';
                                 li = li + '          </a> ';
                                 li = li + '   </li> ';
-                                $(".mui-navigate-right:contains('" + data[i].Group + "')").parent().find('ul').prepend(li);
+                                //$(".mui-navigate-right:contains('" + data[i].Group + "')").parent().find('ul').prepend(li);
                                 //console.log($(".mui-navigate-right:contains('" + data[i].Group + "')").parent().find('ul'));
-                                //$(li).prependTo("#createFL");
+                                $(li).prependTo("#createFL");
                             }
 
                             

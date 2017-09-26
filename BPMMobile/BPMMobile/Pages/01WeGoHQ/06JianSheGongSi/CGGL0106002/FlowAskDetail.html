@@ -84,8 +84,8 @@
 
 
             <!--玻璃采购明细-->
-            <div class="mui-input-row" id="div_blcgmx" style="display:none;">
-                <label>玻璃采购明细</label>
+            <div class="mui-input-row" id="div_blcgmx" style="display:none;height:3.25rem;">
+                <label>玻璃采购明细(点击隐藏/显示)</label>
                 <a href="#bottom"><span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;display:none;" id="addItem_bl" ;></span></a>
             </div>
 
@@ -110,8 +110,8 @@
 
 
             <!--型材采购明细-->
-            <div class="mui-input-row" id="div_xccgmx" style="display:none;">
-                <label>型材采购明细</label>
+            <div class="mui-input-row" id="div_xccgmx" style="display:none;height:3.25rem;">
+                <label>型材采购明细(点击隐藏/显示)</label>
                 <a href="#bottom"><span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;display:none;" id="addItem_xc" ;></span></a>
             </div>
 
@@ -136,8 +136,8 @@
 
 
             <!--配件采购明细-->
-            <div class="mui-input-row" id="div_pjcgmx" style="display:none;">
-                <label>配件采购明细</label>
+            <div class="mui-input-row" id="div_pjcgmx" style="display:none;height:3.25rem;">
+                <label>配件采购明细(点击隐藏/显示)</label>
                 <a href="#bottom"><span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;display:none;" id="addItem_pj" ;></span></a>
             </div>
 
@@ -329,13 +329,13 @@
                 success: function (data, status) {
 
                     if (status == "success") {
-
+                        optZTap();
                         console.log(data);
                         var item = data.FormDataSet.建设公司_物资采购_主表[0];
                         $("#taskId").val(item.TaskID);
                         $("#fname").val(item.申请人);
                         $("#fdept").val(item.申请单位);
-                        $("#fdate").val(FormatterTimeYMS(item.申请时间));
+                        $("#fdate").val(FormatterTimeYMS(item.申请日期));
                         $("#qdate").val(FormatterTimeYMS(item.需求到货日期));
                         $("#ftel").val(item.联系电话);
                         $("#fgcnum").val(item.工程编码);
@@ -350,8 +350,13 @@
                         $("#fbillno").val(item.fbillno);
                         if (String(item.物料种类).indexOf("玻璃") != -1) {
                             $("#uploaddiv_bl").css("display", "block");
+                            $("#div_gys").css("display", "block");
+                            $("#div_shdd").css("display", "block");
                         } else if (String(item.物料种类).indexOf("型材") != -1) {
                             $("#uploaddiv_xc").css("display", "block");
+                            $("#div_gys").css("display", "block");
+                            $("#div_shdd").css("display", "block");
+                            $("#div_grt").css("display", "block");
                         } else if (String(item.物料种类).indexOf("配件") != -1) {
                             $("#uploaddiv_pj").css("display", "block");
                         }
@@ -707,145 +712,215 @@
                         }
 
                         var fblcgmxItem = data.FormDataSet.建设公司_物资采购_玻璃;
+                        if (fblcgmxItem.length > 0) {
+                            $("#div_blcgmx").css("display", "block");
+                        }
                         for (var i = 0; i < fblcgmxItem.length; i++) {
                             if (fblcgmxItem[i].备注 == null) {
                                 fblcgmxItem[i].备注 = '';
                             }
                             itemidArr_bl.push(fblcgmxItem[i].itemid);
-                            var li = '<div id="bl" class="mui-card">';
+                            //var li = '<div id="bl" class="mui-card">';
+                            //li = li + '   <div class="mui-input-row bgc">';
+                            //li = li + '        <label>明细列表项</label> ';
+                            //li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;display:none;" id="deleteProduct" onclick="deleteItem(this)"></span>';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fblwlbm">物料编码<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="text" id="fblwlbm" name="fblwlbm" value="' + fblcgmxItem[i].物料编码 + '" readonly="readonly" />';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fazbw">安装部位<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="text" id="fazbw" name="fazbw" value="' + fblcgmxItem[i].安装部位 + '" readonly="readonly" /> ';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fblgg">玻璃规格<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="text" id="fblgg" name="fblgg" value="' + fblcgmxItem[i].玻璃规格 + '" readonly="readonly" />';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fblk">玻璃宽<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="number" id="fblk" name="fblk" value="' + fblcgmxItem[i].玻璃宽 + '" readonly="readonly" />';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fblg">玻璃高<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="number" id="fblg" name="fblg" value="' + fblcgmxItem[i].玻璃高 + '"readonly="readonly" />';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fblsl">数量<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="number" id="fblsl" name="fblsl" value="' + fblcgmxItem[i].玻璃数量 + '" readonly="readonly" />';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fmj">面积<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="number" id="fmj" name="fmj" value="' + fblcgmxItem[i].面积 + '"readonly="readonly" />';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fblbz">备注</label>';
+                            //li = li + '        <input type="text" id="fblbz" name="fblbz" value="' + fblcgmxItem[i].备注 + '" readonly="readonly" />';
+                            //li = li + '   </div>';
+
+                             var li = '<div id="bl" class="mui-card">';
                             li = li + '   <div class="mui-input-row bgc">';
                             li = li + '        <label>明细列表项</label> ';
                             li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;display:none;" id="deleteProduct" onclick="deleteItem(this)"></span>';
                             li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fblwlbm">物料编码<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="fblwlbm" name="fblwlbm" value="' + fblcgmxItem[i].物料编码 + '" readonly="readonly" />';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fazbw">安装部位<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="fazbw" name="fazbw" value="' + fblcgmxItem[i].安装部位 + '" readonly="readonly" /> ';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fblgg">玻璃规格<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="fblgg" name="fblgg" value="' + fblcgmxItem[i].玻璃规格 + '" readonly="readonly" />';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fblk">玻璃宽<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="number" id="fblk" name="fblk" value="' + fblcgmxItem[i].玻璃宽 + '" readonly="readonly" />';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fblg">玻璃高<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="number" id="fblg" name="fblg" value="' + fblcgmxItem[i].玻璃高 + '"readonly="readonly" />';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fblsl">数量<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="number" id="fblsl" name="fblsl" value="' + fblcgmxItem[i].玻璃数量 + '" readonly="readonly" />';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fmj">面积<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="number" id="fmj" name="fmj" value="' + fblcgmxItem[i].面积 + '"readonly="readonly" />';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fblbz">备注</label>';
-                            li = li + '        <input type="text" id="fblbz" name="fblbz" value="' + fblcgmxItem[i].备注 + '" readonly="readonly" />';
-                            li = li + '   </div>';
-
+                            li = li + '        <input type="hidden" id="fblwlbm" name="fblwlbm" value="' + fblcgmxItem[i].物料编码 + '" readonly="readonly" />';
+                            li = li + '        <input type="hidden" id="fazbw" name="fazbw" value="' + fblcgmxItem[i].安装部位 + '" readonly="readonly" /> ';
+                            li = li + '        <input type="hidden" id="fblgg" name="fblgg" value="' + fblcgmxItem[i].玻璃规格 + '" readonly="readonly" />';
+                            li = li + '        <input type="hidden" id="fblk" name="fblk" value="' + fblcgmxItem[i].玻璃宽 + '" readonly="readonly" />';
+                            li = li + '        <input type="hidden" id="fblg" name="fblg" value="' + fblcgmxItem[i].玻璃高 + '"readonly="readonly" />';
+                            li = li + '        <input type="hidden" id="fblsl" name="fblsl" value="' + fblcgmxItem[i].玻璃数量 + '" readonly="readonly" />';
+                            li = li + '        <input type="hidden" id="fmj" name="fmj" value="' + fblcgmxItem[i].面积 + '"readonly="readonly" />';
+                            li = li + '        <input type="hidden" id="fblbz" name="fblbz" value="' + fblcgmxItem[i].备注 + '" readonly="readonly" />';
+                            li = li + '    <textarea rows="5" readonly="readonly">';
+                            li = li + '物料代码: ' + fblcgmxItem[i].物料编码 + ' &nbsp 安装部位: ' + fblcgmxItem[i].安装部位 + ' &nbsp 玻璃规格: ' + fblcgmxItem[i].玻璃规格 + '&nbsp ';
+                            li = li + '玻璃宽:' + fblcgmxItem[i].玻璃宽 + '&nbsp 玻璃高:' + fblcgmxItem[i].玻璃高 + ' &nbsp 玻璃数量: ' + fblcgmxItem[i].玻璃数量 + '&nbsp ' + ' &nbsp 面积: ' + fblcgmxItem[i].面积;
+                            li = li + ' &nbsp 备注:' + fblcgmxItem[i].备注;
+                            li = li +    ' </textarea > ';
+                            li = li + '</div>';
 
                             $("#bllist_bl").append(li);
 
                         }
                         var fxccgmxItem = data.FormDataSet.建设公司_物资采购_型材;
+                        if (fxccgmxItem.length > 0) {
+                            $("#div_xccgmx").css("display", "block");
+                            $("#div_grt").css("display", "block");
+                        }
                         for (var i = 0; i < fxccgmxItem.length; i++) {
                             if (fxccgmxItem[i].备注 == null) {
                                 fxccgmxItem[i].备注 = '';
                             }
                             itemidArr_xc.push(fxccgmxItem[i].itemid);
+                            //var li = '<div id="xc" class="mui-card">';
+                            //li = li + '   <div class="mui-input-row bgc">';
+                            //li = li + '        <label>明细列表项</label> ';
+                            //li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;display:none;" id="deleteProduct" onclick="deleteItem(this)"></span>';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fxcwlbm">物料编码<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="text" id="fxcwlbm" name="fxcwlbm" value="' + fxccgmxItem[i].物料编码 + '" readonly="readonly"/>';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fxcxcmc">型材名称<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="text" id="fxcxcmc" name="fxcxcmc" value="' + fxccgmxItem[i].型材名称 + '" readonly="readonly"/> ';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fxcxcdh">型材代号<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="text" id="fxcxcdh" name="fxcxcdh" value="' + fxccgmxItem[i].型材代号 + '" readonly="readonly"/>';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fxcysxh">颜色型号<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="text" id="fxcysxh" name="fxcysxh" value="' + fxccgmxItem[i].颜色型号 + '" readonly="readonly"/> ';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fxcmz">米重（kg/m）<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="number" id="fxcmz" name="fxcmz" value="' + fxccgmxItem[i].米重 + '" readonly="readonly"/>';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fxcdc">定尺（m）<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="number" id="fxcdc" name="fxcdc" value="' + fxccgmxItem[i].定尺 + '" readonly="readonly"/>';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fxcsl">数量（支）<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="number" id="fxcsl" name="fxcsl" value="' + fxccgmxItem[i].数量 + '" readonly="readonly"/>';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fxczl">重量（kg）<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="number" id="fxczl" name="fxczl" value="' + fxccgmxItem[i].重量 + '" readonly="readonly"/>';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fxcbz">备注</label>';
+                            //li = li + '        <input type="text" id="fxcbz" name="fxcbz" value="' + fxccgmxItem[i].备注 + '" readonly="readonly" />';
+                            //li = li + '   </div>';
+                            //li=li+'</div>';
+
                             var li = '<div id="xc" class="mui-card">';
                             li = li + '   <div class="mui-input-row bgc">';
                             li = li + '        <label>明细列表项</label> ';
                             li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;display:none;" id="deleteProduct" onclick="deleteItem(this)"></span>';
                             li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fxcwlbm">物料编码<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="fxcwlbm" name="fxcwlbm" value="' + fxccgmxItem[i].物料编码 + '" readonly="readonly"/>';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fxcxcmc">型材名称<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="fxcxcmc" name="fxcxcmc" value="' + fxccgmxItem[i].型材名称 + '" readonly="readonly"/> ';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fxcxcdh">型材代号<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="fxcxcdh" name="fxcxcdh" value="' + fxccgmxItem[i].型材代号 + '" readonly="readonly"/>';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fxcysxh">颜色型号i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="fxcysxh" name="fxcysxh" value="' + fxccgmxItem[i].颜色型号 + '" readonly="readonly"/> ';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fxcmz">米重（kg/m）<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="number" id="fxcmz" name="fxcmz" value="' + fxccgmxItem[i].米重 + '" readonly="readonly"/>';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fxcdc">定尺（m）<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="number" id="fxcdc" name="fxcdc" value="' + fxccgmxItem[i].定尺 + '" readonly="readonly"/>';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fxcsl">数量（支）<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="number" id="fxcsl" name="fxcsl" value="' + fxccgmxItem[i].数量 + '" readonly="readonly"/>';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fxczl">重量（kg）<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="number" id="fxczl" name="fxczl" value="' + fxccgmxItem[i].重量 + '" readonly="readonly"/>';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fxcbz">备注</label>';
-                            li = li + '        <input type="text" id="fxcbz" name="fxcbz" value="' + fxccgmxItem[i].备注 + '" readonly="readonly" />';
-                            li = li + '   </div>';
-
-
+                            li = li + '        <input type="hidden" id="fxcwlbm" name="fxcwlbm" value="' + fxccgmxItem[i].物料编码 + '" readonly="readonly"/>';
+                            li = li + '        <input type="hidden" id="fxcxcmc" name="fxcxcmc" value="' + fxccgmxItem[i].型材名称 + '" readonly="readonly"/> ';
+                            li = li + '        <input type="hidden" id="fxcxcdh" name="fxcxcdh" value="' + fxccgmxItem[i].型材代号 + '" readonly="readonly"/>';
+                            li = li + '        <input type="hidden" id="fxcysxh" name="fxcysxh" value="' + fxccgmxItem[i].颜色型号 + '" readonly="readonly"/> ';
+                            li = li + '        <input type="hidden" id="fxcmz" name="fxcmz" value="' + fxccgmxItem[i].米重 + '" readonly="readonly"/>';
+                            li = li + '        <input type="hidden" id="fxcdc" name="fxcdc" value="' + fxccgmxItem[i].定尺 + '" readonly="readonly"/>';
+                            li = li + '        <input type="hidden" id="fxcsl" name="fxcsl" value="' + fxccgmxItem[i].数量 + '" readonly="readonly"/>';
+                            li = li + '        <input type="hidden" id="fxczl" name="fxczl" value="' + fxccgmxItem[i].重量 + '" readonly="readonly"/>';
+                            li = li + '        <input type="hidden" id="fxcbz" name="fxcbz" value="' + fxccgmxItem[i].备注 + '" readonly="readonly" />';
+                            li = li + '    <textarea rows="5" readonly="readonly">';
+                            li = li + '物料编码:' + fxccgmxItem[i].物料编码 + '&nbsp 型材名称:' + fxccgmxItem[i].型材名称 + '&nbsp 型材代号:' + fxccgmxItem[i].型材代号;
+                            li = li + '&nbsp 颜色型号:' + fxccgmxItem[i].颜色型号 + '&nbsp 米重:' + fxccgmxItem[i].米重 + '&nbsp 定尺:' + fxccgmxItem[i].定尺;
+                            li = li + '&nbsp 数量:' + fxccgmxItem[i].数量 + '&nbsp 重量:' + fxccgmxItem[i].重量 + '&nbsp 备注:' + fxccgmxItem[i].备注;
+                            li = li + '    </textarea>';
+                            li = li + '</div>';
                             $("#bllist_xc").append(li);
 
                         }
                         var fpjcgmxItem = data.FormDataSet.建设公司_物资采购_配件;
+                        if (fpjcgmxItem.length > 0) {
+                            $("#div_pjcgmx").css("display", "block");
+                        }
                         for (var i = 0; i < fpjcgmxItem.length; i++) {
                             if (fpjcgmxItem[i].备注 == null) {
                                 fpjcgmxItem[i].备注 = '';
                             }
+                            if (fpjcgmxItem[i].配件供应商 == null) {
+                                fpjcgmxItem[i].配件供应商 = '';
+                            }
                             itemidArr_pj.push(fpjcgmxItem[i].itemid);
-                            var li = '<div id="pj" class="mui-card">';
+                            //var li = '<div id="pj" class="mui-card">';
+                            //li = li + '   <div class="mui-input-row bgc">';
+                            //li = li + '        <label>明细列表项</label> ';
+                            //li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;display:none;" id="deleteProduct" onclick="deleteItem(this)"></span>';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fpjwlbm">物料编码<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="text" id="fpjwlbm" name="fpjwlbm" value="' + fpjcgmxItem[i].物料编码 + '"readonly="readonly"/>';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fpjwlmc">物料名称<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="text" id="fpjwlmc" name="fpjwlmc" value="' + fpjcgmxItem[i].物料名称 + '" readonly="readonly"/> ';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fggxh">规格型号<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="text" id="fggxh" name="fggxh" value="' + fpjcgmxItem[i].规格型号 + '" readonly="readonly"/>';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fdw">单位<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="text" id="fdw" name="fdw" value="' + fpjcgmxItem[i].单位 + '" readonly="readonly"/>';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fpjsl">数量<i style="color:red;">*</i></label>';
+                            //li = li + '        <input type="number" id="fpjsl" name="fpjsl" value="' + fpjcgmxItem[i].配件数量 + '" readonly="readonly"/>';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fpjbz">备注</label>';
+                            //li = li + '        <input type="text" id="fpjbz" name="fpjbz" value="' + fpjcgmxItem[i].备注 + '" readonly="readonly" />';
+                            //li = li + '   </div>';
+                            //li = li + '   <div class="mui-input-row">';
+                            //li = li + '        <label for="fpjgys">供应商</label>';
+                            //li = li + '        <input type="text" id="fpjgys" name="fpjgys" value="' + fpjcgmxItem[i].配件供应商 + '" placeholder="请输入供应商" />';
+                            //li = li + '   </div>';
+                            //li=li+'</div>';
+
+                             var li = '<div id="pj" class="mui-card">';
                             li = li + '   <div class="mui-input-row bgc">';
                             li = li + '        <label>明细列表项</label> ';
                             li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;display:none;" id="deleteProduct" onclick="deleteItem(this)"></span>';
                             li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fpjwlbm">物料编码<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="fpjwlbm" name="fpjwlbm" value="' + fpjcgmxItem[i].物料编码 + '"readonly="readonly"/>';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fpjwlmc">物料名称<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="fpjwlmc" name="fpjwlmc" value="' + fpjcgmxItem[i].物料名称 + '" readonly="readonly"/> ';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fggxh">规格型号<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="fggxh" name="fggxh" value="' + fpjcgmxItem[i].规格型号 + '" readonly="readonly"/>';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fdw">单位<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="fdw" name="fdw" value="' + fpjcgmxItem[i].单位 + '" readonly="readonly"/>';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fpjsl">数量<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="number" id="fpjsl" name="fpjsl" value="' + fpjcgmxItem[i].配件数量 + '" readonly="readonly"/>';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fpjbz">备注</label>';
-                            li = li + '        <input type="text" id="fpjbz" name="fpjbz" value="' + fpjcgmxItem[i].备注 + '" readonly="readonly" />';
-                            li = li + '   </div>';
-                            li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fpjgys">供应商</label>';
-                            li = li + '        <input type="text" id="fpjgys" name="fpjgys" value="' + fpjcgmxItem[i].配件供应商 + '" placeholder="请输入供应商" />';
-                            li = li + '   </div>';
-
+                            li = li + '        <input type="hidden" id="fpjwlbm" name="fpjwlbm" value="' + fpjcgmxItem[i].物料编码 + '"readonly="readonly"/>';
+                            li = li + '        <input type="hidden" id="fpjwlmc" name="fpjwlmc" value="' + fpjcgmxItem[i].物料名称 + '" readonly="readonly"/> ';
+                            li = li + '        <input type="hidden" id="fggxh" name="fggxh" value="' + fpjcgmxItem[i].规格型号 + '" readonly="readonly"/>';
+                            li = li + '        <input type="hidden" id="fdw" name="fdw" value="' + fpjcgmxItem[i].单位 + '" readonly="readonly"/>';
+                            li = li + '        <input type="hidden" id="fpjsl" name="fpjsl" value="' + fpjcgmxItem[i].配件数量 + '" readonly="readonly"/>';
+                            li = li + '        <input type="hidden" id="fpjbz" name="fpjbz" value="' + fpjcgmxItem[i].备注 + '" readonly="readonly" />';
+                            li = li + '        <input type="hidden" id="fpjgys" name="fpjgys" value="' + fpjcgmxItem[i].配件供应商 + '" readonly="readonly" />';
+                            li = li + '<textarea rows="5" readonly="readonly">';
+                            li = li + '物料编码:' + fpjcgmxItem[i].物料编码 + '&nbsp 物料名称:' + fpjcgmxItem[i].物料名称 + '&nbsp规格型号:' + fpjcgmxItem[i].规格型号;
+                            li = li + '&nbsp 单位:' + fpjcgmxItem[i].单位 + '&nbsp 配件数量:' + fpjcgmxItem[i].配件数量 + '&nbsp 备注:' + fpjcgmxItem[i].备注 + '&nbsp 配件供应商:' + fpjcgmxItem[i].配件供应商;
+                            li = li + '</textarea>';
+                            li = li + '</div>';
                             $("#bllist_pj").append(li);
 
                         }
@@ -916,6 +991,39 @@
 
                 }, complete: function () {
 
+                }
+            });
+
+        }
+
+        function optZTap() {
+            var change_bl = false;
+            var change_xc = false;
+            var change_pj = false;
+            $("#div_blcgmx").on('tap', function () {
+                change_bl = !change_bl;
+                if (change_bl) {
+                    $("#bllist_bl").css("display", "block");
+                } else {
+                    $("#bllist_bl").css("display", "none");
+                }
+
+            });
+            $("#div_pjcgmx").on('tap', function () {
+                change_pj = !change_pj;
+                if (change_pj) {
+                    $("#bllist_pj").css("display", "block");
+                } else {
+                    $("#bllist_pj").css("display", "none");
+                }
+            });
+            $("#div_xccgmx").on('tap', function () {
+
+                change_xc = !change_xc;
+                if (change_xc) {
+                    $("#bllist_xc").css("display", "block");
+                } else {
+                    $("#bllist_xc").css("display", "none");
                 }
             });
 

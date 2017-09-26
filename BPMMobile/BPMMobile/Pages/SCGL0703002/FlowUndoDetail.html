@@ -397,11 +397,11 @@
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row">';
                             li = li + '        <label for="fsl">数量<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="fsl" name="fsl" value="' + bli[i].数量 + '" readonly="readonly"/>';
+                            li = li + '        <input type="number" id="fsl" name="fsl" value="' + bli[i].数量 + '" readonly="readonly" onchange="calcPrice(this)"/>';
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row">';
                             li = li + '        <label for="fckdj">参考单价<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="fckdj" name="fckdj" value="' + bli[i].参考单价 + '" readonly="readonly" />';
+                            li = li + '        <input type="number" id="fckdj" name="fckdj" value="' + bli[i].参考单价 + '" readonly="readonly" onchange="calcPrice(this)"/>';
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row">';
                             li = li + '        <label for="fje">金额(元)</label>';
@@ -445,6 +445,10 @@
                         if (NodeName == "开始") {
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
+                            tapEvent();
+                            $("#bllist").find("#fwlno,#fwlname,#fggxh,#fdw,#fsl,#fckdj,#fcsyy").each(function () {
+                                $(this).removeAttr("readonly");
+                            });
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -930,6 +934,145 @@
                 return;
             }
             return bl;
+        }
+
+        function calcPrice(context) {
+
+            var fdj = $(context).parent().parent().find("#fckdj").val();
+            var fsl = $(context).parent().parent().find("#fsl").val();
+            var fje;
+            if (fdj != null && fsl != null) {
+
+                fje = fdj * fsl;
+
+            }
+            $(context).parent().parent().find("#fje").val((fje.toString()));
+            //格式化单价
+            $(context).parent().parent().find("#fdj").val((fdj.toString()));
+
+            //触发计算总量总金额函数
+            amountCountAndPrice();
+
+        }
+
+        function amountCountAndPrice() {
+            var fsltotal = 0;
+            var ftotal = 0;
+
+            $("#bllist").find("#bl").each(function () {
+                var fsltmp = parseFloat($(this).find("#fsl").val());
+                if ($(this).find("#fsl").val() == null || $(this).find("#fsl").val() == "") {
+                    fsltmp = 0;
+                }
+
+                if (fsltotal == 0) {
+                    fsltotal = fsltmp;
+                } else {
+                    fsltotal += fsltmp;
+                }
+
+                var fjetmp = parseFloat($(this).find("#fje").val());
+                if ($(this).find("#fje").val() == null || $(this).find("#fje").val() == "") {
+                    fjetmp = 0;
+                }
+                if (ftotal == 0) {
+                    ftotal = fjetmp;
+                } else {
+                    ftotal += fjetmp;
+                }
+
+            });
+            $("#fsltotal").val(fsltotal);
+            $("#fjetotal").val(FormatMoney(ftotal.toString()));
+        }
+
+        function deleteItem(context) {
+
+            var btnArray = ['否', '是'];
+            mui.confirm('确认删除？', '', btnArray, function (e) {
+                if (e.index == 1) {
+                    $(context).parent().parent().remove();
+                    amountCountAndPrice();
+                }
+            });
+        }
+
+        function tapEvent() {
+
+
+            var fdeptdata = [
+                {
+                    value: "mcfgs",
+                    text: "门窗分公司"
+                },
+                {
+                    value: "lhptfgs",
+                    text: "绿化配套分公司"
+                },
+                {
+                    value: "jsgs",
+                    text: "建设公司"
+                }
+            ];
+            showPicker('fdept', fdeptdata);
+
+
+            var fdepotdata = [
+                {
+                    value: "lhj",
+                    text: "铝合金仓库"
+                },
+                {
+                    value: "ty",
+                    text: "铁艺仓库"
+                },
+                {
+                    value: "mc",
+                    text: "木窗仓库"
+                },
+                {
+                    value: "lhjccp",
+                    text: "铝合金产成品库"
+                },
+                {
+                    value: "lhpt",
+                    text: "绿化配套仓库"
+                },
+                {
+                    value: "mm",
+                    text: "苗木仓库"
+                },
+                {
+                    value: "mmcp",
+                    text: "苗木成品"
+                },
+                {
+                    value: "gs",
+                    text: "公司库"
+                },
+                {
+                    value: "st",
+                    text: "食堂库"
+                }
+            ];
+
+            showPicker('fdepot', fdepotdata);
+
+            var fwzlxdata = [
+                {
+                    value: "scgcfl",
+                    text: "生产过程废料"
+                },
+                {
+                    value: "dzl",
+                    text: "呆滞料"
+                },
+                {
+                    value: "gbzq",
+                    text: "过保质期"
+                }
+            ];
+            showPickerByZepto('#bllist', '#fwzlx', fwzlxdata);
         }
     </script>
 </body>

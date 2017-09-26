@@ -675,6 +675,7 @@
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
                             $(".upload-addbtn").css("display", "block");
+                            tapEvent();
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#fdate").attr("readonly", "readonly");
@@ -713,6 +714,7 @@
                                     $("#fhfwc").removeAttr("disabled");
                                     $("#fwdwc").removeAttr("readonly");
                                     $("#fgcbyj").removeAttr("readonly");
+                                    $("#fwdwc").removeAttr("disabled");
                                 } else if (NodeName == "财务部") {
                                     $("#fqmzkjq").removeAttr("disabled");
                                     $("#fwhsh").removeAttr("disabled");
@@ -720,6 +722,8 @@
                                 } else if (NodeName == "推广部") {
                                     $("#fwdzswc").removeAttr("disabled");
                                     $("#ftgbyj").removeAttr("readonly");
+                                } else if (String(NodeName).indexOf("安保部")!=-1) {
+
                                 } else {
                                     cwNode = true;
                                 }
@@ -823,88 +827,111 @@
 
         }
         var fjArray = new Array();
-        //function Save() {
-        //    var fareaStr = String(BPMOU).split("/");
-        //    //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
-        //    $("#fdept").val(fareaStr[fareaStr.length - 2]);
+        function Save() {
+            var pid = $("#stepId").val();
+            var fbillno = $("#fbillno").val();
 
-        //    var fname = $("#fname").val();
-        //    var fdept = $("#fdept").val();
-        //    var fdate = $("#fdate").val() + " 00:00:00";
-        //    var ftel = $("#ftel").val();
-        //    var fshmc = $("#fshmc").val();
-        //    var fdph = $("#fdph").val();
-        //    var fshlx = $("#fshlx").val();
 
-        //    if (!ftel || ftel == "") {
-        //        mui.toast("请输入联系电话");
-        //        return;
-        //    }
-        //    if (!fshmc || fshmc == "") {
-        //        mui.toast("请输入商户名称");
-        //        return;
-        //    }
-        //    if (!fdph || fdph == "") {
-        //        mui.toast("请输入店铺号");
-        //        return;
-        //    }
-        //    if (!fshlx || fshlx == "") {
-        //        mui.toast("请选择商户类型");
-        //        return;
-        //    }
-        //    if (fjArray.toString() != null && fjArray.toString() != "") {
-        //        mui.toast("请上传附件");
-        //        return;
-        //    }
-        //    var pid = $("#stepId").val();
-        //    var btnArry = ["取消", "确定"];
-        //    mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
-        //        if (e.index == 1) {
-        //            var xml = '<?xml version="1.0"?>';
-        //            xml = xml + '<XForm>';
-        //            xml = xml + '   <Header>';
-        //            xml = xml + '    <Method>Process</Method>';
-        //            xml = xml + '   <PID>' + pid + '</PID>';
-        //            xml = xml + '   <Action>提交</Action>';
-        //            xml = xml + '    <Comment></Comment>';
-        //            xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
-        //            xml = xml + '  </Header>';
-        //            xml = xml + '<FormData>';
-        //            xml = xml + '<BPM_SGGSSHCCSQSPB>';
-        //            xml = xml + '<fbillno>自动生成</fbillno>';
-        //            xml = xml + '<fname>' + fname + '</fname>';
-        //            xml = xml + '<fdept>' + fdept + '</fdept>';
-        //            xml = xml + '<fdate>' + fdate + '</fdate>';
-        //            xml = xml + '<ftel>' + ftel + '</ftel>';
-        //            xml = xml + '<fshmc>' + fshmc + '</fshmc>';
-        //            xml = xml + '<fdph>' + fdph + '</fdph>';
-        //            xml = xml + '<fshlx>' + fshlx + '</fshlx>';
-        //            xml = xml + '<fyytz>0</fyytz>';
-        //            xml = xml + '<fyyzl>0</fyyzl>';
-        //            xml = xml + '<fyyyzx>0</fyyyzx>';
-        //            xml = xml + '<fyywt></fyywt>';
-        //            xml = xml + '<fgctz>0</fgctz>';
-        //            xml = xml + '<fgcyzx>0</fgcyzx>';
-        //            xml = xml + ' <fgcwt></fgcwt>';
-        //            xml = xml + ' <fabtz>0</fabtz>';
-        //            xml = xml + '<fabyzx>0</fabyzx>';
-        //            xml = xml + '<fabwt></fabwt>';
-        //            xml = xml + ' <ftgyzx>0</ftgyzx>';
-        //            xml = xml + '<ftgwt></ftgwt>';
-        //            xml = xml + '<fkfyzx>0</fkfyzx>';
-        //            xml = xml + '<fkfwt></fkfwt>';
-        //            xml = xml + '<fcwyzx>0</fcwyzx>';
-        //            xml = xml + '<fcwwt></fcwwt>';
-        //            xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
-        //            xml = xml + '</BPM_SGGSSHCCSQSPB>';
-        //            xml = xml + ' </FormData>';
-        //            xml = xml + '</XForm>';
-        //            PostXml(xml);
-        //        }
-        //    });
+            var fname = $("#fname").val();
+            var fdept = $("#fdept").val();
+            var fdate = $("#fdate").val() + " 00:00:00";
+            var ftel = $("#ftel").val();
+            var fshmc = $("#fshmc").val();
+            var fdph = $("#fdph").val();
+            var fshzt = $("#fshzt").val();
+            var fshlxr = $("#fshlxr").val();
+            var fccyy = $("#fccyy").val();
+            var fccrq = $("#fccrq").val() + " 00:00:00";;
+            var fssxm = $("#fssxm").val();
+            if (!fssxm) {
+                mui.toast('请选择所属项目');
+                return;
+            }
+            if (!fdph) {
+                mui.toast('请输入店铺号');
+                return;
+            }
+            if (!ftel || ftel == "") {
+                mui.toast("请输入联系电话");
+                return;
+            }
+            if (!fshmc || fshmc == "") {
+                mui.toast("请输入商户名称");
+                return;
+            }
+            if (!fshzt || fshzt == "") {
+                mui.toast("请选择商户状态");
+                return;
+            }
+            if (!fshlxr || fshlxr == "") {
+                mui.toast("请输入商户联系人");
+                return;
+            }
 
-        //}
+            if (!fccyy || fccyy == "") {
+                mui.toast("请输入撤场原因");
+                return;
+            }
+            if (!$("#fccrq").val() || fccrq == "") {
+                mui.toast("请选择撤场时间");
+                return;
+            }
 
+
+
+            if (fjArray.toString() == null || fjArray.toString() == "") {
+                mui.toast("请上传附件");
+                 return;
+            }
+
+            var btnArry = ["取消", "确定"];
+            mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
+                if (e.index == 1) {
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '   <Header>';
+                    xml = xml + '    <Method>Process</Method>';
+                    xml = xml + '   <PID>' + pid + '</PID>';
+                    xml = xml + '   <Action>提交</Action>';
+                    xml = xml + '    <Comment></Comment>';
+                    xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '  </Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<BPM_SGGSSHCCSQSPB>';
+                    xml = xml + '<fbillno>自动生成</fbillno>';
+                    xml = xml + '<fname>' + fname + '</fname>';
+                    xml = xml + '<fdept>' + fdept + '</fdept>';
+                    xml = xml + '<fdate>' + fdate + '</fdate>';
+                    xml = xml + '<ftel>' + ftel + '</ftel>';
+                    xml = xml + '<fshmc>' + fshmc + '</fshmc>';
+                    xml = xml + '<fshzt>' + fshzt + '</fshzt>';
+                    xml = xml + '<fdph>' + fdph + '</fdph>';
+                    xml = xml + '<fshlxr>' + fshlxr + '</fshlxr>';
+                    xml = xml + '<fccyy>' + fccyy + '</fccyy>';
+                    xml = xml + '<fccrq>' + fccrq + '</fccrq>';
+                    xml = xml + '<fssxm>' + fssxm + '</fssxm>';
+
+                    xml = xml + '<fccwpqd>0</fccwpqd>';
+                    xml = xml + '<fccfzrwts>0</fccfzrwts>';
+                    xml = xml + '<fyybyj>0</fyybyj>';
+                    xml = xml + '<fzsbyj></fzsbyj>';
+                    xml = xml + '<fhfwc>0</fhfwc>';
+                    xml = xml + '<fwdwc>0</fwdwc>';
+                    xml = xml + '<fgcbyj></fgcbyj>';
+                    xml = xml + '<fqmzkjq>0</fqmzkjq>';
+                    xml = xml + '<fwhsh>0</fwhsh>';
+                    xml = xml + '<fcwbyj></fcwbyj>';
+                    xml = xml + '<fwdzswc>0</fwdzswc>';
+                    xml = xml + '<ftgbyj></ftgbyj>';
+                    xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                    xml = xml + '</BPM_SGGSSHCCSQSPB>';
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+                }
+            });
+
+        }
         function hasRead() {
             var fname = $("#fname").val();
             var fdept = $("#fdept").val();
@@ -1219,6 +1246,33 @@
 
             $("#wrapper").css("display", "block");
             $("#signd").css("display", "none");
+        }
+        function tapEvent() {
+
+            var fshztdata = [
+                {
+                    value: "htdqcc",
+                    text: "合同到期撤场"
+                },
+                {
+                    value: "htwdqcc",
+                    text: "合同未到期撤场"
+                }
+            ];
+            $("#fshzt").on('tap', showPicker('fshzt', fshztdata));
+
+            var fssxmdata = [
+                {
+                    value: "wggc",
+                    text: "威高广场"
+                },
+                {
+                    value: "sgc",
+                    text: "时光城"
+                }
+            ];
+            $("#fssxm").on('tap', showPicker('fssxm', fssxmdata));
+
         }
 
     </script>

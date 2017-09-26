@@ -168,7 +168,7 @@ function RecedeBack() {
     var stepId = $("#stepId").val();
     var comments;
     var list = document.getElementById('recedeWr');
-    var checkboxArray = [].slice.call(list.querySelectorAll('input[type="checkbox"]'));
+    var checkboxArray = [].slice.call(list.querySelectorAll('input[type="radio"]'));
 
     checkboxArray.forEach(function (box) {
         if (box.checked) {
@@ -386,6 +386,48 @@ function getUrlParam(name) {
     return null;
 }
 
+//通过调用XuntongJSBridge来实现单选人员，从而获取对应的姓名和工号信息
+function selectSinglePerson(name, account) {
+    //name 为对应选择人姓名的jQueryID， account 为对应选择人工号的jQueryID
+    var openidArr = new Array();
+    XuntongJSBridge.call('selectPerson', { 'pType': '1' }, function (result) {
+
+        if (typeof (result) == 'string') {
+            result = JSON.parse(result);
+        } else if (typeof (result) == 'object') {
+            result = result;
+        }
+        var data = result.data;
+        if (result.success == true || result.success == "true") {
+            for (var i = 0; i < data.persons.length; i++) {
+                openidArr.push(data.persons[i].openId);
+            }
+            $.ajax({
+                type: "POST",
+                url: "/api/bpm/PostAccount",
+                data: { "ids": openidArr },
+                beforeSend: function (XHR) {
+                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+                }
+            }).done(function (data) {
+                console.log(data);
+                var accountArr = new Array();
+                var nameArr = new Array();
+                for (var i = 0; i < data.data.length; i++) {
+                    accountArr.push((String)(data.data[i].phone));
+                    nameArr.push(data.data[i].name);
+                }
+                $(name).val(nameArr.toString());
+                $(account).val(accountArr.toString());
+            }).fail(function (e) {
+
+            });
+        }
+    });
+
+}
+
 //选择器前提需要mui加载完成
 function showPicker(el, data) {
 
@@ -510,8 +552,10 @@ function locationAction(selAction ) {
     } else if (selAction == "sysStop") {
         stepAction = "结束";
     } else if (selAction == "sysPickBackRestart") {
-        stepAction = "取回";
-    }  else {
+        stepAction = "取回重填";
+    }else if(selAction == "sysPickBack"){
+        stepAction ="取回";
+    } else {
        stepAction = selAction;
     } 
     return stepAction;
@@ -722,10 +766,10 @@ function getRecedableToSteps() {
                 li = li + '       <label>将任务退回</label>';
                 li = li + '  </div>';
                 for (var i = 0; i < data.length; i++) {
-                    li = li + '     <div class="mui-input-row mui-checkbox mui-left">';
+                    li = li + '     <div class="mui-input-row mui-radio mui-left">';
                     li = li + '     <label>' + data[i].NodeName + '&nbsp;' + data[i].OwnerFullName + '&nbsp;' + FormatterTimeYMS(data[i].FinishAt) + '</label>';
 
-                    li = li + '     <input name="stepcbox" value="' + data[i].StepID + '" type="checkbox" >';
+                    li = li + '     <input name="stepcbox" value="' + data[i].StepID + '" type="radio" >';
                     li = li + '     </div>';
 
                 }
@@ -792,13 +836,20 @@ function getNowFormatDate(timeformat) {
 
     //hh:mm:ss
     var currentdate3 = hour + seperator2 + minute + seperator2 + seconds;
+
+    //yyyy-MM-dd hh:mm
+    var currentdate4 = year + seperator1 + month + seperator1 + strDate
+        + "T" + hour + seperator2 + minute
+        ;
     if (timeformat == 1) {
         return currentdate1;
     } else if (timeformat == 2) {
         return currentdate2;
     } else if (timeformat == 3) {
         return currentdate3;
-    } else {
+    } else if (timeformat == 4) {
+        return currentdate4;
+    }else {
         return "";
     }
 
@@ -817,6 +868,11 @@ function FormatterTime(time) {
 function FormatterTimeYMS(time) {
     var time = String(time);
     var ymd = time.substring(0, time.indexOf("T"));
+    return ymd;
+}
+function FormatterTimeT(time) {
+    var time = String(time);
+    var ymd = time.substring(0, time.indexOf(" "));
     return ymd;
 }
 
@@ -892,7 +948,7 @@ function getMonthFirst(dateString) {
     firstDate.setDate(1);
     return new XDate(firstDate).toString('yyyy-MM-dd');
 }
-
+//获取某月最后一天
 function getMonthLast(dateString) {
 
     var info = String(dateString).split("-");
@@ -906,6 +962,17 @@ function getMonthLast(dateString) {
     endDate.setDate(0);
     return new XDate(endDate).toString('yyyy-MM-dd');
 }
+
+//计算日期相差天数
+function DateDiff(sDate1, sDate2) {    //sDate1和sDate2是2006-12-18格式  
+    var aDate, oDate1, oDate2, iDays
+    aDate = sDate1.split("-")
+    oDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0])    //转换为12-18-2006格式  
+    aDate = sDate2.split("-")
+    oDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0])
+    iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24)    //把相差的毫秒数转换为天数  
+    return iDays
+}    
 
 //数组去重索引法
 function removeDuplicatedItem(array) {
@@ -939,10 +1006,10 @@ function getPersonInfo(fno) {
     xml = xml + '      <Requests>';
     xml = xml + '     <Params>';
     xml = xml + '         <DataSource>PS</DataSource>';
-    xml = xml + '         <ID>erpcloud_getPerInfo</ID>';
+    xml = xml + '         <ID>erpcloud_公用_获取个人信息</ID>';
     xml = xml + '         <Type>1</Type>';
     xml = xml + '        <Method>GetUserDataProcedure</Method>';
-    xml = xml + '        <ProcedureName>erpcloud_getPerInfo</ProcedureName>';
+    xml = xml + '        <ProcedureName>erpcloud_公用_获取个人信息</ProcedureName>';
     xml = xml + '        <Filter>';
     xml = xml + '            <fno>' + fno + '</fno>';
     xml = xml + '        </Filter>';
@@ -1051,10 +1118,10 @@ function getPseronInfoByopenId(selecPersonOpenIdArr) {
         xml = xml + ' <Requests>';
         xml = xml + '     <Params>';
         xml = xml + '         <DataSource>PS</DataSource>';
-        xml = xml + '         <ID>erpcloud_getPerInfoByArr</ID>';
+        xml = xml + '         <ID>erpcloud_公用_获取个人信息数组</ID>';
         xml = xml + '         <Type>1</Type>';
         xml = xml + '        <Method>GetUserDataProcedure</Method>';
-        xml = xml + '        <ProcedureName>erpcloud_getPerInfoByArr</ProcedureName>';
+        xml = xml + '        <ProcedureName>erpcloud_公用_获取个人信息数组</ProcedureName>';
         xml = xml + '        <Filter>';
         xml = xml + '            <fnoarr>' + selectAccountArr.toString() + '</fnoarr>';
         xml = xml + '        </Filter>';
@@ -1082,3 +1149,5 @@ function getPseronInfoByopenId(selecPersonOpenIdArr) {
     });
 
 }
+
+

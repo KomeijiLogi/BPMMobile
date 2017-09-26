@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -26,6 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <Use64BitIISExpress />
+    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -366,6 +368,50 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Pages\01WeGoHQ\00WeGoBenBu\BG0100015\FlowAskDetail.html" />
+    <Content Include="Pages\01WeGoHQ\00WeGoBenBu\BG0100015\FlowCreate.html" />
+    <Content Include="Pages\01WeGoHQ\00WeGoBenBu\BG0100015\FlowDoneDetail.html" />
+    <Content Include="Pages\01WeGoHQ\00WeGoBenBu\BG0100015\FlowUndoDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\BG0101001\FlowAskDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\BG0101001\FlowCreate.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\BG0101001\FlowDoneDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\BG0101001\FlowUndoDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\BG0101004\FlowAskDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\BG0101004\FlowCreate.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\BG0101004\FlowDoneDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\BG0101004\FlowUndoDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\RL0101001\FlowAskDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\RL0101001\FlowCreate.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\RL0101001\FlowDoneDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\RL0101001\FlowUndoDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\RL0101003\FlowAskDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\RL0101003\FlowCreate.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\RL0101003\FlowDoneDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\RL0101003\FlowUndoDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\RL0101004\FlowAskDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\RL0101004\FlowCreate.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\RL0101004\FlowDoneDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\RL0101004\FlowUndoDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\SC0101001\FlowAskDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\SC0101001\FlowCreate.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\SC0101001\FlowDoneDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\SC0101001\FlowUndoDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\SC0101002\FlowAskDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\SC0101002\FlowCreate.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\SC0101002\FlowDoneDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\SC0101002\FlowUndoDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\SC0101003\FlowAskDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\SC0101003\FlowCreate.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\SC0101003\FlowDoneDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\SC0101003\FlowUndoDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\SC0101004\FlowAskDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\SC0101004\FlowCreate.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\SC0101004\FlowDoneDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\SC0101004\FlowUndoDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\XX0101003\FlowAskDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\XX0101003\FLowCreate.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\XX0101003\FlowDoneDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\XX0101003\FlowUndoDetail.html" />
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\AQGL0106001\FlowAskDetail.html" />
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\AQGL0106001\FlowCreate.html" />
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\AQGL0106001\FlowDoneDetail.html" />
@@ -378,6 +424,10 @@
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\CWGL0106001\FlowCreate.html" />
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\CWGL0106001\FlowDoneDetail.html" />
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\CWGL0106001\FlowUndoDetail.html" />
+    <Content Include="Pages\01WeGoHQ\06JianSheGongSi\FLSW0106001\FlowAskDetail.html" />
+    <Content Include="Pages\01WeGoHQ\06JianSheGongSi\FLSW0106001\FlowCreate.html" />
+    <Content Include="Pages\01WeGoHQ\06JianSheGongSi\FLSW0106001\FlowDoneDetail.html" />
+    <Content Include="Pages\01WeGoHQ\06JianSheGongSi\FLSW0106001\FlowUndoDetail.html" />
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\RLZY0106001\FlowAskDetail.html" />
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\RLZY0106001\FlowCreate.html" />
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\RLZY0106001\FlowDoneDetail.html" />
@@ -402,18 +452,38 @@
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\ZLGL0703002\FlowCreate.html" />
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\ZLGL0703002\FlowDoneDetail.html" />
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\ZLGL0703002\FlowUndoDetail.html" />
+    <Content Include="Pages\02YiYongZhiPin\00ZhiPinBenBu\SC0200003\FlowAskDetail.html" />
+    <Content Include="Pages\02YiYongZhiPin\00ZhiPinBenBu\SC0200003\FlowCreate.html" />
+    <Content Include="Pages\02YiYongZhiPin\00ZhiPinBenBu\SC0200003\FlowDoneDetail.html" />
+    <Content Include="Pages\02YiYongZhiPin\00ZhiPinBenBu\SC0200003\FlowUndoDetail.html" />
+    <Content Include="Pages\02YiYongZhiPin\00ZhiPinBenBu\SC0200004\FlowAskDetail.html" />
+    <Content Include="Pages\02YiYongZhiPin\00ZhiPinBenBu\SC0200004\FlowCreate.html" />
+    <Content Include="Pages\02YiYongZhiPin\00ZhiPinBenBu\SC0200004\FlowDoneDetail.html" />
+    <Content Include="Pages\02YiYongZhiPin\00ZhiPinBenBu\SC0200004\FlowUndoDetail.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701001\FlowAskDetail.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701001\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701001\FlowDoneDetail.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701001\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701002\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701002\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701002\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701002\FlowUndoDetail.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701003\FlowAskDetail.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701003\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701003\FlowDoneDetail.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701003\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701004\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701004\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701004\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701004\FlowUndoDetail.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701005\FlowAskDetail.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701005\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701005\FlowDoneDetail.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701005\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701006\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701006\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701006\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701006\FlowUndoDetail.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701007\FlowAskDetail.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701007\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701007\FlowDoneDetail.html" />
@@ -422,6 +492,14 @@
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701010\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701010\FlowDoneDetail.html" />
     <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701010\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701012\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701012\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701012\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\CW0701012\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\RL0701001\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\RL0701001\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\RL0701001\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\01KuaZiGongSi\RL0701001\FlowUndoDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702006\FlowAskDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702006\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702006\FlowDoneDetail.html" />
@@ -430,10 +508,38 @@
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702011\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702011\FlowDoneDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702011\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702012\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702012\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702012\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702012\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702014\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702014\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702014\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702014\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702015\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702015\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702015\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702015\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702016\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702016\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702016\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702016\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702017\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702017\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702017\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702017\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702018\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702018\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702018\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702018\FlowUndoDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702019\FlowAskDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702019\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702019\FlowDoneDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702019\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702020\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702020\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702020\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702020\FlowUndoDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702022\FlowAskDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702022\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702022\FlowDoneDetail.html" />
@@ -442,6 +548,10 @@
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702025\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702025\FlowDoneDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702025\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702026\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702026\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702026\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702026\FlowUndoDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702028\FlowAskDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702028\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702028\FlowDoneDetail.html" />
@@ -450,6 +560,10 @@
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702029\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702029\FlowDoneDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702029\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702030\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702030\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702030\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702030\FlowUndoDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702035\FlowAskDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702035\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702035\FlowDoneDetail.html" />
@@ -462,14 +576,46 @@
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702024\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702024\FlowDoneDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702024\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702040\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702040\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702040\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\BG0702040\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702001\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702001\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702001\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702001\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702002\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702002\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702002\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702002\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702003\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702003\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702003\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702003\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702004\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702004\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702004\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702004\FlowUndoDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702005\FlowAskDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702005\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702005\FlowDoneDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702005\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702006\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702006\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702006\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\CW0702006\FlowUndoDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\SCYX0702002\FlowAskDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\SCYX0702002\FlowCreate.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\SCYX0702002\FlowDoneDetail.html" />
     <Content Include="Pages\07FangDiChan\02ShangGuan\SCYX0702002\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\SCYX0702003\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\SCYX0702003\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\SCYX0702003\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\SCYX0702003\FlowUndoDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\SCYX0702004\FlowAskDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\SCYX0702004\FlowCreate.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\SCYX0702004\FlowDoneDetail.html" />
+    <Content Include="Pages\07FangDiChan\02ShangGuan\SCYX0702004\FlowUndoDetail.html" />
     <Content Include="Pages\404.html" />
     <Content Include="Pages\98JSGZZD\FlowAskDetail.html" />
     <Content Include="Pages\98JSGZZD\FlowCreate.html" />
@@ -694,14 +840,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Pages\01WeGoHQ\00WeGoBenBu\" />
-    <Folder Include="Pages\01WeGoHQ\01KuaZhanYe\" />
     <Folder Include="Pages\01WeGoHQ\02LvYouCanYin\" />
     <Folder Include="Pages\01WeGoHQ\03WeiHaiWeiDaSha\" />
     <Folder Include="Pages\01WeGoHQ\04HouQinFuWu\" />
     <Folder Include="Pages\01WeGoHQ\05CaiGou\" />
     <Folder Include="Pages\01WeGoHQ\07RongZiZunLin\" />
-    <Folder Include="Pages\02YiYongZhiPin\00ZhiPinBenBu\" />
     <Folder Include="Pages\02YiYongZhiPin\01KuaZiGongSi\" />
     <Folder Include="Pages\02YiYongZhiPin\02YiYongZhiPin\" />
     <Folder Include="Pages\02YiYongZhiPin\03YiLiaoXiTong\" />
@@ -766,6 +909,9 @@
       <Name>YUN</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -774,6 +920,7 @@
     <StartupObject />
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">

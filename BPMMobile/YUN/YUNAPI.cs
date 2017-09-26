@@ -410,6 +410,21 @@ namespace YUN
 
         }
         #endregion
+        //#region 查询指定组织信息
+        //public static GetDepartInfoResponse GetDepartInfo(string yunxt, string eid, byte[] bytes, string[] orgId)
+        //{
+        //    string url = string.Format("{0}/openaccess/input/dept/getall", yunxt);
+
+        //    string json = "{eid:'" + eid + "',type:1,array:['" + string.Join<string>("','", orgId) + "']}";
+        //    var enBytes = EncryptByKey(eid, json, bytes);
+
+        //    string response = FormUrlEncodedPost(url, enBytes);
+        //    return JsonConvert.DeserializeObject<GetDepartInfoResponse>(response);
+
+
+        //}
+        //#endregion
+
     }
     public class ASCIIStringCompare : System.Collections.IComparer
     {
@@ -462,4 +477,11 @@ namespace YUN
         public int errorCode { get; set; }
         public PersonInfo[] data { get; set; }
     }
+    //public class GetDepartInfoResponse
+    //{
+    //    public bool success { get; set; }
+    //    public string error { get; set; }
+    //    public int errorCode { get; set; }
+    //    public PersonInfo[] data { get; set; }
+    //}
 }

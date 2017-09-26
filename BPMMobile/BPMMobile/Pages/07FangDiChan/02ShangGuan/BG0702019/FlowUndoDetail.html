@@ -674,8 +674,11 @@
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
                             $(".upload-addbtn").css("display", "block");
-                            $("#addItem").css("display", "block");
-                            $("#ftel").removeAttr("readonly");                           
+                         
+                            $("#ftel,#fsh,#fzt,#fhdsj,#fxcsj,#fhdnr,#fhdfy,#ffysqfs,#fxkfs,#fkl,#fxs,#fcd,#fxczy,#fxc,#fqtbt").removeAttr("readonly");
+                            $(".mui-checkbox").find("input").each(function () {
+                                $(this).removeAttr('disabled');
+                            });
                             tapEvent();
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
@@ -1011,11 +1014,142 @@
                 xml = xml + '</BPM_SGSHHDSQ>';
                 xml = xml + '</FormData>';
                 xml = xml + '</XForm>';
-                alert(xml);
+                
                PostXml(xml);
             }
         }
- 
+
+        function Save() {
+            var pid = $("#stepId").val();
+            var fbillno = $("#fbillno").val();
+
+            var fname = $("#fname").val();
+            var fdate = $("#fdate").val() + " 00:00:00";
+            var fdept = $("#fdept").val();
+            var ftel = $("#ftel").val();
+
+            var fsh = $("#fsh").val();
+            var fzt = $("#fzt").val();
+            var fhdsj = $("#fhdsj").val();
+            var fxcsj = $("#fxcsj").val();
+
+            var fxcfs = fun("fxcfs");
+          
+
+            var fhdnr = $("#fhdnr").val();
+            var fhdfy = $("#fhdfy").val();
+            var ffysqfs = $("#ffysqfs").val();
+
+
+            var fxkfs = $("#fxkfs").val();
+            var fkl = $("#fkl").val();
+            var fxs = $("#fxs").val();
+            var fcd = $("#fcd").val();
+            var fxczy = $("#fxczy").val();
+            var fxc = $("#fxc").val();
+            var fqtbt = $("#fqtbt").val();
+
+
+
+            if (!ftel || ftel == "") {
+                mui.toast("请填写联系方式");
+                return;
+            }
+
+            if (!fsh || fsh == "") {
+                mui.toast("请填写参加活动商户");
+                return;
+            }
+            if (!fzt || fzt == "") {
+                mui.toast("请填写活动主题");
+                return;
+            }
+            if (!fhdsj || fhdsj == "") {
+                mui.toast("活动时间");
+                return;
+            }
+            if (!fxcfs || fxcfs == "") {
+                mui.toast("请选择宣传方式");
+                return;
+            }
+            if (!fxcsj || fxcsj == "") {
+                mui.toast("请填写宣传时间");
+                return;
+            }
+
+            if (!fhdnr || fhdnr == "") {
+                mui.toast("请填写活动内容");
+                return;
+            }
+            if (!fhdfy || fhdfy == "") {
+                mui.toast("请选择活动费用");
+                return;
+            }
+            if (!ffysqfs || ffysqfs == "") {
+                mui.toast("请选择活动费用");
+                return;
+            }
+            if (!ffysqfs || ffysqfs == "") {
+                mui.toast("费用收取方式");
+                return;
+            }
+
+
+            var btnArry = ["取消", "确定"];
+            mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
+                if (e.index == 1) {
+
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '   <Header>';
+                    xml = xml + '    <Method>Process</Method>';
+                    xml = xml + '   <PID>' + pid + '</PID>';
+                    xml = xml + '   <Action>提交</Action>';
+                    xml = xml + '    <Comment></Comment>';
+                    xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '  </Header>';
+                    xml = xml + '<FormData>';
+
+                    xml = xml + '<BPM_SGSHHDSQ>';
+                    xml = xml + '<fbillno>' + fbillno + '</fbillno>';
+                    xml = xml + '<fname>' + fname + '</fname>';
+                    xml = xml + '<fdept>' + fdept + '</fdept>';
+                    xml = xml + '<fdate>' + fdate + '</fdate>';
+                    xml = xml + '<ftel>' + ftel + '</ftel>';
+
+                    xml = xml + '<fsh>' + fsh + '</fsh>';
+                    xml = xml + '<fzt>' + fzt + '</fzt>';
+                    xml = xml + '<fhdsj>' + fhdsj + '</fhdsj>';
+                    xml = xml + '<fxcsj>' + fxcsj + '</fxcsj>';
+                    xml = xml + '<fxcfs>' + fxcfs + '</fxcfs>';
+                    xml = xml + '<fhdnr>' + fhdnr + '</fhdnr>';
+                    xml = xml + '<fhdfy>' + fhdfy + '</fhdfy>';
+                    xml = xml + '<ffysqfs>' + ffysqfs + '</ffysqfs>';
+                    xml = xml + '<fxkfs>' + fxkfs + '</fxkfs>';
+                    xml = xml + '<fkl>' + fkl + '</fkl>';
+                    xml = xml + '<fxs>' + fxs + '</fxs>';
+                    xml = xml + '<fcd>' + fcd + '</fcd>';
+                    xml = xml + '<fxczy>' + fxczy + '</fxczy>';
+                    xml = xml + '<fxc>' + fxc + '</fxc>';
+                    xml = xml + '<fqtbt>' + fqtbt + '</fqtbt>';
+
+
+                    if (fjArray.toString() != null && fjArray.toString() != "") {
+
+                        xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
+                    } else {
+
+                        xml = xml + '      <fj></fj>';
+                    }
+                    xml = xml + '</BPM_SGSHHDSQ>';
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                   
+                    PostXml(xml);
+                }
+            });
+
+        }
     </script>
 </body>
 </html>

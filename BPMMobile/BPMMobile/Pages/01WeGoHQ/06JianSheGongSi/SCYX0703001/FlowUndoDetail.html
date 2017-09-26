@@ -434,7 +434,7 @@
                             var li = '<div id="bl" class="mui-card">';
                             li = li + '   <div class="mui-input-row bgc">';
                             li = li + '        <label>明细列表项</label> ';
-                            li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
+                            li = li + '        <span class="mui-icon mui-icon-closeempty mui-pull-right" style="border:groove;margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;display:none;" id="deleteProduct" onclick="deleteItem(this)"></span>';
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row">';
                             li = li + '        <label for="fwxdd">维修地点<i style="color:red;">*</i></label>';
@@ -458,7 +458,7 @@
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row">';
                             li = li + '        <label for="fsl">数量<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="fsl" name="fsl" value="' + bli[i].数量 + '" readonly="readonly"/>';
+                            li = li + '        <input type="number" id="fsl" name="fsl" value="' + bli[i].数量 + '" readonly="readonly"/>';
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row">';
                             li = li + '        <label for="fwxyy">维修原因<i style="color:red;">*</i></label>';
@@ -502,6 +502,14 @@
                         if (NodeName == "开始") {
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
+                            $("#bllist").find("span").each(function () {
+                                $(this).css("display", "block");
+                            });
+                            $("#qdate").removeAttr("readonly");
+                            tapEvent();
+                            $("#bllist").find("#fwxdd,#fwlno,#fwlname,#fgg,#fdw,#fwxyy,#ffycd").each(function () {
+                                $(this).removeAttr("readonly");
+                            });
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -510,6 +518,70 @@
                                 $("#approvalD").css("display", "block");
                             }
                            
+                        }
+                        for (var i = 0; i < data.Steps.length; i++) {
+
+
+
+                            if (data.Steps[i].FinishAt == "0001-01-01T00:00:00") {
+                                data.Steps[i].FinishAt = "";
+                            }
+                            var time = FormatterTime(data.Steps[i].FinishAt);
+
+                            var stepName = data.Steps[i].NodeName;
+                            if (data.Steps[i].NodeName == "sysInform") {
+                                stepName = "知会";
+                            } else if (data.Steps[i].NodeName == "sysTaskOpt") {
+                                stepName = "任务操作";
+                            } else if (data.Steps[i].NodeName == "开始") {
+                                stepName = "开始";
+                            }
+
+                            var stepAction = locationAction(data.Steps[i].SelAction);
+                            if (data.Steps[i].SelAction == "sysInform") {
+                                stepAction = "发起知会";
+                            } else if (data.Steps[i].SelAction == "Submit") {
+                                stepAction = "已阅";
+                            } else if (data.Steps[i].SelAction == "null" || data.Steps[i].SelAction == null) {
+                                stepAction = "待处理";
+                            } else if (data.Steps[i].SelAction == "sysReject") {
+                                stepAction = "拒绝";
+                            } else if (data.Steps[i].SelAction == "sysRecedeRestart") {
+                                stepAction = "退回重填";
+                            }
+
+
+                            var contents = data.Steps[i].Comments;
+                            if (contents == null) {
+                                contents = "无";
+                            }
+                            //判断是否是加签
+                            if (data.Steps[i].IsConsignStep == false) {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg">' + stepName + '<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            } else {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg signadd">加签<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            }
+                            $("#signff").append(li);
                         }
 
                     }
@@ -774,6 +846,8 @@
             var fdept = $("#fdept").val();
             var fdate = $("#fdate").val() + " 00:00:00";
             var qdate = $("#qdate").val() + " 00:00:00";
+            var fbillno = $("#fbillno").val();
+            var pid = $("#stepId").val();
 
 
             var bllistArr = new Array();
@@ -803,20 +877,17 @@
 
 
                     var xml = '<?xml version="1.0"?>';
-                    xml = xml + '<XForm>';
-                    xml = xml + '<Header>';
-                    xml = xml + '<Method>Post</Method>';
-                    xml = xml + ' <ProcessName>建设公司门窗售后维修采购申请</ProcessName>';
-                    xml = xml + '<ProcessVersion>1.0</ProcessVersion>';
-                    xml = xml + '<DraftGuid></DraftGuid>';
-                    xml = xml + '<OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
-                    xml = xml + '<Action>提交</Action>';
-                    xml = xml + '<Comment></Comment>';
-                    xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
-                    xml = xml + '</Header>';
+                    xml = xml + ' <XForm>';
+                    xml = xml + '   <Header>';
+                    xml = xml + '    <Method>Process</Method>';
+                    xml = xml + '   <PID>' + pid + '</PID>';
+                    xml = xml + '   <Action>提交</Action>';
+                    xml = xml + '    <Comment></Comment>';
+                    xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '  </Header>';
                     xml = xml + '<FormData>';
                     xml = xml + '<建设公司_门窗售后_主表>';
-                    xml = xml + '<单号>自动生成</单号>';
+                    xml = xml + '<单号>' + fbillno+'</单号>';
                     xml = xml + '<申请人>' + fname + '</申请人>';
                     xml = xml + '<申请部门>' + fdept + '</申请部门>';
                     xml = xml + '<申请日期>' + fdate + '</申请日期>';
@@ -911,6 +982,20 @@
                 return null;
             }
             return bl;
+        }
+
+        function tapEvent() {
+            var fshfsdata = [
+                {
+                    value: "zq",
+                    text: "自取"
+                },
+                {
+                    value: "shsm",
+                    text: "送货上门"
+                }
+            ];
+            showPickerByZepto('#bllist', '#fshfs', fshfsdata);
         }
     </script>
 </body>

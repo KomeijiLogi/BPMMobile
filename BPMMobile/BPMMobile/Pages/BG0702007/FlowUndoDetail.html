@@ -43,7 +43,7 @@
             </div>
             <div class="mui-input-row">
                 <label for="fphone">联系电话<i style="color:red;">*</i></label>
-                <input type="tel" id="fphone" name="fphone" readonly="readonly" />
+                <input type="tel" id="ftel" name="ftel" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fzw">职务/岗位 </label>
@@ -59,7 +59,7 @@
             </div>
             <div class="mui-input-row bgc">
                 <label>申请明细</label>
-                <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;" id="addItem"></span>
+                <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;display:none;" id="addItem"></span>
             </div>
             <div class="mui-input-group" id="mxlist" style="padding-bottom:2rem;">
 
@@ -511,6 +511,7 @@
 
                         var mxli = data.FormDataSet.BPM_SGGSGZZZSQB_B;
                         for (var i = 0; i < mxli.length; i++) {
+                            itemidArr.push(mxli[i].itemid);
                             var li = '<div id="mx" class="mui-card">';
                             li = li + '   <div class="mui-input-row itemtitle">';
                             li = li + '        <label>明细列表项</label> ';
@@ -530,7 +531,7 @@
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row">';
                             li = li + '        <label for="fsl">数量<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="fsl" name="fsl"  readonly="readonly" value="' + mxli[i].fsl + '"/>';
+                            li = li + '        <input type="number" id="fsl" name="fsl"  readonly="readonly" value="' + mxli[i].fsl + '"/>';
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row">';
                             li = li + '        <label for="fsyr">使用人<i style="color:red;">*</i></label>';
@@ -550,7 +551,7 @@
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row" style="height:3.75rem;">';
                             li = li + '        <label for="fbz">备注<i style="color:red;">*</i></label>';
-                            li = li + '        <textarea rows="3" id="fbz" name="fbz" >' + mxli[i].fbz + '</textarea>';
+                            li = li + '        <textarea rows="3" id="fbz" name="fbz" readonly="readonly">' + mxli[i].fbz + '</textarea>';
                             li = li + '   </div>';
                             li = li + '</div>';
                             $("#mxlist").append(li);
@@ -587,15 +588,9 @@
                             $("#addItem").css("display", "block");
                             $("#ftel").removeAttr("readonly");
                             $("#fzw").removeAttr("readonly");
-                            $("#mxlist").find("#fks").each(function () {
-                                $(this).removeAttr("readonly");
-                            })
-                            $("#mxlist").find("#fjj").each(function () {
-                                $(this).removeAttr("readonly");
-                            });
-                            $("#mxlist").find("#flx").each(function () {
-                                $(this).removeAttr("readonly");
-                            });
+                           
+                           
+                           
                             $("#mxlist").find("#fsl").each(function () {
                                 $(this).removeAttr("readonly");
                             });
@@ -614,7 +609,49 @@
                             $("#mxlist").find("#fbz").each(function () {
                                 $(this).removeAttr("readonly");
                             });
+                            $("#mxlist").find('span').each(function () {
+                                $(this).css("display", "block");
+                            });
                             tapEvent();
+                            showPickerByZepto("#mxlist", "#fks", fksdata);
+                            showPickerByZepto("#mxlist", "#fjj", fjjdata);
+                            showPickerByZepto('#mxlist', '#flx', flxdata);
+
+                            var picker = new mui.PopPicker(
+                                {
+                                    layer: 2
+                                }
+                            );
+                            picker.setData(fxsdata);
+
+                            $("#mxlist").find("#fxs").each(function () {
+
+                                var self = this;
+                                $(this).on('tap', function () {
+
+                                    picker.show(function (items) {
+                                        self.value = (items[0].text);
+                                        $(self).parent().parent().find("#fbzcm").val(items[1].value);
+                                    });
+                                });
+                            });
+
+                            $("#mxlist").find("#fbzcm").each(function () {
+
+                                var self = this;
+                                $(this).on('tap', function () {
+                                    var self = this;
+                                    $(this).on('tap', function () {
+
+                                        picker.show(function (items) {
+                                            self.value = (items[1].value);
+                                            $(self).parent().parent().find("#fxs").val(items[0].text);
+                                        });
+                                    });
+
+                                });
+
+                            });
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -694,7 +731,123 @@
                 }
             });
         }
+        var fksdata = [
+            {
+                value: "male",
+                text: "男款"
+            },
+            {
+                value: "female",
+                text: "女款"
+            }
+        ];
 
+        var fjjdata = [
+            {
+                value: "summer",
+                text: "夏装 "
+            },
+            {
+                value: "springAndAutumn",
+                text: "春秋装"
+            }
+        ];
+        var fbzcmdata = [
+            {
+                value: "35",
+                text: "35"
+            },
+            {
+                value: "36",
+                text: "36"
+            },
+            {
+                value: "37",
+                text: "37"
+            },
+            {
+                value: "38",
+                text: "38"
+            },
+            {
+                value: "39",
+                text: "39"
+            },
+            {
+                value: "40",
+                text: "40"
+            },
+            {
+                value: "41",
+                text: "41"
+            },
+            {
+                value: "42",
+                text: "42"
+            },
+
+            {
+                value: "43",
+                text: "43"
+            },
+            {
+                value: "44",
+                text: "44"
+            },
+            {
+                value: "45",
+                text: "45"
+            }
+        ];
+        var fxsdata = [
+            {
+                value: "lt",
+                text: "量体",
+                children: [
+                    {
+                        value: "0",
+                        text: "请在备注里标明尺码"
+                    }
+                ]
+            },
+            {
+                value: "bzcm",
+                text: "标准尺码",
+                children: fbzcmdata
+            }
+        ];
+        var flxdata = [
+
+            {
+                value: '',
+                text: '上衣'
+            },
+            {
+                value: '',
+                text: '裤子'
+            },
+            {
+                value: '',
+                text: '裙子'
+            },
+            {
+                value: '',
+                text: '衬衣'
+            },
+            {
+                value: '',
+                text: '领带'
+            },
+            {
+                value: '',
+                text: '大衣'
+            },
+            {
+                value: '',
+                text: '其他'
+            }
+        ];
+       
         function tapEvent() {
 
             var fsqlydata = [
@@ -725,93 +878,10 @@
             ];
             showPicker('fgzlx', fgzlxdata);
 
-            var fksdata = [
-                {
-                    value: "male",
-                    text: "男款"
-                },
-                {
-                    value: "female",
-                    text: "女款"
-                }
-            ];
+          
+           
 
-            var fjjdata = [
-                {
-                    value: "summer",
-                    text: "夏装 "
-                },
-                {
-                    value: "springAndAutumn",
-                    text: "春秋装"
-                }
-            ];
-
-            var fbzcmdata = [
-                {
-                    value: "35",
-                    text: "35"
-                },
-                {
-                    value: "36",
-                    text: "36"
-                },
-                {
-                    value: "37",
-                    text: "37"
-                },
-                {
-                    value: "38",
-                    text: "38"
-                },
-                {
-                    value: "39",
-                    text: "39"
-                },
-                {
-                    value: "40",
-                    text: "40"
-                },
-                {
-                    value: "41",
-                    text: "41"
-                },
-                {
-                    value: "42",
-                    text: "42"
-                },
-
-                {
-                    value: "43",
-                    text: "43"
-                },
-                {
-                    value: "44",
-                    text: "44"
-                },
-                {
-                    value: "45",
-                    text: "45"
-                }
-            ];
-
-            var fxsdata = [
-                {
-                    value: "lt",
-                    text: "量体",
-                    children: [
-                        {
-                            value: "0",
-                            text: "请在备注里标明尺码"
-                        }
-                    ]
-                },
-                {
-                    value: "bzcm",
-                    text: "标准尺码",
-                    children: fbzcmdata
-                }
-            ];
+           
 
 
 
@@ -864,7 +934,7 @@
 
                 showPickerByZepto("#mxlist", "#fks", fksdata);
                 showPickerByZepto("#mxlist", "#fjj", fjjdata);
-
+                showPickerByZepto('#mxlist', '#flx', flxdata);
 
                 var picker = new mui.PopPicker(
                     {
@@ -1167,9 +1237,7 @@
 
         function Save() {
 
-            var fareaStr = String(BPMOU).split("/");
-            //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
-            $("#fdept").val(fareaStr[fareaStr.length - 2]);
+          
 
             var fname = $("#fname").val();
             var fdate = $("#fdate").val() + " 00:00:00";
@@ -1193,6 +1261,7 @@
                 mui.toast("请选择工装类型");
                 return;
             }
+            var mxflag = false;
             var mxlistArr = new Array();
             $("#mxlist").find("#mx").each(function () {
 
@@ -1206,11 +1275,15 @@
                 var fyqsj = $(this).find("#fyqsj").val() + " 00:00:00";
                 var fbz = $(this).find("#fbz").val();
                 if (MxItem(fks, fjj, flx, fsl, fsyr, fxs, fbzcm, fyqsj, fbz) == null) {
+                    mxflag = true;
                     return;
                 }
                 var mx = MxItem(fks, fjj, flx, fsl, fsyr, fxs, fbzcm, fyqsj, fbz);
                 mxlistArr.push(mx);
             });
+            if (mxflag) {
+                return;
+            }
             var pid = $("#stepId").val();
                 var btnArry = ["取消", "确定"];
                 mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {

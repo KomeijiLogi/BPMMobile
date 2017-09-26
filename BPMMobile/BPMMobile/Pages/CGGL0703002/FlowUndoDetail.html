@@ -33,9 +33,9 @@
                 <label for="fname">申请人</label>
                 <input type="text" id="fname" name="fname" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row" style="display:none;">
+            <div class="mui-input-row">
                 <label for="fdept">申请部门</label>
-                <input type="text" id="fdept" name="fdept" value="" />
+                <input type="text" id="fdept" name="fdept" value="" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label for="fdate">申请日期</label>
@@ -43,11 +43,11 @@
             </div>
             <div class="mui-input-row" style="height:2.25rem;">
                 <label for="fdhdate">需求到货日期<i style="color:red;">*</i></label>
-                <input type="date" id="fdhdate" name="fdhdate" value="" />
+                <input type="date" id="fdhdate" name="fdhdate" value="" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label for="fcgbm">采购部门<i style="color:red;">*</i></label>
-                <input type="text" id="fcgbm" name="fcgbm" value="" />
+                <input type="text" id="fcgbm" name="fcgbm" value="" readonly="readonly"/>
             </div>
             <div class="mui-input-row" style="height:2.25rem;">
                 <label>安质部零星采购明细</label>
@@ -395,7 +395,7 @@
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row"> ';
                             li = li + '           <label for="fsl">数量<i style="color:red;">*</i></label>';
-                            li = li + '           <input type="text" id="fsl" name="fsl" value="' + lxli[i].数量 + '" readonly="readonly"/>';
+                            li = li + '           <input type="number" id="fsl" name="fsl" value="' + lxli[i].数量 + '" readonly="readonly"/>';
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row" style="height:5.25rem;">';
                             li = li + '           <label for="fyt">用途<i style="color:red;">*</i></label>';
@@ -436,6 +436,13 @@
                         if (NodeName == "开始") {
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
+                            $("#lxlist").find("input").each(function () {
+
+                                $(this).removeAttr("readonly");
+                            });
+                            $("#lxlist").find("textarea").each(function () {
+                                $(this).removeAttr("readonly");
+                            });
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -769,7 +776,10 @@
                 mui.toast("请填写采购部门");
                 return;
             }
-
+            if (!$("#fdhdate").val() || $("#fdhdate").val() == '') {
+                mui.toast('请填写到货日期');
+                return;
+            }
             var lxlistArr = new Array();
             $("#lxlist").find("#lx").each(function () {
 
@@ -864,8 +874,100 @@
             }
             return lx;
         }
+        function tapEvent() {
+
+            var fcgbmdata = [
+                {
+                    value: 'czb',
+                    text: '采招部'
+                },
+                {
+                    value: 'zhb',
+                    text: '综合部'
+                }
+
+            ];
+            showPicker('fcgbm', fcgbmdata);
 
 
+            $("#addItem").on('tap', function () {
+
+
+
+                var li = '<div id="lx" class="mui-card">';
+                li = li + '   <div class="mui-input-row bgc">';
+                li = li + '        <label>明细列表项</label> ';
+                li = li + '        <span class="mui-icon mui-icon-close mui-pull-right" style="margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fsyadd">使用地点<i style="color:red;">*</i></label>';
+                li = li + '        <input type="text" id="fsyadd" name="fsyadd" placeholder="请填写使用地点"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fwlname">物料名称<i style="color:red;">*</i></label>';
+                li = li + '        <input type="text" id="fwlname" name="fwlname" placeholder="请填写物料名称"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '         <label for="fgg">规格<i style="color:red;">*</i></label>';
+                li = li + '         <input type="text" id="fgg" name="fgg" placeholder="请填写规格"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '          <label for="fdw">单位<i style="color:red;">*</i></label>';
+                li = li + '          <input type="text" id="fdw" name="fdw" placeholder="请填写单位"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row"> ';
+                li = li + '           <label for="fsl">数量<i style="color:red;">*</i></label>';
+                li = li + '           <input type="text" id="fsl" name="fsl" placeholder="请填写数量"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row" style="height:5.25rem;">';
+                li = li + '           <label for="fyt">用途<i style="color:red;">*</i></label>';
+                li = li + '           <textarea rows="5" id="fyt" name="fyt" placeholder="请填写用途"></textarea> ';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row" style="height:5.25rem;">';
+                li = li + '            <label for="fbz">备注</label>';
+                li = li + '            <textarea rows="5" id="fbz" name="fbz" placeholder="请填写备注"></textarea>';
+                li = li + '   </div>';
+
+                $("#lxlist").append(li);
+            });
+
+        }
+        function LxItem(fsyadd, fwlname, fgg, fdw, fsl, fyt, fbz) {
+
+            var lx = new Object;
+            lx.fsyadd = fsyadd;
+            lx.fwlname = fwlname;
+            lx.fgg = fgg;
+            lx.fdw = fdw;
+            lx.fsl = fsl;
+            lx.fyt = fyt;
+            lx.fbz = fbz;
+            if (!fsyadd || fsyadd == "") {
+                mui.toast("请填写使用地点");
+                return null;
+            }
+            if (!fwlname || fwlname == "") {
+                mui.toast("请填写物料名称");
+                return null;
+            }
+            if (!fgg || fgg == "") {
+                mui.toast("请填写规格");
+                return null;
+            }
+            if (!fdw || fdw == "") {
+                mui.toast("请填写单位");
+                return null;
+            }
+            if (!fsl || fsl == "") {
+                mui.toast("请填写数量");
+                return null;
+            }
+            if (!fyt || fyt == '') {
+                mui.toast('请填写用途');
+                return null;
+            }
+            return lx;
+        }
     </script>
 </body>
 </html>

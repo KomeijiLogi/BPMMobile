@@ -45,11 +45,11 @@
                 <label for="fsite">检查地点<i style="color:red;">*</i></label>
                 <input type="text" id="fsite" name="fsite" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fwtms">问题描述<i style="color:red;">*</i></label>
                 <textarea rows="3" id="fwtms" name="fwtms" readonly="readonly"></textarea>
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fzgyq">整改要求<i style="color:red;">*</i></label>
                 <textarea rows="3" id="fzgyq" name="fzgyq" readonly="readonly"></textarea>
             </div>
@@ -76,7 +76,7 @@
                 <label for="fpdwc">是否整改完成</label>
                 <input type="text" id="fpdwc" name="fpdwc" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fzgwcqk">整改完成情况<i style="color:red;">*</i></label>
                 <textarea rows="3" id="fzgwcqk" name="fzgwcqk" readonly="readonly"></textarea>
             </div>
@@ -378,6 +378,7 @@
 
                                         }
                                         watch();
+                                        $(".imgdiv").off('tap');
                                         $(".imgdiv").on('tap', function () {
                                             console.log($(this)[0].id);
                                             XuntongJSBridge.call('showFile', {
@@ -404,6 +405,7 @@
                             });
 
                         }
+                        //preUpload();
                         if (item.整改后照片 != null && item.整改后照片 != "") {
                             var fjtmp = (String)(item.整改后照片);
 
@@ -417,7 +419,7 @@
                                 type: 'POST',
                                 url: '/api/bpm/GetAttachmentsInfo',
                                 //dataType:'json',
-                                data: { 'fileIds': fjArray },
+                                data: { 'fileIds': fjArray_after },
 
                                 beforeSend: function (XHR) {
                                     XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
@@ -426,7 +428,7 @@
                                     if (status == "success") {
 
                                         console.log(data);
-
+                                        var attachArray_after = new Array();
                                         for (var i = 0; i < data.length; i++) {
 
                                             var name = data[i].Name;
@@ -436,7 +438,7 @@
                                             var time = String(data[i].LastUpdate).replace("T", " ");
                                             var downurl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;
                                             var attach = attachItem(name, type, size, time, downurl);
-                                            attachArray.push(attach);
+                                            attachArray_after.push(attach);
 
 
 
@@ -447,34 +449,34 @@
                                             if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
 
                                                 //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("xls") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/xlsx@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/xlsx@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("doc") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/docx@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/docx@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("ppt") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/ppt@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/ppt@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("pdf") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/pdf@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/pdf@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("zip") != -1 || (data[i].Ext).indexOf("rar") != -1 || (data[i].Ext).indexOf("7z") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/zip@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/zip@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("txt") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
 
                                             } else {
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
                                             }
 
                                             li = li + ' </div>';
@@ -482,7 +484,7 @@
                                             $(".upload-img-list-after").append(li);
 
 
-                                            $(".imgdiv").each(function () {
+                                            $(".imgdivafter").each(function () {
 
                                                 $(this).parent().find(".del.none").hide();
 
@@ -492,15 +494,29 @@
 
 
                                         }
+                                        var count = $('.upload-img-list-after >div').size();
 
-                                        $(".imgdiv").on('tap', function () {
+                                        if (count == 0) {
+                                            $('#uploaddiv').css('height', '4rem');
+                                        } else if (count <= 4) {
+                                            $('#uploaddiv').css('height', '7rem');
+
+                                        } else if (count <= 8) {
+                                            $('#uploaddiv').css('height', '10rem');
+
+                                        } else if (count <= 12) {
+                                            $('#uploaddiv').css('height', '15rem');
+
+                                        } 
+                                        $(".imgdivafter").off('tap');
+                                        $(".imgdivafter").on('tap', function () {
                                             console.log($(this)[0].id);
                                             XuntongJSBridge.call('showFile', {
-                                                'fileName': attachArray[$(this)[0].id].name,
-                                                'fileExt': attachArray[$(this)[0].id].type,
-                                                'fileTime': attachArray[$(this)[0].id].time,
-                                                'fileSize': attachArray[$(this)[0].id].size,
-                                                'fileDownloadUrl': attachArray[$(this)[0].id].downurl
+                                                'fileName': attachArray_after[$(this)[0].id].name,
+                                                'fileExt': attachArray_after[$(this)[0].id].type,
+                                                'fileTime': attachArray_after[$(this)[0].id].time,
+                                                'fileSize': attachArray_after[$(this)[0].id].size,
+                                                'fileDownloadUrl': attachArray_after[$(this)[0].id].downurl
                                             }, function (result) {
                                                 //alert(JSON.stringify(result));
                                             });
@@ -588,6 +604,14 @@
 
                 }
             });
+
+        }
+
+        function preUpload() {
+            $("#addbtn_before").parent().parent().parent().find('.upload-img-list').removeClass('upload-img-list');
+            $("#addbtn_after").parent().parent().parent().find(".upload-img-list-after").addClass('upload-img-list').removeClass('upload-img-list-after');
+            upload();
+            fjArray_after = fjArray;
 
         }
     </script>

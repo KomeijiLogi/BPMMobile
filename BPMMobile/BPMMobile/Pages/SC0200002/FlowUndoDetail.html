@@ -537,6 +537,10 @@
 
         });
 
+        var attachArray1 = new Array();
+        var attachArray2 = new Array();
+        var attachArray3 = new Array();
+
         function getTaskMsg() {
             var url = window.location.href;
             if (url != null && url.indexOf("tid") != -1 && url.indexOf("pid") != -1) {
@@ -582,7 +586,7 @@
                         $("#fkhmc").val(item.客户名称);
                         $("#fyqdate").val(FormatterTimeYMS( item.要求交期));
                         $("#fddlb").val(item.订单类别);
-                        $("#fkhyq").val(item.客户要求);
+                        $("#fkhqy").val(item.客户要求);
                         if (item.附件 != null && item.附件 != "") {
                             var fjtmp = (String)(item.附件);
 
@@ -671,6 +675,20 @@
 
 
                                         }
+                                        var count = $('.upload-img-list >div').size();
+
+                                        if (count == 0) {
+                                            $('#uploaddiv').css('height', '4rem');
+                                        } else if (count <= 4) {
+                                            $('#uploaddiv').css('height', '7rem');
+
+                                        } else if (count <= 8) {
+                                            $('#uploaddiv').css('height', '10rem');
+
+                                        } else if (count <= 12) {
+                                            $('#uploaddiv').css('height', '15rem');
+
+                                        } 
                                         $(".imgdiv").off('tap');
                                         $(".imgdiv").on('tap', function () {
                                             console.log($(this)[0].id);
@@ -731,7 +749,7 @@
                                             var time = String(data[i].LastUpdate).replace("T", " ");
                                             var downurl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;
                                             var attach = attachItem(name, type, size, time, downurl);
-                                            attachArray.push(attach);
+                                            attachArray1.push(attach);
 
 
 
@@ -742,34 +760,34 @@
                                             if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
 
                                                 //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv1" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("xls") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/xlsx@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv1" id="' + i + '"><img src="../../Content/images/xlsx@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("doc") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/docx@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv1" id="' + i + '"><img src="../../Content/images/docx@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("ppt") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/ppt@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv1" id="' + i + '"><img src="../../Content/images/ppt@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("pdf") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/pdf@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv1" id="' + i + '"><img src="../../Content/images/pdf@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("zip") != -1 || (data[i].Ext).indexOf("rar") != -1 || (data[i].Ext).indexOf("7z") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/zip@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv1" id="' + i + '"><img src="../../Content/images/zip@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("txt") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv1" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
 
                                             } else {
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv1" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
                                             }
 
                                             li = li + ' </div>';
@@ -777,7 +795,7 @@
                                             $(".upload-img-list-cwb").append(li);
 
 
-                                            $(".imgdiv").each(function () {
+                                            $(".imgdiv1").each(function () {
 
                                                 $(this).parent().find(".del.none").hide();
 
@@ -787,15 +805,29 @@
 
 
                                         }
-                                        $(".imgdiv").off('tap');
-                                        $(".imgdiv").on('tap', function () {
+                                        var count = $('.upload-img-list-cwb >div').size();
+
+                                        if (count == 0) {
+                                            $('#uploaddiv').css('height', '4rem');
+                                        } else if (count <= 4) {
+                                            $('#uploaddiv').css('height', '7rem');
+
+                                        } else if (count <= 8) {
+                                            $('#uploaddiv').css('height', '10rem');
+
+                                        } else if (count <= 12) {
+                                            $('#uploaddiv').css('height', '15rem');
+
+                                        } 
+                                        $(".imgdiv1").off('tap');
+                                        $(".imgdiv1").on('tap', function () {
                                             console.log($(this)[0].id);
                                             XuntongJSBridge.call('showFile', {
-                                                'fileName': attachArray[$(this)[0].id].name,
-                                                'fileExt': attachArray[$(this)[0].id].type,
-                                                'fileTime': attachArray[$(this)[0].id].time,
-                                                'fileSize': attachArray[$(this)[0].id].size,
-                                                'fileDownloadUrl': attachArray[$(this)[0].id].downurl
+                                                'fileName': attachArray1[$(this)[0].id].name,
+                                                'fileExt': attachArray1[$(this)[0].id].type,
+                                                'fileTime': attachArray1[$(this)[0].id].time,
+                                                'fileSize': attachArray1[$(this)[0].id].size,
+                                                'fileDownloadUrl': attachArray1[$(this)[0].id].downurl
                                             }, function (result) {
                                                 //alert(JSON.stringify(result));
                                             });
@@ -815,11 +847,11 @@
 
                         }
 
-                        $("#fshyj_wmb").text(item.外贸部评审意见);
+                        $("#fshyj_wmb").val(item.外贸部评审意见);
                         $("#fzrrqm_wmb").val(item.外贸部评签字);
                         $("#fqhdate_wmb").val(FormatterTimeYMS(item.外贸部评审时间));
 
-                        $("#fshyj_zhjh").text(item.综合计划评审意见);
+                        $("#fshyj_zhjh").val(item.综合计划评审意见);
                         $("#fzrrqm_zhjh").val(item.综合计划评签字);
                         $("#fqhdate_zhjh").val(FormatterTimeYMS(item.综合计划评评审时间));
                         if (item.综合计划部附件 != null && item.综合计划部附件 != "") {
@@ -854,7 +886,7 @@
                                             var time = String(data[i].LastUpdate).replace("T", " ");
                                             var downurl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;
                                             var attach = attachItem(name, type, size, time, downurl);
-                                            attachArray.push(attach);
+                                            attachArray2.push(attach);
 
 
 
@@ -865,34 +897,34 @@
                                             if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
 
                                                 //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv2" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("xls") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/xlsx@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv2" id="' + i + '"><img src="../../Content/images/xlsx@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("doc") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/docx@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv2" id="' + i + '"><img src="../../Content/images/docx@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("ppt") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/ppt@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv2" id="' + i + '"><img src="../../Content/images/ppt@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("pdf") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/pdf@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv2" id="' + i + '"><img src="../../Content/images/pdf@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("zip") != -1 || (data[i].Ext).indexOf("rar") != -1 || (data[i].Ext).indexOf("7z") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/zip@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv2" id="' + i + '"><img src="../../Content/images/zip@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("txt") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv2" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
 
                                             } else {
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv2" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
                                             }
 
                                             li = li + ' </div>';
@@ -900,7 +932,7 @@
                                             $(".upload-img-list-zhjh").append(li);
 
 
-                                            $(".imgdiv").each(function () {
+                                            $(".imgdiv2").each(function () {
 
                                                 $(this).parent().find(".del.none").hide();
 
@@ -910,15 +942,29 @@
 
 
                                         }
-                                        $(".imgdiv").off('tap');
-                                        $(".imgdiv").on('tap', function () {
+                                        var count = $('.upload-img-list-zhjh >div').size();
+
+                                        if (count == 0) {
+                                            $('#uploaddiv').css('height', '4rem');
+                                        } else if (count <= 4) {
+                                            $('#uploaddiv').css('height', '7rem');
+
+                                        } else if (count <= 8) {
+                                            $('#uploaddiv').css('height', '10rem');
+
+                                        } else if (count <= 12) {
+                                            $('#uploaddiv').css('height', '15rem');
+
+                                        } 
+                                        $(".imgdiv2").off('tap');
+                                        $(".imgdiv2").on('tap', function () {
                                             console.log($(this)[0].id);
                                             XuntongJSBridge.call('showFile', {
-                                                'fileName': attachArray[$(this)[0].id].name,
-                                                'fileExt': attachArray[$(this)[0].id].type,
-                                                'fileTime': attachArray[$(this)[0].id].time,
-                                                'fileSize': attachArray[$(this)[0].id].size,
-                                                'fileDownloadUrl': attachArray[$(this)[0].id].downurl
+                                                'fileName': attachArray2[$(this)[0].id].name,
+                                                'fileExt': attachArray2[$(this)[0].id].type,
+                                                'fileTime': attachArray2[$(this)[0].id].time,
+                                                'fileSize': attachArray2[$(this)[0].id].size,
+                                                'fileDownloadUrl': attachArray2[$(this)[0].id].downurl
                                             }, function (result) {
                                                 //alert(JSON.stringify(result));
                                             });
@@ -938,9 +984,9 @@
 
                         }
 
-                        $("#fshyj_zhjh").text(item.技术部评审意见);
-                        $("#fzrrqm_zhjh").val(item.技术部评审签字);
-                        $("#fqhdate_zhjh").val(FormatterTimeYMS(item.技术部评审时间) );
+                        $("#fshyj_jsb").val(item.技术部评审意见);
+                        $("#fzrrqm_jsb").val(item.技术部评审签字);
+                        $("#fqhdate_jsb").val(FormatterTimeYMS(item.技术部评审时间) );
                         if (item.技术部附件 != null && item.技术部附件 != "") {
                             var fjtmp = (String)(item.技术部附件);
 
@@ -973,7 +1019,7 @@
                                             var time = String(data[i].LastUpdate).replace("T", " ");
                                             var downurl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;
                                             var attach = attachItem(name, type, size, time, downurl);
-                                            attachArray.push(attach);
+                                            attachArray3.push(attach);
 
 
 
@@ -984,34 +1030,34 @@
                                             if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
 
                                                 //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv3" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("xls") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/xlsx@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv3" id="' + i + '"><img src="../../Content/images/xlsx@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("doc") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/docx@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv3" id="' + i + '"><img src="../../Content/images/docx@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("ppt") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/ppt@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv3" id="' + i + '"><img src="../../Content/images/ppt@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("pdf") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/pdf@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv3" id="' + i + '"><img src="../../Content/images/pdf@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("zip") != -1 || (data[i].Ext).indexOf("rar") != -1 || (data[i].Ext).indexOf("7z") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/zip@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv3" id="' + i + '"><img src="../../Content/images/zip@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("txt") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv3" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
 
                                             } else {
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv3" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
                                             }
 
                                             li = li + ' </div>';
@@ -1019,7 +1065,7 @@
                                             $(".upload-img-list-jsb").append(li);
 
 
-                                            $(".imgdiv").each(function () {
+                                            $(".imgdiv3").each(function () {
 
                                                 $(this).parent().find(".del.none").hide();
 
@@ -1029,15 +1075,29 @@
 
 
                                         }
-                                        $(".imgdiv").off('tap');
-                                        $(".imgdiv").on('tap', function () {
+                                        var count = $('.upload-img-list-jsb >div').size();
+
+                                        if (count == 0) {
+                                            $('#uploaddiv').css('height', '4rem');
+                                        } else if (count <= 4) {
+                                            $('#uploaddiv').css('height', '7rem');
+
+                                        } else if (count <= 8) {
+                                            $('#uploaddiv').css('height', '10rem');
+
+                                        } else if (count <= 12) {
+                                            $('#uploaddiv').css('height', '15rem');
+
+                                        } 
+                                        $(".imgdiv3").off('tap');
+                                        $(".imgdiv3").on('tap', function () {
                                             console.log($(this)[0].id);
                                             XuntongJSBridge.call('showFile', {
-                                                'fileName': attachArray[$(this)[0].id].name,
-                                                'fileExt': attachArray[$(this)[0].id].type,
-                                                'fileTime': attachArray[$(this)[0].id].time,
-                                                'fileSize': attachArray[$(this)[0].id].size,
-                                                'fileDownloadUrl': attachArray[$(this)[0].id].downurl
+                                                'fileName': attachArray3[$(this)[0].id].name,
+                                                'fileExt': attachArray3[$(this)[0].id].type,
+                                                'fileTime': attachArray3[$(this)[0].id].time,
+                                                'fileSize': attachArray3[$(this)[0].id].size,
+                                                'fileDownloadUrl': attachArray3[$(this)[0].id].downurl
                                             }, function (result) {
                                                 //alert(JSON.stringify(result));
                                             });
@@ -1057,23 +1117,23 @@
 
                         }
 
-                        $("#fshyj_zlbzb").text(item.质量保证部评审意见);
+                        $("#fshyj_zlbzb").val(item.质量保证部评审意见);
                         $("#fzrrqm_zlbzb").val(item.质量保证部评审签字);
                         $("#fqhdate_zlbzb").val(FormatterTimeYMS(item.质量保证部评审时间) );
 
-                        $("#fshyj_gncgb").text(item.国内采购部评审意见);
+                        $("#fshyj_gncgb").val(item.国内采购部评审意见);
                         $("#fzrrqm_gncgb").val(item.国内采购部评审签字);
                         $("#fqhdate_gncgb").val(FormatterTimeYMS(item.国内采购部评审时间) );
 
-                        $("#fshyj_fhxcj").text(item.缝合线车间主任评审意见);
+                        $("#fshyj_fhxcj").val(item.缝合线车间主任评审意见);
                         $("#fzrrqm_fhxcj").val(item.缝合线车间主任签字);
                         $("#fqhdate_fhxcj").val(FormatterTimeYMS(item.缝合线车间主任评审时间) );
 
-                        $("#fshyj_sszcj").text(item.手术针车间评审意见);
+                        $("#fshyj_sszcj").val(item.手术针车间评审意见);
                         $("#fzrrqm_sszcj").val(item.手术针车间签字);
                         $("#fqhdate_sszcj").val(FormatterTimeYMS(item.手术针车间时间));
 
-                        $("#fshyj_scbjl").text(item.生产部经理评审意见);
+                        $("#fshyj_scbjl").val(item.生产部经理评审意见);
                         $("#fzrrqm_scbjl").val(item.生产部经理评审签字);
                         $("#fqhdate_scbjl").val(FormatterTimeYMS(item.生产部经理评审时间));
 
@@ -1084,11 +1144,11 @@
                         $("#fzrrqm_cwb").val(item.财务部评审签字);
                         $("#fqhdate_cwb").val(FormatterTimeYMS(item.财务部评审时间) );
 
-                        $("#fshyj_scfz").text(item.生产副总评审意见);
+                        $("#fshyj_scfz").val(item.生产副总评审意见);
                         $("#fzrrqm_scfz").val(item.生产副总评审签字);
                         $("#fqhdate_scfz").val(FormatterTimeYMS(item.生产副总评审时间) );
 
-                        $("#fshyj_zjl").text(item.总经理评审意见);
+                        $("#fshyj_zjl").val(item.总经理评审意见);
                         $("#fzrrqm_zjl").val(item.总经理评审签字);
                         $("#fqhdate_zjl").val(FormatterTimeYMS(item.总经理评审时间));
 
@@ -1135,7 +1195,7 @@
 
                             if (typeof (NodeName) != "undefined") {
                                 $("#approvalD").css("display", "block");
-                                if (String(NodeName).indexOf("外贸") != -1) {
+                                if (String(NodeName).indexOf("外贸部经理") != -1) {
                                     $("#fshyj_wmb").removeAttr("readonly");
                                     $("#fzrrqm_wmb").removeAttr("readonly");
                                     $("#fqhdate_wmb").removeAttr("readonly");
@@ -1169,7 +1229,7 @@
                                     $("#fqhdate_zlbzb").removeAttr("readonly");
                                     $("li:nth-child(4)").addClass('mui-active');
                                     $("#fqhdate_zlbzb").val(getNowFormatDate(2));
-                                } else if (String(NodeName).indexOf("国内采购") != -1) {
+                                } else if (String(NodeName).indexOf("采购") != -1 && String(NodeName).indexOf("国内") != -1) {
                                     $("#fshyj_gncgb").removeAttr("readonly");
                                     $("#fzrrqm_gncgb").removeAttr("readonly");
                                     $("#fqhdate_gncgb").removeAttr("readonly");
@@ -1642,7 +1702,7 @@
             xml = xml + '   <总经理评审时间>' + fqhdate_zjl + '</总经理评审时间>';
             xml = xml + '   </富森公司外贸订单评审表>';
 
-            xml = xml + '  </FormData >';
+            xml = xml + '  </FormData>';
             xml = xml + '</XForm >';
             PostXml(xml);
         }
@@ -1802,7 +1862,7 @@
                     xml = xml + '   <总经理评审时间>' + fqhdate_zjl + '</总经理评审时间>';
                     xml = xml + '   </富森公司外贸订单评审表>';
 
-                    xml = xml + '  </FormData >';
+                    xml = xml + '  </FormData>';
                     xml = xml + '</XForm >';
                     PostXml(xml);
                 }

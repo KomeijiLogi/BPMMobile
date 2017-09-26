@@ -532,9 +532,9 @@
                             $("#ftel").removeAttr("readonly");
                             $("#fshmc").removeAttr("readonly");
                             $("#fdph").removeAttr("readonly");
-                            $("#fssxm").removeAttr("readonly");
+                          
                             $("#fbz").removeAttr("readonly");
-                           
+                            tapEvent();
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -621,6 +621,22 @@
             });
 
         }
+        function tapEvent() {
+
+            var fssxmdata = [
+                {
+                    value: "wggc",
+                    text: "威高广场"
+                },
+                {
+                    value: "sgc",
+                    text: "时光城"
+                }
+            ];
+
+            showPicker('fssxm', fssxmdata);
+        }
+
 
         function AgreeOrConSign() {
             var comment = $("#signSuggest").val();
@@ -792,10 +808,8 @@
         }
 
         function Save() {
-            var fareaStr = String(BPMOU).split("/");
-            //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
-            $("#fdept").val(fareaStr[fareaStr.length - 2]);
-
+            var pid = $("#stepId").val();
+            var fbillno = $("#fbillno").val();
             var fname = $("#fname").val();
             var fdept = $("#fdept").val();
             var fdate = $("#fdate").val() + " 00:00:00";
@@ -842,8 +856,9 @@
                     xml = xml + '    <Comment></Comment>';
                     xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
                     xml = xml + '  </Header>';
+                    xml = xml + '<FormData>';
                     xml = xml + '<BPM_SGGSKYLYBZJTHSPB>';
-                    xml = xml + '<fbillno>自动生成</fbillno>';
+                    xml = xml + '<fbillno>' + fbillno+'</fbillno>';
                     xml = xml + '<fname>' + fname + '</fname>';
                     xml = xml + '<fdept>' + fdept + '</fdept>';
                     xml = xml + '<fdate>' + fdate + '</fdate>';

@@ -62,3 +62,17 @@ D:\Documents\BPMMobile\YUN\obj\Debug\YUN.dll
 D:\Documents\BPMMobile\YUN\obj\Debug\YUN.pdb
 D:\Documents\BPMMobile\YUN\obj\Debug\YUN.csprojResolveAssemblyReference.cache
 D:\Documents\BPMMobile\YUN\obj\Debug\YUN.csproj.CoreCompileInputs.cache
+D:\BPMMobile-master\BPMMobile-master\BPMMobile\YUN\bin\Debug\YUN.dll.config
+D:\BPMMobile-master\BPMMobile-master\BPMMobile\YUN\bin\Debug\YUN.dll
+D:\BPMMobile-master\BPMMobile-master\BPMMobile\YUN\bin\Debug\YUN.pdb
+D:\BPMMobile-master\BPMMobile-master\BPMMobile\YUN\obj\Debug\YUN.csprojResolveAssemblyReference.cache
+D:\BPMMobile-master\BPMMobile-master\BPMMobile\YUN\obj\Debug\YUN.csproj.CoreCompileInputs.cache
+D:\BPMMobile-master\BPMMobile-master\BPMMobile\YUN\obj\Debug\YUN.dll
+D:\BPMMobile-master\BPMMobile-master\BPMMobile\YUN\obj\Debug\YUN.pdb
+E:\新建文件夹\新建文件夹\BPMMobile-master\BPMMobile-master\BPMMobile\YUN\bin\Debug\YUN.dll.config
+E:\新建文件夹\新建文件夹\BPMMobile-master\BPMMobile-master\BPMMobile\YUN\bin\Debug\YUN.dll
+E:\新建文件夹\新建文件夹\BPMMobile-master\BPMMobile-master\BPMMobile\YUN\bin\Debug\YUN.pdb
+E:\新建文件夹\新建文件夹\BPMMobile-master\BPMMobile-master\BPMMobile\YUN\obj\Debug\YUN.csprojResolveAssemblyReference.cache
+E:\新建文件夹\新建文件夹\BPMMobile-master\BPMMobile-master\BPMMobile\YUN\obj\Debug\YUN.csproj.CoreCompileInputs.cache
+E:\新建文件夹\新建文件夹\BPMMobile-master\BPMMobile-master\BPMMobile\YUN\obj\Debug\YUN.dll
+E:\新建文件夹\新建文件夹\BPMMobile-master\BPMMobile-master\BPMMobile\YUN\obj\Debug\YUN.pdb

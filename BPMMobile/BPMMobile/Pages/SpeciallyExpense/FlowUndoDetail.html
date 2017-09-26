@@ -673,10 +673,8 @@
                                             $("#fdqlb").val($(this).val());
                                         });
                                     });
-                                    $("#mxlist").find("input").each(function () {
-                                        if (!($(this).hasClass('canteditor'))) {
-                                            $(this).removeAttr("readonly");
-                                        }
+                                    $("#mxlist").find("#fsqbz,#fbz").each(function () {
+                                        $(this).removeAttr('readonly');
                                     });
                                     tapEvent();
                                 } else if (NodeName == "sysInform") {

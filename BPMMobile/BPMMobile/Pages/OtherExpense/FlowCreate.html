@@ -71,7 +71,7 @@
                     </div>
                 </li>
             </ul>
-
+            <input type="hidden" id="fdate" name="fdate"/>
             <div class="mui-input-row">
                 <label for="fcwdate">财务审核时间</label>
                 <input type="date" id="fcwdate" name="fcwdate" readonly="readonly" />
@@ -304,7 +304,7 @@
             getMsg();
             upload();
             watch();
-            
+            getBPMParam();
         });
         mui('#scroll').scroll();
 
@@ -378,7 +378,7 @@
                 complete: function () {
 
                     //$("#fempno").val('00027772');
-
+                    console.log(fempno);
                     if ($("#fempno").val() == '') {
                         if (typeof (BPMOU) != 'undefined') {
                             var BPMInfoArr = String(BPMOU).split("/");
@@ -463,7 +463,9 @@
 
             });
         }
-        function isTp(flevel, fyxm, fxb, fno,context) {
+        function isTp(flevel, fyxm, fxb, fno, context) {
+            //console.log(flevel + '/' + fyxm + '/' + fxb + '/' + fno + '/' + context);
+            
             var xml = '<?xml version= "1.0" ?>';
             xml = xml + '    <Requests>';
             xml = xml + '      <Params>';
@@ -493,6 +495,7 @@
                 },
                 success: function (data, status) {
 
+                    console.log(data);
                     if (status == "success" || data.success == "true" || data.success == true) {
 
 
@@ -1233,7 +1236,8 @@
                 var flevel = $("#flevel").val();
                 var fno = $("#fempno").val();
                 var fxb = $("#fxb").val();
-                
+                console.log(fno);
+
                 //var picker = new mui.PopPicker();
                 //picker.setData(ffyxmdata);
 

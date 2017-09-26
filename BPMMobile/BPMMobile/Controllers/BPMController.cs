@@ -48,6 +48,23 @@ namespace BPMMobile.Controllers
 
         }
 
+        //[HttpPost]
+        //public IHttpActionResult PostDepart([FromBody] PostAccountInput input)
+        //{
+        //    string yunxt = ConfigurationManager.AppSettings["yunxt"];//轻应用注册到云之家时生成 
+        //    string eid = ConfigurationManager.AppSettings["eid"];// 
+        //    string keyFile = ConfigurationManager.AppSettings["keyFile"];// 
+        //    string privatekey = AppDomain.CurrentDomain.BaseDirectory + keyFile;
+        //    byte[] data;
+        //    using (FileStream fs = File.OpenRead(privatekey))
+        //    {
+        //        data = new byte[fs.Length];
+        //        fs.Read(data, 0, data.Length);
+        //    }
+        //    var resp = YUNAPI.GetDepartInfo(yunxt, eid, data, input.ids);
+        //    return Json(resp);
+
+        //}
 
         /// <summary>
         /// 可发起流程列表
@@ -1363,4 +1380,5 @@ namespace BPMMobile.Controllers
     {
         public string[] ids { get; set; }
     }
+
 }

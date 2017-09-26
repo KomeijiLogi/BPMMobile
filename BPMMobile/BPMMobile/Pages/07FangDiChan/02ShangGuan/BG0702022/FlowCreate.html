@@ -38,7 +38,7 @@
              </div>
              <div class="mui-input-row">
                  <label for="fdate">发起日期<i style="color:red;">*</i></label>
-                 <input type="date" id="fdate" name="fdate" />
+                 <input type="date" id="fdate" name="fdate" readonly="readonly"/>
              </div>
                            
              <div class="mui-input-row" style="height:5.25rem;">
@@ -231,7 +231,7 @@
                 mui.toast("请填写活动具体要求");
                 return;
             }         
-            if (!fwcsj || fwcsj == "") {
+            if (!$("#fwcsj").val() || $("#fwcsj").val()  == "") {
                 mui.toast("请填写完成时间要求");
                 return;
             }

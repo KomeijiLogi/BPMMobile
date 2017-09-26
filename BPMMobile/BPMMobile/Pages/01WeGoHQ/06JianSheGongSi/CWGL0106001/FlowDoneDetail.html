@@ -60,7 +60,7 @@
                 <input type="number" id="fhzjhfk" name="fhzjhfk" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="height:2.75rem;">
-                <label for="fhzjhyj">汇总计划约进贷款</label>
+                <label for="fhzjhyj">汇总计划约进货款</label>
                 <input type="number" id="fhzjhyj" name="fhzjhyj" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="height:2.75rem;">
@@ -249,11 +249,11 @@
                     $("#taskId").val(item.TaskID);
                     $("#fname").val(item.申请人);
                     $("#fdept").val(item.申请部门);
-                    $("#fdate").val(FormatterTimeYMS(item.提报日期));
+                    $("#fdate").val(FormatterTimeYMS(item.申请日期));
                     $("#fyear").val(item.年度);
                     $("#fmonth").val(item.计划付款月份);
                     $("#fhzjhfk").val(item.汇总计划付款金额);
-                    $("#fhzjhyj").val(item.汇总计划约进贷款);
+                    $("#fhzjhyj").val(item.汇总计划约进货款);
                     $("#fhzzmye").val(item.汇总账面余额);
                     $("#fhzzgrk").val(item.汇总暂估入库);
                     $("#fhzhjzm").val(item.汇总合计账面余额);
@@ -261,7 +261,10 @@
 
 
                     var bli = data.FormDataSet.建设公司_月度材料_子表;
-                    for (var i = 0; i < bli.length;i++){
+                    for (var i = 0; i < bli.length; i++){
+                        if (bli[i].备注 == null) {
+                            bli[i].备注 = '';
+                        }
                         var li = '<div id="bl" class="mui-card">';
                         li = li + '   <div class="mui-input-row bgc">';
                         li = li + '        <label>明细列表项</label> ';
@@ -276,8 +279,8 @@
                         li = li + '        <input type="number" id="fjhfk" name="fjhfk" value="' + bli[i].计划付款金额 + '" readonly="readonly"/>';
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row">';
-                        li = li + '        <label for="fjhyj">计划约进贷款<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="number" id="fjhyj" name="fjhyj" value="' + bli[i].计划约进贷款 + '" readonly="readonly"/>';
+                        li = li + '        <label for="fjhyj">计划约进货款<i style="color:red;">*</i></label>';
+                        li = li + '        <input type="number" id="fjhyj" name="fjhyj" value="' + bli[i].计划约进货款 + '" readonly="readonly"/>';
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row">';
                         li = li + '        <label for="fzmye">账面余额<i style="color:red;">*</i></label>';

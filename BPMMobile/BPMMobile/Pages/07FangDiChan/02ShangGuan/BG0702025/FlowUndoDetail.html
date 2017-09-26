@@ -557,8 +557,8 @@
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
                             $(".upload-addbtn").css("display", "block");
-                            $("#addItem").css("display", "block");
-                            $("#ftel").removeAttr("readonly");                           
+                            $("#ffy,#fsqnr").removeAttr('readonly');   
+                            $(".upload-addbtn").css("display", "block");
                             tapEvent();
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
@@ -763,7 +763,7 @@
                             xml = xml + '</Header>';
                             xml = xml + '<FormData>';
                             xml = xml + '<BPM_SGVIYZSJSQSP>';
-                            xml = xml + '<fbillno>自动生成</fbillno>';
+                            xml = xml + '<fbillno>' + fbillno + '</fbillno>';
                             xml = xml + '<fname>' + fname + '</fname>';
                             xml = xml + '<fdept>' + fdept + '</fdept>';
                             xml = xml + '<fdate>' + fdate + '</fdate>';
@@ -800,7 +800,7 @@
                 xml = xml + '</Header>';
                 xml = xml + '<FormData>';
                 xml = xml + '<BPM_SGVIYZSJSQSP>';
-                xml = xml + '<fbillno>自动生成</fbillno>';
+                xml = xml + '<fbillno>' + fbillno + '</fbillno>';
                 xml = xml + '<fname>' + fname + '</fname>';
                 xml = xml + '<fdept>' + fdept + '</fdept>';
                 xml = xml + '<fdate>' + fdate + '</fdate>';
@@ -822,7 +822,73 @@
                PostXml(xml);
             }
         }
- 
+
+        function Save() {
+            var pid = $("#stepId").val();
+            var fbillno = $("#fbillno").val();
+
+            var fname = $("#fname").val();
+            var fdate = $("#fdate").val() + " 00:00:00";
+            var fdept = $("#fdept").val();
+
+            var ffy = $("#ffy").val();
+            var fsqnr = $("#fsqnr").val();
+
+            if (!fdate || fdate == "") {
+                mui.toast("请填写申请日期");
+                return;
+            }
+            if (!ffy || ffy == "") {
+                mui.toast("请填写费用");
+                return;
+            }
+            if (!fsqnr || fsqnr == "") {
+                mui.toast("请填写申请内容");
+                return;
+            }
+            if (fjArray.toString() == null || fjArray.toString() == "") {
+                mui.toast("请上传附件");
+                return;
+            }
+            var btnArry = ["取消", "确定"];
+            mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
+                if (e.index == 1) {
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '   <Header>';
+                    xml = xml + '    <Method>Process</Method>';
+                    xml = xml + '   <PID>' + pid + '</PID>';
+                    xml = xml + '   <Action>提交</Action>';
+                    xml = xml + '    <Comment></Comment>';
+                    xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '  </Header>';
+                    xml = xml + '<FormData>';
+
+                    xml = xml + '<BPM_SGVIYZSJSQSP>';
+                    xml = xml + '<fbillno>' + fbillno + '</fbillno>';
+                    xml = xml + '<fname>' + fname + '</fname>';
+                    xml = xml + '<fdept>' + fdept + '</fdept>';
+                    xml = xml + '<fdate>' + fdate + '</fdate>';
+
+                    xml = xml + '<ffy>' + ffy + '</ffy>';
+                    xml = xml + '<fsqnr>' + fsqnr + '</fsqnr>';
+
+                    if (fjArray.toString() != null && fjArray.toString() != "") {
+
+                        xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                    } else {
+
+                        xml = xml + '<ffj></ffj>';
+                    }
+
+                    xml = xml + '</BPM_SGVIYZSJSQSP>';
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+                }
+            });
+
+        }
     </script>
 </body>
 </html>

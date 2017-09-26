@@ -170,11 +170,11 @@
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row">';
                         li = li + '        <label for="fsl">数量<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="text" id="fsl" name="fsl" value="' + fwlmxItem.fsl + '" placeholder="请输入数量" onchange="calcPrice(this)"/>';
+                        li = li + '        <input type="number" id="fsl" name="fsl" value="' + fwlmxItem.fsl + '" placeholder="请输入数量" onchange="calcPrice(this)"/>';
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row">';
                         li = li + '        <label for="fckdj">参考单价<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="text" id="fckdj" name="fckdj" value="' + fwlmxItem.fckdj + '" placeholder="请输入参考单价" onchange="calcPrice(this)"/>';
+                        li = li + '        <input type="number" id="fckdj" name="fckdj" value="' + fwlmxItem.fckdj + '" placeholder="请输入参考单价" onchange="calcPrice(this)"/>';
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row">';
                         li = li + '        <label for="fje">金额(元)</label>';
@@ -254,11 +254,11 @@
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row">';
                 li = li + '        <label for="fsl">数量<i style="color:red;">*</i></label>';
-                li = li + '        <input type="text" id="fsl" name="fsl" value="" placeholder="请输入数量" onchange="calcPrice(this)"/>';
+                li = li + '        <input type="number" id="fsl" name="fsl" value="" placeholder="请输入数量" onchange="calcPrice(this)"/>';
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row">';
                 li = li + '        <label for="fckdj">参考单价<i style="color:red;">*</i></label>';
-                li = li + '        <input type="text" id="fckdj" name="fckdj" value="" placeholder="请输入参考单价" onchange="calcPrice(this)"/>';
+                li = li + '        <input type="number" id="fckdj" name="fckdj" value="" placeholder="请输入参考单价" onchange="calcPrice(this)"/>';
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row">';
                 li = li + '        <label for="fje">金额(元)</label>';
@@ -408,9 +408,16 @@
         }
 
         function deleteItem(context) {
+            var btnArray = ['否', '是'];
+            mui.confirm('确认删除？', '', btnArray, function (e) {
+                if (e.index == 1) {
+                    $(context).parent().parent().remove();
+                    amountCountAndPrice();
+                }
+            });
 
-            $(context).parent().parent().remove();
-            amountCountAndPrice();
+          
+          
         }
 
         function Save() {

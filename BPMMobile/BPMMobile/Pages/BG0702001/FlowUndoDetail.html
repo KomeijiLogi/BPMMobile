@@ -5,24 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
-    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
    
-    <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
-    <script type="text/javascript" src="../../Scripts/util.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>
-    <link rel="stylesheet" href="../../Content/mui.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
-    <link rel="stylesheet" href="../../Content/upload.css" />
-    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
-    <link rel="stylesheet" href="../../Content/DoneOrMyApproval.css"/>
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.detail.js"></script>
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
+    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css"/>
     <title></title>
     <meta charset="utf-8" />
    
@@ -198,7 +198,7 @@
                 openSignPer();
 
             });
-           
+            getBPMParam();
         });
 
         mui('.mui-content .mui-switch').each(function () {
@@ -540,10 +540,13 @@
                             }
 
                         }
-
+                        console.log(NodeName);
                         if (NodeName == "开始") {
                             $("#createD").css("display", "block");
                             tapEvent();
+                            $("#tel,#ftitle,#fqsnr").each(function () {
+                                $(this).removeAttr('readonly');
+                            });
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -628,9 +631,7 @@
         }
 
         function Save() {
-            var fareaStr = String(BPMOU).split("/");
-            //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
-            $("#fdept").val(fareaStr[fareaStr.length - 2]);
+           
 
             var fname = $("#fname").val();
             var fdept = $("#fdept").val();
@@ -726,10 +727,10 @@
                                     xml = xml + '<fname>' + fname + '</fname>';
                                     xml = xml + '<fdept>' + fdept + '</fdept>';
                                     xml = xml + '<fdate>' + fdate + '</fdate>';
-                                    xml = xml + '<tel></tel>';
+                                    xml = xml + '<tel>' + tel + '</tel>';
                                     xml = xml + '<ftitle>' + ftitle + '</ftitle>';
                                     xml = xml + '<fnqbh>' + fnqbh + '</fnqbh>';
-                                    //测试环境下缺少这两个字段
+                                  
                                     xml = xml + '<ftg>' + ftg + '</ftg>';
                                     xml = xml + '<fiffy>' + fiffy + '</fiffy>';
 
@@ -768,10 +769,10 @@
                         xml = xml + '<fname>' + fname + '</fname>';
                         xml = xml + '<fdept>' + fdept + '</fdept>';
                         xml = xml + '<fdate>' + fdate + '</fdate>';
-                        xml = xml + '<tel></tel>';
+                        xml = xml + '<tel>' + tel + '</tel>';
                         xml = xml + '<ftitle>' + ftitle + '</ftitle>';
                         xml = xml + '<fnqbh>' + fnqbh + '</fnqbh>';
-                        //测试环境下缺少这两个字段
+                      
                         xml = xml + '<ftg>' + ftg + '</ftg>';
                         xml = xml + '<fiffy>' + fiffy + '</fiffy>';
 
@@ -869,10 +870,10 @@
                             xml = xml + '<fname>' + fname + '</fname>';
                             xml = xml + '<fdept>' + fdept + '</fdept>';
                             xml = xml + '<fdate>' + fdate + '</fdate>';
-                            xml = xml + '<tel></tel>';
+                            xml = xml + '<tel>' + tel + '</tel>';
                             xml = xml + '<ftitle>' + ftitle + '</ftitle>';
                             xml = xml + '<fnqbh>' + fnqbh + '</fnqbh>';
-                            //测试环境下缺少这两个字段
+                          
                             xml = xml + '<ftg>' + ftg + '</ftg>';
                             xml = xml + '<fiffy>' + fiffy + '</fiffy>';
 
@@ -913,10 +914,10 @@
                 xml = xml + '<fname>' + fname + '</fname>';
                 xml = xml + '<fdept>' + fdept + '</fdept>';
                 xml = xml + '<fdate>' + fdate + '</fdate>';
-                xml = xml + '<tel></tel>';
+                xml = xml + '<tel>' + tel + '</tel>';
                 xml = xml + '<ftitle>' + ftitle + '</ftitle>';
                 xml = xml + '<fnqbh>' + fnqbh + '</fnqbh>';
-                //测试环境下缺少这两个字段
+               
                 xml = xml + '<ftg>' + ftg + '</ftg>';
                 xml = xml + '<fiffy>' + fiffy + '</fiffy>';
 
@@ -935,7 +936,7 @@
         }
 
         function hasRead() {
-
+            var pid = $("#stepId").val();
             var fbillno = $("#fbillno").val();
             var fname = $("#fname").val();
             var fdept = $("#fdept").val();
@@ -964,10 +965,10 @@
                     xml = xml + '<fname>' + fname + '</fname>';
                     xml = xml + '<fdept>' + fdept + '</fdept>';
                     xml = xml + '<fdate>' + fdate + '</fdate>';
-                    xml = xml + '<tel></tel>';
+                    xml = xml + '<tel>' + tel + '</tel>';
                     xml = xml + '<ftitle>' + ftitle + '</ftitle>';
                     xml = xml + '<fnqbh>' + fnqbh + '</fnqbh>';
-                    //测试环境下缺少这两个字段
+                   
                     xml = xml + '<ftg>' + ftg + '</ftg>';
                     xml = xml + '<fiffy>' + fiffy + '</fiffy>';
 

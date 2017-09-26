@@ -649,6 +649,7 @@
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
                             $(".upload-addbtn").css("display", "block");
+                            tapEvent();
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#fdate").attr("readonly", "readonly");
@@ -666,30 +667,33 @@
                                 $("#fdph").attr("readonly", "readonly");
                                 $(".upload-addbtn").css("display", "block");
                                 $("#fshlx").attr("readonly", "readonly");
-                                if (NodeName == "工程部") {
+                                if (String(NodeName).indexOf('工程部') != -1) {
                                     $("#fgctz").removeAttr("disabled");
                                     $("#fgcyzx").removeAttr("disabled");
                                     $("#fgcwt").removeAttr("readonly");
-                                } else if (NodeName == "安保部") {
+                                    cwNode = false;
+                                } else if (String(NodeName).indexOf('安保部') != -1) {
                                     $("#fabtz").removeAttr("disabled");
                                     $("#fabyzx").removeAttr("disabled");
                                     $("#fabwt").removeAttr("readonly");
-
+                                    cwNode = false;
                                 } else if (NodeName == "财务部") {
                                     $("#fcwyzx").removeAttr("disabled");
                                     $("#fcwwt").removeAttr("readonly");
+                                    $("#agreebt").text('同意');
                                     cwNode = true;
                                 } else if (NodeName == "运营部") {
                                     $("#fyytz").removeAttr("disabled");
-
+                                    cwNode = false;
                                     $("#fyyzl").removeAttr("disabled");
                                     $("#fyyyzx").removeAttr("disabled");
                                     $("#fyywt").removeAttr("readonly");
-                                } else if (NodeName == "推广部") {
-
-                                } else if (NodeName == "客服部") {
-
+                                } else if ( String(NodeName).indexOf('客服部') != -1 || String(NodeName).indexOf('推广部') != -1) {
+                                    cwNode = false;
+                                } else if (String(NodeName).indexOf('时光城经理')!=-1) {
+                                    cwNode = false;
                                 } else {
+                                    $("#agreebt").text('同意');
                                     cwNode = true;
                                 }
                             }
@@ -794,10 +798,7 @@
         }
         var fjArray = new Array();
         function Save() {
-            var fareaStr = String(BPMOU).split("/");
-            //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
-            $("#fdept").val(fareaStr[fareaStr.length - 2]);
-
+         
             var fname = $("#fname").val();
             var fdept = $("#fdept").val();
             var fdate = $("#fdate").val() + " 00:00:00";
@@ -1178,7 +1179,25 @@
             $("#wrapper").css("display", "block");
             $("#signd").css("display", "none");
         }
+        function tapEvent() {
+            var fshlxdata = [
+                {
+                    value: "wggc",
+                    text: "威高广场"
+                },
+                {
+                    value: "sgc",
+                    text: "时光城"
+                },
+                {
+                    value: "msc",
+                    text: "民俗邨"
+                }
 
+            ];
+            showPicker('fshlx', fshlxdata);
+
+        }
     </script>
 </body> 
 </html >

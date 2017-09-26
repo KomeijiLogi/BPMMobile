@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
     <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css"/>
     <title></title>
     <meta charset="utf-8" />
     <style>
@@ -31,23 +32,7 @@
             overflow: auto;
         }
 
-        label {
-            font-size: 0.75rem;
-        }
-
-        textarea {
-            height: auto;
-            overflow: auto;
-            font-size: 0.75rem;
-        }
-
-        a {
-            font-size: 0.75rem;
-        }
-        .bgc {
-            color: white;
-            background-color: #5191FD;
-        }
+        
     </style>
 </head>
 <body>
@@ -265,8 +250,14 @@
             var fccyy = $("#fccyy").val();
             var fccrq = $("#fccrq").val() + " 00:00:00";;
             var fssxm = $("#fssxm").val();
-            
-
+            if (!fssxm) {
+                mui.toast('请选择所属项目');
+                return;
+            }
+            if (!fdph) {
+                mui.toast('请输入店铺号');
+                return;
+            }
             if (!ftel || ftel == "") {
                 mui.toast("请输入联系电话");
                 return;
@@ -288,7 +279,7 @@
                 mui.toast("请输入撤场原因");
                 return;
             }
-            if (!fccrq || fccrq == "") {
+            if (!$("#fccrq").val() || fccrq == "") {
                 mui.toast("请选择撤场时间");
                 return;
             }
@@ -297,7 +288,7 @@
 
             if (fjArray.toString() == null ||fjArray.toString() == "") {
                 mui.toast("请上传附件");
-              //  return;
+               return;
             }
 
             var btnArry = ["取消", "确定"];

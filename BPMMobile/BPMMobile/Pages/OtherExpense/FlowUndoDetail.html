@@ -70,6 +70,7 @@
                      </div>
                  </li>
              </ul>
+             <input type="hidden" id="fdate" name="fdate" />
              <div class="mui-input-row">
                  <label for="fcwdate">财务审核时间</label>
                  <input type="hidden" id="fcwdate" name="fcwdate" readonly="readonly" />
@@ -716,6 +717,9 @@
                             });
 
                             tapEvent();
+                            $("#mxlist").find("#fbxje,#fbz").each(function () {
+                                $(this).removeAttr('readonly');
+                            });
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                         } else {

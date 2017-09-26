@@ -47,7 +47,7 @@
             </div>
             <div class="mui-input-row">
                 <label for="fcgbm">采购部门<i style="color:red;">*</i></label>
-                <input type="text" id="fcgbm" name="fcgbm" value="" placeholder="请选择采购部门"/>
+                <input type="text" id="fcgbm" name="fcgbm" value="" placeholder="请选择采购部门" readonly="readonly"/>
             </div>
             <div class="mui-input-row" style="height:2.25rem;">
                 <label>采购明细</label>
@@ -152,7 +152,7 @@
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row"> ';
                         li = li + '           <label for="fsl">数量<i style="color:red;">*</i></label>';
-                        li = li + '           <input type="text" id="fsl" name="fsl" placeholder="请填写数量" value="' + flxmxItem.fsl + '"/>';
+                        li = li + '           <input type="number" id="fsl" name="fsl" placeholder="请填写数量" value="' + flxmxItem.fsl + '"/>';
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row" style="height:5.25rem;">';
                         li = li + '           <label for="fyt">用途<i style="color:red;">*</i></label>';
@@ -211,11 +211,11 @@
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row">';
                 li = li + '          <label for="fdw">单位<i style="color:red;">*</i></label>';
-                li = li + '          <input type="text" id="fdw" name="fdw" placeholder="请填写单位"/>';
+                li = li + '          <input type="number" id="fdw" name="fdw" placeholder="请填写单位"/>';
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row"> ';
                 li = li + '           <label for="fsl">数量<i style="color:red;">*</i></label>';
-                li = li + '           <input type="text" id="fsl" name="fsl" placeholder="请填写数量"/>';
+                li = li + '           <input type="number" id="fsl" name="fsl" placeholder="请填写数量"/>';
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row" style="height:5.25rem;">';
                 li = li + '           <label for="fyt">用途<i style="color:red;">*</i></label>';
@@ -250,6 +250,10 @@
             }
             if (!fcgbm || fcgbm == "") {
                 mui.toast("请填写采购部门");
+                return;
+            }
+            if (!$("#fdhdate").val() || $("#fdhdate").val() == '') {
+                mui.toast('请填写到货日期');
                 return;
             }
             var mxflag = false;
@@ -349,6 +353,10 @@
             }
             if (!fsl || fsl == "") {
                 mui.toast("请填写数量");
+                return null;
+            }
+            if (!fyt || fyt == '') {
+                mui.toast('请填写用途');
                 return null;
             }
             return lx;

@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
-    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
     
-    <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
     <!--<script type="text/javascript" src="../../Scripts/util.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>-->
-    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
-    <link rel="stylesheet" href="../../Content/mui.min.css" />
-    <link rel="stylesheet" href="../../Content/upload.css" />
-    <link rel="stylesheet" href="../../Content/ApprovalUtils.css"/>
-    <link rel="stylesheet" href="../../Content/DoneOrMyApproval.css"/>
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css"/>
+    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css"/>
     <title></title>
     <meta charset="utf-8" />
    
@@ -411,8 +411,8 @@
                     $("#fname").val(item.姓名);
                     $("#fno").val(item.工号);
                     $("#fdept").val(item.部门);
-                    $("#fstartdate").val(FormatterTime(item.开始日期));
-                    $("#foverdate").val(FormatterTime(item.结束日期));
+                    $("#fstartdate").val(FormatterTimeYMS(item.开始日期));
+                    $("#foverdate").val(FormatterTimeYMS(item.结束日期));
                     $("#fyear").val(item.年);
                     $("#fmonth").val(item.月);
                     $("#fweek").val(item.周);
@@ -509,16 +509,12 @@
         }
 
 
-        function FormatterTime(time) {
-            var time = String(time);
-            //var ymd = time.substring(time.indexOf("-") + 1, time.indexOf("T"));
-            //var hms = time.substring(time.indexOf("T") + 1, time.lastIndexOf(":"));
-            //time = ymd + " " + hms;
-            var ymd = time.substring(0, time.indexOf("T"));
 
+        function FormatterTimeT(time) {
+            var time = String(time);
+            var ymd = time.substring(0, time.indexOf(" "));
             return ymd;
         }
-
    
     </script>
 </body>

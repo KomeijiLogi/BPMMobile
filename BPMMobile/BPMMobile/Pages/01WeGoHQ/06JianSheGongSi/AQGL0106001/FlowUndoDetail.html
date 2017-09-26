@@ -46,11 +46,11 @@
                 <label for="fsite">检查地点<i style="color:red;">*</i></label>
                 <input type="text" id="fsite" name="fsite" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fwtms">问题描述<i style="color:red;">*</i></label>
                 <textarea rows="3" id="fwtms" name="fwtms" readonly="readonly"></textarea>
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fzgyq">整改要求<i style="color:red;">*</i></label>
                 <textarea rows="3" id="fzgyq" name="fzgyq" readonly="readonly"></textarea>
             </div>
@@ -78,7 +78,7 @@
                 <input type="text" id="fpdwc" name="fpdwc" value=""  placeholder="请选择是否整改完成" readonly="readonly"/>
               
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fzgwcqk">整改完成情况<i style="color:red;">*</i></label>
                 <textarea rows="3" id="fzgwcqk" name="fzgwcqk" placeholder="请输入整改完成情况" readonly="readonly"></textarea>
             </div>
@@ -100,11 +100,11 @@
                 <label for="fpdcq">是否超期</label>
                 <input type="text" id="fpdcq" name="fpdcq" value="" placeholder="请选择是否超期" readonly="readonly"/>
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fcqyy">超期原因</label>
                 <textarea rows="3" id="fcqyy" name="fcqyy"  placeholder="请输入超期原因" readonly="readonly"></textarea>
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fbz">备注</label>
                 <textarea rows="3" id="fbz" name="fbz" readonly="readonly"></textarea>
             </div>
@@ -202,6 +202,7 @@
     <input type="hidden" id="consignUser" name="consignUser" value="" />
     <input type="hidden" id="consignOpenId" name="consignOpenId" value="" />
     <input type="hidden" id="fbillno" name="fbillno" value="" />
+    <input type="hidden" id="nodeName" name="nodeName" value=""/>
     <div id="signd" style="display:none;">
         <div class="mui-input-row"  id="ssd">
             <label>签核意见</label>
@@ -224,7 +225,7 @@
                 openSignPer();
 
             });
-            preUpload();
+           
             watch();
           
         });
@@ -365,6 +366,7 @@
             }
 
         });
+        var fjArray_after = new Array();
         function preUpload() {
             $("#addbtn_before").parent().parent().parent().find('.upload-img-list').removeClass('upload-img-list');
             $("#addbtn_after").parent().parent().parent().find(".upload-img-list-after").addClass('upload-img-list').removeClass('upload-img-list-after');
@@ -376,7 +378,7 @@
         var action = "确认";
         function getTaskMsg() {
 
-            tapEvent();
+            //tapEvent();
             var url = window.location.href;
             if (url != null && url.indexOf("tid") != -1 && url.indexOf("pid") != -1) {
 
@@ -521,6 +523,7 @@
 
                                         }
                                         watch();
+                                        $(".imgdiv").off('tap');
                                         $(".imgdiv").on('tap', function () {
                                             console.log($(this)[0].id);
                                             XuntongJSBridge.call('showFile', {
@@ -570,7 +573,7 @@
                                     if (status == "success") {
 
                                         console.log(data);
-
+                                        var attachArray_after = new Array();
                                         for (var i = 0; i < data.length; i++) {
 
                                             var name = data[i].Name;
@@ -581,7 +584,7 @@
                                             var downurl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;          /*正式网址*//*app.weigaogroup.com:8040*/
 
                                             var attach = attachItem(name, type, size, time, downurl);
-                                            attachArray.push(attach);
+                                            attachArray_after.push(attach);
 
 
 
@@ -592,34 +595,34 @@
                                             if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
 
                                                 //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("xls") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/xlsx@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/xlsx@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("doc") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/docx@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/docx@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("ppt") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/ppt@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/ppt@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("pdf") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/pdf@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/pdf@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("zip") != -1 || (data[i].Ext).indexOf("rar") != -1 || (data[i].Ext).indexOf("7z") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/zip@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/zip@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("txt") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
 
                                             } else {
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
                                             }
 
                                             li = li + ' </div>';
@@ -627,7 +630,7 @@
                                             $(".upload-img-list-after").append(li);
 
 
-                                            $(".imgdiv").each(function () {
+                                            $(".imgdivafter").each(function () {
 
                                                 $(this).parent().find(".del.none").hide();
 
@@ -637,15 +640,29 @@
 
 
                                         }
-                                        watch();
-                                        $(".imgdiv").on('tap', function () {
+                                        var count = $('.upload-img-list-after >div').size();
+
+                                        if (count == 0) {
+                                            $('#uploaddiv').css('height', '4rem');
+                                        } else if (count <= 4) {
+                                            $('#uploaddiv').css('height', '7rem');
+
+                                        } else if (count <= 8) {
+                                            $('#uploaddiv').css('height', '10rem');
+
+                                        } else if (count <= 12) {
+                                            $('#uploaddiv').css('height', '15rem');
+
+                                        } 
+                                        $(".imgdivafter").off('tap');
+                                        $(".imgdivafter").on('tap', function () {
                                             console.log($(this)[0].id);
                                             XuntongJSBridge.call('showFile', {
-                                                'fileName': attachArray[$(this)[0].id].name,
-                                                'fileExt': attachArray[$(this)[0].id].type,
-                                                'fileTime': attachArray[$(this)[0].id].time,
-                                                'fileSize': attachArray[$(this)[0].id].size,
-                                                'fileDownloadUrl': attachArray[$(this)[0].id].downurl
+                                                'fileName': attachArray_after[$(this)[0].id].name,
+                                                'fileExt': attachArray_after[$(this)[0].id].type,
+                                                'fileTime': attachArray_after[$(this)[0].id].time,
+                                                'fileSize': attachArray_after[$(this)[0].id].size,
+                                                'fileDownloadUrl': attachArray_after[$(this)[0].id].downurl
                                             }, function (result) {
                                                 //alert(JSON.stringify(result));
                                             });
@@ -664,12 +681,8 @@
                             });
 
                         }
-                        if ($('#myPhone').val() == "") {
-                            var myPhone = String(BPMOU).split("/");
-                            $('#myPhone').val(String(myPhone[myPhone.length - 1]));
-
-                        }
-
+                     
+                       
                         if ($('#myPhone').val() == "") {
                             var myPhone = String(BPMOU).split("/");
                             $('#myPhone').val(String(myPhone[myPhone.length - 1]));
@@ -694,6 +707,7 @@
 
                         }
 
+                        $("#nodeName").val(NodeName);
                         if (NodeName == "开始") {
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -702,13 +716,16 @@
                             $("#fsite").removeAttr("readonly");
                             $("#fwtms").removeAttr("readonly");
                             $("#fzgyq").removeAttr("readonly");
-
+                            $("#fxqdate").removeAttr("readonly");
+                            $("#fbz").removeAttr("readonly");
+                            showPicker('fsite', fsitedata);
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
+                            $("#csd").css("display", "none");
                         } else {
                             if (typeof (NodeName) != "undefined") {
                                 $("#approvalD").css("display", "block");
-
+                                preUpload();
                                 if (NodeName == "安全员") {
                                     action = "同意";
                                     $("#agreebt").text("同意");
@@ -720,11 +737,12 @@
 
                                 else if (String(NodeName).indexOf("车间主任") != -1 || String(NodeName).indexOf("负责人") != -1) {
 
-                                    $("#fpdwc").removeAttr("readonly");
+                                   
                                     $("#fzgwcqk").removeAttr("readonly");
                                     action = "整改完成";
                                     $("#agreebt").text("整改完成");
-
+                                    showPicker('fpdcq', fpdcqdata);
+                                    $("#fcqyy").removeAttr("readonly");
                                 }
 
                                 else {
@@ -831,6 +849,46 @@
                 text: "否"
             }
         ];
+
+        var fsitedata = [
+            {
+                value: "lhj",
+                text: "铝合金车间"
+            },
+            {
+                value: "mc",
+                text: "木窗车间"
+            },
+            {
+                value: "ty",
+                text: "铁艺车间"
+            },
+            {
+                value: "mcaz",
+                text: "门窗安装"
+            },
+            {
+                value: "lh",
+                text: "绿化配套工地"
+            },
+            {
+                value: "ck",
+                text: "仓库"
+            },
+            {
+                value: "st",
+                text: "食堂"
+            },
+            {
+                value: "ss",
+                text: "宿舍"
+            },
+            {
+                value: "bgl",
+                text: "办公楼"
+            }
+        ];
+
         function tapEvent() {
            
 
@@ -839,45 +897,7 @@
 
             showPicker('fpdcq', fpdcqdata);
 
-            var fsitedata = [
-                {
-                    value: "lhj",
-                    text: "铝合金车间"
-                },
-                {
-                    value: "mc",
-                    text: "木窗车间"
-                },
-                {
-                    value: "ty",
-                    text: "铁艺车间"
-                },
-                {
-                    value: "mcaz",
-                    text: "门窗安装"
-                },
-                {
-                    value: "lh",
-                    text: "绿化配套工地"
-                },
-                {
-                    value: "ck",
-                    text: "仓库"
-                },
-                {
-                    value: "st",
-                    text: "食堂"
-                },
-                {
-                    value: "ss",
-                    text: "宿舍"
-                },
-                {
-                    value: "bgl",
-                    text: "办公楼"
-                }
-            ];
-
+           
             showPicker('fsite', fsitedata);
 
         }
@@ -902,7 +922,35 @@
 
 
 
+            var nodeName = $("#nodeName").val();
+            if (String(nodeName).indexOf("车间主任") != -1 || String(nodeName).indexOf("负责人") != -1){
 
+                if (!fzgwcqk || fzgwcqk==''){
+                    mui.toast('请填写整改完成情况');
+                    return;
+                }
+                if (fjArray_after.length == 0) {
+                    mui.toast('请上传整改后照片');
+                    return;
+                }
+                if (!fpdcq || fpdcq==''){
+                    mui.toast('请选择是否超期');
+                    return;
+                }
+                if (String(fpdcq)=='是') {
+                    if (!fcqyy || fcqyy == '') {
+                        mui.toast('请填写超期原因');
+                        return;
+                    }
+                }
+            }
+            if (String(nodeName).indexOf("安全员") != -1) {
+                if (!fpdwc || fpdwc == '') {
+                    mui.toast('请选择是否整改完成');
+                    return;
+                }
+
+            }
 
             var comment = $("#signSuggest").val(); 
             var consignFlag = false;
@@ -999,7 +1047,7 @@
                 xml = xml + '<Method>Process</Method>';
                 xml = xml + '<PID>' + pid + '</PID>';
                 xml = xml + '<Action>' + action + '</Action>';
-                xml = xml + '<Comment></Comment>';
+                xml = xml + '<Comment>' + comment +'</Comment>';
 
 
                 xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
@@ -1082,7 +1130,7 @@
             var fareaStr = String(BPMOU).split("/");
             //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
             $("#fdept").val(fareaStr[fareaStr.length - 2]);
-
+            var pid = $("#stepId").val();
             var fname = $("#fname").val();
             var fdept = $("#fdept").val();
             var fdate = $("#fdate").val() + " 00:00:00";
@@ -1096,20 +1144,24 @@
             var fcqyy = $("#fcqyy").val();
             var fbz = $("#fbz").val();
 
-            if (!fpdwc || fpdwc == "") {
-                mui.toast("请选择是否整改完成");
+            if (!fsite || fsite == "") {
+                mui.toast("请选择检查地点");
                 return;
             }
-            if (!fzgwcqk || fzgwcqk == "") {
-                mui.toast("请输入整改完成情况");
+            if (!fwtms || fwtms == "") {
+                mui.toast("请输入问题描述");
                 return;
             }
-            if (!fpdcq || fpdcq == "") {
-                mui.toast("请选择是否超期");
+            if (!fzgyq || fzgyq == "") {
+                mui.toast("请输入整改要求");
                 return;
             }
             if (!$("#fxqdate").val() || $("#fxqdate").val() == "") {
                 mui.toast("请输入限期整改日期");
+                return;
+            }
+             if (fjArray.toString() == null || fjArray.toString() == "") {
+                mui.toast("请上传整改前照片");
                 return;
             }
 
@@ -1136,11 +1188,11 @@
                     xml = xml + '<整改要求>' + fzgyq + '</整改要求>';
                     xml = xml + '<整改前照片>' + fjArray.toString().replace(",", ";") + '</整改前照片>';
                     xml = xml + '<限期整改日期>' + fxqdate + '</限期整改日期>';
-                    xml = xml + '<是否整改完成>' + fpdwc + '</是否整改完成>';
-                    xml = xml + '<整改完成情况>' + fzgwcqk + '</整改完成情况>';
-                    xml = xml + '<整改后照片>' + fjArray_after.toString().replace(",", ";") + '</整改后照片>';
-                    xml = xml + '<是否超期>' + fpdcq + '</是否超期>';
-                    xml = xml + '<超期原因>' + fcqyy + '</超期原因>';
+                    xml = xml + '<是否整改完成></是否整改完成>';
+                    xml = xml + '<整改完成情况></整改完成情况>';
+                    xml = xml + '<整改后照片></整改后照片>';
+                    xml = xml + '<是否超期></是否超期>';
+                    xml = xml + '<超期原因></超期原因>';
                     xml = xml + '<备注>' + fbz + '</备注>';
                     xml = xml + '</建设公司_安全检查_问题反馈>';
                     xml = xml + '</FormData>';

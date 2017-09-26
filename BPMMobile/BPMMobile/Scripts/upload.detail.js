@@ -12,7 +12,7 @@ function upload() {
     //var picUrl = '/upload/';
 
     var picUrl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx';
-
+    //var picUrl = 'http://172.16.7.7/BPM/YZSoft/Attachment/default.ashx';
     var me = this;
 
     $("#file").upload({

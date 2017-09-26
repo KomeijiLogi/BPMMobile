@@ -579,10 +579,25 @@
                             $(".upload-addbtn").css("display", "block");
                             $("#addItem").css("display", "block");
                             $("#fphone").removeAttr("readonly");
-                            $("#mxlist").find("#famount").removeAttr("readonly");
-                            $("#mxlist").find("#fdj").removeAttr("readonly");
-                            $("#mxlist").find("#fremark").removeAttr("readonly");
+                            $("#mxlist").find("#famount,#fdj,#fremark").each(function () {
+                                $(this).removeAttr("readonly");
+                            })
+                            $("#fytsm").removeAttr('readonly');
                             tapEvent();
+                            $("#mxlist").find('span').each(function () {
+                                $(this).css("display", "block");
+                            });
+
+                            $("#mxlist").find("#fklx").each(function () {
+
+                                var self = this;
+                                $(this).on('tap', function () {
+
+                                    picker.show(function (items) {
+                                        self.value = (items[0].text);
+                                    });
+                                });
+                            });
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -947,87 +962,85 @@
         }
 
 
-        //function Save() {
+        function Save() {
 
-        //    var fareaStr = String(BPMOU).split("/");
-        //    //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
-        //    $("#fdept").val(fareaStr[fareaStr.length - 2]);
+           
 
-        //    var fname = $("#fname").val();
-        //    var fdate = $("#fdate").val() + " 00:00:00";
-        //    var fdept = $("#fdept").val();
-        //    var fphone = $("#fphone").val();
-        //    var fytsm = $("#fytsm").val();
-        //    var fzje = $("#fzje").val();
-        //    if (!fytsm || fytsm == "") {
-        //        mui.toast("请填写用途说明");
-        //        return;
-        //    }
+            var fname = $("#fname").val();
+            var fdate = $("#fdate").val() + " 00:00:00";
+            var fdept = $("#fdept").val();
+            var fphone = $("#fphone").val();
+            var fytsm = $("#fytsm").val();
+            var fzje = $("#fzje").val();
+            if (!fytsm || fytsm == "") {
+                mui.toast("请填写用途说明");
+                return;
+            }
 
 
 
-        //    var mxlistArr = new Array();
-        //    $("#mxlist").find("#mx").each(function () {
+            var mxlistArr = new Array();
+            $("#mxlist").find("#mx").each(function () {
 
-        //        var fklx = $(this).find("#fklx").val();
-        //        var famount = $(this).find("#famount").val();
-        //        var fdj = $(this).find("#fdj").val();
-        //        var ftotal = $(this).find("#ftotal").val();
-        //        var fremark = $(this).find("#fremark").val();
-        //        if (MxItem(fklx, famount, fdj, ftotal, fremark) == null) {
-        //            return;
-        //        }
-        //        var mx = MxItem(fklx, famount, fdj, ftotal, fremark);
-        //        mxlistArr.push(mx);
-        //    });
-        //    var pid = $("#stepId").val();
-        //    var btnArry = ["取消", "确定"];
-        //    mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
-        //        if (e.index == 1) {
+                var fklx = $(this).find("#fklx").val();
+                var famount = $(this).find("#famount").val();
+                var fdj = $(this).find("#fdj").val();
+                var ftotal = $(this).find("#ftotal").val();
+                var fremark = $(this).find("#fremark").val();
+                if (MxItem(fklx, famount, fdj, ftotal, fremark) == null) {
+                    return;
+                }
+                var mx = MxItem(fklx, famount, fdj, ftotal, fremark);
+                mxlistArr.push(mx);
+            });
+            var pid = $("#stepId").val();
+            var btnArry = ["取消", "确定"];
+            mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
+                if (e.index == 1) {
 
-        //            var xml = '<?xml version="1.0"?>';
-        //            xml = xml + '<XForm>';
-        //            xml = xml + '   <Header>';
-        //            xml = xml + '    <Method>Process</Method>';
-        //            xml = xml + '   <PID>' + pid + '</PID>';
-        //            xml = xml + '   <Action>提交</Action>';
-        //            xml = xml + '    <Comment></Comment>';
-        //            xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
-        //            xml = xml + '  </Header>';
-        //            xml = xml + '<FormData>';
-        //            xml = xml + '<BPM_WGGCXFKLYSQ_A>';
-        //            xml = xml + '<fname>' + fname + '</fname>';
-        //            xml = xml + '<fdept>' + fdept + '</fdept>';
-        //            xml = xml + '<fdate>' + fdate + '</fdate>';
-        //            xml = xml + '<fphone>' + fphone + '</fphone>';
-        //            xml = xml + '<fytsm>' + fytsm + '</fytsm>';
-        //            xml = xml + '<fzje>' + fzje + '</fzje>';
-        //            if (fjArray.toString() != null && fjArray.toString() != "") {
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '   <Header>';
+                    xml = xml + '    <Method>Process</Method>';
+                    xml = xml + '   <PID>' + pid + '</PID>';
+                    xml = xml + '   <Action>提交</Action>';
+                    xml = xml + '    <Comment></Comment>';
+                    xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '  </Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<BPM_WGGCXFKLYSQ_A>';
+                    xml = xml + '<fname>' + fname + '</fname>';
+                    xml = xml + '<fdept>' + fdept + '</fdept>';
+                    xml = xml + '<fdate>' + fdate + '</fdate>';
+                    xml = xml + '<fphone>' + fphone + '</fphone>';
+                    xml = xml + '<fytsm>' + fytsm + '</fytsm>';
+                    xml = xml + '<fzje>' + fzje + '</fzje>';
+                    if (fjArray.toString() != null && fjArray.toString() != "") {
 
-        //                xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
-        //            } else {
+                        xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
+                    } else {
 
-        //                xml = xml + '      <fj></fj>';
-        //            }
-        //            xml = xml + '</BPM_WGGCXFKLYSQ_A>';
-        //            for (var i = 0; i < mxlistArr.length; i++) {
-        //                xml = xml + '<BPM_WGGCXFKLYSQ_B>';
-        //                xml = xml + ' <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
-        //                xml = xml + '<RowPrimaryKeys></RowPrimaryKeys>';
-        //                xml = xml + '<fentryno>' + (i + 1) + '</fentryno>';
-        //                xml = xml + '<fklx>' + mxlistArr[i].fklx + '</fklx>';
-        //                xml = xml + '<famount>' + mxlistArr[i].famount + '</famount>';
-        //                xml = xml + '<fdj>' + mxlistArr[i].fdj + '</fdj>';
-        //                xml = xml + '<ftotal>' + mxlistArr[i].ftotal + '</ftotal>';
-        //                xml = xml + '<fremark>' + mxlistArr[i].fremark + '</fremark>';
-        //                xml = xml + '</BPM_WGGCXFKLYSQ_B>';
-        //            }
-        //            xml = xml + '</FormData>';
-        //            xml = xml + '</XForm>';
-        //            PostXml(xml);
-        //        }
-        //    });
-        //}
+                        xml = xml + '      <fj></fj>';
+                    }
+                    xml = xml + '</BPM_WGGCXFKLYSQ_A>';
+                    for (var i = 0; i < mxlistArr.length; i++) {
+                        xml = xml + '<BPM_WGGCXFKLYSQ_B>';
+                        xml = xml + ' <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
+                        xml = xml + '<RowPrimaryKeys></RowPrimaryKeys>';
+                        xml = xml + '<fentryno>' + (i + 1) + '</fentryno>';
+                        xml = xml + '<fklx>' + mxlistArr[i].fklx + '</fklx>';
+                        xml = xml + '<famount>' + mxlistArr[i].famount + '</famount>';
+                        xml = xml + '<fdj>' + mxlistArr[i].fdj + '</fdj>';
+                        xml = xml + '<ftotal>' + mxlistArr[i].ftotal + '</ftotal>';
+                        xml = xml + '<fremark>' + mxlistArr[i].fremark + '</fremark>';
+                        xml = xml + '</BPM_WGGCXFKLYSQ_B>';
+                    }
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+                }
+            });
+        }
 
 
         function MxItem(fklx, famount, fdj, ftotal, fremark) {

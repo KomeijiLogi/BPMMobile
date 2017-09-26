@@ -62,23 +62,23 @@
          </div>
          <div class="mui-input-row">
              <label for="fsfjj">是否加急<i style="color:red;">*</i></label>
-             <input type="text" id="fsfjj" name="fsfjj" value="" placeholder="请选择是否加急" />
+             <input type="text" id="fsfjj" name="fsfjj" value="" placeholder="请选择是否加急" readonly="readonly"/>
          </div>
          <div class="mui-input-row">
              <label for="fwlzl">物料种类<i style="color:red;">*</i></label>
-             <input type="text" id="fwlzl" name="fwlzl" value=""placeholder="请选择物料种类"  />
+             <input type="text" id="fwlzl" name="fwlzl" value=""placeholder="请选择物料种类" readonly="readonly" />
          </div>
          <div class="mui-input-row" style="display:none;" id="div_gys">
              <label for="fgys">供应商<i style="color:red;">*</i></label>
-             <input type="text" id="fgys" name="fgys" value="" placeholder="请填写供应商"/>
+             <input type="text" id="fgys" name="fgys" value=""  readonly="readonly"/>
          </div>
          <div class="mui-input-row" style="display:none;" id="div_shdd">
              <label for="fshdd">送货地点<i style="color:red;">*</i></label>
-             <input type="text" id="fshdd" name="fshdd" value="" placeholder="请选择送货地点" />
+             <input type="text" id="fshdd" name="fshdd" value="" placeholder="请选择送货地点" readonly="readonly"/>
          </div>
          <div class="mui-input-row" style="display:none;" id="div_grt">
              <label for="fgrt">隔热条<i style="color:red;">*</i></label>
-             <input type="text" id="fgrt" name="fgrt" value="" placeholder="请选择隔热条" />
+             <input type="text" id="fgrt" name="fgrt" value="" placeholder="请选择隔热条" readonly="readonly"/>
          </div>
 
 
@@ -229,7 +229,7 @@
                  $("#uploaddiv_xc").css("display", "none");
                  $("#uploaddiv_pj").css("display", "none");
                  upload();
-
+                 $("#div_grt").css("display", "none");
              } else if (wlzl == "型材") {
                  $("#div_gys").css("display", "block");
                  $("#div_shdd").css("display", "block");
@@ -245,7 +245,7 @@
                  $("#uploaddiv_pj").css("display", "none");
                  $("#addbtn_bl").parent().parent().parent().find('.upload-img-list').removeClass('upload-img-list');
                  $("#addbtn_xc").parent().parent().parent().find(".upload-img-list-xc").addClass('upload-img-list').removeClass('upload-img-list-xc');
-      
+                 $("#div_grt").css("display", "block");
                  fjArray_xc = fjArray;
              } else if (wlzl == "配件") {
                  $("#div_gys").css("display", "none");
@@ -262,7 +262,7 @@
                  $("#uploaddiv_pj").css("display", "block");
                  $("#addbtn_bl").parent().parent().parent().find('.upload-img-list').removeClass('upload-img-list');
                  $("#addbtn_pj").parent().parent().parent().find(".upload-img-list-pj").addClass('upload-img-list').removeClass('upload-img-list-pj');
-               
+                 $("#div_grt").css("display", "none");
                  fjArray_pj = fjArray;
              } else {
                  $("#div_gys").css("display", "none");
@@ -277,6 +277,7 @@
                  $("#uploaddiv_bl").css("display", "none");
                  $("#uploaddiv_xc").css("display", "none");
                  $("#uploaddiv_pj").css("display", "none");
+                 $("#div_grt").css("display", "none");
              }
          }
          function prepMsg() {

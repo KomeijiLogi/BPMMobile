@@ -38,7 +38,7 @@
             </div>
             <div class="mui-input-row">
                 <label for="fdate">报审日期</label>
-                <input type="text" id="fdate" name="fdate"/>
+                <input type="date" id="fdate" name="fdate"/>
             </div>
             <div class="mui-input-row">
                 <label for="fwymc">租赁物业名称<i style="color:red;">*</i></label>
@@ -270,8 +270,25 @@
                 }
 
             ];
-            showPicker('fwymc', fwymcdata);
+           
+            var element = document.getElementById('fwymc');
 
+            var picker = new mui.PopPicker();
+
+            picker.setData(fwymcdata);
+
+            element.addEventListener('tap', function () {
+
+                picker.show(function (items) {
+
+                    element.value = items[0].text;
+                    if (element.value == '民俗邨') {
+                        $("#fif_syxtd").parent().css("display", "none");
+                        $("#fjs").parent().css("display", "none");
+                    }
+                });
+
+            }, false);
 
             var fhzxsdata = [
                 {
@@ -691,8 +708,10 @@
                     xml = xml + '          <fzjwyfzf>' + fzjwyfzf + '</fzjwyfzf>';
                     xml = xml + '           <fif_syxt>' + fif_syxt + '</fif_syxt>';
                     xml = xml + '          <fjs>' + fjs + '</fjs>';
-                    xml = xml + '          <fzjwyfzffs></fzjwyfzffs>';
+
+                    xml = xml + '          <fzjwyfzffs>' + fzjwyfzf+'</fzjwyfzffs>';
                     xml = xml + '          <fqt></fqt>';
+
                     xml = xml + '          <ftsxq>' + ftsxq + '</ftsxq>';
                     xml = xml + '          <fqttk>' + fqttk + '</fqttk>';
                     if (fjArray.length != 0) {

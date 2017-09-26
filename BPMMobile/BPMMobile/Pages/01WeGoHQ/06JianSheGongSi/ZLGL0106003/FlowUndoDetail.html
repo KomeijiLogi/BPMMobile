@@ -46,15 +46,15 @@
                 <label for="fsite">检查地点<i style="color:red;">*</i></label>
                 <input type="text" id="fsite" name="fsite" value="" readonly="readonly" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fgcmc">工程名称<i style="color:red;">*</i></label>
-                <textarea rows="1" id="fgcmc" name="fgcmc" readonly="readonly"></textarea>
+                <textarea rows="3" id="fgcmc" name="fgcmc" readonly="readonly"></textarea>
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fwtms">问题描述<i style="color:red;">*</i></label>
                 <textarea rows="3" id="fwtms" name="fwtms" readonly="readonly"></textarea>
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fzgyq">整改要求<i style="color:red;">*</i></label>
                 <textarea rows="3" id="fzgyq" name="fzgyq" readonly="readonly"></textarea>
             </div>
@@ -79,11 +79,11 @@
             </div>
             <div class="mui-input-row mui-table-view-radio">
                 <label for="fpdwc">是否整改完成</label>
-                <input type="text" id="fpdwc" name="fpdwc" value="" placeholder="请选择是否整改完成" />
+                <input type="text" id="fpdwc" name="fpdwc" value="" placeholder="请选择是否整改完成" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="height:auto;">
                 <label for="fzgwcqk">整改完成情况<i style="color:red;">*</i></label>
-                <textarea rows="3" id="fzgwcqk" name="fzgwcqk" placeholder="请输入整改完成情况"></textarea>
+                <textarea rows="3" id="fzgwcqk" name="fzgwcqk" placeholder="请输入整改完成情况" readonly="readonly"></textarea>
             </div>
             <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                 <div class="border border-t upload-img" style="top:0rem;">
@@ -102,14 +102,14 @@
             <div class="mui-input-row">
                 <label for="fpdcq">是否超期</label>
                 <input type="text" id="fpdcq" name="fpdcq" value="" placeholder="请选择是否超期"  readonly="readonly"/>
-            </div>
-            <div class="mui-input-row">
+            </div> 
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fcqyy">超期原因</label>
-                <textarea rows="3" id="fcqyy" name="fcqyy" placeholder="请输入超期原因"></textarea>
+                <textarea rows="3" id="fcqyy" name="fcqyy" placeholder="请输入超期原因" readonly="readonly"></textarea>
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fbz">备注</label>
-                <textarea rows="3" id="fbz" name="fbz" readonly="readonly"></textarea>
+                <textarea rows="3" id="fbz" name="fbz" readonly="readonly" ></textarea>
             </div>
 
             <div class="mui-input-row" id="csd">
@@ -187,8 +187,9 @@
         </div>
         <div class="mui-btn-row"  id="approvalD">
             &nbsp;&nbsp;
-            <button class="mui-btn mui-btn-primary" type="button" style="width:40%;" id="agreebt" onclick="showConfirm()">确认</button>&nbsp;&nbsp;&nbsp;
-            <button class="mui-btn mui-btn-danger" type="button" style="width:40%;" id="disagreebt" onclick="getRecedableToSteps()">退回某步</button>&nbsp;&nbsp;&nbsp;
+            <button class="mui-btn mui-btn-primary" type="button" style="width:25%;" id="agreebt" onclick="showConfirm()">确认</button>&nbsp;&nbsp;&nbsp;
+            <button class="mui-btn mui-btn-danger" type="button" style="width:25%;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;
+            <button class="mui-btn mui-btn-warning" type="button" style="width:25%;" id="refusebt" onclick="Refilled()">退回重填</button>
 
         </div>
         <div class="mui-btn-row"  id="readD">
@@ -205,6 +206,7 @@
     <input type="hidden" id="consignUser" name="consignUser" value="" />
     <input type="hidden" id="consignOpenId" name="consignOpenId" value="" />
     <input type="hidden" id="fbillno" name="fbillno" value="" />
+    <input type="hidden" id="nodeName" name="nodeName" value=""/>
     <div id="signd" style="display:none;">
         <div class="mui-input-row"  id="ssd">
             <label>签核意见</label>
@@ -376,9 +378,10 @@
             fjArray_after = fjArray;
 
         }
+        var fjArray_after = new Array();
         function getTaskMsg() {
 
-            tapEvent();
+            //tapEvent();
             var url = window.location.href;
             if (url != null && url.indexOf("tid") != -1 && url.indexOf("pid") != -1) {
 
@@ -429,6 +432,10 @@
                         $("#stepId").val(stepId);
                         $("#fbillno").val(item.fbillno);
 
+                        $("#fpdwc").val(item.是否整改完成);
+                        $("#fzgwcqk").val(item.整改完成情况);
+                        $("#fpdcq").val(item.是否超期);
+                        $("#fcqyy").val(item.超期原因);
 
                         if (item.整改前照片 != null && item.整改前照片 != "") {
                             var fjtmp = (String)(item.整改前照片);
@@ -519,7 +526,7 @@
 
 
                                         }
-
+                                        watch();
                                         $(".imgdiv").on('tap', function () {
                                             console.log($(this)[0].id);
                                             XuntongJSBridge.call('showFile', {
@@ -546,6 +553,7 @@
                             });
 
                         }
+                        var attachArray_after = new Array();
                         if (item.整改后照片 != null && item.整改后照片 != "") {
                             var fjtmp = (String)(item.整改后照片);
 
@@ -559,7 +567,7 @@
                                 type: 'POST',
                                 url: '/api/bpm/GetAttachmentsInfo',
                                 //dataType:'json',
-                                data: { 'fileIds': fjArray },
+                                data: { 'fileIds': fjArray_after },
 
                                 beforeSend: function (XHR) {
                                     XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
@@ -578,7 +586,7 @@
                                             var time = String(data[i].LastUpdate).replace("T", " ");
                                             var downurl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;
                                             var attach = attachItem(name, type, size, time, downurl);
-                                            attachArray.push(attach);
+                                            attachArray_after.push(attach);
 
 
 
@@ -589,34 +597,34 @@
                                             if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
 
                                                 //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("xls") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/xlsx@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/xlsx@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("doc") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/docx@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/docx@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("ppt") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/ppt@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/ppt@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("pdf") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/pdf@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/pdf@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("zip") != -1 || (data[i].Ext).indexOf("rar") != -1 || (data[i].Ext).indexOf("7z") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/zip@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/zip@2x.png"/></div>';
 
                                             } else if ((data[i].Ext).indexOf("txt") != -1) {
 
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
 
                                             } else {
-                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdivafter" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
                                             }
 
                                             li = li + ' </div>';
@@ -624,7 +632,7 @@
                                             $(".upload-img-list-after").append(li);
 
 
-                                            $(".imgdiv").each(function () {
+                                            $(".imgdivafter").each(function () {
 
                                                 $(this).parent().find(".del.none").hide();
 
@@ -634,15 +642,29 @@
 
 
                                         }
+                                        var count = $('.upload-img-list-after >div').size();
 
-                                        $(".imgdiv").on('tap', function () {
+                                        if (count == 0) {
+                                            $('#uploaddiv').css('height', '4rem');
+                                        } else if (count <= 4) {
+                                            $('#uploaddiv').css('height', '7rem');
+
+                                        } else if (count <= 8) {
+                                            $('#uploaddiv').css('height', '10rem');
+
+                                        } else if (count <= 12) {
+                                            $('#uploaddiv').css('height', '15rem');
+
+                                        }
+                                        $(".imgdivafter").off('tap');
+                                        $(".imgdivafter").on('tap', function () {
                                             console.log($(this)[0].id);
                                             XuntongJSBridge.call('showFile', {
-                                                'fileName': attachArray[$(this)[0].id].name,
-                                                'fileExt': attachArray[$(this)[0].id].type,
-                                                'fileTime': attachArray[$(this)[0].id].time,
-                                                'fileSize': attachArray[$(this)[0].id].size,
-                                                'fileDownloadUrl': attachArray[$(this)[0].id].downurl
+                                                'fileName': attachArray_after[$(this)[0].id].name,
+                                                'fileExt': attachArray_after[$(this)[0].id].type,
+                                                'fileTime': attachArray_after[$(this)[0].id].time,
+                                                'fileSize': attachArray_after[$(this)[0].id].size,
+                                                'fileDownloadUrl': attachArray_after[$(this)[0].id].downurl
                                             }, function (result) {
                                                 //alert(JSON.stringify(result));
                                             });
@@ -684,7 +706,7 @@
                             }
 
                         }
-
+                        $("#nodeName").val(NodeName);
                         if (NodeName == "开始") {
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -696,7 +718,7 @@
                             $("#fzgyq").removeAttr("readonly");
                             $("#fxqdate").removeAttr("readonly");
                             $("#fbz").removeAttr("readonly");
-
+                            
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -714,9 +736,11 @@
                                     $("#agreebt").text('整改完成');
                                     action = '整改完成';
                                     preUpload();
-                                    $("#preUpload").removeAttr("readonly");
+                                    //$("#preUpload").removeAttr("readonly");
                                     showPicker('fpdcq', fpdcqdata);
                                     $("#fcqyy").removeAttr("readonly");
+                                    $("#fzgwcqk").removeAttr("readonly");
+                                    
                                 }
                             }
                         }
@@ -841,7 +865,33 @@
             var fcqyy = $("#fcqyy").val();
             var fbz = $("#fbz").val();
 
+            var nodeName = $("#nodeName").val();
+            if (String(nodeName).indexOf("车间主任") != -1 || String(nodeName).indexOf("负责人") != -1) {
+                if (!fzgwcqk || fzgwcqk == '') {
+                    mui.toast('请填写整改完成情况');
+                    return;
+                }
+                if (fjArray_after.length == 0) {
+                    mui.toast('请上传整改后照片');
+                    return;
+                }
+                if (!fpdcq || fpdcq == '') {
+                    mui.toast('请选择是否超期');
+                    return;
+                }
+                if (fpdcq == '是') {
+                    if (!fcqyy || fcqyy == '') {
+                        mui.toast('请填写超期原因');
+                        return;
+                    }
+                }
 
+            } else if (String(nodeName).indexOf("质检员") != -1 ){
+                if (!fpdwc || fpdwc == '') {
+                    mui.toast('请选择是否整改完成');
+                    return;
+                }
+            }
 
 
 
@@ -941,7 +991,7 @@
                 xml = xml + '<Method>Process</Method>';
                 xml = xml + '<PID>' + pid + '</PID>';
                 xml = xml + '<Action>' + action + '</Action>';
-                xml = xml + '<Comment></Comment>';
+                xml = xml + '<Comment>' + comment + '</Comment>';
 
 
                 xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
@@ -1093,115 +1143,7 @@
             });
         }
 
-        var toStepIDs = new Array();
-        //获取可退回步骤的列表
-        function getRecedableToSteps() {
-            var stepid = parseInt($("#stepId").val());
-            //console.log(parseInt($("#stepId").val()));
-            $.ajax({
-                type: "POST",
-                url: "/api/bpm/GetRecedableToSteps",
-                data: { '': stepid },
-                beforeSend: function (XHR) {
-                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
-
-                },
-                success: function (data, status) {
-
-                    if (status == "success") {
-                        console.log(data);
-                        $("#wrapper").css("display", "none");
-
-                        if ($("#recedeWr").length != 0) {
-                            $("#recedeWr").remove();
-                        }
-
-
-                        var li = '<div class="mui-card" id="recedeWr" style="z-index:999;">';
-                        li = li + '  <form class="mui-input-group">';
-                        li = li + '  <div class="mui-input-row bgc">';
-                        li = li + '       <label>将任务退回</label>';
-                        li = li + '  </div>';
-                        for (var i = 0; i < data.length;i++){
-
-                            li = li + '     <div class="mui-input-row mui-checkbox mui-left">';
-                            li = li + '     <label>' + data[i].NodeName + '&nbsp;' + data[i].OwnerFullName + '&nbsp;' + FormatterTimeYMS(data[i].FinishAt) + '</label>';
-                            li = li + '     <input name="stepcbox" value="' + data[i].StepID + '" type="checkbox" >';
-                            li = li + '     </div>';
-
-                        }
-                        li = li + '   <div class="mui-btn-row mui-text-center" style="margin-top:1rem;">';
-                        li = li + '      <button class="mui-btn mui-btn-primary" type="button" style="height:2.5rem;width:40%;" onclick="RecedeBack()">确定</button>&nbsp;&nbsp;';
-                        li = li + '      <button class="mui-btn mui-btn-danger" type="button" style="height:2.5rem;width:40%;" onclick="goBack()">取消</button>';
-                        li = li + '   </div>';
-                        $("body").append(li);
-
-
-                    }
-                }, error: function (e) {
-
-                }, complete: function () {
-
-                }
-            });
-        }
-
-
-        //退回某步
-        function RecedeBack() {
-            var stepId = $("#stepId").val();
-            var comments;
-            var list = document.getElementById('recedeWr');
-            var checkboxArray = [].slice.call(list.querySelectorAll('input[type="checkbox"]'));
-
-            checkboxArray.forEach(function (box) {
-                if (box.checked) {
-                    toStepIDs.push(box.value);
-                }
-            });
-            if (toStepIDs.length > 0) {
-                var btnArray = ['取消', '确定'];
-                mui.prompt('请输入原因：', '', '退回理由', btnArray, function (e) {
-                    if (e.index == 1) {
-                        comments = e.value;
-
-
-                        $.ajax({
-                            type: 'Post',
-                            url: '/api/bpm/PostRecedeBack',
-                            //dataType:'json',
-                            data: { 'stepid': stepId, 'comments': comments, 'toStepIDs': toStepIDs },
-
-                            beforeSend: function (XHR) {
-                                XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
-                            },
-                            success: function (data, status) {
-                                if (status == "success") {
-                                    console.log(data);
-                                    mui.toast("退回到某步操作成功");
-                                    setTimeout(" window.location.href = '/Pages/UndoFlow.html'", 2000);
-                                }
-                            }, error: function (e) {
-
-                            }, complete: function () {
-
-                            }
-                        });
-                    }
-                });
-            } else {
-                mui.toast("未选中任何节点");
-            }
-
-
-        }
-
-        function goBack() {
-            $("#recedeWr").css("display", "none");
-            $("#wrapper").css("display", "block");
-
-        }
-
+        
     </script>
 </body>
 </html>

@@ -134,24 +134,22 @@
 
            </div>
 
-           <div class="mui-table-view" style="margin-bottom:3.25rem;">
-               <div class="mui-table-view-cell  mui-collapse mui-active">
-                   <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
-
-                       历史签核意见
-                   </a>
-                   <div class="mui-collapse-content">
-
-                       <!--流程列表-->
-                       <div class="list">
-                           <ul id="signff"></ul>
-                       </div>
-
-
-                   </div>
-               </div>
-           </div>
+           
        </form> 
+        <div class="mui-table-view" style="margin-bottom:3.25rem;">
+            <div class="mui-table-view-cell  mui-collapse mui-active">
+                <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
+                    历史签核意见
+                </a>
+                <div class="mui-collapse-content">
+                    <!--流程列表-->
+                    <div class="list">
+                        <ul id="signff"></ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <div class="mui-btn-row"  id="createD">
             <button class="mui-btn mui-btn-primary" type="button"  id="commitbt" onclick="Save()">提交</button>
         </div>
@@ -573,8 +571,7 @@
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
                             $(".upload-addbtn").css("display", "block");
-                            $("#addItem").css("display", "block");
-                            $("#ftel").removeAttr("readonly");                           
+                            $("#fmd,#fmc,#fxs,#fyq,#fwcsj").removeAttr('readonly');                        
                             tapEvent();
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
@@ -584,6 +581,9 @@
                                 $("#approvalD").css("display", "block");
                             }
                         }
+
+                       
+
                         for (var i = 0; i < data.Steps.length; i++) {
 
                             if (data.Steps[i].FinishAt == "0001-01-01T00:00:00") {
@@ -647,6 +647,7 @@
                             $("#signff").append(li);
                         }
                     }
+                  
                 }, error: function (e) {
 
                 }, complete: function () {
@@ -851,7 +852,90 @@
                PostXml(xml);
             }
         }
- 
+
+        function Save() {
+            var pid = $("#stepId").val();
+            var fbillno = $("#fbillno").val();
+
+            var fname = $("#fname").val();
+            var fdate = $("#fdate").val() + " 00:00:00";
+            var fdept = $("#fdept").val();
+
+            var fmd = $("#fmd").val();
+            var fmc = $("#fmc").val();
+            var fxs = $("#fxs").val();
+            var fyq = $("#fyq").val();
+            var fwcsj = $("#fwcsj").val() + " 00:00:00";
+
+
+
+            if (!fdate || fdate == "") {
+                mui.toast("请填写发起日期");
+                return;
+            }
+            if (!fmd || fmd == "") {
+                mui.toast("请填写活动目的");
+                return;
+            }
+            if (!fmc || fmc == "") {
+                mui.toast("请填写活动名称");
+                return;
+            }
+            if (!fxs || fxs == "") {
+                mui.toast("请填写活动形式");
+                return;
+            }
+            if (!fyq || fyq == "") {
+                mui.toast("请填写活动具体要求");
+                return;
+            }
+            if (!$("#fwcsj").val() || $("#fwcsj").val() == "") {
+                mui.toast("请填写完成时间要求");
+                return;
+            }
+
+
+            var btnArry = ["取消", "确定"];
+            mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
+                if (e.index == 1) {
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '   <Header>';
+                    xml = xml + '    <Method>Process</Method>';
+                    xml = xml + '   <PID>' + pid + '</PID>';
+                    xml = xml + '   <Action>提交</Action>';
+                    xml = xml + '    <Comment></Comment>';
+                    xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '  </Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<BPM_SGZSXCYHDSP>';
+                    xml = xml + '<fbillno>' + fbillno + '</fbillno>';
+                    xml = xml + '<fname>' + fname + '</fname>';
+                    xml = xml + '<fdept>' + fdept + '</fdept>';
+                    xml = xml + '<fdate>' + fdate + '</fdate>';
+
+                    xml = xml + '<fmd>' + fmd + '</fmd>';
+                    xml = xml + '<fmc>' + fmc + '</fmc>';
+                    xml = xml + '<fxs>' + fxs + '</fxs>';
+                    xml = xml + '<fyq>' + fyq + '</fyq>';
+                    xml = xml + '<fwcsj>' + fwcsj + '</fwcsj>';
+
+                    if (fjArray.toString() != null && fjArray.toString() != "") {
+                        xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                    } else {
+                        xml = xml + '<ffj></ffj>';
+                    }
+                    xml = xml + '</BPM_SGZSXCYHDSP>';
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    //mui.toast(xml);
+                    //alert(xml);
+                    PostXml(xml);
+                }
+            });
+
+
+        }
     </script>
 </body>
 </html>

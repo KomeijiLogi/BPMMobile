@@ -966,7 +966,154 @@
                PostXml(xml);
             }
         }
- 
+
+        function Save() {
+
+         
+
+            var fname = $("#fname").val();
+            var fdate = $("#fdate").val() + " 00:00:00";
+            var fdept = $("#fdept").val();
+            var ftel = $("#ftel").val();
+
+            var fshmc = $("#fshmc").val();
+            var flxr = $("#flxr").val();
+            var fhtqx_ks = $("#fhtqx_ks").val();
+            var fhtqx_js = $("#fhtqx_js").val();
+
+            var fyyxz = $("#fyyxz").val();
+            var fxz_dph = $("#fxz_dph").val();
+            var fxz_mj = $("#fxz_mj").val();
+            var fxz_zjbz = $("#fxz_zjbz").val();
+            var fxz_jyyt = $("#fxz_jyyt").val();
+            var ftz_dph = $("#ftz_dph").val();
+            var ftz_mj = $("#ftz_mj").val();
+            var ftz_zjbz = $("#ftz_zjbz").val();
+            var ftz_jyyt = $("#ftz_jyyt").val();
+            var fbz = $("#fbz").val();
+
+            if (!fdate || fdate == "") {
+                mui.toast("请填写申请日期");
+                return;
+            }
+            if (!ftel || ftel == "") {
+                mui.toast("请填写联系方式");
+                return;
+            }
+            if (!fshmc || fshmc == "") {
+                mui.toast("请填写商户名称");
+                return;
+            }
+            if (!flxr || flxr == "") {
+                mui.toast("请填写商户联系人");
+                return;
+            }
+            if (!fhtqx_ks || fhtqx_ks == "") {
+                mui.toast("请填写合同开始期限");
+                return;
+            }
+            if (!fhtqx_js || fhtqx_js == "") {
+                mui.toast("请填写合同结束期限");
+                return;
+            }
+            if (!fyyxz || fyyxz == "") {
+                mui.toast("请填写商户运营表述");
+                return;
+            }
+            if (!fxz_dph || fxz_dph == "") {
+                mui.toast("请填写现在店铺号");
+                return;
+            }
+            if (!fxz_mj || fxz_mj == "") {
+                mui.toast("请填写现在面积");
+                return;
+            }
+            if (!fxz_zjbz || fxz_zjbz == "") {
+                mui.toast("请填写现在租金标准");
+                return;
+            }
+            //if (!fxz_jyyt || fxz_jyyt == "") {
+            //    mui.toast("请填写现在经营业态");
+            //    return;
+            //}
+
+            if (!ftz_dph || ftz_dph == "") {
+                mui.toast("请填写调整店铺号");
+                return;
+            }
+            if (!ftz_mj || ftz_mj == "") {
+                mui.toast("请填写调整面积");
+                return;
+            }
+            if (!ftz_zjbz || ftz_zjbz == "") {
+                mui.toast("请填写调整租金标准");
+                return;
+            }
+            //if (!ftz_jyyt || ftz_jyyt == "") {
+            //    mui.toast("请填写调整经营业态");
+            //    return;
+            //}
+
+            //if (!fbz || fbz == "") {
+            //    mui.toast("请填写备注");
+            //    return;
+            //}
+            if (fjArray.toString() == null || fjArray.toString() == "") {
+                mui.toast("请上传附件");
+                  return;
+            }
+
+
+            var btnArry = ["取消", "确定"];
+            mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
+                if (e.index == 1) {
+
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '   <Header>';
+                    xml = xml + '    <Method>Process</Method>';
+                    xml = xml + '   <PID>' + pid + '</PID>';
+                    xml = xml + '   <Action>提交</Action>';
+                    xml = xml + '    <Comment></Comment>';
+                    xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '  </Header>';
+                    xml = xml + '<FormData>';
+
+                    xml = xml + '<BPM_MSCSHTZSPB>';
+                    xml = xml + '<fbillno>自动生成</fbillno>';
+                    xml = xml + '<fname>' + fname + '</fname>';
+                    xml = xml + '<fdept>' + fdept + '</fdept>';
+                    xml = xml + '<fdate>' + fdate + '</fdate>';
+                    xml = xml + '<ftel>' + ftel + '</ftel>';
+                    xml = xml + '<fshmc>' + fshmc + '</fshmc>';
+                    xml = xml + '<flxr>' + flxr + '</flxr>';
+
+                    xml = xml + '<fhtqx_ks>' + fhtqx_ks + '</fhtqx_ks>';
+                    xml = xml + '<fhtqx_js>' + fhtqx_js + '</fhtqx_js>';
+                    xml = xml + '<fyyxz>' + fyyxz + '</fyyxz>';
+                    xml = xml + '<fxz_dph>' + fxz_dph + '</fxz_dph>';
+                    xml = xml + '<fxz_mj>' + fxz_mj + '</fxz_mj>';
+                    xml = xml + '<fxz_zjbz>' + fxz_zjbz + '</fxz_zjbz>';
+                    xml = xml + '<fxz_jyyt>' + fxz_jyyt + '</fxz_jyyt>';
+                    xml = xml + '<ftz_dph>' + ftz_dph + '</ftz_dph>';
+                    xml = xml + '<ftz_mj>' + ftz_mj + '</ftz_mj>';
+                    xml = xml + '<ftz_zjbz>' + ftz_zjbz + '</ftz_zjbz>';
+                    xml = xml + '<ftz_jyyt>' + ftz_jyyt + '</ftz_jyyt>';
+                    xml = xml + '<fbz>' + fbz + '</fbz>';
+                    if (fjArray.toString() != null && fjArray.toString() != "") {
+                        xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                    } else {
+                        xml = xml + '<ffj></ffj>';
+                    }
+                    xml = xml + '</BPM_MSCSHTZSPB>';
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    //mui.toast(xml);
+                    //alert(xml);
+                    PostXml(xml);
+                }
+            });
+        }
     </script>
 </body>
 </html>

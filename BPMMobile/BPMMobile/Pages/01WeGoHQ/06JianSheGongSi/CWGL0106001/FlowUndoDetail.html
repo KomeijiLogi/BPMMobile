@@ -51,7 +51,7 @@
             </div>
             <div class="mui-input-row" style="height:2.75rem;">
                 <label>付款计划明细（单位:万元）</label>
-                <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;" id="addItem"></span>
+                <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;display:none;" id="addItem"></span>
             </div>
             <div class="mui-input-group" id="bllist">
 
@@ -61,7 +61,7 @@
                 <input type="number" id="fhzjhfk" name="fhzjhfk" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="height:2.75rem;">
-                <label for="fhzjhyj">汇总计划约进贷款</label>
+                <label for="fhzjhyj">汇总计划约进货款</label>
                 <input type="number" id="fhzjhyj" name="fhzjhyj" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="height:2.75rem;">
@@ -158,6 +158,7 @@
             &nbsp;&nbsp;
             <button class="mui-btn mui-btn-primary" type="button" style="width:40%;" id="agreebt" onclick="showConfirm()">同意</button>&nbsp;&nbsp;&nbsp;
             <button class="mui-btn mui-btn-danger" type="button" style="width:40%;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;
+
         </div>
         <div class="mui-btn-row" id="readD">
             <button class="mui-btn mui-btn-primary" type="button"  id="readbt" onclick="hasRead()">已阅</button>
@@ -173,7 +174,7 @@
     <input type="hidden" id="consignUser" name="consignUser" value="" />
     <input type="hidden" id="consignOpenId" name="consignOpenId" value="" />
     <input type="hidden" id="fbillno" name="fbillno" value="" />
-
+    <input type="hidden" id="nodeName" name="nodeName" value=""/>
     <div id="signd" style="display:none;">
         <div class="mui-input-row"  id="ssd">
             <label>签核意见</label>
@@ -388,7 +389,7 @@
                         $("#fyear").val(item.年度);
                         $("#fmonth").val(item.计划付款月份);
                         $("#fhzjhfk").val(item.汇总计划付款金额);
-                        $("#fhzjhyj").val(item.汇总计划约进贷款);
+                        $("#fhzjhyj").val(item.汇总计划约进货款);
                         $("#fhzzmye").val(item.汇总账面余额);
                         $("#fhzzgrk").val(item.汇总暂估入库);
                         $("#fhzhjzm").val(item.汇总合计账面余额);
@@ -399,7 +400,9 @@
 
                         var bli = data.FormDataSet.建设公司_月度材料_子表;
                         for (var i = 0; i < bli.length; i++) {
-
+                            if (bli[i].备注 == null) {
+                                bli[i].备注 = '';
+                            }
                             itemidArr.push(bli[i].itemid);
                             var li = '<div id="bl" class="mui-card">';
                             li = li + '   <div class="mui-input-row bgc">';
@@ -412,19 +415,19 @@
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row">';
                             li = li + '        <label for="fjhfk">计划付款金额<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="number" id="fjhfk" name="fjhfk" value="' + bli[i].计划付款金额 + '" readonly="readonly"/>';
+                            li = li + '        <input type="number" id="fjhfk" name="fjhfk" value="' + bli[i].计划付款金额 + '" readonly="readonly" onchange="calcPrice(this)"/>';
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row">';
-                            li = li + '        <label for="fjhyj">计划约进贷款<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="number" id="fjhyj" name="fjhyj" value="' + bli[i].计划约进贷款 + '" readonly="readonly"/>';
+                            li = li + '        <label for="fjhyj">计划约进货款<i style="color:red;">*</i></label>';
+                            li = li + '        <input type="number" id="fjhyj" name="fjhyj" value="' + bli[i].计划约进货款 + '" readonly="readonly" onchange="calcPrice(this)"/>';
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row">';
                             li = li + '        <label for="fzmye">账面余额<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="number" id="fzmye" name="fzmye" value="' + bli[i].账面余额 + '" readonly="readonly"/>';
+                            li = li + '        <input type="number" id="fzmye" name="fzmye" value="' + bli[i].账面余额 + '" readonly="readonly" onchange="calcPrice(this)"/>';
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row">';
                             li = li + '        <label for="fzgrk">暂估入库<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="number" id="fzgrk" name="fzgrk" value="' + bli[i].暂估入库 + '" readonly="readonly"/>';
+                            li = li + '        <input type="number" id="fzgrk" name="fzgrk" value="' + bli[i].暂估入库 + '" readonly="readonly" onchange="calcPrice(this)"/>';
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row">';
                             li = li + '        <label for="fhjzmye">合计账面余额<i style="color:red;">*</i></label>';
@@ -465,20 +468,52 @@
                             }
 
                         }
+                        console.log(NodeName);
+                        $("#nodeName").val(NodeName);
 
                         if (NodeName == "开始") {
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
-                            $("#bllist").find('input').each(function () {
+                            $("#bllist").find("span").each(function () {
+
+                                $(this).css("display", "block");
+                            });
+                            $("#bllist").find('#fgys,#fbz').each(function () {
+                                 
                                 $(this).removeAttr("readonly");
                             });
+                            $("#bllist").find('#fjhfk').each(function () {
+
+                                $(this).removeAttr("readonly");
+                                calcPrice(this);
+                            });
+                            $("#bllist").find('#fjhyj').each(function () {
+
+                                $(this).removeAttr("readonly");
+                                calcPrice(this);
+                            });
                             tapEvent();
+                            $("#addItem").css("display", "block");
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
                         } else {
                             if (typeof (NodeName) != "undefined") {
                                 $("#approvalD").css("display", "block");
+                                if (String(NodeName).indexOf('会计') != -1) {
+                                    $("#bllist").find("#bl").each(function () {
+                                        $(this).find("#fzmye").removeAttr("readonly");
+                                        $(this).find("#fzgrk").removeAttr("readonly");
+                                        $(this).find("#fzmye").on('input', function () {
+
+                                            calcPrice(this);
+                                        });
+                                        $(this).find("#fzgrk").on('input', function () {
+                                            calcPrice(this);
+                                        });
+                                    });
+                                }
+
                             }
                         }
 
@@ -553,7 +588,17 @@
                 }
             });
         }
+        function deleteItem(context) {
+            var btnArray = ['否', '是'];
+            mui.confirm('确认删除？', '', btnArray, function (e) {
+                if (e.index == 1) {
+                    $(context).parent().parent().remove();
+                    amountPrice();
+                }
+            });
 
+
+        }
         function AgreeOrConSign() {
 
 
@@ -570,7 +615,8 @@
             var fhzhjzm = $("#fhzhjzm").val();
             var fhzjhzm = $("#fhzjhzm").val();
             var fbillno = $("#fbillno").val();
-
+            var nodeName = $("#nodeName").val();
+            var mxflag = false;
             var bllistArr = new Array();
             $("#bllist").find("#bl").each(function () {
 
@@ -582,28 +628,26 @@
                 var fhjzmye = $(this).find("#fhjzmye").val();
                 var fjhzmbd = $(this).find("#fjhzmbd").val();
                 var fbz = $(this).find("#fbz").val();
+                if (String(nodeName).indexOf("会计")!=-1) {
+                    if (!fzmye || fzmye == '') {
+                        mui.toast('请填写账面余额');
+                        mxflag = true;
+                        return;
+                    }
+                    if (!fzgrk || fzgrk == '') {
+                        mui.toast('请填写暂估入库');
+                        mxflag = true;
+                        return;
+                    }
+                }
+                var bl = blItem(fgys, fjhfk, fjhyj, fzmye, fzgrk, fhjzmye, fjhzmbd, fbz);
+                bllistArr.push(bl);
 
             });
-                //if (!fgys || fgys == "") {
-
-                //    mui.toast("请输入供应商");
-                //    return;
-                //}
-                //if (!fjhfk || fjhfk == "") {
-                //    mui.toast("请输入计划付款金额");
-                //    return;
-
-                //}
-                //if (!fjhyj || fjhyj == "") {
-
-                //    mui.toast("请输入计划约进贷款");
-                //    return;
-                //}
-                //if (!fzgrk || fzgrk == "") {
-                //    mui.toast("请输入暂估入库");
-                //    return;
-
-                //}
+             
+            if (mxflag) {
+                return;
+            }
 
             var comment = $("#signSuggest").val(); 
             var consignUserId = new Array();
@@ -673,12 +717,12 @@
                             xml = xml + '<年度>' + fyear + '</年度>';
                             xml = xml + '<计划付款月份>' + fmonth + '</计划付款月份>';
                             xml = xml + '<汇总计划付款金额>' + fhzjhfk + '</汇总计划付款金额>';
-                            xml = xml + '<汇总计划约进贷款>' + fhzjhyj + '</汇总计划约进贷款>';
+                            xml = xml + '<汇总计划约进货款>' + fhzjhyj + '</汇总计划约进货款>';
                             xml = xml + '<汇总账面余额>' + fhzzmye + '</汇总账面余额>';
                             xml = xml + '<汇总暂估入库>' + fhzzgrk + '</汇总暂估入库>';
                             xml = xml + '<汇总合计账面余额>' + fhzhjzm + '</汇总合计账面余额>';
                             xml = xml + '<汇总计划账面比对>' + fhzjhzm + '</汇总计划账面比对>';
-                            xml = xml + '<模板>201706120529</模板>';
+                            xml = xml + '<模板></模板>';
                             xml = xml + '</建设公司_月度材料_主表>';
                             for (var i = 0; i < bllistArr.length;i++){
 
@@ -688,7 +732,7 @@
                                 xml = xml + '<序号>' + (i + 1) + '</序号>';
                                 xml = xml + '<供应商名称>' + bllistArr[i].fgys + '</供应商名称>';
                                 xml = xml + '<计划付款金额>' + bllistArr[i].fjhfk + '</计划付款金额>';
-                                xml = xml + '<计划约进贷款>' + bllistArr[i].fjhyj + '</计划约进贷款>';
+                                xml = xml + '<计划约进货款>' + bllistArr[i].fjhyj + '</计划约进货款>';
                                 xml = xml + '<账面余额>' + bllistArr[i].fzmye + '</账面余额>';
                                 xml = xml + '<暂估入库>' + bllistArr[i].fzgrk + '</暂估入库>';
                                 xml = xml + '<合计账面余额>' + bllistArr[i].fhjzmye + '</合计账面余额>';
@@ -730,12 +774,12 @@
                 xml = xml + '<年度>' + fyear + '</年度>';
                 xml = xml + '<计划付款月份>' + fmonth + '</计划付款月份>';
                 xml = xml + '<汇总计划付款金额>' + fhzjhfk + '</汇总计划付款金额>';
-                xml = xml + '<汇总计划约进贷款>' + fhzjhyj + '</汇总计划约进贷款>';
+                xml = xml + '<汇总计划约进货款>' + fhzjhyj + '</汇总计划约进货款>';
                 xml = xml + '<汇总账面余额>' + fhzzmye + '</汇总账面余额>';
                 xml = xml + '<汇总暂估入库>' + fhzzgrk + '</汇总暂估入库>';
                 xml = xml + '<汇总合计账面余额>' + fhzhjzm + '</汇总合计账面余额>';
                 xml = xml + '<汇总计划账面比对>' + fhzjhzm + '</汇总计划账面比对>';
-                xml = xml + '<模板>201706120529</模板>';
+                xml = xml + '<模板></模板>';
                 xml = xml + '</建设公司_月度材料_主表>';
                 for (var i = 0; i < bllistArr.length; i++) {
 
@@ -745,7 +789,7 @@
                     xml = xml + '<序号>' + (i + 1) + '</序号>';
                     xml = xml + '<供应商名称>' + bllistArr[i].fgys + '</供应商名称>';
                     xml = xml + '<计划付款金额>' + bllistArr[i].fjhfk + '</计划付款金额>';
-                    xml = xml + '<计划约进贷款>' + bllistArr[i].fjhyj + '</计划约进贷款>';
+                    xml = xml + '<计划约进货款>' + bllistArr[i].fjhyj + '</计划约进货款>';
                     xml = xml + '<账面余额>' + bllistArr[i].fzmye + '</账面余额>';
                     xml = xml + '<暂估入库>' + bllistArr[i].fzgrk + '</暂估入库>';
                     xml = xml + '<合计账面余额>' + bllistArr[i].fhjzmye + '</合计账面余额>';
@@ -788,6 +832,9 @@
                 var fhjzmye = $(this).find("#fhjzmye").val();
                 var fjhzmbd = $(this).find("#fjhzmbd").val();
                 var fbz = $(this).find("#fbz").val();
+
+                var bl = blItem(fgys, fjhfk, fjhyj, fzmye, fzgrk, fhjzmye, fjhzmbd, fbz);
+                bllistArr.push(bl);
 
             });
                 //if (!fgys || fgys == "") {
@@ -832,12 +879,12 @@
                     xml = xml + '<年度>' + fyear + '</年度>';
                     xml = xml + '<计划付款月份>' + fmonth + '</计划付款月份>';
                     xml = xml + '<汇总计划付款金额>' + fhzjhfk + '</汇总计划付款金额>';
-                    xml = xml + '<汇总计划约进贷款>' + fhzjhyj + '</汇总计划约进贷款>';
+                    xml = xml + '<汇总计划约进货款>' + fhzjhyj + '</汇总计划约进货款>';
                     xml = xml + '<汇总账面余额>' + fhzzmye + '</汇总账面余额>';
                     xml = xml + '<汇总暂估入库>' + fhzzgrk + '</汇总暂估入库>';
                     xml = xml + '<汇总合计账面余额>' + fhzhjzm + '</汇总合计账面余额>';
                     xml = xml + '<汇总计划账面比对>' + fhzjhzm + '</汇总计划账面比对>';
-                    xml = xml + '<模板>201706120529</模板>';
+                    xml = xml + '<模板></模板>';
                     xml = xml + '</建设公司_月度材料_主表>';
                     for (var i = 0; i < bllistArr.length; i++) {
 
@@ -847,7 +894,7 @@
                         xml = xml + '<序号>' + (i + 1) + '</序号>';
                         xml = xml + '<供应商名称>' + bllistArr[i].fgys + '</供应商名称>';
                         xml = xml + '<计划付款金额>' + bllistArr[i].fjhfk + '</计划付款金额>';
-                        xml = xml + '<计划约进贷款>' + bllistArr[i].fjhyj + '</计划约进贷款>';
+                        xml = xml + '<计划约进货款>' + bllistArr[i].fjhyj + '</计划约进货款>';
                         xml = xml + '<账面余额>' + bllistArr[i].fzmye + '</账面余额>';
                         xml = xml + '<暂估入库>' + bllistArr[i].fzgrk + '</暂估入库>';
                         xml = xml + '<合计账面余额>' + bllistArr[i].fhjzmye + '</合计账面余额>';
@@ -889,16 +936,14 @@
                 var fhjzmye = $(this).find("#fhjzmye").val();
                 var fjhzmbd = $(this).find("#fjhzmbd").val();
                 var fbz = $(this).find("#fbz").val();
-
-
-            });
-            if (!fgys || fgys == "") {
-                mxflag = true;
+                if (!fgys || fgys == "") {
+                    mxflag = true;
                     mui.toast("请输入供应商");
                     return;
                 }
-            if (!fjhfk || fjhfk == "") {
-                mxflag = true;
+               
+                if (!fjhfk || fjhfk == "") {
+                    mxflag = true;
                     mui.toast("请输入计划付款金额");
                     return;
 
@@ -908,13 +953,12 @@
                     mui.toast("请输入计划约进贷款");
                     return;
                 }
-                if (!fzgrk || fzgrk == "") {
-                    mxflag = true;
-                    mui.toast("请输入暂估入库");
-                    return;
+                
+                var bl = blItem(fgys, fjhfk, fjhyj, fzmye, fzgrk, fhjzmye, fjhzmbd, fbz);
+                bllistArr.push(bl);
 
-                }
-
+            });
+          
                 if (!fyear || fyear == "") {
                     mxflag = true;
                 mui.toast("请选择年度");
@@ -952,12 +996,12 @@
                     xml = xml + '<年度>' + fyear + '</年度>';
                     xml = xml + '<计划付款月份>' + fmonth + '</计划付款月份>';
                     xml = xml + '<汇总计划付款金额>' + fhzjhfk + '</汇总计划付款金额>';
-                    xml = xml + '<汇总计划约进贷款>' + fhzjhyj + '</汇总计划约进贷款>';
+                    xml = xml + '<汇总计划约进货款>' + fhzjhyj + '</汇总计划约进货款>';
                     xml = xml + '<汇总账面余额>' + fhzzmye + '</汇总账面余额>';
                     xml = xml + '<汇总暂估入库>' + fhzzgrk + '</汇总暂估入库>';
                     xml = xml + '<汇总合计账面余额>' + fhzhjzm + '</汇总合计账面余额>';
                     xml = xml + '<汇总计划账面比对>' + fhzjhzm + '</汇总计划账面比对>';
-                    xml = xml + '<模板>201706120529</模板>';
+                    xml = xml + '<模板></模板>';
                     xml = xml + '</建设公司_月度材料_主表>';
                     for (var i = 0; i < bllistArr.length; i++) {
 
@@ -967,7 +1011,7 @@
                         xml = xml + '<序号>' + (i + 1) + '</序号>';
                         xml = xml + '<供应商名称>' + bllistArr[i].fgys + '</供应商名称>';
                         xml = xml + '<计划付款金额>' + bllistArr[i].fjhfk + '</计划付款金额>';
-                        xml = xml + '<计划约进贷款>' + bllistArr[i].fjhyj + '</计划约进贷款>';
+                        xml = xml + '<计划约进货款>' + bllistArr[i].fjhyj + '</计划约进货款>';
                         xml = xml + '<账面余额>' + bllistArr[i].fzmye + '</账面余额>';
                         xml = xml + '<暂估入库>' + bllistArr[i].fzgrk + '</暂估入库>';
                         xml = xml + '<合计账面余额>' + bllistArr[i].fhjzmye + '</合计账面余额>';
@@ -987,7 +1031,50 @@
 
 
         }
+        function blItem(fgys, fjhfk, fjhyj, fzmye, fzgrk, fhjzmye, fjhzmbd, fbz) {
 
+            var bl = new Object;
+            bl.fgys = fgys;
+            bl.fjhfk = fjhfk;
+            bl.fjhyj = fjhyj;
+            bl.fzmye = fzmye;
+            bl.fzgrk = fzgrk;
+            bl.fhjzmye = fhjzmye;
+            bl.fjhzmbd = fjhzmbd;
+            bl.fbz = fbz;
+            return bl;
+
+        }
+        function calcPrice(context) {
+
+            var fjhfk = parseFloat($(context).parent().parent().find("#fjhfk").val());
+            var fjhyj = parseFloat($(context).parent().parent().find("#fjhyj").val());
+            var fzgrk = parseFloat($(context).parent().parent().find("#fzgrk").val());
+            var fzmye = parseFloat($(context).parent().parent().find("#fzmye").val());
+            var fjhzmbd;
+            var fhjzmye;
+            if (!fjhfk || fjhfk == "") {
+                fjhfk = 0;
+            }
+            if (!fjhyj || fjhyj == "") {
+                fjhyj = 0;
+            }
+            if (!fzgrk || fzgrk == "") {
+                fzgrk = 0;
+            }
+
+            if (!fzmye || fzmye == "") {
+                fzmye = 0;
+            }
+
+            fhjzmye = fzgrk + fzmye;
+            fjhzmbd = fhjzmye - fjhfk;
+            $(context).parent().parent().find("#fhjzmye").val(fhjzmye);
+            $(context).parent().parent().find("#fjhzmbd").val(fjhzmbd);
+
+            //触发计算总金额函数
+            amountPrice();
+        }
 
         function amountPrice() {
             var fhzjhfk = 0;
@@ -995,6 +1082,8 @@
             var fhzzgrk = 0;
             var fhzhjzm = 0;
             var fhzjhzm = 0;
+            var fhzzmye = 0;
+
             //计算汇总计划付款
             $("#bllist").find("#bl").each(function () {
                 var fjhfktmp = parseFloat($(this).find("#fjhfk").val());
@@ -1059,38 +1148,27 @@
                     fhzjhzm += fjhzmbdtmp;
                 }
             });
+
+            //计算汇总账面余额
+            $("#bllist").find("#bl").each(function () {
+                var fzmyetmp = parseFloat($(this).find("#fzmye").val());
+                if ($(this).find("#fzmye").val() == null || $(this).find("#fzmye").val() == "") {
+                    fzmyetmp = 0;
+                }
+                if (fhzzmye == 0) {
+                    fhzzmye = fzmyetmp;
+                } else {
+                    fhzzmye += fzmyetmp;
+                }
+
+            });
+
             $("#fhzjhfk").val(fhzjhfk);
             $("#fhzjhyj").val(fhzjhyj);
             $("#fhzzgrk").val(fhzzgrk);
             $("#fhzhjzm").val(fhzhjzm);
             $("#fhzjhzm").val(fhzjhzm);
-
-        }
-
-        function calcPrice(context) {
-
-            var fjhfk = parseFloat($(context).parent().parent().find("#fjhfk").val());
-            var fjhyj = parseFloat($(context).parent().parent().find("#fjhyj").val());
-            var fzgrk = parseFloat($(context).parent().parent().find("#fzgrk").val());
-            var fjhzmbd;
-
-            if (!fjhfk || fjhfk == "") {
-                fjhfk = 0;
-            }
-            if (!fjhyj || fjhyj == "") {
-                fjhyj = 0;
-            }
-            if (!fzgrk || fzgrk == "") {
-                fzgrk = 0;
-            }
-            fjhzmbd = fzgrk - fjhfk;
-
-
-            $(context).parent().parent().find("#fhjzmye").val(fzgrk);
-            $(context).parent().parent().find("#fjhzmbd").val(fjhzmbd);
-
-            //触发计算总金额函数
-            amountPrice();
+            $("#fhzzmye").val(fhzzmye);
         }
         function tapEvent() {
 
@@ -1112,8 +1190,8 @@
                 li = li + '        <input type="number" id="fjhfk" name="fjhfk" value=""  placeholder="请输入计划付款金额"  onchange="calcPrice(this)"/>';
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row">';
-                li = li + '        <label for="fjhyj">计划约进贷款<i style="color:red;">*</i></label>';
-                li = li + '        <input type="number" id="fjhyj" name="fjhyj" value="" placeholder="请输入计划约进贷款"  onchange="calcPrice(this)"/>';
+                li = li + '        <label for="fjhyj">计划约进货款<i style="color:red;">*</i></label>';
+                li = li + '        <input type="number" id="fjhyj" name="fjhyj" value="" placeholder="请输入计划约进货款"  onchange="calcPrice(this)"/>';
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row">';
                 li = li + '        <label for="fzmye">账面余额<i style="color:red;">*</i></label>';
@@ -1121,7 +1199,7 @@
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row">';
                 li = li + '        <label for="fzgrk">暂估入库<i style="color:red;">*</i></label>';
-                li = li + '        <input type="number" id="fzgrk" name="fzgrk" value="" placeholder="请输入暂估入库" onchange="calcPrice(this)"/>';
+                li = li + '        <input type="number" id="fzgrk" name="fzgrk" value=""  onchange="calcPrice(this)" readonly="readonly"/>';
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row">';
                 li = li + '        <label for="fhjzmye">合计账面余额<i style="color:red;">*</i></label>';
@@ -1229,6 +1307,9 @@
             showPicker('fmonth', fmonthdata);
 
         }
+
+
+       
     </script>
 </body>
 </html>

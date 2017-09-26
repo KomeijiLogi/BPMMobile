@@ -578,7 +578,7 @@
                          selectPerson = new Array();
                          for (var i = 0; i < item_child_ps.length; i++) {
 
-                             var li = ' <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#" onclick="deleteThis(this)" class="deleteControl">';
+                             var li = ' <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#"  class="deleteControl">';
                              li = li + '    <img src="' + photoUrl + '" style="border-radius:2rem;"/>';
                              li = li + '    <div class="mui-media-body">' + item_child_ps[i].UserName + '<input type="hidden" id="openid" name="openid" value=""/></div></a>';
                              li = li + ' </li>';
@@ -629,7 +629,7 @@
                              getBPMOUInfo();
                              $("#fbt").removeAttr("readonly");
                              $("#fnr").removeAttr("readonly");
-                          
+
                          } else if (NodeName == "sysInform") {
                              $("#readD").css("display", "block");
                              $("#csd").css("display", "none");
@@ -640,9 +640,9 @@
                              if (typeof (NodeName) != "undefined") {
                                  $("#approvalD").css("display", "block");
                                  $("#rylist").find(".deleteControl").each(function () {
-                                    
+
                                      $(this).off('click');
-                                   
+
                                  });
                              }
                          }
@@ -878,10 +878,10 @@
              xml = xml + '      <Requests>';
              xml = xml + '     <Params>';
              xml = xml + '         <DataSource>BPMDATA</DataSource>';
-             xml = xml + '         <ID>GetBPMOU</ID>';
+             xml = xml + '         <ID>erpcloud_公用_获取组织</ID>';
              xml = xml + '         <Type>1</Type>';
              xml = xml + '        <Method>GetUserDataProcedure</Method>';
-             xml = xml + '        <ProcedureName>GetBPMOU</ProcedureName>';
+             xml = xml + '        <ProcedureName>erpcloud_公用_获取组织</ProcedureName>';
              xml = xml + '        <Filter>';
              xml = xml + '         <code>01.07.04</code>';
              xml = xml + '          </Filter>';

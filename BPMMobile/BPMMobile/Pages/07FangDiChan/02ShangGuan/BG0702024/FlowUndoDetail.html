@@ -39,7 +39,7 @@
             </div>
             <div class="mui-input-row">
                 <label for="fdate">报审日期</label>
-                <input type="text" id="fdate" name="fdate" readonly="readonly" />
+                <input type="date" id="fdate" name="fdate" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fwymc">租赁物业名称<i style="color:red;">*</i></label>
@@ -297,7 +297,7 @@
                 openSignPer();
 
             });
-            upload();
+            //upload();
             watch();
         });
         mui('#csd_switch').each(function () {
@@ -520,6 +520,9 @@
                 $("#fjs").val(item.fjs);
                 $("#ftsxq").val(item.ftsxq);
                 $("#fqttk").val(item.fqttk);
+                if (item.fwymc == '民俗邨') {
+                    $("#fzjwyfzf").val(item.fzjwyfzffs);
+                }
 
                 var item_a = data.FormDataSet.BPM_SGZLPS_B1;
                 for (var i = 0; i < item_a.length; i++) {
@@ -728,6 +731,7 @@
                     $(".upload-addbtn").css("display", "block");
                     $("#tjmx_jbtj").css("display", "block");
                     $("#tjmx_ndsycs").css("display", "block");
+                    upload();
                     tapEvent();
                     $("#mxlist_jbtj,#mxlist_ndsycs").find("span").each(function () {
                         $(this).css("display", "block");
@@ -856,7 +860,24 @@
                 }
 
             ];
-            showPicker('fwymc', fwymcdata);
+            var element = document.getElementById('fwymc');
+
+            var picker = new mui.PopPicker();
+
+            picker.setData(fwymcdata);
+
+            element.addEventListener('tap', function () {
+
+                picker.show(function (items) {
+
+                    element.value = items[0].text;
+                    if (element.value == '民俗邨') {
+                        $("#fif_syxtd").parent().css("display", "none");
+                        $("#fjs").parent().css("display", "none");
+                    }
+                });
+
+            }, false);
 
 
             var fhzxsdata = [
@@ -1094,7 +1115,8 @@
             var fjs = $("#fjs").val();
             var ftsxq = $("#ftsxq").val();
             var fqttk = $("#fqttk").val();
-
+            var pid = $("#stepId").val();
+            var fbillno = $("#fbillno").val();
             if (!fwymc || fwymc == '') {
                 mui.toast('请选择租赁物业名称');
                 return;
@@ -1234,20 +1256,18 @@
                 if (e.index == 1) {
                     var xml = '<?xml version="1.0"?>';
                     xml = xml + '<XForm>';
-                    xml = xml + '<Header>';
-                    xml = xml + '<Method>Post</Method>';
-                    xml = xml + '<ProcessName>盛祥商管公司租赁协议评审</ProcessName>';
-                    xml = xml + '<ProcessVersion>' + version + '</ProcessVersion>';
-                    xml = xml + ' <DraftGuid></DraftGuid>';
-                    xml = xml + '<OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
-                    xml = xml + '<Action>提交</Action>';
-                    xml = xml + '<Comment></Comment>';
-                    xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
-                    xml = xml + '</Header>';
+                    xml = xml + '   <Header>';
+                    xml = xml + '    <Method>Process</Method>';
+                    xml = xml + '   <PID>' + pid + '</PID>';
+                    xml = xml + '   <Action>提交</Action>';
+                    xml = xml + '    <Comment></Comment>';
+                    xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '  </Header>';
                     xml = xml + '<FormData>';
 
+
                     xml = xml + '     <BPM_SGZLPS>';
-                    xml = xml + '        <fbillno>自动生成</fbillno>';
+                    xml = xml + '        <fbillno>' + fbillno + '</fbillno>';
                     xml = xml + '          <fname>' + fname + '</fname>';
                     xml = xml + '         <fdept>' + fdept + '</fdept>';
                     xml = xml + '         <fdate>' + fdate + '</fdate>';
@@ -1273,7 +1293,7 @@
                     xml = xml + '          <fzjwyfzf>' + fzjwyfzf + '</fzjwyfzf>';
                     xml = xml + '           <fif_syxt>' + fif_syxt + '</fif_syxt>';
                     xml = xml + '          <fjs>' + fjs + '</fjs>';
-                    xml = xml + '          <fzjwyfzffs></fzjwyfzffs>';
+                    xml = xml + '          <fzjwyfzffs>' + fzjwyfzf +'</fzjwyfzffs>';
                     xml = xml + '          <fqt></fqt>';
                     xml = xml + '          <ftsxq>' + ftsxq + '</ftsxq>';
                     xml = xml + '          <fqttk>' + fqttk + '</fqttk>';
@@ -1420,7 +1440,7 @@
                     xml = xml + '          <fzjwyfzf>' + fzjwyfzf + '</fzjwyfzf>';
                     xml = xml + '           <fif_syxt>' + fif_syxt + '</fif_syxt>';
                     xml = xml + '          <fjs>' + fjs + '</fjs>';
-                    xml = xml + '          <fzjwyfzffs></fzjwyfzffs>';
+                    xml = xml + '          <fzjwyfzffs>' + fzjwyfzf +'</fzjwyfzffs>';
                     xml = xml + '          <fqt></fqt>';
                     xml = xml + '          <ftsxq>' + ftsxq + '</ftsxq>';
                     xml = xml + '          <fqttk>' + fqttk + '</fqttk>';
@@ -1613,7 +1633,7 @@
                     xml = xml + '          <fzjwyfzf>' + fzjwyfzf + '</fzjwyfzf>';
                     xml = xml + '           <fif_syxt>' + fif_syxt + '</fif_syxt>';
                     xml = xml + '          <fjs>' + fjs + '</fjs>';
-                    xml = xml + '          <fzjwyfzffs></fzjwyfzffs>';
+                    xml = xml + '          <fzjwyfzffs>' + fzjwyfzf +'</fzjwyfzffs>';
                     xml = xml + '          <fqt></fqt>';
                     xml = xml + '          <ftsxq>' + ftsxq + '</ftsxq>';
                     xml = xml + '          <fqttk>' + fqttk + '</fqttk>';
@@ -1671,7 +1691,7 @@
 
 
                 xml = xml + '     <BPM_SGZLPS>';
-                xml = xml + '        <fbillno>自动生成</fbillno>';
+                xml = xml + '        <fbillno>' + fbillno + '</fbillno>';
                 xml = xml + '          <fname>' + fname + '</fname>';
                 xml = xml + '         <fdept>' + fdept + '</fdept>';
                 xml = xml + '         <fdate>' + fdate + '</fdate>';
@@ -1697,7 +1717,7 @@
                 xml = xml + '          <fzjwyfzf>' + fzjwyfzf + '</fzjwyfzf>';
                 xml = xml + '           <fif_syxt>' + fif_syxt + '</fif_syxt>';
                 xml = xml + '          <fjs>' + fjs + '</fjs>';
-                xml = xml + '          <fzjwyfzffs></fzjwyfzffs>';
+                xml = xml + '          <fzjwyfzffs>' + fzjwyfzf +'</fzjwyfzffs>';
                 xml = xml + '          <fqt></fqt>';
                 xml = xml + '          <ftsxq>' + ftsxq + '</ftsxq>';
                 xml = xml + '          <fqttk>' + fqttk + '</fqttk>';

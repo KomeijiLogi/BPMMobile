@@ -233,10 +233,10 @@
 
     <script>
         mui.init();
-        //var picker1 = new mui.PopPicker();
-        //var picker2 = new mui.PopPicker();
-        //var picker3 = new mui.PopPicker();
-        //var picker4 = new mui.PopPicker();
+        var picker1 = new mui.PopPicker();
+        var picker2 = new mui.PopPicker();
+        var picker3 = new mui.PopPicker();
+        var picker4 = new mui.PopPicker();
         mui.ready(function () {
             getBPMParam();
             getTaskMsg();
@@ -696,8 +696,9 @@
                             $("#csd").css("display", "none");
                             $(".upload-addbtn").css("display", "block");
                             $("#addItem").css("display", "block");
-                            $("#ftel").removeAttr("readonly");                           
-                            tapEvent();
+                            $("#ftel").removeAttr("readonly");
+                            $("#fgzpmc,#fgzpxh,#fgzpsl,#fgzpxlh,#fqt,#fqx_xx_clcs,#fjg,#ffycl").removeAttr("readonly");
+                            setList();
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -822,7 +823,7 @@
                     xml = xml + '</Header>';
                     xml = xml + '<FormData>';
                     xml = xml + '<BPM_SGGSBGSBWXGHSQB>';
-                    xml = xml + '<fbillno>自动生成</fbillno>';
+                    xml = xml + '<fbillno>' + fbillno + '</fbillno>';
                     xml = xml + '<fname>' + fname + '</fname>';
                     xml = xml + '<fdept>' + fdept + '</fdept>';
                     xml = xml + '<fdate>' + fdate + '</fdate>';
@@ -846,6 +847,70 @@
                     xml = xml + '</XForm>';
                     PostXml(xml);
                 }
+            });
+        }
+        function Save() {
+            var pid = $("#stepId").val();
+            var fbillno = $("#fbillno").val();
+
+            var fname = $("#fname").val();
+            var fdate = $("#fdate").val() + " 00:00:00";
+            var fdept = $("#fdept").val();
+            var ftel = $("#ftel").val();
+
+            var fgzpmc = $("#fgzpmc").val();
+            var fgzpxh = $("#fgzpxh").val();
+            var fgzpsl = $("#fgzpsl").val();
+            var fgzpxlh = $("#fgzpxlh").val();
+            var fgzrq = $("#fgzrq").val();
+            var fgztj = $("#fgztj").val();
+            var fjjcd = $("#fjjcd").val();
+            var fgzyy = $("#fgzyy").val();
+            var fqt = $("#fqt").val();
+            var fsmfwyq = $("#fsmfwyq").val();
+            var fqwwcrq = $("#fqwwcrq").val();
+            var fqx_xx_clcs = $("#fqx_xx_clcs").val();
+            var fjg = $("#fjg").val();
+            var ffyje = $("#ffyje").val();
+            var ffycl = $("#ffycl").val();
+            var btnArry = ["取消", "确定"];
+            mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
+                if (e.index == 1) {
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '   <Header>';
+                    xml = xml + '    <Method>Process</Method>';
+                    xml = xml + '   <PID>' + pid + '</PID>';
+                    xml = xml + '   <Action>提交</Action>';
+                    xml = xml + '    <Comment></Comment>';
+                    xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '  </Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<BPM_SGGSBGSBWXGHSQB>';
+                    xml = xml + '<fbillno>' + fbillno + '</fbillno>';
+                    xml = xml + '<fname>' + fname + '</fname>';
+                    xml = xml + '<fdept>' + fdept + '</fdept>';
+                    xml = xml + '<fdate>' + fdate + '</fdate>';
+                    xml = xml + '<ftel>' + ftel + '</ftel>';
+                    xml = xml + '<fgzpmc>' + fgzpmc + '</fgzpmc>';
+                    xml = xml + '<fgzpxh>' + fgzpxh + '</fgzpxh>';
+                    xml = xml + '<fgzpsl>' + fgzpsl + '</fgzpsl>';
+                    xml = xml + '<fgzpxlh>' + fgzpxlh + '</fgzpxlh>';
+                    xml = xml + '<fgzrq>' + fgzrq + '</fgzrq>';
+                    xml = xml + '<fgztj>' + fgztj + '</fgztj>';
+                    xml = xml + '<fjjcd>' + fjjcd + '</fjjcd>';
+                    xml = xml + '<fgzyy>' + fgzyy + '</fgzyy>';
+                    xml = xml + '<fsmfwyq>' + fsmfwyq + '</fsmfwyq>';
+                    xml = xml + '<fqwwcrq>' + fqwwcrq + '</fqwwcrq>';
+                    xml = xml + '<fqx_xx_clcs>' + fqx_xx_clcs + '</fqx_xx_clcs>';
+                    xml = xml + '<fjg>' + fjg + '</fjg>';
+                    xml = xml + '<ffyje>' + ffyje + '</ffyje>';
+                    xml = xml + '<ffycl>' + ffycl + '</ffycl>';
+                    xml = xml + '</BPM_SGGSBGSBWXGHSQB>';
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    PostXml(xml);
+                };
             });
         }
 
@@ -997,11 +1062,20 @@
                 xml = xml + '</BPM_SGGSBGSBWXGHSQB>';
                 xml = xml + '</FormData>';
                 xml = xml + '</XForm>';
-                //alert(xml);
+               
                PostXml(xml);
             }
         }
- 
+
+      
+        function checkVal(val) {
+
+            if (val == "其他") {
+                $("#qt").css("display", "block");
+            } else {
+                $("#qt").css("display", "none");
+            }
+        }
     </script>
 </body>
 </html>

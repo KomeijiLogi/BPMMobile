@@ -5,24 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
-    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
     
-    <script type="text/javascript" src="../../Scripts/mui.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
-    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
     <!--<script type="text/javascript" src="../../Scripts/util.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>-->
-    <link rel="stylesheet" href="../../Content/mui.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.picker.min.css"/>
-    <link rel="stylesheet" href="../../Content/mui.poppicker.css"/>
-    <link rel="stylesheet" href="../../Content/upload.css" />
-    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
-    <link rel="stylesheet" href="../../Content/DoneOrMyApproval.css"/>
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css"/>
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css"/>
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
+    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css"/>
     <title></title>
     <meta charset="utf-8" />
     
@@ -33,11 +33,11 @@
            
             <div class="mui-input-row">
                 <label>员工姓名</label>
-                <input type="text" placeholder="请输入员工姓名信息"  id="fname" name="fname" readonly="readonly"/>
+                <input type="text"   id="fname" name="fname" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>员工工号</label>
-                <input type="text" placeholder="请输入员工姓名信息"  id="fno" name="fno" readonly="readonly"/>
+                <input type="text"   id="fno" name="fno" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>部门</label>
@@ -45,23 +45,23 @@
             </div>
             <div class="mui-input-row">
                 <label>起始时间</label>
-                <input type="date" placeholder="请选择起始时间信息"  id="fstartdate" name="fstartdate" readonly="readonly"/>
+                <input type="date"   id="fstartdate" name="fstartdate" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>终止时间</label>
-                <input type="date" placeholder="请选择终止时间信息"  id="foverdate" name="foverdate" readonly="readonly"/>
+                <input type="date"  id="foverdate" name="foverdate" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>年度</label>
-                <input type="text" placeholder="请输入年度信息" readonly="readonly" id="fyear" name="fyear" readonly="readonly" />
+                <input type="text"  readonly="readonly" id="fyear" name="fyear"  />
             </div>
             <div class="mui-input-row">
                 <label>月度</label>
-                <input type="text" placeholder="请输入月度信息" readonly="readonly" id="fmonth" name="fmonth" readonly="readonly" />
+                <input type="text"  readonly="readonly" id="fmonth" name="fmonth"  />
             </div>
             <div class="mui-input-row">
                 <label>周</label>
-                <input type="number" placeholder="请输入周信息" readonly="readonly" id="fweek" name="fweek" readonly="readonly" />
+                <input type="number"  readonly="readonly" id="fweek" name="fweek"  />
             </div>
             <div class="mui-input-row" style="height:auto;">
                 <label>工作内容记录</label>
@@ -143,7 +143,7 @@
     <input type="hidden" id="taskId" name="taskId" value="" />
     <input type="hidden" id="myPhone" name="myPhone" value="" />
     <input type="hidden" id="fbillno" name="fbillno" value=""/>
-
+    <input type="hidden" id="nodeName" name="nodeName" value=""/>
     <div id="signd" style="display:none;">
         <div class="mui-input-row"  id="ssd">
             <label>签核意见</label>
@@ -310,15 +310,7 @@
 
         });
 
-        function FormatterTime(time) {
-            var time = String(time);
-            //var ymd = time.substring(time.indexOf("-") + 1, time.indexOf("T"));
-            //var hms = time.substring(time.indexOf("T") + 1, time.lastIndexOf(":"));
-            //time = ymd + " " + hms;
-            var ymd = time.substring(0, time.indexOf("T"));
-            
-            return ymd;
-        }
+       
 
         function getTaskMsg() {
 
@@ -357,8 +349,8 @@
                     var item = data.FormDataSet.BPM_周工作汇报[0];
                     $("#fname").val(item.姓名);
                     $("#fno").val(item.工号);
-                    $("#fstartdate").val(FormatterTime(item.开始日期));
-                    $("#foverdate").val(FormatterTime(item.结束日期));
+                    $("#fstartdate").val(FormatterTimeYMS(item.开始日期));
+                    $("#foverdate").val(FormatterTimeYMS(item.结束日期));
                     $("#fdept").val(item.部门);
                     $("#fyear").val(item.年);
                     $("#fmonth").val(item.月);
@@ -402,7 +394,7 @@
 
                     }
 
-                   
+                    $("#nodeName").val(NodeName);
 
                     if (NodeName == "开始") {
                         //退回重填的处理
@@ -550,7 +542,24 @@
             var taskId = $("#taskId").val();
             //var fbillno = $("#fbillno").val();
 
+            var nodeName = $("#nodeName").val();
+            if (nodeName == "部门经理") {
 
+                if (!fjlpj) {
+                    mui.toast('请选择经理评价');
+                    return;
+                }
+               
+                
+            } else if (nodeName == "分管领导") {
+             
+                if (!fzjpj){
+                    mui.toast('请选择总监评价');
+                    return;
+                }
+
+                
+            }
             var xml = '<?xml version="1.0"?>';
             xml = xml + ' <XForm>';
             xml = xml + '   <Header>';
@@ -803,7 +812,11 @@
 
 
         }
-
+        function FormatterTimeT(time) {
+            var time = String(time);
+            var ymd = time.substring(0, time.indexOf(" "));
+            return ymd;
+        }
        
     </script>
 </body>

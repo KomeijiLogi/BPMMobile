@@ -500,16 +500,16 @@
                             li = li + '       </div>';
                             li = li + '       <div class="mui-input-row" style="height:auto;">';
                             li = li + '          <label>收函部门</label>';
-                            li = li + '           <textarea id="shdept" name="shdept" rows="4">' + shlist[i].shdept + '</textarea>';
+                            li = li + '           <textarea id="shdept" name="shdept" readonly="readonly" rows="4">' + shlist[i].shdept + '</textarea>';
                             li = li + '        </div>';
                             li = li + '        <div class="mui-input-row">';
                             li = li + '            <label>收函人</label>';
-                            li = li + '          <input type="text" id="shname" name="shname" value="' + shlist[i].shname + '" />';
-                            li = li + '            <input type="hidden" id="shno" name="shno" value="' + shlist[i].shno + '"/>';
+                            li = li + '           <input type="text" id="shname" name="shname"  readonly="readonly" value="' + shlist[i].shname + '" />';
+                            li = li + '            <input type="hidden" id="shno" name="shno" readonly="readonly" value="' + shlist[i].shno + '"/>';
                             li = li + '        </div>';
                             li = li + '        <div class="mui-input-row">';
                             li = li + '            <label>收函人职位</label>';
-                            li = li + '            <input type="text" id="zhiwei" name="zhiwei" value="' + shlist[i].zhiwei + '"/>';
+                            li = li + '            <input type="text" id="zhiwei" name="zhiwei" readonly="readonly" value="' + shlist[i].zhiwei + '"/>';
                             li = li + '        </div>';
                             li = li + '     </div >';
                             $("#shlist").append(li);
@@ -542,6 +542,15 @@
 
                         if (NodeName == "开始") {
                             $("#createD").css("display", "block");
+                            $("#tel,#fhzt,#fhnr").removeAttr('readonly');
+                            $(".upload-addbtn").css("display", "block");
+                            tapEvent();
+                            $("#mxlist").find("input").each(function () {
+                                $(this).removeAttr('readonly');
+                            });
+                            $("#mxlist").find("span").each(function () {
+                                $(this).css("display", "block");
+                            });
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                         } else {
@@ -623,9 +632,7 @@
         }
 
         function Save() {
-            var fareaStr = String(BPMOU).split("/");
-            //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
-            $("#fhdept").val(fareaStr[fareaStr.length - 2]);
+           
 
             var fhname = $("#fhname").val();
             var fhdept = $("#fhdept").val();
@@ -673,7 +680,7 @@
                     xml = xml + '<blsx>' + blsx + '</blsx>';
                     xml = xml + '<bmcd>' + bmcd + '</bmcd>';
                     xml = xml + '<nlbh></nlbh>';
-                    //remark:测试下缺少这个字段
+                   
                     xml = xml + '<fnllb>' + fnllb + '</fnllb>';
 
                     xml = xml + '<fhzt>' + fhzt + '</fhzt>';
@@ -751,7 +758,7 @@
             xml = xml + '<blsx>' + blsx + '</blsx>';
             xml = xml + '<bmcd>' + bmcd + '</bmcd>';
             xml = xml + '<nlbh></nlbh>';
-            //remark:测试下缺少这个字段
+           
             xml = xml + '<fnllb>' + fnllb + '</fnllb>';
 
             xml = xml + '<fhzt>' + fhzt + '</fhzt>';
@@ -828,7 +835,7 @@
                     xml = xml + '<blsx>' + blsx + '</blsx>';
                     xml = xml + '<bmcd>' + bmcd + '</bmcd>';
                     xml = xml + '<nlbh></nlbh>';
-                    //remark:测试下缺少这个字段
+                   
                     xml = xml + '<fnllb>' + fnllb + '</fnllb>';
 
                     xml = xml + '<fhzt>' + fhzt + '</fhzt>';
@@ -903,6 +910,152 @@
             sh.shno = shno;
             sh.zhiwei = zhiwei;
             return sh;
+        }
+
+        function tapEvent() {
+
+            var fcyqdata = [
+                {
+                    value: "pb",
+                    text: "批办"
+                },
+                {
+                    value: "xt",
+                    text: "协调"
+                },
+                {
+                    value: "yz",
+                    text: "阅知"
+                },
+                {
+                    value: "hf",
+                    text: "回复"
+                }
+
+            ];
+            showPicker('fcyq', fcyqdata);
+
+            var blsxdata = [
+                {
+                    value: "jj",
+                    text: "紧急"
+                },
+                {
+                    value: "yb",
+                    text: "一般"
+                }
+            ];
+            showPicker('blsx', blsxdata);
+
+            var bmcddata = [
+                {
+                    value: "jm",
+                    text: "绝密"
+                },
+                {
+                    value: "mm",
+                    text: "秘密"
+                }
+
+            ];
+            showPicker('bmcd', bmcddata);
+
+            var fnllbdata = [
+                {
+                    value: "wlzzl",
+                    text: "物料制作类"
+                },
+                {
+                    value: "xll",
+                    text: "协力类"
+                },
+                {
+                    value: "qtl",
+                    text: "其他类"
+
+                }
+            ];
+            showPicker('fnllb', fnllbdata);
+            var openIdArr;
+            $("#addItem").on('tap', function () {
+
+                XuntongJSBridge.call('selectPersons', { 'isMulti': 'true', 'pType': '1' }, function (result) {
+                    //alert(JSON.stringify(result));
+                    if (typeof (result) == "string") {
+                        result = JSON.parse(result);
+                    }
+
+                    if (result.success == true || result.success == "true") {
+                        openIdArr = new Array();
+
+                        for (var i = 0; i < result.data.persons.length; i++) {
+
+                            openIdArr.push(result.data.persons[i].openId);
+
+                        }
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/api/bpm/PostAccount",
+                            data: { "ids": openIdArr },
+                            beforeSend: function (XHR) {
+                                XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+                            }, success: function (data, status) {
+
+                                if (status == "success") {
+
+                                    for (var i = 0; i < data.data.length; i++) {
+                                        //alert(JSON.stringify(data.data[i]));
+
+                                        var shdept = String(data.data[i].department).replace(/\\/g, "/");
+                                        var zhiwei = data.data[i].jobTitle;
+                                        var shname = data.data[i].name;
+                                        var shno = (String)(data.data[i].phone);
+                                        var li = ' <div class="mui-card" id= "sh" >';
+                                        li = li + '     <div class="mui-input-row bgc">';
+                                        li = li + '            <label>部门列表项</label>';
+                                        li = li + '           <span class="mui-icon mui-icon-close mui-pull-right" style="margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteItem" onclick="deleteItem(this)"></span>';
+                                        li = li + '       </div>';
+                                        li = li + '       <div class="mui-input-row" style="height:auto;">';
+                                        li = li + '          <label>收函部门</label>';
+                                        //li = li + '           <textarea id="shdept" name="shdept" rows="4">威高集团/威高集团总部/威高集团本部/流程与信息部(信息技术)</textarea>';
+                                        li = li + '           <textarea id="shdept" name="shdept" rows="4">' + shdept + '</textarea>';
+                                        li = li + '        </div>';
+                                        li = li + '        <div class="mui-input-row">';
+                                        li = li + '            <label>收函人</label>';
+                                        li = li + '          <input type="text" id="shname" name="shname" value="' + shname + '" />';
+                                        li = li + '            <input type="hidden" id="shno" name="shno" value="' + shno + '"/>';
+                                        li = li + '        </div>';
+                                        li = li + '        <div class="mui-input-row">';
+                                        li = li + '            <label>收函人职位</label>';
+                                        li = li + '            <input type="text" id="zhiwei" name="zhiwei" value="' + zhiwei + '"/>';
+                                        li = li + '        </div>';
+                                        li = li + '     </div >';
+                                        $("#shlist").append(li);
+                                    }
+
+
+                                }
+                            }, error: function (e) {
+
+                            }, complete: function () {
+
+
+                            }
+                        });
+
+
+
+                    }
+                    else {
+
+                    }
+                });
+
+
+            });
+
         }
     </script>
 </body> 

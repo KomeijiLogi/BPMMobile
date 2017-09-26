@@ -60,7 +60,7 @@
             </div>
             <div class="mui-input-row">
                 <label for="fpd">是否餐饮客户</label>
-                <input type="text" id="fpd" name="fpd" value="否" />
+                <input type="text" id="fpd" name="fpd" value="否" readonly="readonly"/>
                 <!--<div class="mui-switch mui-switch-mini mui-switch-blue" id="fpdd">
                   <div class="mui-switch-handle"></div>
                 </div>-->
@@ -503,6 +503,68 @@
                             });
 
                         }
+                        for (var i = 0; i < data.Steps.length; i++) {
+
+                            if (data.Steps[i].FinishAt == "0001-01-01T00:00:00") {
+                                data.Steps[i].FinishAt = "";
+                            }
+                            var time = FormatterTime(data.Steps[i].FinishAt);
+
+                            var stepName = data.Steps[i].NodeName;
+                            if (data.Steps[i].NodeName == "sysInform") {
+                                stepName = "知会";
+                            } else if (data.Steps[i].NodeName == "sysTaskOpt") {
+                                stepName = "任务操作";
+                            } else if (data.Steps[i].NodeName == "开始") {
+                                stepName = "开始";
+                            }
+
+                            var stepAction = locationAction(data.Steps[i].SelAction);
+                            if (data.Steps[i].SelAction == "sysInform") {
+                                stepAction = "发起知会";
+                            } else if (data.Steps[i].SelAction == "Submit") {
+                                stepAction = "已阅";
+                            } else if (data.Steps[i].SelAction == "null" || data.Steps[i].SelAction == null) {
+                                stepAction = "待处理";
+                            } else if (data.Steps[i].SelAction == "sysReject") {
+                                stepAction = "拒绝";
+                            } else if (data.Steps[i].SelAction == "sysRecedeRestart") {
+                                stepAction = "退回重填";
+                            }
+
+
+                            var contents = data.Steps[i].Comments;
+                            if (contents == null) {
+                                contents = "无";
+                            }
+                            //判断是否是加签
+                            if (data.Steps[i].IsConsignStep == false) {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg">' + stepName + '<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            } else {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg signadd">加签<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            }
+                            $("#signff").append(li);
+                        }
                         if ($('#myPhone').val() == "") {
                             var myPhone = String(BPMOU).split("/");
                             $('#myPhone').val(String(myPhone[myPhone.length - 1]));
@@ -534,11 +596,12 @@
                             $("#ftel").removeAttr("readonly");
                             $("#fshname").removeAttr("readonly");
                             $("#fdpno").removeAttr("readonly");
-                            $("#fssxm").removeAttr("readonly");
-                            $("#fpd").removeAttr("readonly");
-
+                            //$("#fssxm").removeAttr("readonly");
+                            //$("#fpd").removeAttr("readonly");
+                            tapEvent();
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
+                            $("#csd").css("display", "none");
                         } else {
                             if (typeof (NodeName) != "undefined") {
                                 $("#approvalD").css("display", "block");
@@ -564,6 +627,36 @@
             });
 
 
+        }
+        function tapEvent() {
+            var fssxmdata = [
+                {
+                    value: "wggc",
+                    text: "威高广场"
+                },
+                {
+                    value: "sgc",
+                    text: "时光城"
+                },
+                {
+                    value: "sgc",
+                    text: "时光城WE.公馆"
+                }
+            ];
+
+            showPicker('fssxm', fssxmdata);
+
+            var fpddata = [
+                {
+                    value: '',
+                    text: '是'
+                },
+                {
+                    value: '',
+                    text: '否'
+                }
+            ];
+            showPicker('fpd', fpddata);
         }
 
         function AgreeOrConSign() {

@@ -70,7 +70,7 @@
                 <input type="text" id="freason" name="freason" value="" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
-                <div class="border border-t upload-img" style="top:0rem;" onclick="changeQjlx()">
+                <div class="border border-t upload-img" style="top:0rem;">
                     <!--上传病假证明-->
                     <div class="clearfix upload-btn" id="children-bg">
                         <label class="label">病假证明<i style="color:red;">*</i></label>
@@ -389,6 +389,7 @@
 
                         console.log(data);
                         var item = data.FormDataSet.建设公司_员工请假_主表[0];
+                        $("#fbillno").val(item.单号);
                         $("#taskId").val(item.TaskID);
                         $("#stepId").val(stepId);
                         $("#fname").val(item.发起人);
@@ -545,6 +546,11 @@
                         if (NodeName == "开始") {
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
+                            $("#fstart").removeAttr("readonly");
+                            $("#fend").removeAttr("readonly");
+                            $("#fday").removeAttr("readonly");
+                            $("#freason").removeAttr("readonly");
+                            tapEvent();
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -637,8 +643,8 @@
             var rname = $("#rname").val();
             var fcj = $("#fcj").val();
             var fqjlx = $("#fqjlx").val();
-            var fstart = $("#fstart").val() + " 00:00:00";
-            var fend = $("#fend").val() + " 00:00:00";
+            var fstart = $("#fstart").val() ;
+            var fend = $("#fend").val() ;
             var fday = $("#fday").val();
             var freason = $("#freason").val();
             var fbillno = $("#fbillno").val();
@@ -646,9 +652,6 @@
            
 
 
-            if (BlItem(rname, fqjlx, fstart, fend, fday, freason) == null) {
-                    return;
-                }
 
 
             
@@ -750,7 +753,7 @@
                 xml = xml + '              <Method>Process</Method>';
                 xml = xml + '              <PID>' + pid + '</PID>';
                 xml = xml + '              <Action>同意</Action>';
-                xml = xml + '              <Comment></Comment>';
+                xml = xml + '              <Comment>' + comment + '</Comment>';
 
 
 
@@ -791,19 +794,16 @@
             var rname = $("#rname").val();
             var fcj = $("#fcj").val();
             var fqjlx = $("#fqjlx").val();
-            var fstart = $("#fstart").val() + " 00:00:00";
-            var fend = $("#fend").val() + " 00:00:00";
+            var fstart = $("#fstart").val() ;
+            var fend = $("#fend").val() ;
             var fday = $("#fday").val();
             var freason = $("#freason").val();
             var fbillno = $("#fbillno").val();
 
-          
+           
 
 
-            if (BlItem(rname, fqjlx, fstart, fend, fday, freason) == null) {
-                    return;
-                }
-
+           
 
             
             var comment = '';
@@ -845,16 +845,16 @@
         }
         function Save() {
 
-
-
+            var pid = $("#stepId").val();
+            var fbillno = $("#fbillno").val();
             var fname = $("#fname").val();
             var fdate = $("#fdate").val() + " 00:00:00";
             var fcom = $("#fcom").val();
             var rname = $("#rname").val();
             var fcj = $("#fcj").val();
             var fqjlx = $("#fqjlx").val();
-            var fstart = $("#fstart").val() + " 00:00:00";
-            var fend = $("#fend").val() + " 00:00:00";
+            var fstart = $("#fstart").val();
+            var fend = $("#fend").val() ;
             var fday = $("#fday").val();
             var freason = $("#freason").val();
 
@@ -873,16 +873,13 @@
 
                     var xml = '<?xml version="1.0"?>';
                     xml = xml + '<XForm>';
-                    xml = xml + '<Header>';
-                    xml = xml + '<Method>Post</Method>';
-                    xml = xml + ' <ProcessName>建设公司车间员工请假申请</ProcessName>';
-                    xml = xml + '<ProcessVersion>1.0</ProcessVersion>';
-                    xml = xml + '<DraftGuid></DraftGuid>';
-                    xml = xml + '<OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
-                    xml = xml + '<Action>提交</Action>';
-                    xml = xml + '<Comment></Comment>';
-                    xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
-                    xml = xml + '</Header>';
+                    xml = xml + '   <Header>';
+                    xml = xml + '    <Method>Process</Method>';
+                    xml = xml + '   <PID>' + pid + '</PID>';
+                    xml = xml + '   <Action>提交</Action>';
+                    xml = xml + '    <Comment></Comment>';
+                    xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '  </Header>';
                     xml = xml + '<FormData>';
                     xml = xml + '<建设公司_员工请假_主表>';
                     xml = xml + '<单号>' + fbillno + '</单号>';
@@ -958,6 +955,44 @@
             }
             return bl;
         }
+
+
+        function tapEvent() {
+            var fqjlxdata = [
+                {
+                    value: "sj",
+                    text: "事假"
+                },
+                {
+                    value: "bj",
+                    text: "病假"
+                },
+                {
+                    value: "cj",
+                    text: "产假"
+                },
+                {
+                    value: "pcj",
+                    text: "陪产假"
+                },
+                {
+                    value: "hj",
+                    text: "婚假"
+                },
+                {
+                    value: "gxj",
+                    text: "公休假"
+                },
+                {
+                    value: "sj",
+                    text: "丧假"
+                }
+            ];
+
+            showPicker('fqjlx', fqjlxdata);
+
+        }
+
     </script>
 
 </body>
