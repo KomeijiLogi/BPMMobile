@@ -40,7 +40,7 @@
            </div>
            <div class="mui-input-row">
                <label for="fdate">申请时间</label>
-               <input type="text" id="fdate" name="fdate" readonly="readonly" />
+               <input type="date" id="fdate" name="fdate" readonly="readonly" />
            </div>
            <div class="mui-input-row">
                <label>知会综合部</label>
@@ -74,7 +74,7 @@
            <input type="hidden" id="f200_t" name="f200_t" value="0" />
            <div class="mui-input-row" id="csd">
                <label>加签</label>
-               <div class="mui-switch mui-switch-blue">
+               <div class="mui-switch mui-switch-blue" id="csswitch">
                    <div class="mui-switch-handle"></div>
                </div>
            </div>
@@ -344,7 +344,7 @@
             }
 
         });
-        mui('.mui-content .mui-switch').each(function () {
+        mui('#csswitch').each(function () {
 
 
             this.addEventListener('toggle', function (event) {
@@ -355,6 +355,21 @@
 
                     $('#signbody').css('display', 'none');
                     $('#signPer').val('');
+                }
+
+            });
+        });
+        mui('#fzhzhbd').each(function () {
+
+
+            this.addEventListener('toggle', function (event) {
+                if (event.detail.isActive == 'true' || event.detail.isActive == true) {
+
+                    $('#fzhzhb').val('是');
+                } else {
+
+                    $('#fzhzhb').val('否');
+                   
                 }
 
             });
@@ -381,7 +396,7 @@
                 history.go(-1);
 
             }
-
+            itemidArr = new Array();
             $.ajax({
                 type: "get",
                 url: "/api/bpm/GetTaskData",
@@ -394,6 +409,7 @@
                 var item = data.FormDataSet.BPM_SG_JL[0];
                 $("#fbillno").val(item.fbillno);
                 $("#stepId").val(stepId);
+                $("#taskId").val(item.TaskID);
                 $("#fname").val(item.fname);
                 $("#fdate").val(FormatterTimeYMS(item.fdate));
                 $("#fdept").val(item.fdept);
@@ -402,6 +418,7 @@
                     if (item_c[i].fsm == null) {
                         item_c[i].fsm = '';
                     }
+                    itemidArr.push(item_c[i].itemid);
                     var li = '  <div id="mx" class="mui-card">';
                     li = li + '    <div class="mui-input-row itemtitle">';
                     li = li + '       <label>明细列表项</label>';
@@ -422,7 +439,7 @@
                     li = li + '     </div>';
                     li = li + '     <div class="mui-input-row">';
                     li = li + '         <label for="fje">金额<i style="color:red;">*</i></label>';
-                    li = li + '         <input type="text" id="fje" name="fje" required="required" readonly="readonly" value="' + item_c[i].fje + '"/>';
+                    li = li + '         <input type="number" id="fje" name="fje" required="required" readonly="readonly" value="' + item_c[i].fje + '"/>';
                     li = li + '     </div>';
                     li = li + '     <div class="mui-input-row">';
                     li = li + '          <label for="fdel">是否处理</label>';
@@ -647,7 +664,7 @@
                     $("#mxlist").find("span").each(function () {
                         $(this).css("display", "block");
                     });
-                    $("#mxlist").find("#fje").each(function () {
+                    $("#mxlist").find("#fje,#fsm").each(function () {
                         $(this).removeAttr("readonly");
 
                     });
@@ -660,6 +677,17 @@
                         $("#approvalD").css("display", "block");
                         if (String(NodeName).indexOf("出纳") != -1) {
                             $("#fzhzhbd").removeClass('mui-disabled');
+                            var fdeldata = [
+                                {
+                                    value: '',
+                                    text:'是'
+                                },
+                                {
+                                    value: '',
+                                    text:'否'
+                                }
+                            ];
+                            showPickerByZepto('#mxlist', '#fdel', fdeldata);
                         }
                     }
                 }
@@ -913,7 +941,7 @@
                                 };
                                 selectPerson.push(selectperson);
                             }
-                            $("#mxlist").empty();
+                            //$("#mxlist").empty();
                             for (var i = 0; i < selectPerson.length; i++) {
                                 var li = '  <div id="mx" class="mui-card">';
                                 li = li + '    <div class="mui-input-row itemtitle">';
@@ -1029,7 +1057,7 @@
                     for (var i = 0; i < mxlistArr.length; i++) {
                         xml = xml + '           <BPM_SG_JL1>';
                         xml = xml + '             <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
-                        xml = xml + '                <RowPrimaryKeys></RowPrimaryKeys>';
+                        xml = xml + '                <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
                         xml = xml + '             <fjlrname>' + mxlistArr[i].fjlrname + '</fjlrname>';
                         xml = xml + '              <fjlrno>' + mxlistArr[i].fjlrno + '</fjlrno>';
                         xml = xml + '            <fbm>' + mxlistArr[i].fbm + '</fbm>';
@@ -1242,7 +1270,7 @@
                             for (var i = 0; i < mxlistArr.length; i++) {
                                 xml = xml + '           <BPM_SG_JL1>';
                                 xml = xml + '             <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
-                                xml = xml + '                <RowPrimaryKeys></RowPrimaryKeys>';
+                                xml = xml + '                <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
                                 xml = xml + '             <fjlrname>' + mxlistArr[i].fjlrname + '</fjlrname>';
                                 xml = xml + '              <fjlrno>' + mxlistArr[i].fjlrno + '</fjlrno>';
                                 xml = xml + '            <fbm>' + mxlistArr[i].fbm + '</fbm>';
@@ -1299,7 +1327,7 @@
                 for (var i = 0; i < mxlistArr.length; i++) {
                     xml = xml + '           <BPM_SG_JL1>';
                     xml = xml + '             <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
-                    xml = xml + '                <RowPrimaryKeys></RowPrimaryKeys>';
+                    xml = xml + '                <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
                     xml = xml + '             <fjlrname>' + mxlistArr[i].fjlrname + '</fjlrname>';
                     xml = xml + '              <fjlrno>' + mxlistArr[i].fjlrno + '</fjlrno>';
                     xml = xml + '            <fbm>' + mxlistArr[i].fbm + '</fbm>';

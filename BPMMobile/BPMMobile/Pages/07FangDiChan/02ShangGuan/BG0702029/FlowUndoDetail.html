@@ -421,8 +421,8 @@
                         $("#fshlxr").val(item.fshlxr);
                         $("#fbz").val(item.fbz);
 
-                        if (item.fj != null && item.fj != "") {
-                            var fjtmp = (String)(item.fj);
+                        if (item.ffj != null && item.ffj != "") {
+                            var fjtmp = (String)(item.ffj);
 
                             fjArray = fjtmp.split(";");
 
@@ -565,9 +565,9 @@
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
                             $(".upload-addbtn").css("display", "block");
-                            $("#addItem").css("display", "block");
-                            $("#ftel").removeAttr("readonly");                           
-                            tapEvent();
+                            $("#ftel,#fshmc,#fshlxr,#fbz").removeAttr('readonly');
+                            $(".upload-addbtn").css("display", "block");
+                       
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -834,7 +834,81 @@
                PostXml(xml);
             }
         }
- 
+
+        function Save() {
+
+            var pid = $("#stepId").val();
+            var fbillno = $("#fbillno").val();
+
+            var fname = $("#fname").val();
+            var fdate = $("#fdate").val() + " 00:00:00";
+            var fdept = $("#fdept").val();
+            var ftel = $("#ftel").val();
+
+            var fshmc = $("#fshmc").val();
+            var fshlxr = $("#fshlxr").val();
+            var fbz = $("#fbz").val();
+
+            if (!fdate || fdate == "") {
+                mui.toast("请填写申请日期");
+                return;
+            }
+            if (!ftel || ftel == "") {
+                mui.toast("请填写联系方式");
+                return;
+            }
+            if (!fshmc || fshmc == "") {
+                mui.toast("请填写商户名称");
+                return;
+            }
+            if (!fshlxr || fshlxr == "") {
+                mui.toast("请填写商户联系人");
+                return;
+            }
+            if (!fbz || fbz == "") {
+                mui.toast("请填写备注");
+                return;
+            }
+            if (fjArray.toString() == null || fjArray.toString() == "") {
+                mui.toast("请上传附件");
+                return;
+            }
+            var btnArry = ["取消", "确定"];
+            mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
+                if (e.index == 1) {
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '   <Header>';
+                    xml = xml + '    <Method>Process</Method>';
+                    xml = xml + '   <PID>' + pid + '</PID>';
+                    xml = xml + '   <Action>提交</Action>';
+                    xml = xml + '    <Comment></Comment>';
+                    xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '  </Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<BPM_MSCLYBZJTHSPB>';
+                    xml = xml + '<fbillno>' + fbillno + '</fbillno>';
+                    xml = xml + '<fname>' + fname + '</fname>';
+                    xml = xml + '<fdept>' + fdept + '</fdept>';
+                    xml = xml + '<fdate>' + fdate + '</fdate>';
+                    xml = xml + '<ftel>' + ftel + '</ftel>';
+                    xml = xml + '<fshmc>' + fshmc + '</fshmc>';
+                    xml = xml + '<fshlxr>' + fshlxr + '</fshlxr>';
+                    xml = xml + '<fbz>' + fbz + '</fbz>';
+                    if (fjArray.toString() != null && fjArray.toString() != "") {
+                        xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                    } else {
+                        xml = xml + '<ffj></ffj>';
+                    }
+                    xml = xml + '</BPM_MSCLYBZJTHSPB>';
+                    xml = xml + '</FormData>';
+                    xml = xml + '</XForm>';
+                    //mui.toast(xml);
+                    //alert(xml);
+                    PostXml(xml);
+                }
+            });
+        }
     </script>
 </body>
 </html>

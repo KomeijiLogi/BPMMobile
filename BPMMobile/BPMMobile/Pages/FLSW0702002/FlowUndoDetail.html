@@ -43,7 +43,7 @@
             </div>
             <div class="mui-input-row">
                 <label for="fze">合同金额(元)<i style="color:red;">*</i></label>
-                <input type="text" id="fze" name="fze" readonly="readonly" />
+                <input type="number" id="fze" name="fze" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fhtdf">合同对方<i style="color:red;">*</i></label>
@@ -341,7 +341,7 @@
             }
 
         });
-
+        action = '同意';
         function getTaskMsg() {
 
             var url = window.location.href;
@@ -547,6 +547,10 @@
                         } else {
                             if (typeof (NodeName) != "undefined") {
                                 $("#approvalD").css("display", "block");
+                                if (String(NodeName) == '综合部') {
+                                    $("#agreebt").text('确认');
+                                    action = '确认';
+                                }
                             }
                         }
 
@@ -683,7 +687,7 @@
                             xml = xml + '<Header>';
                             xml = xml + '<Method>Process</Method>';
                             xml = xml + '<PID>' + pid + '</PID>';
-                            xml = xml + '<Action>同意</Action>';
+                            xml = xml + '<Action>' + action + '</Action>';
                             xml = xml + '<Comment>' + comment + '</Comment>';
 
 
@@ -726,7 +730,7 @@
                 xml = xml + '<Header>';
                 xml = xml + '<Method>Process</Method>';
                 xml = xml + '<PID>' + pid + '</PID>';
-                xml = xml + '<Action>同意</Action>';
+                xml = xml + '<Action>' + action + '</Action>';
                 xml = xml + '<Comment>' + comment + '</Comment>';
 
 

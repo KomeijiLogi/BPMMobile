@@ -40,55 +40,55 @@
             </div>
             <div class="mui-input-row">
                 <label for="fdate">申请日期</label>
-                <input type="text" id="fdate" name="fdate" />
+                <input type="date" id="fdate" name="fdate" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label for="ftel">联系方式<i style="color:red;">*</i></label>
-                <input type="text" id="ftel" name="ftel" placeholder="请填写联系方式" />
+                <input type="text" id="ftel" name="ftel" readonly="readonly"/>
             </div>
             <div class="mui-input-row" style="height:3.25rem;">
                 <label for="flx">租赁场地类型<i style="color:red;">*</i></label>
-                <input type="text" id="flx" name="flx" readonly="readonly" placeholder="请选择租赁场地类型" />
+                <input type="text" id="flx" name="flx" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fwz">场地位置<i style="color:red;">*</i></label>
-                <input type="text" id="fwz" name="fwz" placeholder="请填写场地位置" />
+                <input type="text" id="fwz" name="fwz" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fzlf">场地租赁方<i style="color:red;">*</i></label>
-                <input type="text" id="fzlf" name="fzlf" placeholder="请填写场地租赁方" />
+                <input type="text" id="fzlf" name="fzlf" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="height:auto;">
                 <label for="ffzr">负责人及联系方式<i style="color:red;">*</i></label>
-                <textarea rows="3" id="ffzr" name="ffzr" placeholder="请填写负责人及联系方式"></textarea>
+                <textarea rows="3" id="ffzr" name="ffzr" readonly="readonly"></textarea>
             </div>
             <div class="mui-input-row" style="height:auto;">
                 <label for="flxr">联系人及联系方式<i style="color:red;">*</i></label>
-                <textarea rows="3" id="flxr" name="flxr" placeholder="请填写联系人及联系方式"></textarea>
+                <textarea rows="3" id="flxr" name="flxr" readonly="readonly"></textarea>
             </div>
             <div class="mui-input-row" style="height:3.25rem;">
                 <label for="fzlsj_ks">租赁开始时间<i style="color:red;">*</i></label>
-                <input type="datetime-local" id="fzlsj_ks" name="fzlsj_ks" />
+                <input type="datetime-local" id="fzlsj_ks" name="fzlsj_ks" readonly="readonly"/>
             </div>
             <div class="mui-input-row" style="height:3.25rem;">
                 <label for="fzlsj_js">租赁结束时间<i style="color:red;">*</i></label>
-                <input type="datetime-local" id="fzlsj_js" name="fzlsj_js" />
+                <input type="datetime-local" id="fzlsj_js" name="fzlsj_js" readonly="readonly"/>
             </div>
             <div class="mui-input-row" style="height:3.25rem;">
                 <label for="fzlfy">场地租赁费(元)<i style="color:red;">*</i></label>
-                <input type="number" id="fzlfy" name="fzlfy" placeholder="请填写场地租赁费" />
+                <input type="number" id="fzlfy" name="fzlfy" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fyj">场地押金(元)<i style="color:red;">*</i></label>
-                <input type="number" id="fyj" name="fyj" placeholder="请填写场地押金" />
+                <input type="number" id="fyj" name="fyj" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="height:auto;">
                 <label for="fnr">场地申请内容<i style="color:red;">*</i></label>
-                <textarea rows="5" id="fnr" name="fnr" placeholder="请填写场地申请内容"></textarea>
+                <textarea rows="5" id="fnr" name="fnr" readonly="readonly"></textarea>
             </div>
             <div class="mui-input-row" style="height:auto;">
                 <label for="fsm">其他条件说明<i style="color:red;">*</i></label>
-                <textarea rows="5" id="fsm" name="fsm" placeholder="请填写其他条件说明"></textarea>
+                <textarea rows="5" id="fsm" name="fsm" readonly="readonly"></textarea>
             </div>
             <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                 <div class="border border-t upload-img" style="top:0rem;">
@@ -682,6 +682,7 @@
 
 
         function Save() {
+            var pid = $("#stepId").val();
             var fbillno = $("#fbillno").val();
             var fname = $("#fname").val();
             var fdept = $("#fdept").val();

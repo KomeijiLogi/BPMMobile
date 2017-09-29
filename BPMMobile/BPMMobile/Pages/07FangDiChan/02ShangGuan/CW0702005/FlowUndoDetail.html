@@ -367,6 +367,9 @@
             }).done(function (data) {
                 console.log(data);
                 var item = data.FormDataSet.BPM_SXSGCKYJTHSQ[0];
+                $("#taskId").val(item.TaskID);
+                $("#fbillno").val(item.fbillno);
+                $("#stepId").val(stepId);
                 $("#fname").val(item.fname);
                 $("#fdept").val(item.fdept);
                 $("#fdate").val(FormatterTimeYMS(item.fdate));
@@ -604,6 +607,7 @@
 
         function Save() {
 
+            var pid = $("#stepId").val();
             var fname = $("#fname").val();
             var fdept = $("#fdept").val();
             var fdate = $("#fdate").val() + " 00:00:00";;
@@ -629,7 +633,7 @@
                 return;
             }
 
-            if (fjArray.length != 0) {
+            if (fjArray.length == 0) {
                 mui.toast('请上传附件');
                 return;
             }

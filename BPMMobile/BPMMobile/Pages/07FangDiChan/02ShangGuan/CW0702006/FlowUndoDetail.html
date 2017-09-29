@@ -608,10 +608,12 @@
                     $('.upload-addbtn').css("display", "block");
                     upload();
                     watch();
+                    $("#tjmx").css("display", "block");
                     $("#mxlist").find('span').each(function () {
 
                         $(this).css("display", "block");
                     });
+                    $("#fsm").removeAttr('readonly');
                     $("#mxlist").find("#fshmc,#fpwh,#fje,#fksrq,#fzzrq,#fbz").each(function () {
                         $(this).removeAttr("readonly");
                     });

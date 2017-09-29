@@ -1540,4 +1540,86 @@
     <Group></Group>
     <Description>集团公司物资处置会签</Description>
   </Process>
+
+  <Process>
+    <Name>集团公司组织设立与调整申请</Name>
+    <Path>\\01威高集团总部\\01跨产业集团\\RL人力</Path>
+    <CanCreate>False</CanCreate>
+    <CreatePage>/Pages/01WeGoHQ/01KuaZhanYe/RL0101006/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/01WeGoHQ/01KuaZhanYe/RL0101006/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/01WeGoHQ/01KuaZhanYe/RL0101006/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/01WeGoHQ/01KuaZhanYe/RL0101006/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/01WeGoHQ/01KuaZhanYe/RL0101006/FlowCreate.html</ViewPage>
+    <DisplayName>集团公司组织设立与调整申请</DisplayName>
+    <Css></Css>
+    <Icon>../../../../Content/images/5.png</Icon>
+    <Group>人力资源</Group>
+    <Description>集团公司组织设立与调整申请</Description>
+  </Process>
+
+  <Process>
+    <Name>集团公司通用物资采购申请</Name>
+    <Path>\\01威高集团总部\\05采购公司\\CG采购</Path>
+    <CanCreate>False</CanCreate>
+    <CreatePage>/Pages/01WeGoHQ/05CaiGou/CG0105001/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/01WeGoHQ/05CaiGou/CG0105001/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/01WeGoHQ/05CaiGou/CG0105001/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/01WeGoHQ/05CaiGou/CG0105001/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/01WeGoHQ/05CaiGou/CG0105001/FlowCreate.html</ViewPage>
+    <DisplayName>集团公司通用物资采购申请</DisplayName>
+    <Css></Css>
+    <Icon>../../../../Content/images/5.png</Icon>
+    <Group>采购管理</Group>
+    <Description>集团公司通用物资采购申请</Description>
+  </Process>
+
+ <Process>
+    <Name>集团公司日常干部任免申请</Name>
+    <Path>\\01威高集团总部\\01跨产业集团\\RL人力</Path>
+    <CanCreate>False</CanCreate>
+    <CreatePage>/Pages/01WeGoHQ/01KuaZhanYe/RL0101005/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/01WeGoHQ/01KuaZhanYe/RL0101005/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/01WeGoHQ/01KuaZhanYe/RL0101005/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/01WeGoHQ/01KuaZhanYe/RL0101005/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/01WeGoHQ/01KuaZhanYe/RL0101005/FlowCreate.html</ViewPage>
+    <DisplayName>集团公司日常干部任免申请</DisplayName>
+    <Css></Css>
+    <Icon>../../../../Content/images/5.png</Icon>
+    <Group>人力资源</Group>
+    <Description>集团公司日常干部任免申请</Description>
+  </Process>
+  
+  <Process>
+    <Name>集团公司PS系统权限申请</Name>
+    <Path>\\01威高集团总部\\01跨产业集团\\RL人力</Path>
+    <CanCreate>False</CanCreate>
+    <CreatePage>/Pages/01WeGoHQ/01KuaZhanYe/XX0101025/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/01WeGoHQ/01KuaZhanYe/XX0101025/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/01WeGoHQ/01KuaZhanYe/XX0101025/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/01WeGoHQ/01KuaZhanYe/XX0101025/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/01WeGoHQ/01KuaZhanYe/XX0101025/FlowCreate.html</ViewPage>
+    <DisplayName>集团公司PS系统权限申请</DisplayName>
+    <Css></Css>
+    <Icon>../../../../Content/images/5.png</Icon>
+    <Group>人力资源</Group>
+    <Description>集团公司PS系统权限申请</Description>
+  </Process>
+
+  
+  <Process>
+    <Name>集团公司信息系统权限申请</Name>
+    <Path>\\01威高集团总部\\01跨产业集团\\XX信息管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/01WeGoHQ/01KuaZhanYe/XX0101001/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/01WeGoHQ/01KuaZhanYe/XX0101001/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/01WeGoHQ/01KuaZhanYe/XX0101001/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/01WeGoHQ/01KuaZhanYe/XX0101001/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/01WeGoHQ/01KuaZhanYe/XX0101001/FlowCreate.html</ViewPage>
+    <DisplayName>集团公司信息系统权限申请</DisplayName>
+    <Css></Css>
+    <Icon>../../../../Content/images/5.png</Icon>
+    <Group>信息管理</Group>
+    <Description>集团公司信息系统权限申请</Description>
+  </Process>
+
 </ProcessList>

@@ -39,20 +39,20 @@
              </div>
              <div class="mui-input-row">
                  <label for="fdate">发起日期<i style="color:red;">*</i></label>
-                 <input type="date" id="fdate" name="fdate" />
+                 <input type="date" id="fdate" name="fdate" readonly="readonly"/>
              </div>
              <div class="mui-input-row">
                  <label for="ftel">联系方式<i style="color:red;">*</i></label>
-                 <input type="tel" id="ftel" name="ftel" placeholder="请输入联系方式"/>
+                 <input type="tel" id="ftel" name="ftel" readonly="readonly"/>
              </div>		
                     
               <div class="mui-input-row" style="height:5.25rem;">
                  <label for="fshmc">商户名称<i style="color:red;">*</i></label>
-                 <textarea rows="5" id="fshmc" name="fshmc" placeholder="请输入"></textarea>
+                 <textarea rows="5" id="fshmc" name="fshmc" readonly="readonly"></textarea>
              </div>    
              <div class="mui-input-row">
                  <label for="flxr">商户联系人<i style="color:red;">*</i></label>
-                 <input type="text" id="flxr" name="flxr"  placeholder="请输入" />
+                 <input type="text" id="flxr" name="flxr"  readonly="readonly"/>
              </div>             
              <div class="mui-input-group">
                 <div class="mui-input-row bgc">
@@ -60,16 +60,16 @@
                 </div>
                 <div class="mui-input-row">
                     <label>开始<i style="color:red;">*</i></label>
-                    <input type="date" name="fhtqx_ks" id="fhtqx_ks" placeholder="请输入">
+                    <input type="date" name="fhtqx_ks" id="fhtqx_ks" readonly="readonly"/>
                 </div>
                 <div class="mui-input-row">
                     <label>结束<i style="color:red;">*</i></label>
-                    <input type="date" name="fhtqx_js" id="fhtqx_js" placeholder="请输入" >
+                    <input type="date" name="fhtqx_js" id="fhtqx_js" readonly="readonly"/>
                 </div>                
             </div>
              <div class="mui-input-row" style="height:5.25rem;">
                  <label for="fyyxz">商户运营表述<i style="color:red;">*</i></label>
-                 <textarea rows="5" id="fyyxz" name="fyyxz" placeholder="请输入"></textarea>
+                 <textarea rows="5" id="fyyxz" name="fyyxz" readonly="readonly"></textarea>
              </div>            
              <div class="mui-input-group">
                 <div class="mui-input-row bgc">
@@ -77,19 +77,19 @@
                 </div>
                 <div class="mui-input-row">
                     <label>店铺号<i style="color:red;">*</i></label>
-                    <input type="text" name="fxz_dph" id="fxz_dph" placeholder="请输入">
+                    <input type="text" name="fxz_dph" id="fxz_dph" readonly="readonly"/>
                 </div>
                 <div class="mui-input-row">
                     <label>面积(㎡)<i style="color:red;">*</i></label>
-                    <input type="number" name="fxz_mj" id="fxz_mj" placeholder="请输入" >
+                    <input type="number" name="fxz_mj" id="fxz_mj" readonly="readonly" />
                 </div>  
                  <div class="mui-input-row" style="height:3.25rem;">
                     <label>租金标准（元/㎡/月）<i style="color:red;">*</i></label>
-                    <input type="number" name="fxz_zjbz" id="fxz_zjbz" placeholder="请输入" >
+                    <input type="number" name="fxz_zjbz" id="fxz_zjbz" readonly="readonly"/>
                 </div>  
                  <div class="mui-input-row">
                     <label>经营业态</label>
-                    <input type="text" name="fxz_jyyt" id="fxz_jyyt" placeholder="请输入" >
+                    <input type="text" name="fxz_jyyt" id="fxz_jyyt" readonly="readonly" />
                 </div>                
             </div>
               <div class="mui-input-group">
@@ -98,24 +98,24 @@
                 </div>
                 <div class="mui-input-row">
                     <label>店铺号<i style="color:red;">*</i></label>
-                    <input type="text" name="ftz_dph" id="ftz_dph" placeholder="请输入">
+                    <input type="text" name="ftz_dph" id="ftz_dph" readonly="readonly"/>
                 </div>
                 <div class="mui-input-row">
                     <label>面积(㎡)<i style="color:red;">*</i></label>
-                    <input type="number" name="ftz_mj" id="ftz_mj" placeholder="请输入" >
+                    <input type="number" name="ftz_mj" id="ftz_mj" readonly="readonly"/>
                 </div>  
                  <div class="mui-input-row" style="height:3.25rem;">
                     <label>租金标准（元/㎡/月）<i style="color:red;">*</i></label>
-                    <input type="number" name="ftz_zjbz" id="ftz_zjbz" placeholder="请输入" >
+                    <input type="number" name="ftz_zjbz" id="ftz_zjbz" readonly="readonly"/>
                 </div>  
                  <div class="mui-input-row">
                     <label>经营业态</label>
-                    <input type="text" name="ftz_jyyt" id="ftz_jyyt" placeholder="请输入" >
+                    <input type="text" name="ftz_jyyt" id="ftz_jyyt" readonly="readonly"/>
                 </div>                
             </div>             
              <div class="mui-input-row" style="height:5.25rem;">
                  <label for="fbz">备注</label>
-                 <textarea rows="5" id="fbz" name="fbz" placeholder="请输入"></textarea>
+                 <textarea rows="5" id="fbz" name="fbz" readonly="readonly"></textarea>
              </div>   
           <!-- <div class="mui-input-row bgc">
                <label>申请明细</label>
@@ -244,10 +244,7 @@
 
     <script>
         mui.init();
-        //var picker1 = new mui.PopPicker();
-        //var picker2 = new mui.PopPicker();
-        //var picker3 = new mui.PopPicker();
-        //var picker4 = new mui.PopPicker();
+       
         mui.ready(function () {
             getBPMParam();
             getTaskMsg();
@@ -257,7 +254,7 @@
             upload();
             watch();
            
-           // setList();
+        
         });
         mui('.mui-content .mui-switch').each(function () {
 
@@ -400,37 +397,7 @@
 
         });
         
-        //function setList() {
-
-        //    var ftypedata1 = [
-        //           {
-        //               value: "dycfs",
-        //               text: "第一次发生"
-        //           },
-        //           {
-        //               value: "yqgzzcfs",
-        //               text: "以前故障再次发生"
-        //           }
-        //    ];
-        //    picker1.setData(ftypedata1);
-        //    $("#fgztj").on('tap', function () {
-        //        var self = this;
-        //        picker1.show(function (items) {
-        //            self.value = (items[0].text);
-        //        });
-        //    });
-
-            
-        //}
-
-        //function checkVal(val) {
-
-        //    if (val == "其他") {
-        //        $("#qt").css("display", "block");
-        //    } else {
-        //        $("#qt").css("display", "none");
-        //    }
-        //}
+     
         function getTaskMsg() {
 
             var url = window.location.href;
@@ -471,6 +438,7 @@
                         console.log(data);
                         var item = data.FormDataSet.BPM_MSCSHTZSPB[0];
                         $("#taskId").val(item.TaskID);
+
                         $("#fname").val(item.fname);
                         $("#fdept").val(item.fdept);
                         $("#fdate").val(FormatterTimeYMS(item.fdate));
@@ -492,12 +460,12 @@
                         $("#ftz_zjbz").val(item.ftz_zjbz);
                         $("#ftz_jyyt").val(item.ftz_jyyt);
                         $("#fbz").val(item.fbz);
-
-                        if (item.fj != null && item.fj != "") {
-                            var fjtmp = (String)(item.fj);
+                      
+                        if (item.ffj != null && item.ffj != "") {
+                            var fjtmp = (String)(item.ffj);
 
                             fjArray = fjtmp.split(";");
-
+                           
 
                             //console.log("fjArray:" + fjArray);
 
@@ -637,9 +605,9 @@
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
                             $(".upload-addbtn").css("display", "block");
-                            $("#addItem").css("display", "block");
-                            $("#ftel").removeAttr("readonly");                           
-                            tapEvent();
+                           
+                            $("#ftel,#fshmc,#flxr,#fhtqx_ks,#fhtqx_js,#fyyxz,#fxz_dph,#fxz_mj,#fxz_zjbz,#fxz_jyyt,#ftz_dph,#ftz_mj,#ftz_zjbz,#ftz_jyyt,#fbz").removeAttr("readonly");                           
+                           
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -969,8 +937,8 @@
 
         function Save() {
 
-         
 
+            var pid = $("#stepId").val();
             var fname = $("#fname").val();
             var fdate = $("#fdate").val() + " 00:00:00";
             var fdept = $("#fdept").val();
@@ -1032,10 +1000,7 @@
                 mui.toast("请填写现在租金标准");
                 return;
             }
-            //if (!fxz_jyyt || fxz_jyyt == "") {
-            //    mui.toast("请填写现在经营业态");
-            //    return;
-            //}
+          
 
             if (!ftz_dph || ftz_dph == "") {
                 mui.toast("请填写调整店铺号");
@@ -1049,18 +1014,10 @@
                 mui.toast("请填写调整租金标准");
                 return;
             }
-            //if (!ftz_jyyt || ftz_jyyt == "") {
-            //    mui.toast("请填写调整经营业态");
-            //    return;
-            //}
 
-            //if (!fbz || fbz == "") {
-            //    mui.toast("请填写备注");
-            //    return;
-            //}
-            if (fjArray.toString() == null || fjArray.toString() == "") {
-                mui.toast("请上传附件");
-                  return;
+            if (fjArray.length == 0) {
+                mui.toast('请上传附件');
+                return;
             }
 
 

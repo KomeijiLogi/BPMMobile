@@ -540,7 +540,7 @@
                         for (var i = 0; i < data.Steps.length; i++) {
                             //debugger;
 
-                            if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
+                            if (data.Steps[i].Finished == false && data.Steps[i].RecipientAccount == ($('#myPhone').val())) {
 
 
                                 if (stepId.indexOf(data.Steps[i].StepID)!=-1) {
@@ -552,7 +552,7 @@
                             }
 
                         }
-
+                       
                         if (NodeName == "开始") {
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");

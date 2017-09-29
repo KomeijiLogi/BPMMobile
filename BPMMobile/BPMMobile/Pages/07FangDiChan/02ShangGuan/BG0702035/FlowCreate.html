@@ -38,7 +38,7 @@
             </div>
             <div class="mui-input-row">
                 <label for="fdate">申请时间</label>
-                <input type="text" id="fdate" name="fdate"/>
+                <input type="date" id="fdate" name="fdate" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>知会综合部</label>
@@ -196,7 +196,7 @@
                                 };
                                 selectPerson.push(selectperson);
                             }
-                            $("#mxlist").empty();
+                            //$("#mxlist").empty();
                             for (var i = 0; i < selectPerson.length; i++) {
                                 var li = '  <div id="mx" class="mui-card">';
                                 li = li + '    <div class="mui-input-row itemtitle">';
@@ -218,7 +218,7 @@
                                 li = li + '     </div>';
                                 li = li + '     <div class="mui-input-row">';
                                 li = li + '         <label for="fje">金额<i style="color:red;">*</i></label>';
-                                li = li + '         <input type="text" id="fje" name="fje" required="required" placeholder="请输入金额"/>';
+                                li = li + '         <input type="number" id="fje" name="fje" required="required" placeholder="请输入金额"/>';
                                 li = li + '     </div>';
                                 li = li + '     <div class="mui-input-row">';
                                 li = li + '          <label for="fdel">是否处理</label>';

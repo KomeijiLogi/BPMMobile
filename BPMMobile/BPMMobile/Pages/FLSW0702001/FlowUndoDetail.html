@@ -52,7 +52,7 @@
             </div>
             <div class="mui-input-row" id="fzed">
                 <label>合同金额(元)<i style="color:red;">*</i></label>
-                <input type="number" id="fze" name="fze"  />
+                <input type="number" id="fze" name="fze"  readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>合同对方<i style="color:red;">*</i></label>
@@ -352,7 +352,7 @@
             }
 
         });
-
+        action = '同意';
         function getTaskMsg() {
 
             var url = window.location.href;
@@ -551,6 +551,7 @@
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
                             $(".upload-addbtn").css("display", "block");
+                            tapEvent();
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#fdate").attr("readonly", "readonly");
@@ -562,20 +563,26 @@
                             $("#fht_mcnr").attr("readonly", "readonly");
                             $("#fht_jkfkfs").attr("readonly", "readonly");
                             $("#fydtk").attr("readonly", "readonly");
+                           
                             $("#csd").css("display", "none");
                         } else {
                             if (typeof (NodeName) != "undefined") {
+                                $("#fze").attr("readonly", "readonly");
                                 $("#approvalD").css("display", "block");
                                 $("#csd").css("display", "none");
                                 $("#fdate").attr("readonly", "readonly");
                                 $("#fxm").attr("readonly", "readonly");
                                 $("#flb").attr("readonly", "readonly");
-                                $("#fze").attr("readonly", "readonly");
+                              
                                 $("#fhtdf").attr("readonly", "readonly");
                                 $("#fppmc").attr("readonly", "readonly");
                                 $("#fht_mcnr").attr("readonly", "readonly");
                                 $("#fht_jkfkfs").attr("readonly", "readonly");
                                 $("#fydtk").attr("readonly", "readonly");
+                                if (String(NodeName) == '综合部') {
+                                    $("#agreebt").text('确认');
+                                    action = '确认';
+                                }
                             }
                         }
 
@@ -675,6 +682,80 @@
             photoInfo: [],
             fileInfo: [],
             photos: ''
+        }
+        function tapEvent() {
+            var fxmdata = [
+                {
+                    value: "wggc",
+                    text: "威高广场"
+                },
+                {
+                    value: "wgsgc",
+                    text: "威高时光城"
+                },
+                {
+                    value: "ssdmmsgc",
+                    text: "食尚地美食广场"
+                },
+                {
+                    value: "wghlj",
+                    text: "威高好邻居"
+                },
+                {
+                    value: "msc",
+                    text: "民俗邨"
+                }
+
+            ];
+            showPicker('fxm', fxmdata);
+
+            var flbdata = [
+                {
+                    value: "xzht",
+                    text: "新增合同"
+                },
+                {
+                    value: "xqht",
+                    text: "续签合同"
+                },
+                {
+                    value: "bght",
+                    text: "变更合同"
+                },
+                {
+                    value: "bcxy",
+                    text: "补充协议"
+                }
+            ];
+
+
+
+            var element = document.getElementById('flb');
+
+            var picker = new mui.PopPicker();
+
+            picker.setData(flbdata);
+
+            element.addEventListener('tap', function () {
+
+                picker.show(function (items) {
+
+                    element.value = items[0].text;
+                    if ($("#flb").val() == "新增合同" || $("#flb").val() == "续签合同") {
+                        $("#fzed").css("display", "none");
+                        $("#fze").removeAttr('readonly');
+                    } else {
+                        $("#fzed").css("display", "block");
+                        $("#fze").attr("readonly", "readonly");
+                    }
+                });
+
+            }, false);
+
+
+
+
+
         }
 
         function Save() {
@@ -832,7 +913,7 @@
                             xml = xml + '<Header>';
                             xml = xml + ' <Method>Process</Method>';
                             xml = xml + '<PID>' + pid + '</PID>';
-                            xml = xml + '<Action>同意</Action>';
+                            xml = xml + '<Action>' + action + '</Action>';
                             xml = xml + '<Comment>' + comment + '</Comment>';
 
                             //加签差异xml部分
@@ -877,7 +958,7 @@
                 xml = xml + '<Header>';
                 xml = xml + ' <Method>Process</Method>';
                 xml = xml + '<PID>' + pid + '</PID>';
-                xml = xml + '<Action>同意</Action>';
+                xml = xml + '<Action>' + action + '</Action>';
                 xml = xml + '<Comment>' + comment + '</Comment>';
                 xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
                 xml = xml + '</Header>';

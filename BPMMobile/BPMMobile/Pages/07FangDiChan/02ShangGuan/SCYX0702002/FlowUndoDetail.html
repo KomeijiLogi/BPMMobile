@@ -44,64 +44,64 @@
             </div>
             <div class="mui-input-row">
                 <label for="ftel">联系方式</label>
-                <input type="text" id="ftel" name="ftel" placeholder="请填写联系方式" />
+                <input type="text" id="ftel" name="ftel" readonly="readonly" />
             </div>
             <div class="mui-input-group mui-card">
                 <div class="mui-input-row">
                     <label for="fxm">老人姓名<i style="color:red;">*</i></label>
-                    <input type="text" id="fxm" name="fxm" placeholder="请填写老人姓名" />
+                    <input type="text" id="fxm" name="fxm" readonly="readonly" />
                 </div>
                 <div class="mui-input-row">
                     <label for="fjh">房间号<i style="color:red;">*</i></label>
-                    <input type="text" id="fjh" name="fjh" placeholder="请填写房间号" />
+                    <input type="text" id="fjh" name="fjh" readonly="readonly" />
                 </div>
                 <div class="mui-input-row">
                     <label for="frzsj_ks">入住时间<i style="color:red;">*</i></label>
-                    <input type="date" id="frzsj_ks" name="frzsj_ks" />
+                    <input type="date" id="frzsj_ks" name="frzsj_ks" readonly="readonly"/>
                 </div>
                 <div class="mui-input-row">
                     <label for="frzsj_js">出院时间<i style="color:red;">*</i></label>
-                    <input type="date" id="frzsj_js" name="frzsj_js" />
+                    <input type="date" id="frzsj_js" name="frzsj_js" readonly="readonly"/>
                 </div>
                 <div class="mui-input-row" style="height:3.25rem;">
                     <label for="fhlf">护理费(元)<i style="color:red;">*</i></label>
-                    <input type="text" id="fhlf" name="fhlf" placeholder="请填写护理费" />
+                    <input type="number" id="fhlf" name="fhlf" readonly="readonly" />
                 </div>
                 <div class="mui-input-row" style="height:3.25rem;">
                     <label for="fcwf">床位费(元)<i style="color:red;">*</i></label>
-                    <input type="text" id="fcwf" name="fcwf" placeholder="请填写床位费" />
+                    <input type="number" id="fcwf" name="fcwf" readonly="readonly" />
                 </div>
                 <div class="mui-input-row">
                     <label for="fcf">餐费(元)<i style="color:red;">*</i></label>
-                    <input type="text" id="fcf" name="fcf" placeholder="请填写餐费" />
+                    <input type="number" id="fcf" name="fcf" readonly="readonly" />
                 </div>
                 <div class="mui-input-row" style="height:3.25rem;">
                     <label for="fsdf">水电费(元)<i style="color:red;">*</i></label>
-                    <input type="text" id="fsdf" name="fsdf" placeholder="请填写水电费" />
+                    <input type="number" id="fsdf" name="fsdf" readonly="readonly" />
                 </div>
                 <div class="mui-input-row" style="height:3.25rem;">
                     <label for="fylbyj">医疗备用金(元)<i style="color:red;">*</i></label>
-                    <input type="text" id="fylbyj" name="fylbyj" placeholder="请填写医疗备用金" />
+                    <input type="number" id="fylbyj" name="fylbyj" readonly="readonly" />
                 </div>
                 <div class="mui-input-row" style="height:3.25rem;">
                     <label for="fze">退款总额(元)<i style="color:red;">*</i></label>
-                    <input type="text" id="fze" name="fze" readonly="readonly" />
+                    <input type="number" id="fze" name="fze" readonly="readonly" />
                 </div>
                 <div class="mui-input-row" style="height:3.25rem;">
                     <label for="fjhrxm">第一监护人<i style="color:red;">*</i></label>
-                    <input type="text" id="fjhrxm" name="fjhrxm" placeholder="请填写第一监护人/老人姓名" />
+                    <input type="text" id="fjhrxm" name="fjhrxm" readonly="readonly" />
                 </div>
                 <div class="mui-input-row" style="height:3.25rem;">
                     <label for="fyhzh">银行账户<i style="color:red;">*</i></label>
-                    <input type="text" id="fyhzh" name="fyhzh" placeholder="请填写银行账户" />
+                    <input type="text" id="fyhzh" name="fyhzh" readonly="readonly" />
                 </div>
                 <div class="mui-input-row">
                     <label for="flxfs">联系方式<i style="color:red;">*</i></label>
-                    <input type="text" id="flxfs" name="flxfs" placeholder="请填写监护人联系方式" />
+                    <input type="text" id="flxfs" name="flxfs" readonly="readonly"/>
                 </div>
                 <div class="mui-input-row">
                     <label for="fly">退住理由<i style="color:red;">*</i></label>
-                    <textarea rows="5" id="fly" name="fly" placeholder="请填写退住理由"></textarea>
+                    <textarea rows="5" id="fly" name="fly" readonly="readonly"></textarea>
                 </div>
                 <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                     <div class="border border-t upload-img" style="top:0rem;">
@@ -409,6 +409,8 @@
             }).done(function (data) {
                 console.log(data);
                 var item = data.FormDataSet.BPM_TLYLRTZTKSQ[0];
+                $("#stepId").val(stepId);
+                $("#fbillno").val(item.fbillno);
                 $("#taskId").val(item.TaskID);
                 $("#fname").val(item.fname);
                 $("#fdate").val(FormatterTimeYMS(item.fdate));
@@ -427,6 +429,7 @@
                 $("#fyhzh").val(item.fyhzh);
                 $("#flxfs").val(item.flxfs);
                 $("#fly").val(item.fly);
+                $("#ftel").val(item.ftel);
                 if (item.fj != null && item.fj != "") {
                     var fjtmp = (String)(item.fj);
 

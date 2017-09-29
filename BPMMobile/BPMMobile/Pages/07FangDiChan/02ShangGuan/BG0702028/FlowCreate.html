@@ -38,7 +38,7 @@
              </div>
              <div class="mui-input-row">
                  <label for="fdate">发起日期<i style="color:red;">*</i></label>
-                 <input type="date" id="fdate" name="fdate" />
+                 <input type="date" id="fdate" name="fdate" readonly="readonly"/>
              </div>
              <div class="mui-input-row">
                  <label for="ftel">联系方式<i style="color:red;">*</i></label>
@@ -138,7 +138,7 @@
     </div>
     <script>
         mui.init();
-      //  var picker1 = new mui.PopPicker();
+    
  
         mui.ready(function () {
             getVersion('\\07房地产集团\\02商管公司\\BG办公管理', '兴源文化创意公司商户调整申请');
@@ -147,7 +147,7 @@
            
             upload();
             watch();            
-        //   setList();
+       
         });
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
         XuntongJSBridge.call('getPersonInfo', {}, function (result) {
@@ -186,35 +186,7 @@
             }
 
         });
-        //function checkVal(val) {            
-            
-        //    if (val == "其他") {
-        //        $("#qt").css("display", "block");
-        //    } else {
-        //        $("#qt").css("display", "none");
-        //    }
-        //}
-        //function setList() {
-            
-        //    var ftypedata1 = [
-        //           {
-        //               value: "dycfs",
-        //               text: "第一次发生"
-        //           },
-        //           {
-        //               value: "yqgzzcfs",
-        //               text: "以前故障再次发生"
-        //           } 
-        //    ];            
-        //    picker1.setData(ftypedata1);
-        //    $("#fgztj").on('tap', function () {
-        //        var self = this;
-        //        picker1.show(function (items) {
-        //            self.value = (items[0].text);
-        //        });
-        //    });
-
-        //}
+    
         function prepMsg() {          
 
             $("#fdate").val(getNowFormatDate(2));            
@@ -318,10 +290,7 @@
                 mui.toast("请填写现在租金标准");
                 return;
             }
-            //if (!fxz_jyyt || fxz_jyyt == "") {
-            //    mui.toast("请填写现在经营业态");
-            //    return;
-            //}
+         
 
             if (!ftz_dph || ftz_dph == "") {
                 mui.toast("请填写调整店铺号");
@@ -335,15 +304,7 @@
                 mui.toast("请填写调整租金标准");
                 return;
             }
-            //if (!ftz_jyyt || ftz_jyyt == "") {
-            //    mui.toast("请填写调整经营业态");
-            //    return;
-            //}
-
-            //if (!fbz || fbz == "") {
-            //    mui.toast("请填写备注");
-            //    return;
-            //}
+        
             if (fjArray.toString() == null || fjArray.toString() == "") {
                 mui.toast("请上传附件");
                   return;
