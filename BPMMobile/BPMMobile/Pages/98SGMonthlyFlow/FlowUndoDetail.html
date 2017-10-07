@@ -44,7 +44,21 @@
             </div>
             <div class="mui-input-row">
                 <label for="ftel">联系方式</label>
-                <input type="tel" id="ftel" name="ftel" value="" />
+                <input type="tel" id="ftel" name="ftel" value="" readonly="readonly"/>
+            </div>
+            <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
+                <div class="border border-t upload-img" style="top:0rem;">
+                    <!--上传图片-->
+                    <div class="clearfix upload-btn" id="children-bg">
+                        <label class="label">附件<i style="color:red;">*</i></label>
+                        <span class="tips" id="imageCount"><!--已添加0张--></span>
+                        <!--上传图片按钮  -->
+                        <span class="upload-addbtn" style="display:none;">
+                            <input type="file" accept="image/jpeg,image/jpg,image/png,image/jp2,image/bmp" id="file" style="opacity:0;">
+                        </span>
+                    </div>
+                    <div class="upload-img-list"></div>
+                </div>
             </div>
             <div class="mui-input-row bgc" style="height:2.25rem;">
                 <label>本月工作总结</label>
@@ -408,6 +422,122 @@
                         $("#ftjdate").val(item.ftjrq);
                         $("#stepId").val(stepId);
                         $("#fbillno").val(item.fbillno);
+
+                        if (item.ffj != null && item.ffj != "") {
+                            var fjtmp = (String)(item.ffj);
+
+                            fjArray = fjtmp.split(";");
+
+
+                            //console.log("fjArray:" + fjArray);
+
+                            //请求附件详细信息
+                            $.ajax({
+                                type: 'POST',
+                                url: '/api/bpm/GetAttachmentsInfo',
+                                //dataType:'json',
+                                data: { 'fileIds': fjArray },
+
+                                beforeSend: function (XHR) {
+                                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+                                },
+                                success: function (data, status) {
+                                    if (status == "success") {
+
+                                        console.log(data);
+
+                                        for (var i = 0; i < data.length; i++) {
+
+                                            var name = data[i].Name;
+                                            var type = (data[i].Ext).replace(".", "");
+                                            var size = String(data[i].Size);
+
+                                            var time = String(data[i].LastUpdate).replace("T", " ");
+                                            var downurl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;
+                                            var attach = attachItem(name, type, size, time, downurl);
+                                            attachArray.push(attach);
+
+
+
+                                            var li = '<div class="pic-preview smallyulan success">';
+                                            li = li + ' <div class="del none" style="opacity:1;z-index:999;"onclick="delPicture(this)">x</div>';
+
+                                            //类型判断
+                                            if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
+
+                                                //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
+
+                                            } else if ((data[i].Ext).indexOf("xls") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/xlsx@2x.png"/></div>';
+
+                                            } else if ((data[i].Ext).indexOf("doc") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/docx@2x.png"/></div>';
+
+                                            } else if ((data[i].Ext).indexOf("ppt") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/ppt@2x.png"/></div>';
+
+                                            } else if ((data[i].Ext).indexOf("pdf") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/pdf@2x.png"/></div>';
+
+                                            } else if ((data[i].Ext).indexOf("zip") != -1 || (data[i].Ext).indexOf("rar") != -1 || (data[i].Ext).indexOf("7z") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/zip@2x.png"/></div>';
+
+                                            } else if ((data[i].Ext).indexOf("txt") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
+
+                                            } else {
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
+                                            }
+
+                                            li = li + ' </div>';
+                                            li = li + '</div>';
+                                            $(".upload-img-list").append(li);
+
+
+                                            $(".imgdiv").each(function () {
+
+                                                $(this).parent().find(".del.none").hide();
+
+                                            });
+
+
+
+
+                                        }
+                                        watch();
+                                        $(".imgdiv").on('tap', function () {
+                                            console.log($(this)[0].id);
+                                            XuntongJSBridge.call('showFile', {
+                                                'fileName': attachArray[$(this)[0].id].name,
+                                                'fileExt': attachArray[$(this)[0].id].type,
+                                                'fileTime': attachArray[$(this)[0].id].time,
+                                                'fileSize': attachArray[$(this)[0].id].size,
+                                                'fileDownloadUrl': attachArray[$(this)[0].id].downurl
+                                            }, function (result) {
+                                                //alert(JSON.stringify(result));
+                                            });
+                                        });
+
+
+                                    }
+
+                                }, error: function (e) {
+                                    console.log(e);
+
+                                }, complete: function () {
+
+                                }
+
+                            });
+
+                        }
                         var item_b = data.FormDataSet.BPM_SGGSYBTBB_B;
                         for (var i = 0; i < item_b.length; i++) {
                             if (item_b[i].frw_zj == null) {
@@ -462,6 +592,18 @@
                             li = li + '        <label for="fmb_jh">目标</label>';
                             li = li + '        <textarea id="fmb_jh" name="fmb_jh" placeholder="" rows="5" readonly="readonly">' + item_c[i].fmb + '</textarea>';
                             li = li + '   </div>';
+                            li = li + '   <div class="mui-input-row">';
+                            li = li + '        <label for="fzrr">责任人</label>';
+                            li = li + '        <input type="text" id="fzrr" name="fzrr" readonly="readonly" value="' + item_c[i].fzrr + '"/>';
+                            li = li + '   </div>';
+                            li = li + '   <div class="mui-input-row">';
+                            li = li + '        <label for="fksrq">开始时间</label>';
+                            li = li + '        <input type="date" id="fksrq" name="fksrq" readonly="readonly" value="' + FormatterTimeYMS(item_c[i].fksrq) + '"/>';
+                            li = li + '   </div>';
+                            li = li + '   <div class="mui-input-row">';
+                            li = li + '        <label for="fjsrq">完成时间</label>';
+                            li = li + '        <input type="date" id="fjsrq" name="fjsrq" readonly="readonly" value="' + FormatterTimeYMS(item_c[i].fjsrq) + '"/>';
+                            li = li + '   </div>';
                             li = li + '</div>';
                             $("#jhlist").append(li);
                         }
@@ -494,6 +636,7 @@
                         if (NodeName == "开始") {
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
+                            $("#ftel").removeAttr('readonly');
                             $("#zjlist").find("#deleteProduct").css("display", "block");
                             $("#zjlist").find("#zj").each(function () {
                                 $(this).find("#frw_zj").removeAttr("readonly");
@@ -505,11 +648,15 @@
                             $("#jhlist").find("#jh").each(function () {
                                 $(this).find("#frw_jh").removeAttr("readonly");
                                 $(this).find("#fmb_jh").removeAttr("readonly");
+                                $(this).find("#fzrr").removeAttr("readonly");
+                                $(this).find("#fksrq").removeAttr("readonly");
+                                $(this).find("#fjsrq").removeAttr("readonly");
                             });
                             $("#addjh").css("display", "block");
                             $("#addzj").css("display", "block");
                             $("#fbz_jh").removeAttr("readonly");
                             tapEvent();
+                            $('.upload-addbtn').css('display', 'block');
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -731,6 +878,7 @@
                 li = li + '        <label for="fjg_zj">完成结果</label>';
                 li = li + '        <textarea id="fjg_zj" name="fjg_zj" placeholder="请填写完成结果" rows="5"></textarea>';
                 li = li + '   </div>';
+                li = li + '</div>';
                 $("#zjlist").append(li);
             });
 
@@ -748,6 +896,19 @@
                 li = li + '        <label for="fmb_jh">目标</label>';
                 li = li + '        <textarea id="fmb_jh" name="fmb_jh" placeholder="请填写目标" rows="5"></textarea>';
                 li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fzrr">责任人</label>';
+                li = li + '        <input type="text" id="fzrr" name="fzrr" placeholder="请填写责任人"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fksrq">开始时间</label>';
+                li = li + '        <input type="date" id="fksrq" name="fksrq" placeholder=""/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fjsrq">完成时间</label>';
+                li = li + '        <input type="date" id="fjsrq" name="fjsrq" placeholder=""/>';
+                li = li + '   </div>';
+                li = li + '</div>';
                 $("#jhlist").append(li);
             });
         }
@@ -757,9 +918,7 @@
         function Save() {
 
 
-            var fareaStr = String(BPMOU).split("/");
-            //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
-            $("#fdept").val(fareaStr[fareaStr.length - 2]);
+            
 
             var fname = $("#fname").val();
             var fdate = $("#fdate").val() + " 00:00:00";
@@ -787,7 +946,10 @@
             $("#jhlist").find("#jh").each(function () {
                 var frw_jh = $(this).find("#frw_jh").val();
                 var fmb_jh = $(this).find("#fmb_jh").val();
-                var jh = JhItem(frw_jh, fmb_jh);
+                var fzrr = $(this).find("#fzrr").val();
+                var fksrq = $(this).find("#fksrq").val();
+                var fjsrq = $(this).find("#fjsrq").val();
+                var jh = JhItem(frw_jh, fmb_jh, fzrr, fksrq, fjsrq);
                 jhlistArr.push(jh);
             });
             var pid = $("#stepId").val();
@@ -826,6 +988,11 @@
                     xml = xml + '<fn_jh>' + fn_jh + '</fn_jh>';
                     xml = xml + '<fy_jh>' + fy_jh + '</fy_jh>';
                     xml = xml + '<fbz_jh>' + fbz_jh + '</fbz_jh>';
+                    if (fjArray.length != 0) {
+                        xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                    } else {
+                        xml = xml + '<ffj></ffj>';
+                    }
                     xml = xml + '<ftbrno>' + ftbrno + '</ftbrno>';
                     xml = xml + '<ftjrq>' + ftjdate + '</ftjrq>';
                     xml = xml + '<fxygzjh></fxygzjh>';
@@ -848,6 +1015,9 @@
                         xml = xml + '<entryno>' + (i + 1) + '</entryno>';
                         xml = xml + '<frw>' + jhlistArr[i].frw_jh + '</frw>';
                         xml = xml + ' <fmb>' + jhlistArr[i].fmb_jh + '</fmb>';
+                        xml = xml + '  <fzrr>' + jhlistArr[i].fzrr + '</fzrr>';
+                        xml = xml + '   <fksrq>' + jhlistArr[i].fksrq + '</fksrq>';
+                        xml = xml + '    <fjsrq>' + jhlistArr[i].fjsrq + '</fjsrq>';
                         xml = xml + '</BPM_SGGSYBTBB_C>';
                     }
                     xml = xml + '</FormData>';
@@ -886,7 +1056,10 @@
             $("#jhlist").find("#jh").each(function () {
                 var frw_jh = $(this).find("#frw_jh").val();
                 var fmb_jh = $(this).find("#fmb_jh").val();
-                var jh = JhItem(frw_jh, fmb_jh);
+                var fzrr = $(this).find("#fzrr").val();
+                var fksrq = $(this).find("#fksrq").val();
+                var fjsrq = $(this).find("#fjsrq").val();
+                var jh = JhItem(frw_jh, fmb_jh, fzrr, fksrq, fjsrq);
                 jhlistArr.push(jh);
             });
             var comment = '';
@@ -914,6 +1087,11 @@
                     xml = xml + '<fn_jh>' + fn_jh + '</fn_jh>';
                     xml = xml + '<fy_jh>' + fy_jh + '</fy_jh>';
                     xml = xml + '<fbz_jh>' + fbz_jh + '</fbz_jh>';
+                    if (fjArray.length != 0) {
+                        xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                    } else {
+                        xml = xml + '<ffj></ffj>';
+                    }
                     xml = xml + '<ftbrno>' + ftbrno + '</ftbrno>';
                     xml = xml + '<ftjrq>' + ftjdate + '</ftjrq>';
                     xml = xml + '<fxygzjh></fxygzjh>';
@@ -936,6 +1114,9 @@
                         xml = xml + '<entryno>' + (i + 1) + '</entryno>';
                         xml = xml + '<frw>' + jhlistArr[i].frw_jh + '</frw>';
                         xml = xml + ' <fmb>' + jhlistArr[i].fmb_jh + '</fmb>';
+                        xml = xml + '  <fzrr>' + jhlistArr[i].fzrr + '</fzrr>';
+                        xml = xml + '   <fksrq>' + jhlistArr[i].fksrq + '</fksrq>';
+                        xml = xml + '    <fjsrq>' + jhlistArr[i].fjsrq + '</fjsrq>';
                         xml = xml + '</BPM_SGGSYBTBB_C>';
                     }
                     xml = xml + '</FormData>';
@@ -974,7 +1155,10 @@
             $("#jhlist").find("#jh").each(function () {
                 var frw_jh = $(this).find("#frw_jh").val();
                 var fmb_jh = $(this).find("#fmb_jh").val();
-                var jh = JhItem(frw_jh, fmb_jh);
+                var fzrr = $(this).find("#fzrr").val();
+                var fksrq = $(this).find("#fksrq").val();
+                var fjsrq = $(this).find("#fjsrq").val();
+                var jh = JhItem(frw_jh, fmb_jh, fzrr, fksrq, fjsrq);
                 jhlistArr.push(jh);
             });
 
@@ -1049,6 +1233,11 @@
                             xml = xml + '<fn_jh>' + fn_jh + '</fn_jh>';
                             xml = xml + '<fy_jh>' + fy_jh + '</fy_jh>';
                             xml = xml + '<fbz_jh>' + fbz_jh + '</fbz_jh>';
+                            if (fjArray.length != 0) {
+                                xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                            } else {
+                                xml = xml + '<ffj></ffj>';
+                            }
                             xml = xml + '<ftbrno>' + ftbrno + '</ftbrno>';
                             xml = xml + '<ftjrq>' + ftjdate + '</ftjrq>';
                             xml = xml + '<fxygzjh></fxygzjh>';
@@ -1071,6 +1260,9 @@
                                 xml = xml + '<entryno>' + (i + 1) + '</entryno>';
                                 xml = xml + '<frw>' + jhlistArr[i].frw_jh + '</frw>';
                                 xml = xml + ' <fmb>' + jhlistArr[i].fmb_jh + '</fmb>';
+                                xml = xml + '  <fzrr>' + jhlistArr[i].fzrr + '</fzrr>';
+                                xml = xml + '   <fksrq>' + jhlistArr[i].fksrq + '</fksrq>';
+                                xml = xml + '    <fjsrq>' + jhlistArr[i].fjsrq + '</fjsrq>';
                                 xml = xml + '</BPM_SGGSYBTBB_C>';
                             }
                             xml = xml + '</FormData>';
@@ -1107,6 +1299,11 @@
                 xml = xml + '<fn_jh>' + fn_jh + '</fn_jh>';
                 xml = xml + '<fy_jh>' + fy_jh + '</fy_jh>';
                 xml = xml + '<fbz_jh>' + fbz_jh + '</fbz_jh>';
+                if (fjArray.length != 0) {
+                    xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                } else {
+                    xml = xml + '<ffj></ffj>';
+                }
                 xml = xml + '<ftbrno>' + ftbrno + '</ftbrno>';
                 xml = xml + '<ftjrq>' + ftjdate + '</ftjrq>';
                 xml = xml + '<fxygzjh></fxygzjh>';
@@ -1129,6 +1326,9 @@
                     xml = xml + '<entryno>' + (i + 1) + '</entryno>';
                     xml = xml + '<frw>' + jhlistArr[i].frw_jh + '</frw>';
                     xml = xml + ' <fmb>' + jhlistArr[i].fmb_jh + '</fmb>';
+                    xml = xml + '  <fzrr>' + jhlistArr[i].fzrr + '</fzrr>';
+                    xml = xml + '   <fksrq>' + jhlistArr[i].fksrq + '</fksrq>';
+                    xml = xml + '    <fjsrq>' + jhlistArr[i].fjsrq + '</fjsrq>';
                     xml = xml + '</BPM_SGGSYBTBB_C>';
                 }
                 xml = xml + '</FormData>';
@@ -1144,11 +1344,14 @@
             zj.fjg_zj = fjg_zj;
             return zj;
         }
-        function JhItem(frw_jh, fmb_jh) {
+        function JhItem(frw_jh, fmb_jh, fzrr, fksrq, fjsrq) {
 
             var jh = new Object;
             jh.frw_jh = frw_jh;
             jh.fmb_jh = fmb_jh;
+            jh.fzrr = fzrr;
+            jh.fksrq = fksrq;
+            jh.fjsrq = fjsrq;
             return jh;
         }
     </script>

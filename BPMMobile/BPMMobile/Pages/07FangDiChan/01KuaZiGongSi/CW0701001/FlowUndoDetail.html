@@ -103,14 +103,14 @@
                     <label for="fjkremark">{{fjkremark}}</label>
                     <textarea rows="7" id="fjkremark" name="fjkremark" v-bind:readonly="isReadonly" ref="fjkremark"></textarea>
                 </div>
-                <div id="mxlist">
-
-                </div>
-                <a class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" id="tjmx" v-bind:style="tjmx">
-                    添加出差明细
-                    <span class="mui-icon mui-icon-plusempty"></span>
-                </a>
+               
             </div>
+            <div id="mxlist">
+            </div>
+            <a class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" id="tjmx" v-bind:style="tjmx">
+                添加出差明细
+                <span class="mui-icon mui-icon-plusempty"></span>
+            </a>
             <div class="mui-card">
                 <div class="mui-input-row itemtitle">
                     <label>差旅费明细</label>
@@ -274,24 +274,22 @@
                 </div>
 
             </div>
-            <div class="mui-table-view" style="margin-bottom:3.25rem;">
-                <div class="mui-table-view-cell  mui-collapse mui-active">
-                    <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
-
-                        历史签核意见
-                    </a>
-                    <div class="mui-collapse-content">
-
-                        <!--流程列表-->
-                        <div class="list">
-                            <ul id="signff"></ul>
-                        </div>
-
-
+           
+        </form>
+        <div class="mui-table-view" style="margin-bottom:3.25rem;">
+            <div class="mui-table-view-cell  mui-collapse mui-active">
+                <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
+                    历史签核意见
+                </a>
+                <div class="mui-collapse-content">
+                    <!--流程列表-->
+                    <div class="list">
+                        <ul id="signff"></ul>
                     </div>
+
                 </div>
             </div>
-        </form>
+        </div>
         <div class="mui-btn-row" id="createD">
             <button class="mui-btn mui-btn-primary" type="button" id="commitbt" onclick="Save()">提交</button>
         </div>
@@ -351,7 +349,7 @@
 
             });
             
-            //v.prepMsg();
+            v.prepMsg();
             v.getTaskMsg();
         });
         mui('#fif_jkd').each(function () {
@@ -649,7 +647,7 @@
                         context.$refs.fcllb.value = item.fcllb;
                         context.$refs.fif_jk.value = item.fif_jk;
 
-                        if (item.fif_jk == '是') {
+                        if (String(item.fif_jk).indexOf('是')!=-1) {
                             $('#fif_jkd').addClass('mui-active');
                             $('#fjkcard').css("display", "block");
                             context.$refs.fjktotal.value = item.fjktotal;
@@ -756,20 +754,51 @@
                             $("#mxlist").find("#fsdate,#fedate,#fccrs,#fday").each(function () {
                                 $(this).removeAttr("readonly");
                             });
+                            $("#mxlist").find('span').each(function () {
+                                $(this).css('display', 'block');
+                            });
                             showPickerByZepto('#mxlist', '#fzwjb', fzwjbdata);
                             showPickerByZepto('#mxlist', '#fjtgj', fjtgjdata);
 
                             showPicker('fcllb', fcllbdata);
-                            $("#fif_jkd").removeClass('mui-active');
+                            $("#fif_jkd").removeClass('mui-disabled');
                             $("#fremark,#fje_ctjtf,#fccrw,#fd_zsf,#fbz_zsf,#fje_zsf,#fcbz,#fbz_cf,#fje_cf,#fd_snjtf,#fbz_snjtf").removeAttr("readonly");
                             $("#fje_snjtf,#fje_qtclf,#fjktotal,#fjkremark").removeAttr("readonly");
-                           
+                            mui('#fif_jkd').each(function () {
+
+                                this.addEventListener('toggle', function (event) {
+                                    if (event.detail.isActive == 'true' || event.detail.isActive == true) {
+                                        $("#fjkcard").css("display", "block");
+                                        $("#fif_jk").val('是');
+                                    } else {
+                                        $("#fjkcard").css("display", "none");
+                                        $("#fif_jk").val('否');
+                                    }
+
+                                });
+                            });
                         } else if (NodeName == "sysInform"){
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
+                           
                         } else {
                             if (typeof (NodeName) != "undefined") {
                                 $("#approvalD").css("display", "block");
+                                mui('#jqd').each(function () {
+
+
+                                    this.addEventListener('toggle', function (event) {
+                                        if (event.detail.isActive == 'true' || event.detail.isActive == true) {
+
+                                            $('#signbody').css('display', 'block');
+                                        } else {
+
+                                            $('#signbody').css('display', 'none');
+                                            $('#signPer').val('');
+                                        }
+
+                                    });
+                                });
                             }
                         }
 
@@ -1700,18 +1729,18 @@
                 var mx = v.mxItem(fzwjb, fsdate, fedate, fjtgj, fcity, fdqlb, fccrs, fday);
                 mxlistArr.push(mx);
             });
-            var btnArry = ["取消", "确定"];
-            mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
+            var comment = '';
+            var btnArray = ['取消', '确定'];
+            mui.prompt('请选填知会意见', '可以不填', '知会意见', btnArray, function (e) {
                 if (e.index == 1) {
+                    comment = e.value;
                     var xml = '<?xml version="1.0"?>';
                     xml = xml + '<XForm>';
-                    xml = xml + '   <Header>';
-                    xml = xml + '    <Method>Process</Method>';
-                    xml = xml + '   <PID>' + pid + '</PID>';
-                    xml = xml + '   <Action>提交</Action>';
-                    xml = xml + '    <Comment></Comment>';
-                    xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
-                    xml = xml + '  </Header>';
+                    xml = xml + '<Header>';
+                    xml = xml + '<Method>InformSubmit</Method>';
+                    xml = xml + '<PID>' + pid + '</PID>';
+                    xml = xml + '<Comment>' + comment + '</Comment>';
+                    xml = xml + '</Header>';
                     xml = xml + '<FormData>';
 
                     xml = xml + '<BPM_FDCBX_CLFYSQ_A>';

@@ -34,7 +34,7 @@
             </div>
             <div class="mui-input-row">
                 <label for="fdept">提报部门</label>
-                <input type="text" id="fdept" name="fdept" />
+                <input type="text" id="fdept" name="fdept" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label for="fdate">提报时间</label>
@@ -340,6 +340,7 @@
                 $("#fdate").val(FormatterTimeYMS(item.ftime));
                 $("#stepId").val(stepId);
                 $("#fbillno").val(item.fbillno);
+                $("#taskId").val(item.TaskID);
                 var item_c = data.FormDataSet.BPM_FdcGoOut_B;
                 for (var i = 0; i < item_c.length; i++) {
                     itemidArr.push(item_c[i].itemid);
@@ -370,7 +371,7 @@
                     li = li + '   </div>';
                     li = li + '  <div class="mui-input-row">';
                     li = li + '      <label for="fnumber">补卡次数<i style="color:red;">*</i></label>';
-                    li = li + '       <input type="text" id="fnumber" name="fnumber" readonly="readonly" value="' + item_c[i].fnumber + '" />';
+                    li = li + '       <input type="number" id="fnumber" name="fnumber" readonly="readonly" value="' + item_c[i].fnumber + '" />';
                     li = li + '    </div>';
                     li = li + ' </div>';
                     $("#mxlist").append(li);
@@ -471,6 +472,12 @@
                     $("#mxlist").find('input').each(function () {
                         $(this).removeAttr("readonly");
                     });
+                    $("#mxlist").find('textarea').each(function () {
+                        $(this).removeAttr('readonly');
+                    });
+                    $("#mxlist").find('span').each(function () {
+                        $(this).css("display", "block");
+                    });
                 } else if (NodeName == "sysInform") {
                     $("#readD").css("display", "block");
                     $("#csd").css("display", "none");
@@ -487,7 +494,7 @@
 
 
         function Save() {
-
+            var pid = $("#stepId").val();
             var fcompany = $("#fcompany").val();
             var fdept = $("#fdept").val();
             var ftime = $("#fdate").val() + " 00:00:00";

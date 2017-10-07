@@ -552,6 +552,7 @@
                     });
                     $("#fdjs").removeAttr("readonly");
                     tapEvent();
+                    $("#tjmx").css("display", "block");
                 } else if (NodeName == "sysInform") {
                     $("#readD").css("display", "block");
                     $("#csd").css("display", "none");
@@ -684,7 +685,11 @@
 
 
         function Save() {
+            var pid = $("#stepId").val();
+            var fbillno = $("#fbillno").val();
+            var taskId = $("#taskId").val();
             var fcompany = $("#fcompany").val();
+
             var fdept = $("#fdept").val();
             var fname = $("#fname").val();
             var fdate = $("#fdate").val() + " 00:00:00";
@@ -743,7 +748,7 @@
                     } else {
                         xml = xml + '<fj></fj>';
                     }
-                    xml = xml + '       <TaskID></TaskID>';
+                    xml = xml + '       <TaskID>' + taskId+'</TaskID>';
                     xml = xml + '   </BPM_FDCBX_QTFBX_A>';
                     for (var i = 0; i < mxlistArr.length; i++) {
                         xml = xml + '   <BPM_FDCBX_QTFBX_B>';

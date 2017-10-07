@@ -44,6 +44,20 @@
                 <label for="ftel">联系方式</label>
                 <input type="tel" id="ftel" name="ftel" value="" />
             </div>
+            <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
+                <div class="border border-t upload-img" style="top:0rem;">
+                    <!--上传图片-->
+                    <div class="clearfix upload-btn" id="children-bg">
+                        <label class="label">附件<i style="color:red;">*</i></label>
+                        <span class="tips" id="imageCount"><!--已添加0张--></span>
+                        <!--上传图片按钮  -->
+                        <span class="upload-addbtn">
+                            <input type="file" accept="image/jpeg,image/jpg,image/png,image/jp2,image/bmp" id="file" style="opacity:0;">
+                        </span>
+                    </div>
+                    <div class="upload-img-list"></div>
+                </div>
+            </div>
             <div class="mui-input-row bgc" style="height:2.25rem;">
                 <label>本月工作总结</label>
                 <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;" id="addzj"></span>
@@ -97,7 +111,7 @@
             getVersion('\\98门户', '商管月工作汇报_流程');
             getBPMParam();
             prepMsg();
-           
+            upload();
         });
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
         XuntongJSBridge.call('getPersonInfo', {}, function (result) {
@@ -286,6 +300,7 @@
                 li = li + '        <label for="fjg_zj">完成结果</label>';
                 li = li + '        <textarea id="fjg_zj" name="fjg_zj" placeholder="请填写完成结果" rows="5"></textarea>';
                 li = li + '   </div>';
+                li = li + '</div>';
                 $("#zjlist").append(li);
             });
 
@@ -303,6 +318,20 @@
                 li = li + '        <label for="fmb_jh">目标</label>';
                 li = li + '        <textarea id="fmb_jh" name="fmb_jh" placeholder="请填写目标" rows="5"></textarea>';
                 li = li + '   </div>';
+               
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fzrr">责任人</label>';
+                li = li + '        <input type="text" id="fzrr" name="fzrr" placeholder="请填写责任人"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fksrq">开始时间</label>';
+                li = li + '        <input type="date" id="fksrq" name="fksrq" placeholder=""/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fjsrq">完成时间</label>';
+                li = li + '        <input type="date" id="fjsrq" name="fjsrq" placeholder=""/>';
+                li = li + '   </div>';
+                li = li + '</div>';
                 $("#jhlist").append(li);
             });
         }
@@ -329,18 +358,21 @@
             var zjlistArr = new Array();
             $("#zjlist").find("#zj").each(function () {
 
-                var frw_zj = $("#frw_zj").val();
-                var fmb_zj = $("#fmb_zj").val();
-                var fjg_zj = $("#fjg_zj").val();
+                var frw_zj = $(this).find("#frw_zj").val();
+                var fmb_zj = $(this).find("#fmb_zj").val();
+                var fjg_zj = $(this).find("#fjg_zj").val();
                 var zj = ZjItem(frw_zj, fmb_zj, fjg_zj);
                 zjlistArr.push(zj);
             });
 
             var jhlistArr = new Array();
             $("#jhlist").find("#jh").each(function () {
-                var frw_jh = $("#frw_jh").val();
-                var fmb_jh = $("#fmb_jh").val();
-                var jh = JhItem(frw_jh, fmb_jh);
+                var frw_jh = $(this).find("#frw_jh").val();
+                var fmb_jh = $(this).find("#fmb_jh").val();
+                var fzrr = $(this).find("#fzrr").val();
+                var fksrq = $(this).find("#fksrq").val();
+                var fjsrq = $(this).find("#fjsrq").val();
+                var jh = JhItem(frw_jh, fmb_jh, fzrr, fksrq, fjsrq);
                 jhlistArr.push(jh);
             });
             var btnArry = ["取消", "确定"];
@@ -381,6 +413,12 @@
                     xml = xml + '<fn_jh>' + fn_jh + '</fn_jh>';
                     xml = xml + '<fy_jh>' + fy_jh + '</fy_jh>';
                     xml = xml + '<fbz_jh>' + fbz_jh + '</fbz_jh>';
+                    if (fjArray.length != 0) {
+                        xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                    } else {
+                        xml = xml + '<ffj></ffj>';
+                    }
+                   
                     xml = xml + '<ftbrno>' + ftbrno + '</ftbrno>';
                     xml = xml + '<ftjrq>' + ftjdate + '</ftjrq>';
                     xml = xml + '<fxygzjh></fxygzjh>';
@@ -403,6 +441,9 @@
                         xml = xml + '<entryno>' + (i + 1) + '</entryno>';
                         xml = xml + '<frw>' + jhlistArr[i].frw_jh + '</frw>';
                         xml = xml + ' <fmb>' + jhlistArr[i].fmb_jh + '</fmb>';
+                        xml = xml + '  <fzrr>' + jhlistArr[i].fzrr + '</fzrr>';
+                        xml = xml + '   <fksrq>' + jhlistArr[i].fksrq + '</fksrq>';
+                        xml = xml + '    <fjsrq>' + jhlistArr[i].fjsrq + '</fjsrq>';
                         xml = xml + '</BPM_SGGSYBTBB_C>';
                     }
                     xml = xml + '</FormData>';
@@ -421,11 +462,14 @@
             zj.fjg_zj = fjg_zj;
             return zj;
         }
-        function JhItem(frw_jh, fmb_jh) {
+        function JhItem(frw_jh, fmb_jh, fzrr, fksrq, fjsrq) {
 
             var jh = new Object;
             jh.frw_jh = frw_jh;
             jh.fmb_jh = fmb_jh;
+            jh.fzrr = fzrr;
+            jh.fksrq = fksrq;
+            jh.fjsrq = fjsrq;
             return jh;
         }
     </script>

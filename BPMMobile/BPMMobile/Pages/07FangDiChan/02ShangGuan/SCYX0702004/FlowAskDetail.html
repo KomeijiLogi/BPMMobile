@@ -80,10 +80,14 @@
                     <label for="fzlqx_js">租赁结束时间<i style="color:red;">*</i></label>
                     <input type="date" id="fzlqx_js" name="fzlqx_js" readonly="readonly"/>
                 </div>
-                <div class="mui-input-row" style="height:3.25rem;">
-                    <label for="fkyjzr">开业计租日(开业)/截止计租日(停业)<i style="color:red;">*</i></label>
-                    <input type="date" id="fkyjzr" name="fkyjzr" readonly="readonly"/>
-                </div>
+            <div class="mui-input-row" id="kyd" style="display:none;">
+                <label for="fkyjzr">开业计租日(开业)<i style="color:red;">*</i></label>
+                <input type="date" id="fkyjzr" name="fkyjzr" />
+            </div>
+            <div class="mui-input-row" id="jyd" style="display:none;">
+                <label for="fjzjzr">截止计租日(停业)<i style="color:red;">*</i></label>
+                <input type="date" id="fjzjzr" name="fjzjzr" />
+            </div>
                 <div class="mui-input-row">
                     <label for="fzzlx">证件类型<i style="color:red;">*</i></label>
                     <input type="text" id="fzzlx" name="fzzlx" readonly="readonly"/>
@@ -355,7 +359,25 @@
                 $("#fkyqjn").val(item.fkyqjn);
                 $("#fzlheqz").val(item.fzlheqz);
                 $("#fqttj").val(item.fqttj);
-
+                if (String(item.flx) == '开业') {
+                    $("#kyd").css("display", "block");
+                    $("#jyd").css("display", "none");
+                    if (String(item.fzlheqz) == '否') {
+                        $("#fzlheqzd").removeClass('mui-active');
+                    }
+                    if (String(item.fkyqjn) == '否') {
+                        $("#fkyqjnd").removeClass('mui-active');
+                    }
+                } else if (String(item.flx) == '停业') {
+                    $("#kyd").css("display", "none");
+                    $("#jyd").css("display", "block");
+                    if (String(item.fjyxyqz) == '否') {
+                        $("#fzlheqzd").removeClass('mui-active');
+                    }
+                    if (String(item.fjyqjn) == '否') {
+                        $("#fkyqjnd").removeClass('mui-active');
+                    }
+                }
                 if (item.ffj != null && item.ffj != "") {
                     var fjtmp = (String)(item.ffj);
 

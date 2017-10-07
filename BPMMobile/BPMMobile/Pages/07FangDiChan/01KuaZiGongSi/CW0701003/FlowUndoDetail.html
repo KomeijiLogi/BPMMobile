@@ -406,6 +406,37 @@
                     li = li + '    </div>';
                     li = li + ' </div>';
                     $("#mxlist").append(li);
+
+                    $("#mxlist").find("#fzdrs").each(function () {
+                        $(this).off('input');
+                        $(this).on('input', function () {
+                            var fzdrs = $(this).parent().parent().find("#fzdrs").val();
+                            var fzdbz = $(this).parent().parent().find("#fzdbz").val();
+                            var fje = 0;
+                            if (!(!fzdbz || fzdbz == '')) {
+
+                                fje = parseFloat(fzdrs) * parseFloat(fzdbz);
+                            }
+                            $(this).parent().parent().find("#fje").val(fje);
+                            calcTotal();
+                        });
+                    });
+
+                    $("#mxlist").find("#fzdbz").each(function () {
+                        $(this).off('input');
+                        $(this).on('input', function () {
+
+                            var fzdbz = $(this).parent().parent().find("#fzdbz").val();
+                            var fzdrs = $(this).parent().parent().find("#fzdrs").val();
+                            var fje = 0;
+                            if (!(!fzdrs || fzdrs == '')) {
+
+                                fje = parseFloat(fzdrs) * parseFloat(fzdbz);
+                            }
+                            $(this).parent().parent().find("#fje").val(fje);
+                            calcTotal();
+                        });
+                    });
                 }
 
 
@@ -635,7 +666,7 @@
 
         function Save() {
 
-           
+            var pid = $("#stepId").val();
             var fcompany = $("#fcompany").val();
             var fdept = $("#fdept").val();
             var fname = $("#fname").val();

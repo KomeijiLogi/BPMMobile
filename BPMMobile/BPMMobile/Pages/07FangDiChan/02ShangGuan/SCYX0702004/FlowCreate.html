@@ -79,9 +79,13 @@
                 <label for="fzlqx_js">租赁结束时间<i style="color:red;">*</i></label>
                 <input type="date" id="fzlqx_js" name="fzlqx_js"/>
             </div>
-            <div class="mui-input-row" style="height:3.25rem;">
-                <label for="fkyjzr">开业计租日(开业)/截止计租日(停业)<i style="color:red;">*</i></label>
-                <input type="date" id="fkyjzr" name="fkyjzr"/>
+            <div class="mui-input-row" id="kyd" style="display:none;">
+                <label for="fkyjzr">开业计租日(开业)<i style="color:red;">*</i></label>
+                <input type="date" id="fkyjzr" name="fkyjzr" />
+            </div>
+            <div class="mui-input-row" id="jyd" style="display:none;">
+                <label for="fjzjzr">截止计租日(停业)<i style="color:red;">*</i></label>
+                <input type="date" id="fjzjzr" name="fjzjzr" />
             </div>
             <div class="mui-input-row">
                 <label for="fzzlx">证件类型<i style="color:red;">*</i></label>
@@ -106,6 +110,7 @@
             <div class="mui-input-row" style="height:3.25rem;">
                 <label for="fkyqjn">费用是否全部缴纳</label>
                 <input type="hidden" id="fkyqjn" name="fkyqjn" value="是"/>
+                <input type="hidden" id="fjyqjn" name="fjyqjn" value="是"/>
                 <div class="mui-switch mui-switch-mini mui-switch-blue mui-active" id="fkyqjnd">
                     <div class="mui-switch-handle"></div>
                 </div>  
@@ -113,6 +118,7 @@
             <div class="mui-input-row" style="height:3.25rem;">
                 <label for="fzlheqz">租赁合同是否签章完毕</label>
                 <input type="hidden" id="fzlheqz" name="fzlheqz" value="是"/>
+                <input type="hidden" id="fjyxyqz" name="fjyxyqz" value="是"/>
                 <div class="mui-switch mui-switch-mini mui-switch-blue mui-active" id="fzlheqzd">
                     <div class="mui-switch-handle"></div>
                 </div> 
@@ -156,10 +162,10 @@
             this.addEventListener('toggle', function (event) {
                 if (event.detail.isActive == 'true' || event.detail.isActive == true) {
                     $("#fkyqjn").val("是");
-
+                    $("#fjyqjn").val('是');
                 } else {
                     $("#fkyqjn").val("否");
-
+                    $("#fjyqjn").val('否');
                 }
 
             });
@@ -170,10 +176,10 @@
             this.addEventListener('toggle', function (event) {
                 if (event.detail.isActive == 'true' || event.detail.isActive == true) {
                     $("#fzlheqz").val("是");
-
+                    $("#fjyxyqz").val('是');
                 } else {
                     $("#fzlheqz").val("否");
-
+                    $("#fjyxyqz").val('否');
                 }
 
             });
@@ -232,7 +238,28 @@
                     text:'停业'
                 }
             ];
-            showPicker('flx', flxdata);
+          
+            var element = document.getElementById('flx');
+
+            var picker = new mui.PopPicker();
+
+            picker.setData(flxdata);
+
+            element.addEventListener('tap', function () {
+
+                picker.show(function (items) {
+
+                    element.value = items[0].text;
+                    if (String( items[0].text)=='开业') {
+                        $("#kyd").css("display", "block");
+                        $("#jyd").css("display", "none");
+                    } else if (String(items[0].text) == '停业') {
+                        $("#kyd").css("display", "none");
+                        $("#jyd").css("display", "block");
+                    }
+                });
+
+            }, false);
         }
 
         function Save() {
@@ -261,6 +288,11 @@
             var fkyqjn = $("#fkyqjn").val();
             var fzlheqz = $("#fzlheqz").val();
             var fqttj = $("#fqttj").val();
+            var fjzjzr = $("#fjzjzr").val();
+
+            var fjyqjn = $("#fjyqjn").val();
+            var fjyxyqz = $("#fjyxyqz").val();
+
 
             if (!flx || flx==''){
                 mui.toast('请选择申请类型');
@@ -295,10 +327,18 @@
                 mui.toast('请填写租赁结束时间');
                 return;
             }
-            if (!$("#fkyjzr").val() || $("#fkyjzr").val() == '') {
-                mui.toast('请填写计租日时间');
-                return;
+            if (String(flx)=='开业'){
+                if (!$("#fkyjzr").val() || $("#fkyjzr").val() == '') {
+                    mui.toast('请填写计租日时间');
+                    return;
+                }
+            } else if (String(flx) == '停业') {
+                if (!$("#fjzjzr").val() || $("#fjzjzr").val() == '') {
+                    mui.toast('请填写计租日时间');
+                    return;
+                }
             }
+            
             if (!fzzlx || fzzlx == '') {
                 mui.toast('请填写证件类型');
                 return;
@@ -320,10 +360,10 @@
                 return;
             }
 
-            // if(fjArray.length==0){
-            //     mui.toast('请上传附件');    
-            //     return; 
-            // }             
+             //if(fjArray.length==0){
+             //    mui.toast('请上传附件');    
+             //    return; 
+             //}             
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                 if (e.index == 1) {
@@ -356,7 +396,7 @@
                     xml = xml + '             <fzlqx_ks>' + fzlqx_ks + '</fzlqx_ks>';
                     xml = xml + '             <fzlqx_js>' + fzlqx_js + '</fzlqx_js>';
                     xml = xml + '             <fkyjzr>' + fkyjzr + '</fkyjzr>';
-                    xml = xml + '             <fjzjzr></fjzjzr>';
+                    xml = xml + '             <fjzjzr>' + fjzjzr + '</fjzjzr>';
                     xml = xml + '              <fzzlx>' + fzzlx + '</fzzlx>';
                     xml = xml + '            <fzzhm>' + fzzhm + '</fzzhm>';
                     xml = xml + '             <flxr>' + flxr + '</flxr>';
@@ -364,8 +404,8 @@
                     xml = xml + '              <fdzyx>' + fdzyx + '</fdzyx>';
                     xml = xml + '              <fkyqjn>' + fkyqjn + '</fkyqjn>';
                     xml = xml + '               <fzlheqz>' + fzlheqz + '</fzlheqz>';
-                    xml = xml + '              <fjyqjn></fjyqjn>';
-                    xml = xml + '              <fjyxyqz></fjyxyqz>';
+                    xml = xml + '              <fjyqjn>' + fjyqjn + '</fjyqjn>';
+                    xml = xml + '              <fjyxyqz>' + fjyxyqz + '</fjyxyqz>';
                     xml = xml + '               <fqttj>' + fqttj + '</fqttj>';
                     if (fjArray.length!=0) {
                         xml = xml + '              <ffj>' + fjArray.toString().replace(",",";") + '</ffj>';
