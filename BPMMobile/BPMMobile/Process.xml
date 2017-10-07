@@ -1790,6 +1790,37 @@
     <Group>采购</Group>
     <Description>适用于集团公司供应商新增分配启用禁用及变更申请</Description>
   </Process>
+  <Process>    
+      <Name>集团总部发文通知申请</Name>    
+      <Path>\\01威高集团总部\\00威高集团本部\\BG办公管理</Path>    
+      <CanCreate>True</CanCreate>
+      <CreatePage>/Pages/01WeGoHQ/00WeGoBenBu/BG0100001/FlowCreate.html</CreatePage>
+      <ViewUndoPage>/Pages/01WeGoHQ/00WeGoBenBu/BG0100001/FlowUndoDetail.html</ViewUndoPage>
+      <ViewAskPage>/Pages/01WeGoHQ/00WeGoBenBu/BG0100001/FlowAskDetail.html</ViewAskPage>
+      <ViewDonePage>/Pages/01WeGoHQ/00WeGoBenBu/BG0100001/FlowDoneDetail.html</ViewDonePage>
+      <ViewPage>/Pages/01WeGoHQ/00WeGoBenBu/BG0100001/FlowCreate.html</ViewPage>    
+      <DisplayName>集团总部发文通知申请</DisplayName>   
+      <Css></Css>   
+      <Icon>../../../../Content/images/5.png</Icon>    
+      <Group>办公管理</Group>   
+      <Description>适用于集团总部发文通知申请</Description> 
+  </Process>
+
   
+  <Process>   
+      <Name>集团总部管理制度发文申请</Name>
+      <Path>\\01威高集团总部\\00威高集团本部\\BG办公管理</Path>   
+      <CanCreate>True</CanCreate>
+      <CreatePage>/Pages/01WeGoHQ/00WeGoBenBu/BG0100004/FlowCreate.html</CreatePage>
+      <ViewUndoPage>/Pages/01WeGoHQ/00WeGoBenBu/BG0100004/FlowUndoDetail.html</ViewUndoPage>
+      <ViewAskPage>/Pages/01WeGoHQ/00WeGoBenBu/BG0100004/FlowAskDetail.html</ViewAskPage>
+      <ViewDonePage>/Pages/01WeGoHQ/00WeGoBenBu/BG0100004/FlowDoneDetail.html</ViewDonePage>
+      <ViewPage>/Pages/01WeGoHQ/00WeGoBenBu/BG0100004/FlowCreate.html</ViewPage>  
+      <DisplayName>集团总部管理制度发文申请</DisplayName>    
+      <Css></Css>    
+      <Icon>../../../../Content/images/5.png</Icon>    
+      <Group>办公管理</Group>   
+      <Description>适用于集团总部管理制度发文申请</Description>  
+  </Process>
   
 </ProcessList>
