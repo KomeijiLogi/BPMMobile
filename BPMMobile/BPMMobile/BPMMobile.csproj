@@ -369,6 +369,14 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Pages\01WeGoHQ\00WeGoBenBu\BG0100001\FlowAskDetail.html" />
+    <Content Include="Pages\01WeGoHQ\00WeGoBenBu\BG0100001\FlowCreate.html" />
+    <Content Include="Pages\01WeGoHQ\00WeGoBenBu\BG0100001\FlowDoneDetail.html" />
+    <Content Include="Pages\01WeGoHQ\00WeGoBenBu\BG0100001\FlowUndoDetail.html" />
+    <Content Include="Pages\01WeGoHQ\00WeGoBenBu\BG0100004\FlowAskDetail.html" />
+    <Content Include="Pages\01WeGoHQ\00WeGoBenBu\BG0100004\FlowCreate.html" />
+    <Content Include="Pages\01WeGoHQ\00WeGoBenBu\BG0100004\FlowDoneDetail.html" />
+    <Content Include="Pages\01WeGoHQ\00WeGoBenBu\BG0100004\FlowUndoDetail.html" />
     <Content Include="Pages\01WeGoHQ\00WeGoBenBu\BG0100015\FlowAskDetail.html" />
     <Content Include="Pages\01WeGoHQ\00WeGoBenBu\BG0100015\FlowCreate.html" />
     <Content Include="Pages\01WeGoHQ\00WeGoBenBu\BG0100015\FlowDoneDetail.html" />
@@ -401,6 +409,10 @@
     <Content Include="Pages\01WeGoHQ\01KuaZhanYe\CW0101012\FlowCreate.html" />
     <Content Include="Pages\01WeGoHQ\01KuaZhanYe\CW0101012\FlowDoneDetail.html" />
     <Content Include="Pages\01WeGoHQ\01KuaZhanYe\CW0101012\FlowUndoDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\CW0101015\FlowAskDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\CW0101015\FlowCreate.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\CW0101015\FlowDoneDetail.html" />
+    <Content Include="Pages\01WeGoHQ\01KuaZhanYe\CW0101015\FlowUndoDetail.html" />
     <Content Include="Pages\01WeGoHQ\01KuaZhanYe\RL0101001\FlowAskDetail.html" />
     <Content Include="Pages\01WeGoHQ\01KuaZhanYe\RL0101001\FlowCreate.html" />
     <Content Include="Pages\01WeGoHQ\01KuaZhanYe\RL0101001\FlowDoneDetail.html" />
@@ -481,6 +493,10 @@
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\CWGL0106001\FlowCreate.html" />
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\CWGL0106001\FlowDoneDetail.html" />
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\CWGL0106001\FlowUndoDetail.html" />
+    <Content Include="Pages\01WeGoHQ\06JianSheGongSi\CWGL0106004\FlowAskDetail.html" />
+    <Content Include="Pages\01WeGoHQ\06JianSheGongSi\CWGL0106004\FlowCreate.html" />
+    <Content Include="Pages\01WeGoHQ\06JianSheGongSi\CWGL0106004\FlowDoneDetail.html" />
+    <Content Include="Pages\01WeGoHQ\06JianSheGongSi\CWGL0106004\FlowUndoDetail.html" />
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\FLSW0106001\FlowAskDetail.html" />
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\FLSW0106001\FlowCreate.html" />
     <Content Include="Pages\01WeGoHQ\06JianSheGongSi\FLSW0106001\FlowDoneDetail.html" />

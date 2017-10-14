@@ -485,8 +485,43 @@
                 return;
             }
             if (!fzczb) {
-                mui.toast('');
+                mui.toast('请填写注册资本');
                 return;
+            }
+            if (!ftzze) {
+                mui.toast('请填写投资总额');
+                return;
+            }
+            if (!fzcdz) {
+                mui.toast('请填写注册地址');
+                return;
+            }
+            if (!fddbr) {
+                mui.toast('请填写法定代表人');
+                return;
+            }
+            if (!fzjl) {
+                mui.toast('请填写总经理');
+                return;
+
+            }
+            if (!fds) {
+                mui.toast('请填写董事');
+                return;
+            }
+            if (!fjs) {
+                mui.toast('请填写监事');
+                return;
+            }
+            if (!fjyfw) {
+                mui.toast('请填写经营范围');
+                return;
+            }
+            if (String(fsqlx).indexOf('新增')!=-1) {
+                if (!fxsmd) {
+                    mui.toast('请填写新增目的');
+                    return;
+                }
             }
 
             var fcompanyname_bg = $("#fcompanyname_bg").val();

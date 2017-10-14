@@ -445,8 +445,13 @@
             this.addEventListener('toggle', function (event) {
                 if (event.detail.isActive == 'true' || event.detail.isActive == true) {
                     $('#fiszhushu').val('是');
+                    $("#fdizhi").removeAttr('readonly');
                 } else {
                     $('#fiszhushu').val('否');
+                    if (String($('#ffenfang').val()).indexOf('否') != -1) {
+                        $("#fdizhi").attr('readonly', 'readonly');
+                    }
+
                 }
 
             });
@@ -461,7 +466,10 @@
                     $("#fdizhi").removeAttr('readonly');
                 } else {
                     $('#ffenfang').val('否');
-                    $("#fdizhi").attr('readonly', 'readonly');
+
+                    if (String($('#fiszhushu').val()).indexOf('否') != -1) {
+                        $("#fdizhi").attr('readonly', 'readonly');
+                    }
                 }
 
             });
@@ -639,7 +647,7 @@
                 $("#fgs").val(item.fgs);
                 $("#fbm").val(item.fbm);
                 $("#fsex").val(item.fsex);
-                $("#fbirth").val(item.fbirth);
+                $("#fbirth").val(FormatterTimeYMS(item.fbirth));
                 $("#fidno").val(item.fidno);
                 $("#ftel").val(item.ftel);
                 $("#fygzw").val(item.fygzw);
@@ -974,10 +982,10 @@
                             $("#fhq_3").removeAttr('readonly');
                         } else if (String(NodeName) == '福利分房办公室') {
                             $("#fflff").removeAttr('readonly');
-                        } else if (String(NodeName) == '集团财务公司') {
-                            $("#fcw_1,#fcw_2").removeAttr('readonly');
-                        } else if (String(NodeName) == '集团资金结算部') {
+                        } else if (String(NodeName) == '集团财务公司') { 
                             $('#fzj_1').removeAttr('readonly');
+                        } else if (String(NodeName) == '集团资金结算部') {
+                            $('#fzj_2').removeAttr('readonly');
                         } else if (String(NodeName) == '邮箱管理员') {
                             $('#fxx_1').removeAttr('readonly');
                         } else if (String(NodeName) == 'ERP管理员') {
@@ -1192,7 +1200,7 @@
                 return;
             }
 
-            if (!fjArray.length == 0) {
+            if (fjArray.length == 0) {
                 mui.toast('请上传离职报告');
                 return;
             }

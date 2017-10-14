@@ -1639,7 +1639,7 @@
   </Process>
   
 
- <Process>
+  <Process>
     <Name>房地产集团信息系统权限申请</Name>
     <Path>\\07房地产集团\\01跨子公司\\XX信息管理</Path>
     <CanCreate>True</CanCreate>
@@ -1670,14 +1670,13 @@
     <Icon>../../../../Content/images/5.png</Icon>
     <Group>财务</Group>
     <Description>适用于集团公司资金收支计划评审</Description>
-
   </Process>
 
   <Process>
 
     <Name>集团公司投资申请</Name>
     <Path>\\01威高集团总部\\01跨产业集团\\CW财务</Path>
-    <CanCreate>True</CanCreate>
+    <CanCreate>False</CanCreate>
     <CreatePage>/Pages/01WeGoHQ/01KuaZhanYe/CW0101011/FlowCreate.html</CreatePage>
     <ViewUndoPage>/Pages/01WeGoHQ/01KuaZhanYe/CW0101011/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/01WeGoHQ/01KuaZhanYe/CW0101011/FlowAskDetail.html</ViewAskPage>
@@ -1695,7 +1694,7 @@
 
     <Name>集团公司投资会签</Name>
     <Path>\\01威高集团总部\\01跨产业集团\\CW财务</Path>
-    <CanCreate>True</CanCreate>
+    <CanCreate>False</CanCreate>
     <CreatePage>/Pages/01WeGoHQ/01KuaZhanYe/CW0101012/FlowCreate.html</CreatePage>
     <ViewUndoPage>/Pages/01WeGoHQ/01KuaZhanYe/CW0101012/FlowUndoDetail.html</ViewUndoPage>
     <ViewAskPage>/Pages/01WeGoHQ/01KuaZhanYe/CW0101012/FlowAskDetail.html</ViewAskPage>
@@ -1790,6 +1789,7 @@
     <Group>采购</Group>
     <Description>适用于集团公司供应商新增分配启用禁用及变更申请</Description>
   </Process>
+  
   <Process>    
       <Name>集团总部发文通知申请</Name>    
       <Path>\\01威高集团总部\\00威高集团本部\\BG办公管理</Path>    
@@ -1823,4 +1823,38 @@
       <Description>适用于集团总部管理制度发文申请</Description>  
   </Process>
   
+  
+  <Process>
+    <Name>集团公司信息化投资申请</Name>
+    <Path>\\01威高集团总部\\01跨产业集团\\CW财务</Path>
+    <CanCreate>False</CanCreate>
+    <CreatePage>/Pages/01WeGoHQ/01KuaZhanYe/CW0101015/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/01WeGoHQ/01KuaZhanYe/CW0101015/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/01WeGoHQ/01KuaZhanYe/CW0101015/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/01WeGoHQ/01KuaZhanYe/CW0101015/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/01WeGoHQ/01KuaZhanYe/CW0101015/FlowCreate.html</ViewPage>
+    <DisplayName>集团公司信息化投资申请</DisplayName>
+    <Css></Css>
+    <Icon>../../../../Content/images/5.png</Icon>
+    <Group>财务管理</Group>
+    <Description>集团公司信息化投资申请</Description>
+  </Process>
+  
+  
+<Process>
+    <Name>建设公司借款申请</Name>
+    <Path>\\01威高集团总部\\06建设公司\\CWGL财务管理</Path>
+    <CanCreate>True</CanCreate>
+    <CreatePage>/Pages/01WeGoHQ/06JianSheGongSi/CWGL0106004/FlowCreate.html</CreatePage>
+    <ViewUndoPage>/Pages/01WeGoHQ/06JianSheGongSi/CWGL0106004/FlowUndoDetail.html</ViewUndoPage>
+    <ViewAskPage>/Pages/01WeGoHQ/06JianSheGongSi/CWGL0106004/FlowAskDetail.html</ViewAskPage>
+    <ViewDonePage>/Pages/01WeGoHQ/06JianSheGongSi/CWGL0106004/FlowDoneDetail.html</ViewDonePage>
+    <ViewPage>/Pages/01WeGoHQ/06JianSheGongSi/CWGL0106004/FlowCreate.html</ViewPage>
+    <DisplayName>建设公司借款申请</DisplayName>
+    <Css></Css>
+    <Icon>../../../../Content/images/5.png</Icon>
+    <Group>财务管理</Group>
+    <Description>建设公司借款申请</Description>
+  </Process>
+
 </ProcessList>

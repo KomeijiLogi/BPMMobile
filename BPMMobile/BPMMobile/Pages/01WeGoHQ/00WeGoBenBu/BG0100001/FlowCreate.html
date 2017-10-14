@@ -30,17 +30,17 @@
         <form class="mui-input-group" style="left:0rem;right:0rem;margin-bottom:1rem;padding-bottom:4rem;">
             <div class="mui-input-row">
                 <label for="fdrafter">起草人</label>
-                <input type="text" id="fdrafter" name="fdrafter" readonly="readonly" />
+                <input type="text" id="fdrafter" name="fdrafter"  />
             </div>
-            <div class="mui-input-row" style="display:none;">
+            <div class="mui-input-row">
                 <label for="fdraftdepartment">起草部门</label>
-                <input type="text" id="fdraftdepartment" name="fdraftdepartment" readonly="readonly" />
+                <input type="text" id="fdraftdepartment" name="fdraftdepartment"/>
             </div>
             <div class="mui-input-row">
                 <label for="fdraftdate">起草日期</label>
-                <input type="date" id="fdraftdate" name="fdraftdate" readonly="readonly" />
+                <input type="date" id="fdraftdate" name="fdraftdate" />
             </div>
-            <div class="mui-input-row"  style="display:none">
+            <div class="mui-input-row">
                 <label for="fposition">起草人职位</label>
                 <input type="text" id="fposition" name="fposition" placeholder="请输入起草人职位" />
             </div>
@@ -54,7 +54,10 @@
             </div>
             <div class="mui-input-row">
                 <label for="fif">是否总裁审批</label>
-                <input type="text" id="fif" name="fif" placeholder="请选择是否总裁审批" readonly="readonly"/>
+                <input type="hidden" id="fif" name="fif" readonly="readonly" value="否" />
+                <div class="mui-switch mui-switch-mini mui-switch-blue" id="fif_d">
+                    <div class="mui-switch-handle"></div>
+                </div>
             </div>
             <div class="mui-input-row">
                 <label for="fsecretdegree">密级</label>
@@ -65,7 +68,7 @@
                 <input type="text" id="furgencydegree" name="furgencydegree" placeholder="请选择紧急程度" readonly="readonly" />
             </div>
             <div class="mui-input-row">
-                <label for="fimportancedegree">重要程度程度</label>
+                <label for="fimportancedegree">重要程度</label>
                 <input type="text" id="fimportancedegree" name="fimportancedegree" placeholder="请选择重要程度" readonly="readonly" />
             </div>
             <div class="mui-input-row">
@@ -75,7 +78,7 @@
             <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                 <div class="border border-t upload-img" style="top:0rem;">
                     <div class="clearfix upload-btn" id="children-bg">
-                        <label class="label">上传正文及附件</label>
+                        <label class="label">附件</label>
                         <span class="tips" id="imageCount"><!--已添加0张--></span>
                         <span class="upload-addbtn">
                             <input type="file" accept="image/jpeg,image/jpg,image/png,image/jp2,image/bmp" id="file" style="opacity:0;">
@@ -101,11 +104,21 @@
             prepMsg();
             upload();
             watch();
-            getBPMParam();
+            //getBPMParam();
         });
-        mui('.mui-checkbox').on('change', 'input', function () {
-            var value = this.checked ? "1" : "0";
-            $(this).val(value);
+        mui('#fif_d').each(function () {
+
+
+            this.addEventListener('toggle', function (event) {
+                if (event.detail.isActive == 'true' || event.detail.isActive == true) {
+
+                    $('#fif').val('是');
+                } else {
+
+                    $('#fif').val('否');
+                }
+
+            });
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
@@ -116,6 +129,8 @@
 
             if (result.success == true || result.success == "true") {
                 $("#fdrafter").val(result.data.name);
+                $("#fposition").val('主办、主管');
+                $("#fimportancedegree").val('一般');
 
             }
         });
@@ -146,9 +161,41 @@
        
 
         function prepMsg() {
-            //tapEvent();
+
             $("#fdraftdate").val(getNowFormatDate(2));
-            tapEvent();          
+            tapEvent();  
+
+
+            $.ajax({
+
+                type: 'get',
+                url: "/api/bpm/GetBPMParam",
+                data: {},
+                beforeSend: function (XHR) {
+                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+                },
+                success: function (data, status) {
+                    if (status == "success") {
+                        //console.log(data);
+                        BPMOU = data.Position[0].FullName;
+
+                        var fareaStr = String(BPMOU).split("/");
+                        //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
+                        $("#fdraftdepartment").val(fareaStr[fareaStr.length - 2]);
+                        return BPMOU;
+                    } else {
+                        return "";
+                    }
+                },
+                error: function (e) {
+                    return e;
+                },
+
+                complete: function () {
+                    return BPMOU;
+                }
+
+            });
         }
         function tapEvent() {
             var fifdata = [
@@ -231,9 +278,7 @@
         }
 
         function Save() {
-            var fareaStr = String(BPMOU).split("/");
-            //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
-            $("#fdraftdepartment").val(fareaStr[fareaStr.length - 2]);
+
 
 
             var fdrafter = $("#fdrafter").val();

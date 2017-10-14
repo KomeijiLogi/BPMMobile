@@ -690,6 +690,8 @@
                             calcPrice();
                         });
                     });
+                    $('#tjmx').css('display', 'block');
+                    $('#fif_bzd').removeClass('mui-disabled');
                 } else if (NodeName == "sysInform") {
                     $("#readD").css("display", "block");
                     $("#csd").css("display", "none");
@@ -781,37 +783,38 @@
 
             });
         }
+        var fczjydata = [
+            {
+                value: '',
+                text: '调剂使用'
+            },
+            {
+                value: '',
+                text: '外部出售'
+            },
+            {
+                value: '',
+                text: '废品出售'
+            }
+
+        ];
+        var fzclbdata = [
+            {
+                value: '',
+                text: '生产物资'
+            },
+            {
+                value: '',
+                text: '设备物资'
+            }
+        ];
 
         function tapEvent() {
 
-            var fzclbdata = [
-                {
-                    value: '',
-                    text: '生产物资'
-                },
-                {
-                    value: '',
-                    text: '设备物资'
-                }
-            ];
-
+            
             showPicker('fzclb', fzclbdata);
 
-            var fczjydata = [
-                {
-                    value: '',
-                    text: '调剂使用'
-                },
-                {
-                    value: '',
-                    text: '外部出售'
-                },
-                {
-                    value: '',
-                    text: '废品出售'
-                }
-
-            ];
+          
 
             $("#tjmx").on('tap', function () {
 

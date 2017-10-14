@@ -663,7 +663,7 @@
 
                     $("#tjmx").css("display", "block");
                     $('.upload-addbtn').css("display", "block");
-                   
+                    $("#ftelephone").removeAttr('readonly');
 
                 } else if (NodeName == "sysInform") {
                     $("#readD").css("display", "block");
@@ -908,7 +908,10 @@
             var fcompany = $("#fcompany").val();
             var fdepartment = $("#fdepartment").val();
             var fposition = $("#fposition").val();
-
+            if (!ftelephone) {
+                mui.toast('请填写联系方式');
+                return;
+            }
             var mxflag = false;
             var mxlistArr = new Array();
 

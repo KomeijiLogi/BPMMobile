@@ -725,14 +725,15 @@
                 }
 
                 if (NodeName == "开始") {
-                    $("#createD").css("display", "block");
+                    //$("#createD").css("display", "block");
                     $("#csd").css("display", "none");
-                    tapEvent();
+                    //tapEvent();
                     prepMsg();
-                    $("#fgs,#fbm,#fzgxl,#fbyyx,#fzy,#fhkszd,#fdajg,#fsbjg,#fsbny,#fzzdate,#fzzzwpj").each(function () {
-                        $(this).removeAttr('readonly');
-                    });
-                    $('.upload-addbtn').css("display", "block");
+                    //$("#fgs,#fbm,#fzgxl,#fbyyx,#fzy,#fhkszd,#fdajg,#fsbjg,#fsbny,#fzzdate,#fzzzwpj").each(function () {
+                    //    $(this).removeAttr('readonly');
+                    //});
+                    //$('.upload-addbtn').css("display", "block");
+                    mui.alert('暂不支持移动端发起');
                 } else if(NodeName == "sysInform") {
                     $("#readD").css("display", "block");
                     $("#csd").css("display", "none");
@@ -740,6 +741,9 @@
                 } else {
                     if (typeof (NodeName) != "undefined") {
                         $("#approvalD").css("display", "block");
+                        if (String(NodeName).indexOf('人事') != -1 && String(NodeName).indexOf('知会')==-1) {
+                            $("#fzzdate").removeAttr('readonly');
+                        }
                     }
                 }
             }).fail(function (e) {

@@ -218,6 +218,13 @@
             var fifcw = $("#fifcw").val();
             var fdescription = $("#fdescription").val();
 
+            console.log((Array.prototype.slice.call(fdept)).length);
+            //debugger;
+            if ((Array.prototype.slice.call(fdept)).length > 10) {
+                mui.toast('BPM提报部门字数限制为10，请酌情减少字段');
+                return;
+            }
+
             if (!fcompany) {
                 mui.toast('请填写提报公司');
                 return null;

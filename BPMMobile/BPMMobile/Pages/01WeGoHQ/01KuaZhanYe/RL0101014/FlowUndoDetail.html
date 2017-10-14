@@ -39,9 +39,13 @@
                 <label for="ftel">联系方式</label>
                 <input type="tel" id="ftel" name="ftel" readonly="readonly" />
             </div>
-            <div class="mui-input-row itemtitle">
+            <div class="mui-input-row">
+                <label for="fbgfs">变更方式<i style="color:red">*</i></label>
+                <input type="text" id="fbgfs" name="fbgfs" readonly="readonly" />
+            </div>
+            <div class="mui-input-row">
                 <label for="fsqrsszz">申请人所属组织</label>
-                <input type="tel" id="ftel" name="ftel" readonly="readonly" />
+                <input type="tel" id="fsqrsszz" name="fsqrsszz" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fjt">拟调整岗位所属集团</label>
@@ -52,47 +56,47 @@
                 <input type="text" id="fgs" name="fgs" readonly="readonly" />
             </div>
             <div class="mui-input-row">
-                <label for="fbm_name">拟调整岗位所在部门</label>
+                <label for="fbm_name">拟调整岗位所在部门<i style="color:red">*</i></label>
                 <input type="text" id="fbm_name" name="fbm_name" readonly="readonly" />
             </div>
             <div class="mui-input-row">
-                <label for="fgw_name">拟调整岗位名称</label>
+                <label for="fgw_name">拟调整岗位名称<i style="color:red">*</i></label>
                 <input type="text" id="fgw_name" name="fgw_name" readonly="readonly"  />
             </div>
             <div class="mui-input-row">
-                <label for="fgwstatus">岗位状态</label>
+                <label for="fgwstatus">岗位状态<i style="color:red">*</i></label>
                 <input type="text" id="fgwstatus" name="fgwstatus" readonly="readonly" />
             </div>
             <div class="mui-input-row">
-                <label for="fbgsl">变更编制数</label>
+                <label for="fbgsl">变更编制数<i style="color:red">*</i></label>
                 <input type="text" id="fbgsl" name="fbgsl" readonly="readonly"  />
             </div>
             <div class="mui-input-row" style="display:none" id="zw">
-                <label for="fzw_name">职务</label>
+                <label for="fzw_name">职务<i style="color:red">*</i></label>
                 <input type="text" id="fzw_name" name="fzw_name" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="display:none" id="zwlb">
-                <label for="fzwlb">职位类别</label>
+                <label for="fzwlb">职位类别<i style="color:red">*</i></label>
                 <input type="text" id="fzwlb" name="fzwlb" readonly="readonly"  />
             </div>
             <div class="mui-input-row" style="display:none" id="yrylb">
-                <label for="fyrylb">原人员类别</label>
+                <label for="fyrylb">原人员类别<i style="color:red">*</i></label>
                 <input type="text" id="fyrylb" name="fyrylb" readonly="readonly"  />
             </div>
             <div class="mui-input-row" style="display:none" id="zjsj">
-                <label for="fzjsj">拟调整岗位直接上级</label>
+                <label for="fzjsj">拟调整岗位直接上级<i style="color:red">*</i></label>
                 <input type="text" id="fzjsj" name="fzjsj" readonly="readonly"/>
             </div>
             <div class="mui-input-row" style="display:none" id="bmjl">
-                <label for="fbmjl">拟调整岗位所在部门部门经理</label>
+                <label for="fbmjl">拟调整岗位所在部门部门经理<i style="color:red">*</i></label>
                 <input type="text" id="fbmjl" name="fbmjl" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="display:none" id="fgld">
-                <label for="ffgld">拟调整岗位所在部门分管领导</label>
+                <label for="ffgld">拟调整岗位所在部门分管领导<i style="color:red">*</i></label>
                 <input type="text" id="ffgld" name="ffgld" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="height:auto;">
-                <label for="ftzly">调整理由</label>
+                <label for="ftzly">调整理由<i style="color:red">*</i></label>
                 <textarea rows="8" id="ftzly" name="ftzly" readonly="readonly"></textarea>
             </div>
             <div class="mui-input-row" style="height:3.5rem;overflow:scroll;" id="uploaddiv">
@@ -109,16 +113,6 @@
                     <div class="upload-img-list"></div>
                 </div>
             </div>
-            <input type="hidden" id="fzjsjno" name="fzjsjno" />
-            <input type="hidden" id="fbmjlno" name="fbmjlno" />
-            <input type="hidden" id="ffgldno" name="ffgldno" />
-            <input type="hidden" id="fgs_sx" name="fgs_sx" />
-            <input type="hidden" id="fbm_no" name="fbm_no" />
-            <input type="hidden" id="fgw_no" name="fgw_no" />
-            <input type="hidden" id="fzw_no" name="fzw_no" />
-            <input type="hidden" id="fzwlb_no" name="fzwlb_no" />
-            <input type="hidden" id="fyrylb_no" name="fyrylb_no" />
-
             <div class="mui-input-row" id="csd">
                 <label>加签</label>
                 <div class="mui-switch mui-switch-blue" id="csswitch">
@@ -166,6 +160,16 @@
                     </ul>
                 </div>
             </div>
+            <input type="hidden" id="fzjsjno" name="fzjsjno" />
+            <input type="hidden" id="fbmjlno" name="fbmjlno" />
+            <input type="hidden" id="ffgldno" name="ffgldno" />
+            <input type="hidden" id="fgs_sx" name="fgs_sx" />
+            <input type="hidden" id="fbm_no" name="fbm_no" />
+            <input type="hidden" id="fgw_no" name="fgw_no" />
+            <input type="hidden" id="fzw_no" name="fzw_no" />
+            <input type="hidden" id="fzwlb_no" name="fzwlb_no" />
+            <input type="hidden" id="fyrylb_no" name="fyrylb_no" />
+
         </form>
         <div class="mui-table-view" style="margin-bottom:1rem;">
             <div class="mui-table-view-cell  mui-collapse mui-active">
@@ -675,115 +679,86 @@
                     $("#zwlb").css("display", "none");
                     $("#yrylb").css("display", "none");
                     $("#zjsj").css("display", "none");
-
-                    $("#fbgfs").on("click", function () {
-                        mui.alert("暂不支持发起功能");
-                    });
-                    $("#fbm_name").on("click", function () {
-                        mui.alert("暂不支持发起功能");
-                    });
-                    $("#fgw_name").on("click", function () {
-                        mui.alert("暂不支持发起功能");
-                    });
-                    $("#fgwstatus").on("click", function () {
-                        mui.alert("暂不支持发起功能");
-                    });
-                    $("#fbgsl").on("click", function () {
-                        mui.alert("暂不支持发起功能");
-                    });
-                    $("#fzw_name").on("click", function () {
-                        mui.alert("暂不支持发起功能");
-                    });
-                    $("#fzwlb").on("click", function () {
-                        mui.alert("暂不支持发起功能");
-                    });
-                    $("#fyrylb").on("click", function () {
-                        mui.alert("暂不支持发起功能");
-                    });
-                    $("#fzjsj").on("click", function () {
-                        mui.alert("暂不支持发起功能");
-                    });
-                    $("#fbmjl").on("click", function () {
-                        mui.alert("暂不支持发起功能");
-                    });
-                    $("#ffgld").on("click", function () {
-                        mui.alert("暂不支持发起功能");
-                    });
-                    $('.upload-addbtn').css("display", "block");
+               
+                    mui.alert("暂不支持发起功能");
+                    $('.upload-addbtn').css("display", "none");
                 } else if(NodeName == "sysInform") {
                     $("#readD").css("display", "block");
                     $("#csd").css("display", "none");
                     $("#approvalD").css("display", "none");
                     $("#createD").css("display", "none");
+                    $('.upload-addbtn').css("display", "none");
+
 
 
                 } else {
                     if (typeof (NodeName) != "undefined") {
                         $("#readD").css("display", "none");
-                        $("#csd").css("display", "none");
+                        $("#csd").css("display", "block");
                         $("#approvalD").css("display", "block");
                         $("#createD").css("display", "none");
+                        $('.upload-addbtn').css("display", "none");
 
 
-                        $("#fbmjl").on("click", function () {
-                            XuntongJSBridge.call('selectPerson', { 'pType': '1' }, function (result) {
-                                if (typeof (result) == "string") {
-                                    var result = JSON.stringify(result);
-                                }
-                                //result = JSON.parse(result);
+                        //$("#fbmjl").on("click", function () {
+                        //    XuntongJSBridge.call('selectPerson', { 'pType': '1' }, function (result) {
+                        //        if (typeof (result) == "string") {
+                        //            var result = JSON.stringify(result);
+                        //        }
+                        //        //result = JSON.parse(result);
 
-                                if (result.success == true || result.success == "true") {
-                                    $("#fbmjl").val(result.data.persons[0].personName);
+                        //        if (result.success == true || result.success == "true") {
+                        //            $("#fbmjl").val(result.data.persons[0].personName);
 
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "/api/bpm/PostAccount",
-                                        data: { "ids": result.data.persons[0].openId },
-                                        beforeSend: function (XHR) {
-                                            XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+                        //            $.ajax({
+                        //                type: "POST",
+                        //                url: "/api/bpm/PostAccount",
+                        //                data: { "ids": result.data.persons[0].openId },
+                        //                beforeSend: function (XHR) {
+                        //                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
 
-                                        }
-                                    }).done(function (data) {
-                                        console.log(JSON.stringify(data));
-                                        $("#fbmjlno").val(data.data[0].phone);
-                                    }).fail(function (e) {
-                                        console.log(e);
-                                    });
-                                }
+                        //                }
+                        //            }).done(function (data) {
+                        //                console.log(JSON.stringify(data));
+                        //                $("#fbmjlno").val(data.data[0].phone);
+                        //            }).fail(function (e) {
+                        //                console.log(e);
+                        //            });
+                        //        }
 
-                            });
+                        //    });
 
-                        });
+                        //});
 
-                        $("#ffgld").on("click", function () {
-                            XuntongJSBridge.call('selectPerson', { 'pType': '1' }, function (result) {
-                                if (typeof (result) == "string") {
-                                    var result = JSON.stringify(result);
-                                }
-                                //result = JSON.parse(result);
+                        //$("#ffgld").on("click", function () {
+                        //    XuntongJSBridge.call('selectPerson', { 'pType': '1' }, function (result) {
+                        //        if (typeof (result) == "string") {
+                        //            var result = JSON.stringify(result);
+                        //        }
+                        //        //result = JSON.parse(result);
 
-                                if (result.success == true || result.success == "true") {
-                                    $("#ffgld").val(result.data.persons[0].personName);
+                        //        if (result.success == true || result.success == "true") {
+                        //            $("#ffgld").val(result.data.persons[0].personName);
 
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "/api/bpm/PostAccount",
-                                        data: { "ids": result.data.persons[0].openId },
-                                        beforeSend: function (XHR) {
-                                            XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+                        //            $.ajax({
+                        //                type: "POST",
+                        //                url: "/api/bpm/PostAccount",
+                        //                data: { "ids": result.data.persons[0].openId },
+                        //                beforeSend: function (XHR) {
+                        //                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
 
-                                        }
-                                    }).done(function (data) {
-                                        console.log(JSON.stringify(data));
-                                        $("#ffgldno").val(data.data[0].phone);
-                                    }).fail(function (e) {
-                                        console.log(e);
-                                    });
-                                }
+                        //                }
+                        //            }).done(function (data) {
+                        //                console.log(JSON.stringify(data));
+                        //                $("#ffgldno").val(data.data[0].phone);
+                        //            }).fail(function (e) {
+                        //                console.log(e);
+                        //            });
+                        //        }
 
-                            });
+                        //    });
 
-                        });
+                        //});
                     }
                 }
             }).fail(function (e) {
@@ -885,9 +860,14 @@
         }
 
         function AgreeOrConSign() {
+            var consignUserId = new Array();
+            var consignRoutingType;
+            var consignReturnType;
+
+            var consignUserStr;
+            var comment = $("#signSuggest").val();
             var pid = $("#stepId").val();
             var fbillno = $("#fbillno").val();
-            var comment = $("#signSuggest").val();
 
             var fname = $("#fname").val();
             var fdate = $("#fdate").val() + " 00:00:00";
@@ -918,7 +898,108 @@
             var fyrylb_no = $("#fyrylb_no").val(); 
 
 
-          
+            //加签分支
+            if (($('#signPer').val() != null) && ($('#signPer').val() != '')) {
+
+                if ($('#sxsl').hasClass('mui-selected')) {
+                    consignRoutingType = 'Serial';
+
+                } else if ($('#pxsl').hasClass('mui-selected')) {
+                    consignRoutingType = 'Parallel';
+                }
+
+                if ($('#hdbjdl').hasClass('mui-selected')) {
+                    consignReturnType = 'Return';
+                } else if ($('#jrxjdl').hasClass('mui-selected')) {
+                    consignReturnType = 'Forward';
+                }
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/bpm/PostAccount",
+                    data: { "ids": consignOpenIdArr },
+                    beforeSend: function (XHR) {
+                        XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+                    }, success: function (data, status) {
+
+                        if (status == "success") {
+
+
+
+                            for (var i = 0; i < data.data.length; i++) {
+                                consignUserId.push(data.data[i].phone);
+                            }
+                            $('#consignUser').val(consignUserId);
+                            consignUserStr = (String)($('#consignUser').val()).replace(",", ";");
+
+                            var xml = '<?xml version="1.0"?>';
+                            xml = xml + '<XForm>';
+                            xml = xml + '<Header>';
+                            xml = xml + '<Method>Process</Method>';
+                            xml = xml + '<PID>' + pid + '</PID>';
+                            xml = xml + '<Action>同意</Action>';
+                            xml = xml + '<Comment>' + comment + '</Comment>';
+                            //加签差异xml部分
+                            xml = xml + '<ConsignEnabled>True</ConsignEnabled>';
+                            xml = xml + '<ConsignUsers>' + consignUserStr + '</ConsignUsers>';
+                            xml = xml + '<ConsignRoutingType>' + consignRoutingType + '</ConsignRoutingType>';
+                            xml = xml + '<ConsignReturnType>' + consignReturnType + '</ConsignReturnType>';
+
+                            xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
+                            xml = xml + '</Header>';
+                            xml = xml + '<FormData>';
+
+                            xml = xml + '   <BPM_HR_GWSL>';
+                            //xml = xml + '     <fbillno>' + fbillno + '</fbillno>';
+                            xml = xml + '     <fname>' + fname + '</fname>';
+                            xml = xml + '     <fdate>' + fdate + '</fdate>';
+                            xml = xml + '     <ftel>' + ftel + '</ftel>';
+                            xml = xml + '       <fbgfs>' + fbgfs + '</fbgfs>';
+                            xml = xml + '       <fsqrsszz>' + fsqrsszz + '</fsqrsszz>';
+                            xml = xml + '     <fjt>' + fjt + '</fjt>';
+                            xml = xml + '    <fgs>' + fgs + '</fgs>';
+                            xml = xml + '      <fbm_name>' + fbm_name + '</fbm_name>';
+                            xml = xml + '   <fgw_name>' + fgw_name + '</fgw_name>';
+                            xml = xml + '    <fgwstatus>' + fgwstatus + '</fgwstatus>';
+                            xml = xml + '      <fbgsl>' + fbgsl + '</fbgsl>';
+                            xml = xml + '      <fzw_name>' + fzw_name + '</fzw_name>';
+                            xml = xml + '     <fzwlb>' + fzwlb + '</fzwlb>';
+                            xml = xml + '      <fyrylb>' + fyrylb + '</fyrylb>';
+                            xml = xml + '    <fzjsj>' + fzjsj + '</fzjsj>';
+                            xml = xml + '     <fzjsjno>' + fzjsjno + '</fzjsjno>';
+                            xml = xml + '     <fbmjl>' + fbmjl + '</fbmjl>';
+                            xml = xml + '     <fbmjlno>' + fbmjlno + '</fbmjlno>';
+                            xml = xml + '     <ffgld>' + ffgld + '</ffgld>';
+                            xml = xml + '         <ffgldno>' + ffgldno + '</ffgldno>';
+                            xml = xml + '    <ftzly>' + ftzly + '</ftzly>';
+                            xml = xml + '     <fgs_sx>' + fgs_sx + '</fgs_sx>';
+                            xml = xml + '     <fbm_no>' + fbm_no + '</fbm_no>';
+                            xml = xml + '     <fgw_no>' + fgw_no + '</fgw_no>';
+                            xml = xml + '     <fzw_no>' + fzw_no + '</fzw_no>';
+                            xml = xml + '        <fzwlb_no>' + fzwlb_no + '</fzwlb_no>';
+                            xml = xml + '      <fyrylb_no>' + fyrylb_no + '</fyrylb_no>';
+                            if (fjArray.length != 0) {
+                                xml = xml + '       <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
+                            } else {
+                                xml = xml + '       <fj></fj>';
+                            }
+                            xml = xml + '    </BPM_HR_GWSL>';
+                            xml = xml + '   </FormData>';
+                            xml = xml + '</XForm>';
+                            PostXml(xml);
+
+                        }
+                    }, error: function (e) {
+
+                    }, complete: function () {
+
+                    }
+                });
+                //不加签分支
+            } else {
+
                 var xml = '<?xml version="1.0"?>';
                 xml = xml + '<XForm>';
                 xml = xml + '<Header>';
@@ -968,10 +1049,11 @@
                 xml = xml + '    </BPM_HR_GWSL>';
                 xml = xml + '   </FormData>';
                 xml = xml + '</XForm>';
-                alert(xml);
                 PostXml(xml);
 
-            
+
+
+            } 
         }
     </script>
 </body>

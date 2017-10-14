@@ -54,7 +54,10 @@
             </div>
             <div class="mui-input-row">
                 <label for="fif">是否总裁审批</label>
-                <input type="text" id="fif" name="fif" readonly="readonly" />
+                <input type="hidden" id="fif" name="fif" readonly="readonly" value="否" />
+                <div class="mui-switch mui-switch-mini mui-switch-blue mui-disabled" id="fif_d">
+                    <div class="mui-switch-handle"></div>
+                </div>
             </div>
             <div class="mui-input-row">
                 <label for="fsecretdegree">密级</label>
@@ -75,7 +78,7 @@
             <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                 <div class="border border-t upload-img" style="top:0rem;">
                     <div class="clearfix upload-btn" id="children-bg">
-                        <label class="label">上传正文及附件</label>
+                        <label class="label">附件</label>
                         <span class="tips" id="imageCount"><!--已添加0张--></span>
                         <span class="upload-addbtn" style="display:none">
                             <input type="file" accept="image/jpeg,image/jpg,image/png,image/jp2,image/bmp" id="file" style="opacity:0;">
@@ -260,7 +263,13 @@
                     $("#furgencydegree").val(item.furgencydegree);
                     $("#fimportancedegree").val(item.fimportancedegree);
                     $("#fbfw").val(item.fbfw);
-
+                    if (item.fif == "是") {
+                        $("#fif_d").addClass('mui-active');
+                    } else {
+                        if ($("#fif_d").hasClass('mui-active')) {
+                            $("#fif_d").removeClass('mui-active');
+                        }
+                    }
                     if (item.fattachment != null && item.fattachment != "") {
                         var fjtmp = (String)(item.fattachment);
 
@@ -349,6 +358,7 @@
 
 
                                     }
+                                    watch();
                                     $(".imgdiv").off('tap');
                                     $(".imgdiv").on('tap', function () {
                                         console.log($(this)[0].id);

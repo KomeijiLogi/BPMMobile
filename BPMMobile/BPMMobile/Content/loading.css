@@ -32,14 +32,15 @@
 .loading {
     position: relative;
 }
-.loading i {
-    display: block;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background-color: #333;
-    position: absolute;
-}
+    .loading i {
+        display: block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #3C74F7;
+        position: absolute;
+      
+    }
 
 .loading i:nth-child(1) {
     top: 25px;

@@ -29,7 +29,16 @@ function PostXml(xml) {
             if (status == "success") {
                 console.log(data);
                 if (data.Recipients[0] != null) {
-                    mui.toast("提交给" + data.Recipients[0].Recipient.DisplayName);
+                    if (data.Recipients[0].Recipient.DisplayName != null) {
+                        mui.toast("提交给" + data.Recipients[0].Recipient.DisplayName);
+                    } else {
+                        if (data.Recipients[1] != null){
+                            mui.toast("提交给" + data.Recipients[1].Recipient.DisplayName);
+                        }
+                       
+                    }
+                    
+
                 } else {
                     mui.toast("流程审批结束");
                 }

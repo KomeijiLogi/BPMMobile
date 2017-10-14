@@ -51,6 +51,7 @@
             </div>
             <div class="mui-input-row" style="height:3.25rem;">
                 <label for="fif_bf">是否经过报废流程审批<i style="color:red;">*</i></label>
+                <input type="hidden" id="fif_bf" name="fif_bf" value="否" />
                 <div class="mui-switch mui-switch-blue mui-disabled" id="fif_bfd">
                     <div class="mui-switch-handle"></div>
                 </div>
@@ -1312,6 +1313,10 @@
                 var mx = mxItem(fzcmc, fbfdh, fcompany, fggxh, itemid_bf, fph, taskid_bf, fsl, fsccj, fscdate, fyz, fjz, fncljz, fsyss);
                 mxlistArr.push(mx);
             });
+            if (String(fif_bf) == '是' && mxlistArr.length == 0) {
+                mui.toast('请添加处置物资明细');
+                return;
+            }
             if (mxflag) {
                 return;
             }

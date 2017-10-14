@@ -785,6 +785,9 @@
                         $(this).css("display", "block");
 
                     });
+                    $("#mxlist").find('input').each(function () {
+                        $(this).removeAttr('readonly');
+                    });
                     tapEvent();
                     $("#fcompany,#fdate,#ftel,#fcompanyname,#fqyxz,#fzczb,#ftzze,#fzcdz,#fddbr,#fzjl,#fds,#fjs,#fjyfw,#fxsmd").each(function () {
                         $(this).removeAttr('readonly');
@@ -1015,7 +1018,69 @@
             var fjs = $("#fjs").val();
             var fjyfw = $("#fjyfw").val();
             var fxsmd = $("#fxsmd").val();
+            if (!fcompany) {
+                mui.toast('请填写所属公司');
+                return;
+            }
+            if (!ftel) {
+                mui.toast('请填写联系方式');
+                return;
+            }
+            if (!fsqlx) {
+                mui.toast('请选择申请类型');
+                return;
+            }
+            if (!fgroup) {
+                mui.toast('请选择所属集团');
+                return;
+            }
+            if (!fcompanyname) {
+                mui.toast('请填写公司名称');
+                return;
+            }
+            if (!fqyxz) {
+                mui.toast('请填写企业性质');
+                return;
+            }
+            if (!fzczb) {
+                mui.toast('请填写注册资本');
+                return;
+            }
+            if (!ftzze) {
+                mui.toast('请填写投资总额');
+                return;
+            }
+            if (!fzcdz) {
+                mui.toast('请填写注册地址');
+                return;
+            }
+            if (!fddbr) {
+                mui.toast('请填写法定代表人');
+                return;
+            }
+            if (!fzjl) {
+                mui.toast('请填写总经理');
+                return;
 
+            }
+            if (!fds) {
+                mui.toast('请填写董事');
+                return;
+            }
+            if (!fjs) {
+                mui.toast('请填写监事');
+                return;
+            }
+            if (!fjyfw) {
+                mui.toast('请填写经营范围');
+                return;
+            }
+            if (String(fsqlx).indexOf('新增') != -1) {
+                if (!fxsmd) {
+                    mui.toast('请填写新增目的');
+                    return;
+                }
+            }
             var fcompanyname_bg = $("#fcompanyname_bg").val();
             var fqyxz_bg = $("#fqyxz_bg").val();
             var fzczb_bg = $("#fzczb_bg").val();

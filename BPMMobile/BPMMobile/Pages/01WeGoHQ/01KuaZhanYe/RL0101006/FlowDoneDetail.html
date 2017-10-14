@@ -45,13 +45,13 @@
                 <label for="fzz_name">拟调整组织名称</label>
                 <textarea rows="3" id="fzz_name" name="fzz_name" readonly="readonly"></textarea>
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="display:none;" id="orgleader">
                 <label for="ftzzzfgld">拟调整组织分管领导</label>
                <textarea rows="3" id="ftzzzfgld" name="ftzzzfgld" readonly="readonly"></textarea>
                 <input type="hidden" id="ftzzzfgldno" name="ftzzzfgldno"/>
             </div>
-            <div class="mui-input-row itemtitle">
-                <label id="title">变更事项(含岗位及编制变更详情)<i style="color:red;">*</i></label>
+            <div class="mui-row itemtitle" style="padding:0.6rem;">
+                <label id="title" class="mui-col-xs-12">变更事项(含岗位及编制变更详情)<i style="color:red;">*</i></label>
             </div>
             <div class="mui-row" style="height:auto;">
                 <textarea rows="5" id="fmsbz" name="fmsbz" class="mui-col-xs-12" readonly="readonly"></textarea>
@@ -268,7 +268,9 @@
                 $("#fssgsid").val(item.fssgsid);
                 $("#ftzzzfgld").val(item.ftzzzfgld);
                 $("#ftzzzfgldno").val(item.ftzzzfgldno);
-
+                if ($("#ftzzzfgld").val()) {
+                    $("#orgleader").css('display', 'block');
+                }
                 if (item.fj != null && item.fj != "") {
                     var fjtmp = (String)(item.fj);
 

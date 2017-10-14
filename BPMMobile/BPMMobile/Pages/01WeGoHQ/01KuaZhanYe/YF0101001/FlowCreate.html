@@ -63,7 +63,7 @@
             </div>
             <div class="mui-input-group" id="bglx" style="display:none;">
                 <div class="mui-input-row">
-                    <label>变更类型<i style="color:red;">*</i></label>
+                    <label>变更类型</label>
                 </div>
                 <div class="mui-input-row mui-checkbox">
                     <label for="fjdbg">进度变更</label>
@@ -100,11 +100,11 @@
             </div>
             <div class="mui-input-row" id="jhzfy"  style="display:none;">
                 <label for="fjhzfy">项目计划总费用</label>
-                <input type="text" id="fjhzfy" name="fjhzfy" placeholder="请输入项目计划总费用" />
+                <input type="number" id="fjhzfy" name="fjhzfy" placeholder="请输入项目计划总费用" />
             </div>
             <div class="mui-input-row" id="jzmqfy"  style="display:none;">
                 <label for="fjzmqfy">项目截止目前费用</label>
-                <input type="text" id="fjzmqfy" name="fjzmqfy" placeholder="请输入项目截止目前费用" />
+                <input type="number" id="fjzmqfy" name="fjzmqfy" placeholder="请输入项目截止目前费用" />
             </div>
             <div class="mui-input-row" id="jzqk"  style="display:none;">
                 <label for="fjzqk">项目现阶段进展情况<i style="color:red;">*</i></label>
@@ -118,7 +118,7 @@
             <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                 <div class="border border-t upload-img" style="top:0rem;">
                     <div class="clearfix upload-btn" id="children-bg">
-                        <label class="label">上传附件</label>
+                        <label class="label">附件</label>
                         <span class="tips" id="imageCount"><!--已添加0张--></span>
                         <span class="upload-addbtn">
                             <input type="file" accept="image/jpeg,image/jpg,image/png,image/jp2,image/bmp" id="file" style="opacity:0;">
@@ -159,7 +159,7 @@
 
             if (result.success == true || result.success == "true") {
                 $("#fname").val(result.data.name);
-
+                $("#ffybgfdl").val("0");
             }
         });
 
@@ -189,6 +189,7 @@
             var fybg = $("#ffybg").val();
             if (fybg == '1') {
                 $("#ffybgfdl").removeAttr("readonly");
+
             } else {
                 $("#ffybgfdl").attr("readonly", "true");
 
@@ -334,10 +335,10 @@
             if (fflag_bg == 'false') {
                 return;
             }
-            //if (fjArray.toString() == null || fjArray.toString() == "") {
-            //    mui.toast("请上传附件");
-            //    return;
-            //}
+            if (fjArray.toString() == null || fjArray.toString() == "") {
+                mui.toast("请上传附件");
+                return;
+            }
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                 if (e.index == 1) {

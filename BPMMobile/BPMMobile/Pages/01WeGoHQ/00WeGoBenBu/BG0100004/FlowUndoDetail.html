@@ -56,7 +56,10 @@
             </div>
             <div class="mui-input-row">
                 <label for="fif">是否总裁审批</label>
-                <input type="text" id="fif" name="fif" readonly="readonly" />
+                <input type="hidden" id="fif" name="fif" readonly="readonly" value="否" />
+                <div class="mui-switch mui-switch-mini mui-switch-blue mui-disabled" id="fif_d">
+                    <div class="mui-switch-handle"></div>
+                </div>
             </div>
             <div class="mui-input-row">
                 <label for="fsecretdegree">密级</label>
@@ -77,38 +80,85 @@
             <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                 <div class="border border-t upload-img" style="top:0rem;">
                     <div class="clearfix upload-btn" id="children-bg">
-                        <label class="label">上传正文及附件</label>
+                        <label class="label">附件</label>
                         <span class="tips" id="imageCount"><!--已添加0张--></span>
-                        <span class="upload-addbtn" style="display:none">
+                        <span class="upload-addbtn" style="display:none" id="addbtn_tjr">
                             <input type="file" accept="image/jpeg,image/jpg,image/png,image/jp2,image/bmp" id="file" style="opacity:0;">
                         </span>
                     </div>
                     <div class="upload-img-list"></div>
                 </div>
             </div>
-            <div class="mui-table-view" style="margin-bottom:3.25rem;">
-                <div class="mui-table-view-cell  mui-collapse mui-active">
-                    <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
-                        历史签核意见
-                    </a>
-                    <div class="mui-collapse-content">
-                        <!--流程列表-->
-                        <div class="list">
-                            <ul id="signff"></ul>
-                        </div>
-
-                    </div>
+            <div class="mui-input-row" id="csd">
+                <label>加签</label>
+                <div class="mui-switch mui-switch-blue" id="csswitch">
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </div>
+            <div id="signbody">
+                <div class="mui-input-row" id="signPerDiv">
+                    <label>加签人</label>
+                    <span class="mui-navigate-right"></span>
+                    <input name="signPer" id="signPer" value="" readonly="readonly" placeholder="请选择加签人" />
+                </div>
+                <div class="mui-input-row adl">
+                    <label>加签模式</label>
+                </div>
+                <div class="mui-input-row" id="signModeDiv" style="height:5.25rem;">
+                    <ul class="mui-table-view mui-table-view-radio">
+                        <li class="mui-table-view-cell mui-selected" id="sxsl">
+                            <a class="mui-navigate-right" id="sxsa">
+                                顺序加签
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell" id="pxsl">
+                            <a class="mui-navigate-right" id="pxsa">
+                                平行加签
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mui-input-row adl">
+                    <label>加签回转</label>
+                </div>
+                <div class="mui-input-row" id="signModeDiv" style="height:5.25rem;">
+                    <ul class="mui-table-view mui-table-view-radio">
+                        <li class="mui-table-view-cell mui-selected" id="hdbjdl">
+                            <a class="mui-navigate-right" id="hdbjda">
+                                回到本节点
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell" id="jrxjdl">
+                            <a class="mui-navigate-right" id="jrxjda">
+                                进入下一节点
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </form>
+        <div class="mui-table-view" style="margin-bottom:3.25rem;">
+            <div class="mui-table-view-cell  mui-collapse mui-active">
+                <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
+                    历史签核意见
+                </a>
+                <div class="mui-collapse-content">
+                    <!--流程列表-->
+                    <div class="list">
+                        <ul id="signff"></ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <div class="mui-btn-row" id="createD">
             <button class="mui-btn mui-btn-primary" type="button" id="commitbt" onclick="Save()">提交</button>
         </div>
         <div class="mui-btn-row" id="approvalD">
             &nbsp;&nbsp;
-            <button class="mui-btn mui-btn-primary" type="button" style="width:40%;" id="agreebt" onclick="showConfirm()">同意</button>&nbsp;&nbsp;&nbsp;
-            <button class="mui-btn mui-btn-danger" type="button" style="width:25%;height:2.5rem;font-size:0.8rem;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;
-            <!--<button class="mui-btn mui-btn-yellow" type="button" style="width:40%;" id="refusebt" onclick="Refilled()">退回重填</button>-->
+            <button class="mui-btn mui-btn-primary" type="button" style="width:25%;" id="agreebt" onclick="showConfirm()">同意</button>&nbsp;&nbsp;&nbsp;
+            <button class="mui-btn mui-btn-danger" type="button" style="width:25%;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;
+            <button class="mui-btn mui-btn-yellow" type="button" style="width:25%;" id="refusebt" onclick="Refilled()">退回重填</button>
         </div>
         <div class="mui-btn-row" id="readD">
             <button class="mui-btn mui-btn-primary" type="button" id="readbt" onclick="hasRead()">已阅</button>
@@ -141,12 +191,29 @@
         mui.ready(function () {
             getBPMParam();
             getTaskMsg();
+            $('#signPerDiv').click(function () {
+                openSignPer();
 
+            });
             watch();
 
         });
 
+        mui('#csswitch').each(function () {
 
+
+            this.addEventListener('toggle', function (event) {
+                if (event.detail.isActive == 'true' || event.detail.isActive == true) {
+
+                    $('#signbody').css('display', 'block');
+                } else {
+
+                    $('#signbody').css('display', 'none');
+                    $('#signPer').val('');
+                }
+
+            });
+        });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
 
@@ -325,6 +392,13 @@
                         $("#furgencydegree").val(item.furgencydegree);
                         $("#fimportancedegree").val(item.fimportancedegree);
                         $("#fbfw").val(item.fbfw);
+                        if (item.fif == "是") {
+                            $("#fif_d").addClass('mui-active');
+                        } else {
+                            if ($("#fif_d").hasClass('mui-active')) {
+                                $("#fif_d").removeClass('mui-active');
+                            }
+                        }
 
                         if (item.fattachment != null && item.fattachment != "") {
                             var fjtmp = (String)(item.fattachment);
@@ -414,6 +488,7 @@
 
 
                                         }
+                                        watch();
                                         $(".imgdiv").off('tap');
                                         $(".imgdiv").on('tap', function () {
                                             console.log($(this)[0].id);
@@ -475,16 +550,38 @@
                             $("#readD").css("display", "none");
                             $("#approvalD").css("display", "none");
                             $("#addbtn_tjr").css("display", "block");
+                            $("#csd").css("display", "none");
+
                             tapEvent();
+                            $("#fdrafter").removeAttr("readonly");
+                            $("#fdraftdate").removeAttr("readonly");
+                            $("#fdraftdepartment").removeAttr("readonly");
+                            $("#fposition").removeAttr("readonly");
                             $("#ffiletitle").removeAttr("readonly");
                             $("#ffilenumber").removeAttr("readonly");
                             $("#fbfw").removeAttr("readonly");
+                            $("#fif_d").removeClass('mui-disabled');
                             upload();
+                            mui('#fif_d').each(function () {
+
+
+                                this.addEventListener('toggle', function (event) {
+                                    if (event.detail.isActive == 'true' || event.detail.isActive == true) {
+
+                                        $('#fif').val('是');
+                                    } else {
+
+                                        $('#fif').val('否');
+                                    }
+
+                                });
+                            });
 
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#createD").css("display", "none");
                             $("#approvalD").css("display", "none");
+                            $("#csd").css("display", "none");
 
 
                         } else {
@@ -493,6 +590,8 @@
                                 $("#approvalD").css("display", "block");
                                 $("#readD").css("display", "none");
                                 $("#createD").css("display", "none");
+                                $("#csd").css("display", "block");
+
                             }
                         }
                         for (var i = 0; i < data.Steps.length; i++) {
@@ -713,6 +812,11 @@
         }
 
         function AgreeOrConSign() {
+            var consignUserId = new Array();
+            var consignRoutingType;
+            var consignReturnType;
+
+            var consignUserStr;
             var comment = $("#signSuggest").val();
             var pid = $("#stepId").val()
             var fbillno = $("#fbillno").val();
@@ -730,44 +834,133 @@
             var fimportancedegree = $("#fimportancedegree").val();
             var fbfw = $("#fbfw").val();
 
+            //加签分支
+            if (($('#signPer').val() != null) && ($('#signPer').val() != '')) {
 
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + '<XForm>';
-            xml = xml + '<Header>';
-            xml = xml + '<Method>Process</Method>';
-            xml = xml + '<PID>' + pid + '</PID>';
-            xml = xml + '<Action>同意</Action>';
-            xml = xml + '<Comment>' + comment + '</Comment>';
+                if ($('#sxsl').hasClass('mui-selected')) {
+                    consignRoutingType = 'Serial';
+
+                } else if ($('#pxsl').hasClass('mui-selected')) {
+                    consignRoutingType = 'Parallel';
+                }
+
+                if ($('#hdbjdl').hasClass('mui-selected')) {
+                    consignReturnType = 'Return';
+                } else if ($('#jrxjdl').hasClass('mui-selected')) {
+                    consignReturnType = 'Forward';
+                }
 
 
-            xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
-            xml = xml + '</Header>';
-            xml = xml + '<FormData>';
-            xml = xml + ' <BPM_SystemPublish>';
-            xml = xml + '  <fbillno>' + fbillno + '</fbillno>';
-            xml = xml + '    <TaskID>' + taskId + '</TaskID>';
-            xml = xml + '   <fdrafter>' + fdrafter + '</fdrafter>';
-            xml = xml + '   <fdraftdepartment>' + fdraftdepartment + '</fdraftdepartment>';
-            xml = xml + '    <fdraftdate>' + fdraftdate + '</fdraftdate>';
-            xml = xml + '   <fposition>' + fposition + '</fposition>';
-            xml = xml + '   <ffiletitle>' + ffiletitle + '</ffiletitle>';
-            xml = xml + '   <ffilenumber>' + ffilenumber + '</ffilenumber>';
-            xml = xml + '   <fif>' + fif + '</fif>';
-            xml = xml + '   <fsecretdegree>' + fsecretdegree + '</fsecretdegree>';
-            xml = xml + '   <furgencydegree>' + furgencydegree + '</furgencydegree>';
-            xml = xml + '   <fimportancedegree>' + fimportancedegree + '</fimportancedegree>';
-            xml = xml + '  <fbfw>' + fbfw + '</fbfw>';
-            if (fjArray.length != 0) {
-                xml = xml + '  <fattachment>' + fjArray.toString().replace(",", ";") + '</fattachment>';
+                $.ajax({
+                    type: "POST",
+                    url: "/api/bpm/PostAccount",
+                    data: { "ids": consignOpenIdArr },
+                    beforeSend: function (XHR) {
+                        XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+                    }, success: function (data, status) {
+
+                        if (status == "success") {
+
+
+
+                            for (var i = 0; i < data.data.length; i++) {
+                                consignUserId.push(data.data[i].phone);
+                            }
+                            $('#consignUser').val(consignUserId);
+                            consignUserStr = (String)($('#consignUser').val()).replace(",", ";");
+
+                            var xml = '<?xml version="1.0"?>';
+                            xml = xml + '<XForm>';
+                            xml = xml + '<Header>';
+                            xml = xml + '<Method>Process</Method>';
+                            xml = xml + '<PID>' + pid + '</PID>';
+                            xml = xml + '<Action>同意</Action>';
+                            xml = xml + '<Comment>' + comment + '</Comment>';
+                            //加签差异xml部分
+                            xml = xml + '<ConsignEnabled>True</ConsignEnabled>';
+                            xml = xml + '<ConsignUsers>' + consignUserStr + '</ConsignUsers>';
+                            xml = xml + '<ConsignRoutingType>' + consignRoutingType + '</ConsignRoutingType>';
+                            xml = xml + '<ConsignReturnType>' + consignReturnType + '</ConsignReturnType>';
+
+
+                            xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
+                            xml = xml + '</Header>';
+                            xml = xml + '<FormData>';
+                            xml = xml + ' <BPM_SystemPublish>';
+                            xml = xml + '  <fbillno>' + fbillno + '</fbillno>';
+                            xml = xml + '    <TaskID>' + taskId + '</TaskID>';
+                            xml = xml + '   <fdrafter>' + fdrafter + '</fdrafter>';
+                            xml = xml + '   <fdraftdepartment>' + fdraftdepartment + '</fdraftdepartment>';
+                            xml = xml + '    <fdraftdate>' + fdraftdate + '</fdraftdate>';
+                            xml = xml + '   <fposition>' + fposition + '</fposition>';
+                            xml = xml + '   <ffiletitle>' + ffiletitle + '</ffiletitle>';
+                            xml = xml + '   <ffilenumber>' + ffilenumber + '</ffilenumber>';
+                            xml = xml + '   <fif>' + fif + '</fif>';
+                            xml = xml + '   <fsecretdegree>' + fsecretdegree + '</fsecretdegree>';
+                            xml = xml + '   <furgencydegree>' + furgencydegree + '</furgencydegree>';
+                            xml = xml + '   <fimportancedegree>' + fimportancedegree + '</fimportancedegree>';
+                            xml = xml + '  <fbfw>' + fbfw + '</fbfw>';
+                            if (fjArray.length != 0) {
+                                xml = xml + '  <fattachment>' + fjArray.toString().replace(",", ";") + '</fattachment>';
+                            } else {
+                                xml = xml + '  <fattachment></fattachment>'
+                            }
+
+                            xml = xml + '   </BPM_SystemPublish>';
+
+                            xml = xml + '  </FormData>';
+                            xml = xml + '</XForm >';
+                            PostXml(xml);
+                        }
+                    }, error: function (e) {
+
+                    }, complete: function () {
+
+                    }
+                });
+                //不加签分支
             } else {
-                xml = xml + '  <fattachment></fattachment>'
+
+                var xml = '<?xml version="1.0"?>';
+                xml = xml + '<XForm>';
+                xml = xml + '<Header>';
+                xml = xml + '<Method>Process</Method>';
+                xml = xml + '<PID>' + pid + '</PID>';
+                xml = xml + '<Action>同意</Action>';
+                xml = xml + '<Comment>' + comment + '</Comment>';
+
+
+                xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
+                xml = xml + '</Header>';
+                xml = xml + '<FormData>';
+                xml = xml + ' <BPM_SystemPublish>';
+                xml = xml + '  <fbillno>' + fbillno + '</fbillno>';
+                xml = xml + '    <TaskID>' + taskId + '</TaskID>';
+                xml = xml + '   <fdrafter>' + fdrafter + '</fdrafter>';
+                xml = xml + '   <fdraftdepartment>' + fdraftdepartment + '</fdraftdepartment>';
+                xml = xml + '    <fdraftdate>' + fdraftdate + '</fdraftdate>';
+                xml = xml + '   <fposition>' + fposition + '</fposition>';
+                xml = xml + '   <ffiletitle>' + ffiletitle + '</ffiletitle>';
+                xml = xml + '   <ffilenumber>' + ffilenumber + '</ffilenumber>';
+                xml = xml + '   <fif>' + fif + '</fif>';
+                xml = xml + '   <fsecretdegree>' + fsecretdegree + '</fsecretdegree>';
+                xml = xml + '   <furgencydegree>' + furgencydegree + '</furgencydegree>';
+                xml = xml + '   <fimportancedegree>' + fimportancedegree + '</fimportancedegree>';
+                xml = xml + '  <fbfw>' + fbfw + '</fbfw>';
+                if (fjArray.length != 0) {
+                    xml = xml + '  <fattachment>' + fjArray.toString().replace(",", ";") + '</fattachment>';
+                } else {
+                    xml = xml + '  <fattachment></fattachment>'
+                }
+
+                xml = xml + '   </BPM_SystemPublish>';
+
+                xml = xml + '  </FormData>';
+                xml = xml + '</XForm >';
+                PostXml(xml);
             }
 
-            xml = xml + '   </BPM_SystemPublish>';
-
-            xml = xml + '  </FormData>';
-            xml = xml + '</XForm >';
-            PostXml(xml);
         }
 
         function hasRead() {

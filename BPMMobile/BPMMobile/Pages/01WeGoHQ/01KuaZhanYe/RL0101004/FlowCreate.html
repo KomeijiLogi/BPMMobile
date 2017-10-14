@@ -92,7 +92,7 @@
             </div>
             <div class="mui-input-row">
                 <label for="flzyy_name">离职原因<i style="color:red;">*</i></label>
-                <input type="text" id="flzyy_name" name="flzyy_name" readonly="readonly" placeholder="请选择离职原因" data-no="01"/>
+                <input type="text" id="flzyy_name" name="flzyy_name" readonly="readonly" placeholder="请选择离职原因" data-no=""/>
             </div>
             <div class="mui-input-row">
                 <label for="fip">IP地址<i style="color:red;">*</i></label>
@@ -345,8 +345,13 @@
             this.addEventListener('toggle', function (event) {
                 if (event.detail.isActive == 'true' || event.detail.isActive == true) {
                     $('#fiszhushu').val('是');
+                    $("#fdizhi").removeAttr('readonly');
                 } else {
                     $('#fiszhushu').val('否');
+                    if (String($('#ffenfang').val()).indexOf('否')!=-1) {
+                        $("#fdizhi").attr('readonly', 'readonly');
+                    }
+                  
                 }
 
             });
@@ -361,11 +366,18 @@
                     $("#fdizhi").removeAttr('readonly');
                 } else {
                     $('#ffenfang').val('否');
-                    $("#fdizhi").attr('readonly','readonly');
+                   
+                    if (String($('#fiszhushu').val()).indexOf('否') != -1) {
+                        $("#fdizhi").attr('readonly', 'readonly');
+                    }
                 }
 
             });
         });
+
+       
+
+
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
         XuntongJSBridge.call('getPersonInfo', {}, function (result) {
             if (typeof (result) == "string") {
@@ -635,7 +647,7 @@
                 return;
             }
 
-            if (!fjArray.length == 0) {
+            if (fjArray.length == 0) {
                 mui.toast('请上传离职报告');
                 return;
             }
