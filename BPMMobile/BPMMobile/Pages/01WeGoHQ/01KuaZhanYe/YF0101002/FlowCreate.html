@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="../../../../Content/mui.min.css" />
     <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
     <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
-    <link rel="stylesheet" href="../.../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
     <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
     <title></title>
     <meta charset="utf-8" />
@@ -33,7 +33,7 @@
                 <label for="fname">申请人</label>
                 <input type="text" id="fname" name="fname" readonly="readonly" />
             </div>
-            <div class="mui-input-row" style="display:none;">
+            <div class="mui-input-row">
                 <label for="fdept">提报部门</label>
                 <input type="text" id="fdept" name="ftibaoren" readonly="readonly"/>
             </div>
@@ -41,11 +41,11 @@
                 <label for="fdate">提报日期</label>
                 <input type="date" id="fdate" name="fdate" />
             </div>
-            <div class="mui-input-row" style="display:none;">
+            <div class="mui-input-row">
                 <label for="fgroup">所属集团</label>
                 <input type="text" id="fgroup" name="fgroup" readonly="readonly"/>
             </div>
-            <div class="mui-input-row" style="display:none;">
+            <div class="mui-input-row">
                 <label for="fcompany">所属公司</label>
                 <input type="text" id="fcompany" name="fcompany" readonly="readonly" />
             </div>
@@ -78,7 +78,7 @@
                 <div class="border border-t upload-img" style="top:0rem;">
                     <!--上传图片-->
                     <div class="clearfix upload-btn" id="children-bg">
-                        <label class="label">评审资料</label>
+                        <label class="label">评审资料<i style="color:red;">*</i></label>
                         <span class="tips" id="imageCount"><!--已添加0张--></span>
                         <!--上传图片按钮  -->
                         <span class="upload-addbtn">
@@ -187,16 +187,46 @@
             tapEvent();
 
             $("#fdate").val(getNowFormatDate(2));
+            $.ajax({
+
+                type: 'get',
+                url: "/api/bpm/GetBPMParam",
+                data: {},
+                beforeSend: function (XHR) {
+                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+                },
+                success: function (data, status) {
+                    if (status == "success") {
+                        //console.log(data);
+                        BPMOU = data.Position[0].FullName;
+
+                        var fareaStr = String(BPMOU).split("/");
+                        //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
+                        $("#fdept").val(fareaStr[fareaStr.length - 2]);
+                        $("#fgroup").val(fareaStr[fareaStr.length - 4]);
+                        $("#fcompany").val(fareaStr[fareaStr.length - 3]);
+                        return BPMOU;
+                    } else {
+                        return "";
+                    }
+                },
+                error: function (e) {
+                    return e;
+                },
+
+                complete: function () {
+                    return BPMOU;
+                }
+
+            });
+
+            
 
         }
 
 
         function Save() {
-            var fareaStr = String(BPMOU).split("/");
-            //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
-            $("#fdept").val(fareaStr[fareaStr.length - 2]);
-            $("#fgroup").val(fareaStr[fareaStr.length - 4]);
-            $("#fcompany").val(fareaStr[fareaStr.length - 3]);
+            
 
             var fname = $("#fname").val();
             var fdept = $("#fdept").val();
@@ -236,7 +266,10 @@
                 mui.toast('请输入项目编号');
                 return false;
             }
-
+            if (fjArray.length == 0) {
+                mui.toast('请上传评审资料');
+                return;
+            }
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                 if (e.index == 1) {

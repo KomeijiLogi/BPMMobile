@@ -145,7 +145,7 @@
                 var provideData = JSON.parse(unescape(data.replace(/\\(u[0-9a-fA-F]{4})/gm, '%$1')));
                 console.log(provideData);
                 var item = provideData.Tables[0].Rows[0];
-               // $("#fname").val(item.借款人);
+                $("#fname").val(item.借款人);
                 $("#fdept").val(item.所属部门);
                 $("#fcompany").val(item.所属公司);
             }).fail(function (e) {

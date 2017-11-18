@@ -85,7 +85,7 @@
 
 
             <!--玻璃采购明细-->
-            <div class="mui-input-row"  id="div_blcgmx" style="height:3.25rem;">
+            <div class="mui-input-row itemtitle2"  id="div_blcgmx" style="height:3.25rem;">
                 <label>玻璃采购明细(点击隐藏/显示)</label>
                
                 <a href="#bottom"><span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;display:none;" id="addItem_bl" ;></span></a>
@@ -112,7 +112,7 @@
 
 
             <!--型材采购明细-->
-            <div class="mui-input-row"  id="div_xccgmx" style="height:3.25rem;">
+            <div class="mui-input-row itemtitle2"  id="div_xccgmx" style="height:3.25rem;">
                 <label>型材采购明细(点击隐藏/显示)</label>
              
                 <a href="#bottom"><span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;display:none;" id="addItem_xc" ;></span></a>
@@ -139,7 +139,7 @@
 
 
             <!--配件采购明细-->
-            <div class="mui-input-row"  id="div_pjcgmx" style="height:3.25rem;">
+            <div class="mui-input-row itemtitle2"  id="div_pjcgmx" style="height:3.25rem;">
                 <label>配件采购明细(点击隐藏/显示)</label>
               
                 <a href="#bottom"><span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;display:none;" id="addItem_pj" ;></span></a>
@@ -492,6 +492,7 @@
                             $("#div_xccgmx").css("display", "none");
                             $("#uploaddiv_xc").css("display", "none");
                             $("#uploaddiv_pj").css("display", "none");
+                            $("#fgys").css('display', 'block');
                         } else if (String(item.物料种类).indexOf("型材") != -1) {
                             
                             $("#div_gys").css("display", "block");
@@ -501,6 +502,7 @@
                             $("#div_pjcgmx").css("display", "none");
                             $("#uploaddiv_pj").css("display", "none");
                             $("#uploaddiv_bl").css("display", "none");
+                            $("#fgys").css('display', 'block');
                         } else if (String(item.物料种类).indexOf("配件") != -1) {
                             $("#div_blcgmx").css("display", "none");
                             $("#div_xccgmx").css("display", "none");
@@ -1061,11 +1063,16 @@
                             li = li + '        <input type="hidden" id="fdw" name="fdw" value="' + fpjcgmxItem[i].单位 + '" readonly="readonly"/>';
                             li = li + '        <input type="hidden" id="fpjsl" name="fpjsl" value="' + fpjcgmxItem[i].配件数量 + '" readonly="readonly"/>';
                             li = li + '        <input type="hidden" id="fpjbz" name="fpjbz" value="' + fpjcgmxItem[i].备注 + '" readonly="readonly" />';
-                            li = li + '        <input type="hidden" id="fpjgys" name="fpjgys" value="' + fpjcgmxItem[i].配件供应商 + '" readonly="readonly" />';
+                          
                             li = li + '<textarea rows="5" readonly="readonly">';
                             li = li + '物料编码:' + fpjcgmxItem[i].物料编码 + '&nbsp 物料名称:' + fpjcgmxItem[i].物料名称 + '&nbsp规格型号:' + fpjcgmxItem[i].规格型号;
-                            li = li + '&nbsp 单位:' + fpjcgmxItem[i].单位 + '&nbsp 配件数量:' + fpjcgmxItem[i].配件数量 + '&nbsp 备注:' + fpjcgmxItem[i].备注 + '&nbsp 配件供应商:' + fpjcgmxItem[i].配件供应商;
+                            li = li + '&nbsp 单位:' + fpjcgmxItem[i].单位 + '&nbsp 配件数量:' + fpjcgmxItem[i].配件数量 + '&nbsp 备注:' + fpjcgmxItem[i].备注 ;
                             li = li + '</textarea>';
+                            li = li + '<div class="mui-input-row">';
+                            li = li + '        <label>配件供应商<i style="color:red;">*</i></label>';
+                            li = li + '        <input type="text" id="fpjgys" name="fpjgys" value="' + fpjcgmxItem[i].配件供应商 + '" readonly="readonly"  />';
+                            li = li + '</div>';
+                         
                             li = li + '</div>';
                             $("#bllist_pj").append(li);
 
@@ -1138,6 +1145,17 @@
                                 if (String(NodeName).indexOf("采招部经理")!=-1) {
                                     $("#fgys").removeAttr("readonly");
                                     $("#fgys").attr("placeholder", "请填写供应商");
+
+                                    if (fpjcgmxItem.length > 0){
+                                        $("#bllist_pj").find("#fpjgys").each(function () {
+                                            $(this).removeAttr('readonly');
+                                            $(this).attr('placeholder', '请填写配件供应商');
+
+                                        });
+                                    }
+                                    
+                                   
+                                   
                                 }
                             }
                                
@@ -1239,7 +1257,7 @@
             var nodeName = $("#nodeName").val();
 
             if (String(nodeName).indexOf("采招部经理") != -1) {
-                if (String(fwlzl).indexOf("型材")==-1) {
+                if (String(fwlzl).indexOf("型材") != -1 || String(fwlzl).indexOf("玻璃") != -1) {
                     if (!fgys || fgys == '') {
                         mui.toast('请填写供应商');
                         return;

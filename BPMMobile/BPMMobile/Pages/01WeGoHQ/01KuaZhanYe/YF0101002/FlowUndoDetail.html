@@ -79,7 +79,7 @@
                 <div class="border border-t upload-img" style="top:0rem;">
                     <!--上传图片-->
                     <div class="clearfix upload-btn" id="children-bg">
-                        <label class="label">评审资料</label>
+                        <label class="label">评审资料<i style="color:red;">*</i></label>
                         <span class="tips" id="imageCount"><!--已添加0张--></span>
                         <!--上传图片按钮  -->
                         <span class="upload-addbtn" style="display:none" id="addbtn">
@@ -89,6 +89,54 @@
                     <div class="upload-img-list"></div>
                 </div>
             </div>
+            <div class="mui-input-row" id="csd">
+                <label>加签</label>
+                <div class="mui-switch mui-switch-blue" id="csswitch">
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </div>
+            <div id="signbody">
+                <div class="mui-input-row" id="signPerDiv">
+                    <label>加签人</label>
+                    <span class="mui-navigate-right"></span>
+                    <input name="signPer" id="signPer" value="" readonly="readonly" placeholder="请选择加签人" />
+                </div>
+                <div class="mui-input-row adl">
+                    <label>加签模式</label>
+                </div>
+                <div class="mui-input-row" id="signModeDiv" style="height:5.25rem;">
+                    <ul class="mui-table-view mui-table-view-radio">
+                        <li class="mui-table-view-cell mui-selected" id="sxsl">
+                            <a class="mui-navigate-right" id="sxsa">
+                                顺序加签
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell" id="pxsl">
+                            <a class="mui-navigate-right" id="pxsa">
+                                平行加签
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mui-input-row adl">
+                    <label>加签回转</label>
+                </div>
+                <div class="mui-input-row" id="signModeDiv" style="height:5.25rem;">
+                    <ul class="mui-table-view mui-table-view-radio">
+                        <li class="mui-table-view-cell mui-selected" id="hdbjdl">
+                            <a class="mui-navigate-right" id="hdbjda">
+                                回到本节点
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell" id="jrxjdl">
+                            <a class="mui-navigate-right" id="jrxjda">
+                                进入下一节点
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </form>
             <div class="mui-table-view" style="margin-bottom:3.25rem;">
                 <div class="mui-table-view-cell  mui-collapse mui-active">
                     <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
@@ -103,15 +151,14 @@
                     </div>
                 </div>
             </div>
-        </form>
         <div class="mui-btn-row" id="createD">
             <button class="mui-btn mui-btn-primary" type="button" id="commitbt" onclick="Save()">提交</button>
         </div>
         <div class="mui-btn-row" id="approvalD">
             &nbsp;&nbsp;
             <button class="mui-btn mui-btn-primary" type="button" style="width:40%;" id="agreebt" onclick="showConfirm()">同意</button>&nbsp;&nbsp;&nbsp;
-            <!--<button class="mui-btn mui-btn-danger" type="button" style="width:25%;height:2.5rem;font-size:0.8rem;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;-->
-            <button class="mui-btn mui-btn-yellow" type="button" style="width:40%;" id="refusebt" onclick="reject()">拒绝</button>
+            <button class="mui-btn mui-btn-danger" type="button" style="width:40%;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;
+            <!--<button class="mui-btn mui-btn-yellow" type="button" style="width:40%;" id="refusebt" onclick="reject()">退回重填</button>-->
         </div>
         <div class="mui-btn-row" id="readD">
             <button class="mui-btn mui-btn-primary" type="button" id="readbt" onclick="hasRead()">已阅</button>
@@ -144,12 +191,30 @@
         mui.ready(function () {
             getBPMParam();
             getTaskMsg();
+            $('#signPerDiv').click(function () {
+                openSignPer();
 
+            });
             watch();
 
         });
 
 
+        mui('#csswitch').each(function () {
+
+
+            this.addEventListener('toggle', function (event) {
+                if (event.detail.isActive == 'true' || event.detail.isActive == true) {
+
+                    $('#signbody').css('display', 'block');
+                } else {
+
+                    $('#signbody').css('display', 'none');
+                    $('#signPer').val('');
+                }
+
+            });
+        });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
 
@@ -158,7 +223,9 @@
             'popTitleCallBackId': '1',
             'items': [
                 { 'text': '刷新', 'callBackId': 'callback1' },
-                { 'text': '知会', 'callBackId': 'callback2' }
+                { 'text': '知会', 'callBackId': 'callback2' },
+                { 'text': '退回某步', 'callBackId': 'callback3' }
+
             ],
             'menuList': [
                 'openWithBrowser'
@@ -254,7 +321,7 @@
                     });
 
                 } else if (callBackId == 'callback3') {
-
+                    getRecedableToSteps();
                 }
             }
 
@@ -482,8 +549,7 @@
                             $("#ftel").removeAttr("readonly");
                             $("#fdate").removeAttr("readonly");
                             $("#fxmmc").removeAttr("readonly");
-                            $("#flb").removeAttr("readonly");
-                            $("#fxmfr").removeAttr("readonly");
+                            $("#fxmfzr").removeAttr("readonly");
                             $("#fzje").removeAttr("readonly");
                             $("#fxmbh").removeAttr("readonly");
                             $("#dept").css("dispplay", "none");
@@ -634,27 +700,31 @@
             //校验部分
             if (!ftel || ftel == '') {
                 mui.toast('请输入联系方式');
-                return false;
+                return;
             }
             if (!fxmmc || fxmmc == '') {
                 mui.toast('请输入项目名称');
-                return false;
+                return;
             }
             if (!flb || flb == '') {
                 mui.toast('请选择项目类别');
-                return false;
+                return;
             }
             if (!fxmfzr || fxmfzr == '') {
                 mui.toast('请输入项目负责人');
-                return false;
+                return;
             }
             if (!fzje || fzje == '') {
                 mui.toast('请输入项目立项总金额');
-                return false;
+                return;
             }
             if (!fxmbh || fxmbh == '') {
                 mui.toast('请输入项目编号');
-                return false;
+                return;
+            }
+            if (fjArray.length == 0) {
+                mui.toast('请上传评审资料');
+                return;
             }
 
             var btnArry = ["取消", "确定"];
@@ -700,6 +770,11 @@
         }
 
         function AgreeOrConSign() {
+            var consignUserId = new Array();
+            var consignRoutingType;
+            var consignReturnType;
+
+            var consignUserStr;
             var comment = $("#signSuggest").val();
             var pid = $("#stepId").val()
             var fbillno = $("#fbillno").val();
@@ -717,44 +792,133 @@
             var fzje = $("#fzje").val();
             var fxmbh = $("#fxmbh").val();
 
+            //加签分支
+            if (($('#signPer').val() != null) && ($('#signPer').val() != '')) {
 
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + '<XForm>';
-            xml = xml + '<Header>';
-            xml = xml + '<Method>Process</Method>';
-            xml = xml + '<PID>' + pid + '</PID>';
-            xml = xml + '<Action>同意</Action>';
-            xml = xml + '<Comment>' + comment + '</Comment>';
+                if ($('#sxsl').hasClass('mui-selected')) {
+                    consignRoutingType = 'Serial';
+
+                } else if ($('#pxsl').hasClass('mui-selected')) {
+                    consignRoutingType = 'Parallel';
+                }
+
+                if ($('#hdbjdl').hasClass('mui-selected')) {
+                    consignReturnType = 'Return';
+                } else if ($('#jrxjdl').hasClass('mui-selected')) {
+                    consignReturnType = 'Forward';
+                }
 
 
-            xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
-            xml = xml + '</Header>';
-            xml = xml + '<FormData>';
-            xml = xml + ' <BPM_WGJTYFXMLXSQ>';
-            xml = xml + '  <fbillno>' + fbillno + '</fbillno>';
-            xml = xml + '<fname>' + fname + '</fname>';
-            xml = xml + '   <fdept>' + fdept + '</fdept>';
-            xml = xml + '   <fgroup>' + fgroup + '</fgroup>';
-            xml = xml + '   <fcompany>' + fcompany + '</fcompany>';
-            xml = xml + '   <ftel>' + ftel + '</ftel>';
-            xml = xml + '    <fxmmc>' + fxmmc + '</fxmmc>';
-            xml = xml + '    <flb>' + flb + '</flb>';
-            xml = xml + '   <fxmfzr>' + fxmfzr + '</fxmfzr>';
-            xml = xml + '   <fzje>' + fzje + '</fzje>';
-            xml = xml + '   <fxmbh>' + fxmbh + '</fxmbh>';
+                $.ajax({
+                    type: "POST",
+                    url: "/api/bpm/PostAccount",
+                    data: { "ids": consignOpenIdArr },
+                    beforeSend: function (XHR) {
+                        XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
 
-            if (fjArray.toString() != null && fjArray.toString() != "") {
-                xml = xml + '      <fpszl>' + fjArray.toString().replace(",", ";") + '</fpszl>';
+                    }, success: function (data, status) {
+
+                        if (status == "success") {
+
+
+
+                            for (var i = 0; i < data.data.length; i++) {
+                                consignUserId.push(data.data[i].phone);
+                            }
+                            $('#consignUser').val(consignUserId);
+                            consignUserStr = (String)($('#consignUser').val()).replace(",", ";");
+
+                            var xml = '<?xml version="1.0"?>';
+                            xml = xml + '<XForm>';
+                            xml = xml + '<Header>';
+                            xml = xml + '<Method>Process</Method>';
+                            xml = xml + '<PID>' + pid + '</PID>';
+                            xml = xml + '<Action>同意</Action>';
+                            xml = xml + '<Comment>' + comment + '</Comment>';
+                            //加签差异xml部分
+                            xml = xml + '<ConsignEnabled>True</ConsignEnabled>';
+                            xml = xml + '<ConsignUsers>' + consignUserStr + '</ConsignUsers>';
+                            xml = xml + '<ConsignRoutingType>' + consignRoutingType + '</ConsignRoutingType>';
+                            xml = xml + '<ConsignReturnType>' + consignReturnType + '</ConsignReturnType>';
+
+
+                            xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
+                            xml = xml + '</Header>';
+                            xml = xml + '<FormData>';
+                            xml = xml + ' <BPM_WGJTYFXMLXSQ>';
+                            xml = xml + '  <fbillno>' + fbillno + '</fbillno>';
+                            xml = xml + '<fname>' + fname + '</fname>';
+                            xml = xml + '   <fdept>' + fdept + '</fdept>';
+                            xml = xml + '   <fgroup>' + fgroup + '</fgroup>';
+                            xml = xml + '   <fcompany>' + fcompany + '</fcompany>';
+                            xml = xml + '   <ftel>' + ftel + '</ftel>';
+                            xml = xml + '    <fxmmc>' + fxmmc + '</fxmmc>';
+                            xml = xml + '    <flb>' + flb + '</flb>';
+                            xml = xml + '   <fxmfzr>' + fxmfzr + '</fxmfzr>';
+                            xml = xml + '   <fzje>' + fzje + '</fzje>';
+                            xml = xml + '   <fxmbh>' + fxmbh + '</fxmbh>';
+
+                            if (fjArray.toString() != null && fjArray.toString() != "") {
+                                xml = xml + '      <fpszl>' + fjArray.toString().replace(",", ";") + '</fpszl>';
+                            } else {
+                                xml = xml + '   <fpszl></fpszl>';
+                            }
+
+
+                            xml = xml + '   </BPM_WGJTYFXMLXSQ>';
+
+                            xml = xml + '  </FormData>';
+                            xml = xml + '</XForm >';
+                            PostXml(xml);
+                        }
+                    }, error: function (e) {
+
+                    }, complete: function () {
+
+                    }
+                });
+                //不加签分支
             } else {
-                xml = xml + '   <fpszl></fpszl>';
+
+                var xml = '<?xml version="1.0"?>';
+                xml = xml + '<XForm>';
+                xml = xml + '<Header>';
+                xml = xml + '<Method>Process</Method>';
+                xml = xml + '<PID>' + pid + '</PID>';
+                xml = xml + '<Action>同意</Action>';
+                xml = xml + '<Comment>' + comment + '</Comment>';
+
+
+                xml = xml + '<InviteIndicateUsers></InviteIndicateUsers>';
+                xml = xml + '</Header>';
+                xml = xml + '<FormData>';
+                xml = xml + ' <BPM_WGJTYFXMLXSQ>';
+                xml = xml + '  <fbillno>' + fbillno + '</fbillno>';
+                xml = xml + '<fname>' + fname + '</fname>';
+                xml = xml + '   <fdept>' + fdept + '</fdept>';
+                xml = xml + '   <fgroup>' + fgroup + '</fgroup>';
+                xml = xml + '   <fcompany>' + fcompany + '</fcompany>';
+                xml = xml + '   <ftel>' + ftel + '</ftel>';
+                xml = xml + '    <fxmmc>' + fxmmc + '</fxmmc>';
+                xml = xml + '    <flb>' + flb + '</flb>';
+                xml = xml + '   <fxmfzr>' + fxmfzr + '</fxmfzr>';
+                xml = xml + '   <fzje>' + fzje + '</fzje>';
+                xml = xml + '   <fxmbh>' + fxmbh + '</fxmbh>';
+
+                if (fjArray.toString() != null && fjArray.toString() != "") {
+                    xml = xml + '      <fpszl>' + fjArray.toString().replace(",", ";") + '</fpszl>';
+                } else {
+                    xml = xml + '   <fpszl></fpszl>';
+                }
+
+
+                xml = xml + '   </BPM_WGJTYFXMLXSQ>';
+
+                xml = xml + '  </FormData>';
+                xml = xml + '</XForm >';
+                PostXml(xml);
             }
-
-
-            xml = xml + '   </BPM_WGJTYFXMLXSQ>';
-
-            xml = xml + '  </FormData>';
-            xml = xml + '</XForm >';
-            PostXml(xml);
+           
         }
 
         function hasRead() {

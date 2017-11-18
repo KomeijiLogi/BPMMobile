@@ -34,11 +34,11 @@
             </div>
             <div class="mui-input-row">
                 <label for="fgroup">所属集团<i style="color:red;">*</i></label>
-                <input type="text" id="fgroup" name="fgroup" readonly="readonly" placeholder="请选择所属集团" />
+                <input type="text" id="fgroup" name="fgroup" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fcompany">所在公司<i style="color:red;">*</i></label>
-                <input type="text" id="fcompany" name="fcompany" readonly="readonly" placeholder="请选择所在公司" />
+                <input type="text" id="fcompany" name="fcompany" readonly="readonly"  />
             </div>
             <div class="mui-input-row">
                 <label for="fdate">申请日期<i style="color:red;">*</i></label>
@@ -46,28 +46,28 @@
             </div>
             <div class="mui-input-row">
                 <label for="fywlx">业务类型<i style="color:red;">*</i></label>
-                <input type="text" id="fywlx" name="fywlx" placeholder="请选择业务类型" readonly="readonly" />
+                <input type="text" id="fywlx" name="fywlx"  readonly="readonly" />
             </div>
 
             <div class="mui-input-row">
                 <label for="ferp">ERP系统<i style="color:red;">*</i></label>
-                <input type="text" id="ferp" name="ferp" placeholder="请选择ERP系统" readonly="readonly" />
+                <input type="text" id="ferp" name="ferp"  readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fmail">企业邮箱<i style="color:red;">*</i></label>
-                <input type="text" id="fmail" name="fmail" placeholder="请输入企业邮箱" readonly="readonly" />
+                <input type="text" id="fmail" name="fmail"  readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="ftel">联系电话<i style="color:red;">*</i></label>
-                <input type="tel" id="ftel" name="ftel" placeholder="请输入联系电话" readonly="readonly" />
+                <input type="tel" id="ftel" name="ftel" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fcwgw">财务岗位<i style="color:red;">*</i></label>
-                <input type="text" id="fcwgw" name="fcwgw" placeholder="请选择财务岗位" readonly="readonly" />
+                <input type="text" id="fcwgw" name="fcwgw" readonly="readonly" />
             </div>
             <div class="mui-input-row" style="display:none" id="gwlx">
                 <label for="fgwlx">岗位类型</label>
-                <input type="text" id="fgwlx" name="fgwlx" placeholder="请选择岗位类型" readonly="readonly" />
+                <input type="text" id="fgwlx" name="fgwlx" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fsysno">资金系统用户名</label>
@@ -75,17 +75,17 @@
             </div>
             <div class="mui-input-row">
                 <label for="fkeyno">key编号</label>
-                <input type="text" id="fkeyno" name="fkeyno" placeholder="请输入key编号" readonly="readonly" />
+                <input type="text" id="fkeyno" name="fkeyno"  readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fcwjl">财务经理<i style="color:red;">*</i></label>
-                <input type="text" id="fcwjl" name="fcwjl" placeholder="请选择财务经理" readonly="readonly" />
+                <input type="text" id="fcwjl" name="fcwjl"  readonly="readonly" />
                 <input type="text" hidden="hidden" id="fcwjlno" name="fcwjlno" />
             </div>
 
             <div class="mui-input-row">
                 <label for="fxqms">资金系统业务需求描述<i style="color:red;">*</i></label>
-                <textarea rows="8" id="fxqms" name="fxqms" placeholder="请输入资金系统业务需求详细描述"></textarea>
+                <textarea rows="8" id="fxqms" name="fxqms" ></textarea>
             </div>
             <div class="mui-input-group" id="fgwml" style="display:none;">
                 <div class="mui-input-row">
@@ -417,264 +417,109 @@
                     }
 
                     var fgwmlStr = String(item.fgwml).split(",");
-                    $("#fjszdg").val(fgwmlStr[fgwmlStr.length - 16]);
-                    $("#fjsshg").val(fgwmlStr[fgwmlStr.length - 15]);
-                    $("#fpjzdg").val(fgwmlStr[fgwmlStr.length - 14]);
-                    $("#fpjshg").val(fgwmlStr[fgwmlStr.length - 13]);
-                    $("#fzjjhzdg").val(fgwmlStr[fgwmlStr.length - 12]);
-                    $("#fzjjhshg").val(fgwmlStr[fgwmlStr.length - 11]);
-                    $("#fzjjhcxg").val(fgwmlStr[fgwmlStr.length - 10]);
-                    $("#fzjjscxg").val(fgwmlStr[fgwmlStr.length - 9]);
-                    $("#fzjpjcxg").val(fgwmlStr[fgwmlStr.length - 8]);
-                    $("#fdwpjspg").val(fgwmlStr[fgwmlStr.length - 7]);
-                    $("#fdwfkspg").val(fgwmlStr[fgwmlStr.length - 6]);
-                    $("#fscfgsjs").val(fgwmlStr[fgwmlStr.length - 5]);
-                    $("#fjtjhspg").val(fgwmlStr[fgwmlStr.length - 4]);
-                    $("#fjtfkspg").val(fgwmlStr[fgwmlStr.length - 3]);
-                    $("#fndzjyslr").val(fgwmlStr[fgwmlStr.length - 2]);
-                    $("#fndzjyssh").val(fgwmlStr[fgwmlStr.length - 1]);
+                    for (var i = 0; i < fgwmlStr.length; i++) {
+                        if (fgwmlStr[i] == "结算制单岗") {
+                            $("#fjszdg").val(fgwmlStr[i]);
+                            $("#fjszdg").attr("checked", "checked");
+                        } else if (fgwmlStr[i] == "结算审核岗") {
+                            $("#fjsshg").val(fgwmlStr[i]);
+                            $("#fjsshg").attr("checked", "checked");
+                        } else if (fgwmlStr[i] == "票据制单岗") {
+                            $("#fpjzdg").val(fgwmlStr[i]);
+                            $("#fpjzdg").attr("checked", "checked");
+                        } else if (fgwmlStr[i] == "票据审核岗") {
+                            $("#fpjshg").val(fgwmlStr[i]);
+                            $("#fpjshg").attr("checked", "checked");
+                        } else if (fgwmlStr[i] == "资金计划制单岗") {
+                            $("#fzjjhzdg").val(fgwmlStr[i]);
+                            $("#fzjjhzdg").attr("checked", "checked");
+                        } else if (fgwmlStr[i] == "资金计划审核岗") {
+                            $("#fzjjhshg").val(fgwmlStr[i]);
+                            $("#fzjjhshg").attr("checked", "checked");
+                        } else if (fgwmlStr[i] == "资金计划查询岗") {
+                            $("#fzjjhcxg").val(fgwmlStr[i]);
+                            $("#fzjjhcxg").attr("checked", "checked");
+                        } else if (fgwmlStr[i] == "资金结算查询岗") {
+                            $("#fzjjscxg").val(fgwmlStr[i]);
+                            $("#fzjjscxg").attr("checked", "checked");
+                        } else if (fgwmlStr[i] == "资金票据查询岗") {
+                            $("#fzjpjcxg").val(fgwmlStr[i]);
+                            $("#fzjpjcxg").attr("checked", "checked");
+                        } else if (fgwmlStr[i] == "单位票据审批岗") {
+                            $("#fdwpjspg").val(fgwmlStr[i]);
+                            $("#fdwpjspg").attr("checked", "checked");
+                        } else if (fgwmlStr[i] == "单位付款审批岗") {
+                            $("#fdwfkspg").val(fgwmlStr[i]);
+                            $("#fdwfkspg").attr("checked", "checked");
+                        } else if (fgwmlStr[i] == "市场分公司结算制单岗") {
+                            $("#fscfgsjs").val(fgwmlStr[i]);
+                            $("#fscfgsjs").attr("checked", "checked");
+                        } else if (fgwmlStr[i] == "集团计划审批岗") {
+                            $("#fjtjhspg").val(fgwmlStr[i]);
+                            $("#fjtjhspg").attr("checked", "checked");
+                        } else if (fgwmlStr[i] == "集团付款审批岗") {
+                            $("#fjtfkspg").val(fgwmlStr[i]);
+                            $("#fjtfkspg").attr("checked", "checked");
+                        } else if (fgwmlStr[i] == "年度资金预算录入") {
+                            $("#fndzjyslr").val(fgwmlStr[i]);
+                            $("#fndzjyslr").attr("checked", "checked");
+                        } else if (fgwmlStr[i] == "年度资金预算审核") {
+                            $("#fndzjyssh").val(fgwmlStr[i]);
+                            $("#fndzjyssh").attr("checked", "checked");
+                        }
+                    }
                     var fgwmlxStr = String(item.fgwmlx).split(",");
-                    $("#fjszdg1").val(fgwmlStr[fgwmlStr.length - 16]);
-                    $("#fjsshg1").val(fgwmlStr[fgwmlStr.length - 15]);
-                    $("#fpjzdg1").val(fgwmlStr[fgwmlStr.length - 14]);
-                    $("#fpjshg1").val(fgwmlStr[fgwmlStr.length - 13]);
-                    $("#fzjjhzdg1").val(fgwmlStr[fgwmlStr.length - 12]);
-                    $("#fzjjhshg1").val(fgwmlStr[fgwmlStr.length - 11]);
-                    $("#fzjjhcxg1").val(fgwmlStr[fgwmlStr.length - 10]);
-                    $("#fzjjscxg1").val(fgwmlStr[fgwmlStr.length - 9]);
-                    $("#fzjpjcxg1").val(fgwmlStr[fgwmlStr.length - 8]);
-                    $("#fdwpjspg1").val(fgwmlStr[fgwmlStr.length - 7]);
-                    $("#fdwfkspg1").val(fgwmlStr[fgwmlStr.length - 6]);
-                    $("#fscfgsjs1").val(fgwmlStr[fgwmlStr.length - 5]);
-                    $("#fjtjhspg1").val(fgwmlStr[fgwmlStr.length - 4]);
-                    $("#fjtfkspg1").val(fgwmlStr[fgwmlStr.length - 3]);
-                    $("#fndzjyslr1").val(fgwmlStr[fgwmlStr.length - 2]);
-                    $("#fndzjyssh1").val(fgwmlStr[fgwmlStr.length - 1]);
-                    $("#fjszdg").each(function () {
-                        if ($(this).val() == "结算制单岗") {
-
-                            $(this).attr("checked", "checked");
+                    for (var i = 0; i < fgwmlxStr.length; i++) {
+                        if (fgwmlxStr[i] == "结算制单岗") {
+                            $("#fjszdg1").val(fgwmlxStr[i]);
+                            $("#fjszdg1").attr("checked", "checked");
+                        } else if (fgwmlxStr[i] == "结算审核岗") {
+                            $("#fjsshg1").val(fgwmlxStr[i]);
+                            $("#fjsshg1").attr("checked", "checked");
+                        } else if (fgwmlxStr[i] == "票据制单岗") {
+                            $("#fpjzdg1").val(fgwmlxStr[i]);
+                            $("#fpjzdg1").attr("checked", "checked");
+                        } else if (fgwmlxStr[i] == "票据审核岗") {
+                            $("#fpjshg1").val(fgwmlxStr[i]);
+                            $("#fpjshg1").attr("checked", "checked");
+                        } else if (fgwmlxStr[i] == "资金计划制单岗") {
+                            $("#fzjjhzdg1").val(fgwmlxStr[i]);
+                            $("#fzjjhzdg1").attr("checked", "checked");
+                        } else if (fgwmlxStr[i] == "资金计划审核岗") {
+                            $("#fzjjhshg1").val(fgwmlxStr[i]);
+                            $("#fzjjhshg1").attr("checked", "checked");
+                        } else if (fgwmlxStr[i] == "资金计划查询岗") {
+                            $("#fzjjhcxg1").val(fgwmlxStr[i]);
+                            $("#fzjjhcxg1").attr("checked", "checked");
+                        } else if (fgwmlxStr[i] == "资金结算查询岗") {
+                            $("#fzjjscxg1").val(fgwmlxStr[i]);
+                            $("#fzjjscxg1").attr("checked", "checked");
+                        } else if (fgwmlxStr[i] == "资金票据查询岗") {
+                            $("#fzjpjcxg1").val(fgwmlxStr[i]);
+                            $("#fzjpjcxg1").attr("checked", "checked");
+                        } else if (fgwmlxStr[i] == "单位票据审批岗") {
+                            $("#fdwpjspg1").val(fgwmlxStr[i]);
+                            $("#fdwpjspg1").attr("checked", "checked");
+                        } else if (fgwmlxStr[i] == "单位付款审批岗") {
+                            $("#fdwfkspg1").val(fgwmlxStr[i]);
+                            $("#fdwfkspg1").attr("checked", "checked");
+                        } else if (fgwmlxStr[i] == "市场分公司结算制单岗") {
+                            $("#fscfgsjs1").val(fgwmlxStr[i]);
+                            $("#fscfgsjs1").attr("checked", "checked");
+                        } else if (fgwmlxStr[i] == "集团计划审批岗") {
+                            $("#fjtjhspg1").val(fgwmlxStr[i]);
+                            $("#fjtjhspg1").attr("checked", "checked");
+                        } else if (fgwmlxStr[i] == "集团付款审批岗") {
+                            $("#fjtfkspg1").val(fgwmlxStr[i]);
+                            $("#fjtfkspg1").attr("checked", "checked");
+                        } else if (fgwmlxStr[i] == "年度资金预算录入") {
+                            $("#fndzjyslr1").val(fgwmlxStr[i]);
+                            $("#fndzjyslr1").attr("checked", "checked");
+                        } else if (fgwmlxStr[i] == "年度资金预算审核") {
+                            $("#fndzjyssh1").val(fgwmlxStr[i]);
+                            $("#fndzjyssh1").attr("checked", "checked");
                         }
-
-                    });
-                    $("#fjsshg").each(function () {
-                        if ($(this).val() == "结算审核岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fpjzdg").each(function () {
-                        if ($(this).val() == "票据制单岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fpjshg").each(function () {
-                        if ($(this).val() == "票据审核岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fzjjhzdg").each(function () {
-                        if ($(this).val() == "资金计划制单岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fzjjhshg").each(function () {
-                        if ($(this).val() == "资金计划审核岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fzjjhcxg").each(function () {
-                        if ($(this).val() == "资金计划查询岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fzjjscxg").each(function () {
-                        if ($(this).val() == "资金结算查询岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fzjpjcxg").each(function () {
-                        if ($(this).val() == "资金票据查询岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fdwpjspg").each(function () {
-                        if ($(this).val() == "单位票据审批岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fdwfkspg").each(function () {
-                        if ($(this).val() == "单位付款审批岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fscfgsjs").each(function () {
-                        if ($(this).val() == "市场分公司结算制单岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fjtjhspg").each(function () {
-                        if ($(this).val() == "集团计划审批岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fjtfkspg").each(function () {
-                        if ($(this).val() == "集团付款审批岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fndzjyslr").each(function () {
-                        if ($(this).val() == "年度资金预算录入") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fndzjyssh").each(function () {
-                        if ($(this).val() == "年度资金预算审核") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    //变更后岗位目录
-                    $("#fjszdg1").each(function () {
-                        if ($(this).val() == "结算制单岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fjsshg1").each(function () {
-                        if ($(this).val() == "结算审核岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fpjzdg1").each(function () {
-                        if ($(this).val() == "票据制单岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fpjshg1").each(function () {
-                        if ($(this).val() == "票据审核岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fzjjhzdg1").each(function () {
-                        if ($(this).val() == "资金计划制单岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fzjjhshg1").each(function () {
-                        if ($(this).val() == "资金计划审核岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fzjjhcxg1").each(function () {
-                        if ($(this).val() == "资金计划查询岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fzjjscxg1").each(function () {
-                        if ($(this).val() == "资金结算查询岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fzjpjcxg1").each(function () {
-                        if ($(this).val() == "资金票据查询岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fdwpjspg1").each(function () {
-                        if ($(this).val() == "单位票据审批岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fdwfkspg1").each(function () {
-                        if ($(this).val() == "单位付款审批岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fscfgsjs1").each(function () {
-                        if ($(this).val() == "市场分公司结算制单岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fjtjhspg1").each(function () {
-                        if ($(this).val() == "集团计划审批岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fjtfkspg1").each(function () {
-                        if ($(this).val() == "集团付款审批岗") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fndzjyslr1").each(function () {
-                        if ($(this).val() == "年度资金预算录入") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
-                    $("#fndzjyssh1").each(function () {
-                        if ($(this).val() == "年度资金预算审核") {
-
-                            $(this).attr("checked", "checked");
-                        }
-
-                    });
+                    }
 
                     for (var i = 0; i < data.Steps.length; i++) {
 
