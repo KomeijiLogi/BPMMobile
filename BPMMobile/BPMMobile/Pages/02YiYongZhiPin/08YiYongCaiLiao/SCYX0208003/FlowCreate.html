@@ -22,6 +22,7 @@
             <div class="mui-input-row">
                 <label for="fname">申请人</label>
                 <input type="text" id="fname" name="fname" readonly="readonly"/>
+                <input type="hidden" id="fno" name="fno"/>
             </div>
             <div class="mui-input-row">
                 <label for="fdept">所属区域</label>
@@ -40,7 +41,7 @@
                 <input type="text" id="fsqsyt" name="fsqsyt" readonly="readonly" placeholder="请选择授权书用途"/>
             </div>
             <div class="mui-input-row">
-                <label for="fqt">其他</label>
+                <label for="fqt">其他<i style="color:red;">*</i></label>
                 <input type="text" id="fqt" name="fqt" readonly="readonly" />
             </div>
             <div class="mui-input-row">
@@ -60,7 +61,30 @@
                 <input type="text" id="fcpmc" name="fcpmc" placeholder="请填写授权产品名称"/>
             </div>
             <div class="mui-input-row">
-                <label for="fsqsj"></label>
+                <label for="fsqsj">授权时间<i style="color:red;">*</i></label>
+                <input type="text" id="fsqsj" name="fsqsj" placeholder="请填写授权时间"/>
+            </div>
+            <div class="mui-input-row">
+                <label for="fsqjsfs">授权接受方式<i style="color:red;">*</i></label>
+                <input type="text" id="fsqjsfs" name="fsqjsfs" readonly="readonly" placeholder="请选择授权接受方案"/>
+            </div>
+            <div class="mui-input-row">
+                <label for="fshrxx">收货人信息<i style="color:red;">*</i></label>
+                <input type="text" id="fshrxx" name="fshrxx" placeholder="请填写收货人信息"/>
+            </div>
+            <div class="mui-input-row" style="height:3.5rem;overflow:scroll;" id="uploaddiv">
+                <div class="border border-t upload-img" style="top:0rem;">
+                    <!--上传图片-->
+                    <div class="clearfix upload-btn" id="children-bg">
+                        <label class="label">附件<i style="color:red;">*</i></label>
+                        <span class="tips" id="imageCount"><!--已添加0张--></span>
+                        <!--上传图片按钮  -->
+                        <span class="upload-addbtn">
+                            <input type="file" accept="image/jpeg,image/jpg,image/png,image/jp2,image/bmp" id="file" style="opacity:0;">
+                        </span>
+                    </div>
+                    <div class="upload-img-list"></div>
+                </div>
             </div>
         </form>
         <div class="mui-btn-row" id="SaveD">
