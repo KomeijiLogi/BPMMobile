@@ -29,7 +29,16 @@ function PostXml(xml) {
             if (status == "success") {
                 console.log(data);
                 if (data.Recipients[0] != null) {
-                    mui.toast("提交给" + data.Recipients[0].Recipient.DisplayName);
+                    if (data.Recipients[0].Recipient.DisplayName != null) {
+                        mui.toast("提交给" + data.Recipients[0].Recipient.DisplayName);
+                    } else {
+                        if (data.Recipients[1] != null){
+                            mui.toast("提交给" + data.Recipients[1].Recipient.DisplayName);
+                        }
+                       
+                    }
+                    
+
                 } else {
                     mui.toast("流程审批结束");
                 }
@@ -155,7 +164,7 @@ function Notify() {
 
 
             } else if (callBackId == 'callback2') {
-                history.go(0);
+                window.location.reload();
             }
         }
 
@@ -168,7 +177,7 @@ function RecedeBack() {
     var stepId = $("#stepId").val();
     var comments;
     var list = document.getElementById('recedeWr');
-    var checkboxArray = [].slice.call(list.querySelectorAll('input[type="checkbox"]'));
+    var checkboxArray = [].slice.call(list.querySelectorAll('input[type="radio"]'));
 
     checkboxArray.forEach(function (box) {
         if (box.checked) {
@@ -255,6 +264,63 @@ function Refilled() {
 
 }
 
+//从共享池中取出
+
+function PickupShareTaskExt() {
+
+    var pid = $("#stepId").val();
+    var btnArry = ["取消", "确定"];
+    mui.confirm('是否从共享任务中取出？', '取出确认提醒', btnArry, function (e) {
+        if (e.index == 1) {
+            $.ajax({
+                type: "POST",
+                url: "/api/bpm/PickupShareTaskExt",
+                data: { 'stepid':pid},
+                beforeSend: function (XHR) {
+                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+                }
+            }).done(function (data) {
+                mui.toast('从共享任务中取出');
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
+                
+            }).fail(function (e) {
+                mui.toast('取出失败');
+            });
+        }
+    });
+}
+
+//放回共享池
+function PutbackShareTaskExt() {
+    var pid = $("#stepId").val();
+    var btnArry = ["取消", "确定"];
+    mui.confirm('是否放回共享任务？', '取出确认提醒', btnArry, function (e) {
+        if (e.index == 1) {
+            $.ajax({
+                type: "POST",
+                url: "/api/bpm/PutbackShareTaskExt",
+                data: { 'stepid': pid },
+                beforeSend: function (XHR) {
+                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+                }
+            }).done(function (data) {
+                mui.toast('已放回共享任务');
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
+                
+            }).fail(function (e) {
+                mui.toast('放回失败');
+            });
+        }
+    });
+}
+
+
 //获取BPM参数
 
 function getBPMParam() {
@@ -271,11 +337,7 @@ function getBPMParam() {
             if (status == "success") {
                 //console.log(data);
                 BPMOU = data.Position[0].FullName;
-                //if ($("#fdept").length>0) {
-                //    var fareaStr = String(BPMOU).split("/");
-
-                //    $("#fdept").val(fareaStr[fareaStr.length - 2]);
-                //}
+               
                 
                 return BPMOU;
             } else {
@@ -390,16 +452,56 @@ function getUrlParam(name) {
     return null;
 }
 
+//通过调用XuntongJSBridge来实现单选人员，从而获取对应的姓名和工号信息
+function selectSinglePerson(name, account) {
+    //name 为对应选择人姓名的jQueryID， account 为对应选择人工号的jQueryID
+    var openidArr = new Array();
+    XuntongJSBridge.call('selectPerson', { 'pType': '1' }, function (result) {
+
+        if (typeof (result) == 'string') {
+            result = JSON.parse(result);
+        } else if (typeof (result) == 'object') {
+            result = result;
+        }
+        var data = result.data;
+        if (result.success == true || result.success == "true") {
+            for (var i = 0; i < data.persons.length; i++) {
+                openidArr.push(data.persons[i].openId);
+            }
+            $.ajax({
+                type: "POST",
+                url: "/api/bpm/PostAccount",
+                data: { "ids": openidArr },
+                beforeSend: function (XHR) {
+                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+                }
+            }).done(function (data) {
+                console.log(data);
+                var accountArr = new Array();
+                var nameArr = new Array();
+                for (var i = 0; i < data.data.length; i++) {
+                    accountArr.push((String)(data.data[i].phone));
+                    nameArr.push(data.data[i].name);
+                }
+                $(name).val(nameArr.toString());
+                $(account).val(accountArr.toString());
+            }).fail(function (e) {
+
+            });
+        }
+    });
+
+}
+
 //选择器前提需要mui加载完成
 function showPicker(el, data) {
 
     var element = document.getElementById(el);
     
     var picker = new mui.PopPicker();
-
+    
     picker.setData(data);
-
-   
 
     element.addEventListener('tap', function () {
 
@@ -414,6 +516,8 @@ function showPicker(el, data) {
 
 function showPickerByZepto(zeptoParentId, zeptoId,data) {
     var picker = new mui.PopPicker();
+
+   
     picker.setData(data);
 
     $(zeptoParentId).find(zeptoId).each(function () {
@@ -427,6 +531,24 @@ function showPickerByZepto(zeptoParentId, zeptoId,data) {
             });
         });
     });
+
+}
+
+//优化picker的创建逻辑，防止冗余picker生成
+function showPickerOptimize(picker, el, data) {
+
+    var element = document.getElementById(el);
+
+    picker.setData(data);
+
+    element.addEventListener('tap', function () {
+
+        picker.show(function (items) {
+
+            element.value = items[0].text;
+        });
+
+    }, false);
 
 }
 
@@ -496,8 +618,10 @@ function locationAction(selAction ) {
     } else if (selAction == "sysStop") {
         stepAction = "结束";
     } else if (selAction == "sysPickBackRestart") {
-        stepAction = "取回";
-    }  else {
+        stepAction = "取回重填";
+    }else if(selAction == "sysPickBack"){
+        stepAction ="取回";
+    } else {
        stepAction = selAction;
     } 
     return stepAction;
@@ -529,23 +653,22 @@ function deleteItem(context) {
 }
 
 function watch() {
-
+   
     var count = $('.upload-img-list >div').size();
 
-    if (count <= 3) {
-        $('#uploaddiv').css('height', '3rem');
+    if (count==0) {
+        $('#uploaddiv').css('height', '4rem');
+    } else if (count <= 4) {
+        $('#uploaddiv').css('height', '7rem');
 
+    } else if (count <= 8) {
+        $('#uploaddiv').css('height', '10rem');
 
-    } else if (count <= 6) {
-        $('#uploaddiv').css('height', '6rem');
+    } else if (count <= 12) {
+        $('#uploaddiv').css('height', '15rem');
 
-    } else if (count <= 9) {
-        $('#uploaddiv').css('height', '9rem');
-
-    } else if (count <=12) {
-        $('#uploaddiv').css('height', '12rem');
-    }
-
+    } 
+   
 }
 // 数字转换成大写金额函数
 function atoc(numberValue) {
@@ -633,6 +756,8 @@ function FormatMoney(s) {
         s = s.replace(re, "$1,$2");
     s = s.replace(/,(\d\d)$/, ".$1");
     return "" + s.replace(/^\./, "0.")
+
+   
 }
 
 
@@ -707,10 +832,10 @@ function getRecedableToSteps() {
                 li = li + '       <label>将任务退回</label>';
                 li = li + '  </div>';
                 for (var i = 0; i < data.length; i++) {
-                    li = li + '     <div class="mui-input-row mui-checkbox mui-left">';
+                    li = li + '     <div class="mui-input-row mui-radio mui-left">';
                     li = li + '     <label>' + data[i].NodeName + '&nbsp;' + data[i].OwnerFullName + '&nbsp;' + FormatterTimeYMS(data[i].FinishAt) + '</label>';
 
-                    li = li + '     <input name="stepcbox" value="' + data[i].StepID + '" type="checkbox" >';
+                    li = li + '     <input name="stepcbox" value="' + data[i].StepID + '" type="radio" >';
                     li = li + '     </div>';
 
                 }
@@ -777,13 +902,20 @@ function getNowFormatDate(timeformat) {
 
     //hh:mm:ss
     var currentdate3 = hour + seperator2 + minute + seperator2 + seconds;
+
+    //yyyy-MM-dd hh:mm
+    var currentdate4 = year + seperator1 + month + seperator1 + strDate
+        + "T" + hour + seperator2 + minute
+        ;
     if (timeformat == 1) {
         return currentdate1;
     } else if (timeformat == 2) {
         return currentdate2;
     } else if (timeformat == 3) {
         return currentdate3;
-    } else {
+    } else if (timeformat == 4) {
+        return currentdate4;
+    }else {
         return "";
     }
 
@@ -802,6 +934,11 @@ function FormatterTime(time) {
 function FormatterTimeYMS(time) {
     var time = String(time);
     var ymd = time.substring(0, time.indexOf("T"));
+    return ymd;
+}
+function FormatterTimeT(time) {
+    var time = String(time);
+    var ymd = time.substring(0, time.indexOf(" "));
     return ymd;
 }
 
@@ -877,7 +1014,7 @@ function getMonthFirst(dateString) {
     firstDate.setDate(1);
     return new XDate(firstDate).toString('yyyy-MM-dd');
 }
-
+//获取某月最后一天
 function getMonthLast(dateString) {
 
     var info = String(dateString).split("-");
@@ -891,6 +1028,17 @@ function getMonthLast(dateString) {
     endDate.setDate(0);
     return new XDate(endDate).toString('yyyy-MM-dd');
 }
+
+//计算日期相差天数
+function DateDiff(sDate1, sDate2) {    //sDate1和sDate2是2006-12-18格式  
+    var aDate, oDate1, oDate2, iDays
+    aDate = sDate1.split("-")
+    oDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0])    //转换为12-18-2006格式  
+    aDate = sDate2.split("-")
+    oDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0])
+    iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24)    //把相差的毫秒数转换为天数  
+    return iDays
+}    
 
 //数组去重索引法
 function removeDuplicatedItem(array) {
@@ -924,10 +1072,10 @@ function getPersonInfo(fno) {
     xml = xml + '      <Requests>';
     xml = xml + '     <Params>';
     xml = xml + '         <DataSource>PS</DataSource>';
-    xml = xml + '         <ID>erpcloud_getPerInfo</ID>';
+    xml = xml + '         <ID>erpcloud_公用_获取个人信息</ID>';
     xml = xml + '         <Type>1</Type>';
     xml = xml + '        <Method>GetUserDataProcedure</Method>';
-    xml = xml + '        <ProcedureName>erpcloud_getPerInfo</ProcedureName>';
+    xml = xml + '        <ProcedureName>erpcloud_公用_获取个人信息</ProcedureName>';
     xml = xml + '        <Filter>';
     xml = xml + '            <fno>' + fno + '</fno>';
     xml = xml + '        </Filter>';
@@ -941,57 +1089,54 @@ function getPersonInfo(fno) {
 
         beforeSend: function (XHR) {
             XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
-        },
-        success: function (data, status) {
-
-            if (status == "success" || data.success == "true" || data.success == true) {
-
-                var provideData = JSON.parse(unescape(data.replace(/\\(u[0-9a-fA-F]{4})/gm, '%$1')));
-                //console.log(provideData);
-                var personInfoObject = provideData.Tables[0].Rows[0];
-                var personObject = ({
-                    name: personInfoObject.NAME,             //姓名
-                    account: personInfoObject.EMPLID,        //工号
-                    descript: personInfoObject.DEPT_DESCR,   //所在组织简约描述
-                    status: personInfoObject.DESCR1,          //状况 1-良好，2-特殊
-                    wedding: personInfoObject.DESCR2,         //婚姻状况
-                    residence: personInfoObject.DESCR4,       //户口状况
-                    nation: personInfoObject.DESCR50,         //民族
-                    deptdescript: personInfoObject.DESCR254,  //所在组织详细描述
-                    email: personInfoObject.EMAIL_ADDR,       //个人邮箱
-                    fzjsj: personInfoObject.FDEPZR,           //直接上级
-                    fzjsjno: personInfoObject.FDEPZRNUMBER,   //直接上级工号
-                    fzgsj: personInfoObject.FZR,              //最高上级 
-                    fzgsjno: personInfoObject.FZRNUMBER,      //最高上级工号
-                    fjoindate: personInfoObject.HPS_JOINWG_DT, //加入威高时间
-                    school: personInfoObject.HPS_VALUE01,      //毕业院校
-                    profession: personInfoObject.HPS_VALUE02,  //所学专业
-                    address: personInfoObject.HPS_VALUE03,     //家庭住址
-                    degree: personInfoObject.JPM_DESCR90,      //学历学位
-                    sex: personInfoObject.SEX,                 //性别 M/F
-                    fdeptname: personInfoObject.fdeptname,     //所属部门
-                    fgslj: personInfoObject.fgslj,             //所属部门详细路径
-                    fsscompany: personInfoObject.fsscompany,   //所属公司
-                    fssgroup: personInfoObject.fssgroup,       //所属组织
-                    fzwlevel: personInfoObject.fzwlevel,       //职位级别
-                    minzu: personInfoObject.minzu,              //民族
-                    jiguan: personInfoObject.jiguan,            //籍贯
-                    zhiwei: personInfoObject.zhiwei,             //职位 
-                    birthday: FormatterTime_Y_M_S(personInfoObject.BIRTHDATE.year, personInfoObject.BIRTHDATE.month, personInfoObject.BIRTHDATE.day),    //出生日期
-                    id: personInfoObject.NATIONAL_ID,             //身份证号 
-                    tel: personInfoObject.PHONE,                  //联系电话
-                    gradate: FormatterTime_Y_M_S(personInfoObject.HPS_DATE01.year, personInfoObject.HPS_DATE01.month, personInfoObject.HPS_DATE01.day),      //毕业时间
-                    depno: personInfoObject.DEPTID                 //部门编码        
-                });
-                console.log(personObject);
-                return personObject;
-            }
-        }, error: function (e) {
-
-        }, complete: function () {
-
         }
-    });
+    }).done(function (data) {
+
+
+
+
+        var provideData = JSON.parse(unescape(data.replace(/\\(u[0-9a-fA-F]{4})/gm, '%$1')));
+        //console.log(provideData);
+        var personInfoObject = provideData.Tables[0].Rows[0];
+        var personObject = ({
+            name: personInfoObject.NAME,             //姓名
+            account: personInfoObject.EMPLID,        //工号
+            descript: personInfoObject.DEPT_DESCR,   //所在组织简约描述
+            status: personInfoObject.DESCR1,          //状况 1-良好，2-特殊
+            wedding: personInfoObject.DESCR2,         //婚姻状况
+            residence: personInfoObject.DESCR4,       //户口状况
+            nation: personInfoObject.DESCR50,         //民族
+            deptdescript: personInfoObject.DESCR254,  //所在组织详细描述
+            email: personInfoObject.EMAIL_ADDR,       //个人邮箱
+            fzjsj: personInfoObject.FDEPZR,           //直接上级
+            fzjsjno: personInfoObject.FDEPZRNUMBER,   //直接上级工号
+            fzgsj: personInfoObject.FZR,              //最高上级 
+            fzgsjno: personInfoObject.FZRNUMBER,      //最高上级工号
+            fjoindate: personInfoObject.HPS_JOINWG_DT, //加入威高时间
+            school: personInfoObject.HPS_VALUE01,      //毕业院校
+            profession: personInfoObject.HPS_VALUE02,  //所学专业
+            address: personInfoObject.HPS_VALUE03,     //家庭住址
+            degree: personInfoObject.JPM_DESCR90,      //学历学位
+            sex: personInfoObject.SEX,                 //性别 M/F
+            fdeptname: personInfoObject.fdeptname,     //所属部门
+            fgslj: personInfoObject.fgslj,             //所属部门详细路径
+            fsscompany: personInfoObject.fsscompany,   //所属公司
+            fssgroup: personInfoObject.fssgroup,       //所属组织
+            fzwlevel: personInfoObject.fzwlevel,       //职位级别
+            minzu: personInfoObject.minzu,              //民族
+            jiguan: personInfoObject.jiguan,            //籍贯
+            zhiwei: personInfoObject.zhiwei,             //职位 
+            birthday: FormatterTime_Y_M_S(personInfoObject.BIRTHDATE.year, personInfoObject.BIRTHDATE.month, personInfoObject.BIRTHDATE.day),    //出生日期
+            id: personInfoObject.NATIONAL_ID,             //身份证号 
+            tel: personInfoObject.PHONE,                  //联系电话
+            gradate: FormatterTime_Y_M_S(personInfoObject.HPS_DATE01.year, personInfoObject.HPS_DATE01.month, personInfoObject.HPS_DATE01.day),      //毕业时间
+            depno: personInfoObject.DEPTID                 //部门编码        
+        });
+        console.log(personObject);
+        return personObject;
+    }).fail(function (e) {
+    })
+
 }
 
 
@@ -1039,10 +1184,10 @@ function getPseronInfoByopenId(selecPersonOpenIdArr) {
         xml = xml + ' <Requests>';
         xml = xml + '     <Params>';
         xml = xml + '         <DataSource>PS</DataSource>';
-        xml = xml + '         <ID>erpcloud_getPerInfoByArr</ID>';
+        xml = xml + '         <ID>erpcloud_公用_获取个人信息数组</ID>';
         xml = xml + '         <Type>1</Type>';
         xml = xml + '        <Method>GetUserDataProcedure</Method>';
-        xml = xml + '        <ProcedureName>erpcloud_getPerInfoByArr</ProcedureName>';
+        xml = xml + '        <ProcedureName>erpcloud_公用_获取个人信息数组</ProcedureName>';
         xml = xml + '        <Filter>';
         xml = xml + '            <fnoarr>' + selectAccountArr.toString() + '</fnoarr>';
         xml = xml + '        </Filter>';
@@ -1070,3 +1215,13 @@ function getPseronInfoByopenId(selecPersonOpenIdArr) {
     });
 
 }
+
+//将null转换成空字符
+function changeNullToEmpty(value) {
+    if (value == null) {
+        value = '';
+    }
+    return value;
+
+}
+

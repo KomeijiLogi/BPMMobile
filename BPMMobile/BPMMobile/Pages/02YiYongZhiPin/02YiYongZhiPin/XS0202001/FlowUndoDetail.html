@@ -113,8 +113,8 @@
         </div>
         <div class="mui-btn-row" id="approvalD">
             &nbsp;&nbsp;
-            <button class="mui-btn mui-btn-primary" type="button" style="width:40%;" id="agreebt" onclick="showConfirm()">通过</button>&nbsp;&nbsp;&nbsp;
-            <button class="mui-btn mui-btn-danger" type="button" style="width:40%;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;
+            <button class="mui-btn mui-btn-primary" type="button" style="width:100%;" id="agreebt" onclick="showConfirm()">通过</button>&nbsp;&nbsp;&nbsp;
+            <!--<button class="mui-btn mui-btn-danger" type="button" style="width:40%;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;-->
             <!--<button class="mui-btn mui-btn-warning" type="button" style="width:25%;height:2.5rem;font-size:0.8rem;" id="refusebt" onclick="Refilled()">退回重填</button>-->
         </div>
         <div class="mui-btn-row" id="readD">
@@ -412,11 +412,11 @@
                     li = li + '   </div>';
                     li = li + '   <div class="mui-input-row">';
                     li = li + '        <label for="fcusno">客户编码</label>';
-                    li = li + '        <input type="text" id="fcusno" name="fcusno" value="' + bli[i].fcusno+ '" readonly="readonly"/> ';
+                    li = li + '        <input type="text" id="fcusno" name="fcusno" value="' + changeNullToEmpty(bli[i].fcusno) + '" readonly="readonly"/> ';
                     li = li + '   </div>';
                     li = li + '   <div class="mui-input-row">';
                     li = li + '        <label for="fcusname">客户名称</label>';
-                    li = li + '        <input type="text" id="fcusname" name="fcusname" value="' + bli[i].fcusname + '" readonly="readonly"/> ';
+                    li = li + '        <input type="text" id="fcusname" name="fcusname" value="' + changeNullToEmpty(bli[i].fcusname) + '" readonly="readonly"/> ';
                     li = li + '   </div>';
                     li = li + '   <div class="mui-input-row">';
                     li = li + '        <label for="fsalerno">接业务员编码</label>';
@@ -428,11 +428,11 @@
                     li = li + '   </div>';
                     li = li + '   <div class="mui-input-row">';
                     li = li + '        <label for="fdate">交接日期<i style="color:red;">*</i></label>';
-                    li = li + '        <input type="date" id="fdate" name="fdate" value="' + bli[i].fdate + '" readonly="readonly"/> ';
+                    li = li + '        <input type="date" id="fdate" name="fdate" value="' + FormatterTimeYMS(bli[i].fdate) + '" readonly="readonly"/> ';
                     li = li + '   </div>';
                     li = li + '   <div class="mui-input-row">';
                     li = li + '        <label for="fremark">备注<i style="color:red;">*</i></label>';
-                    li = li + '        <input type="texxt" id="fremark" name="fremark" value="' + bli[i].fremark + '" readonly="readonly"/> ';
+                    li = li + '        <input type="text" id="fremark" name="fremark" value="' + bli[i].fremark + '" readonly="readonly"/> ';
                     li = li + '   </div>';
                     li = li + '  <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">';
                     li = li + '     <div class="border border-t upload-img" style="top:0rem;">';
@@ -450,8 +450,8 @@
 
                     $("#bllist").append(li);
                     n = i;
-                    if (item[i].fj != null && item[i].fj != "") {
-                        var fjtmp = (String)(item[i].fj);
+                    if (bli[i].fj != null && bli[i].fj != "") {
+                        var fjtmp = (String)(bli[i].fj);
 
                         fjArray = fjtmp.split(";");
                         fjArrayErDimension.push(fjArray);
@@ -683,169 +683,12 @@
                 } else {
                     if (typeof (NodeName) != "undefined") {
                         $("#approvalD").css("display", "block");
-                      
+
                     }
                 }
             }).fail(function (e) {
 
             });
-        }
-        function getUserData(fno) {
-            var xml = '<?xml version= "1.0" ?>';
-            xml = xml + '      <Requests>';
-            xml = xml + '     <Params>';
-            xml = xml + '         <DataSource>BPM_WEGO</DataSource>';
-            xml = xml + '         <ID>erpcloud_公用_医用制品公司客户交接申请_工号参数</ID>';
-            xml = xml + '         <Type>1</Type>';
-            xml = xml + '        <Method>GetUserDataProcedure</Method>';
-            xml = xml + '        <ProcedureName>erpcloud_公用_医用制品公司客户交接申请_工号参数</ProcedureName>';
-            xml = xml + '      <Filter><fno>' + fno + '</fno></Filter>';
-            xml = xml + '      </Params>';
-            xml = xml + '   </Requests>';
-            var initExpenseAjax = $.ajax({
-                type: "POST",
-                url: "/api/bpm/DataProvider",
-                data: { '': xml },
-
-                beforeSend: function (XHR) {
-                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
-                }
-            }).done(function (data) {
-                var provideData = JSON.parse(unescape(data.replace(/\\(u[0-9a-fA-F]{4})/gm, '%$1')));
-                console.log(provideData);
-                var expenseArr = provideData.Tables[0].Rows;
-                for (var i = 0; i < expenseArr.length; i++) {
-
-                    $("#fsalecompany").val(expenseArr[i].salecompany);
-                    $("#farea").val(expenseArr[i].salezone);
-                    $("#fagency").val(expenseArr[i].department);
-
-                }
-            }).fail(function (e) {
-
-            });
-        }
-        function showExpense(self) {
-            initExpense(self);
-            $("#wrapper").css("display", "none");
-            $("#search").css("display", "block");
-            var header = document.querySelector('header.mui-bar');
-            var list = document.getElementById('list');
-            var done = document.getElementById('done');
-            //calc hieght
-            list.style.height = (document.body.offsetHeight - header.offsetHeight) + 'px';
-            //create
-            window.indexedList = new mui.IndexedList(list);
-            $("#fno").off('tap');
-        }
-
-        function hiddenExpense() {
-            $("#wrapper").css("display", "block");
-            $("#search").css("display", "none");
-            clickEvent();
-
-        }
-        function initExpense(self) {
-            var department = $("#fagency").val();
-            var xml = '<?xml version= "1.0" ?>';
-            xml = xml + '      <Requests>';
-            xml = xml + '     <Params>';
-            xml = xml + '         <DataSource>BPM_WEGO</DataSource>';
-            xml = xml + '         <ID>erpcloud_公用_医用制品公司客户交接申请_办事处参数</ID>';
-            xml = xml + '         <Type>1</Type>';
-            xml = xml + '        <Method>GetUserDataProcedure</Method>';
-            xml = xml + '        <ProcedureName>erpcloud_公用_医用制品公司客户交接申请_办事处参数</ProcedureName>';
-            xml = xml + '      <Filter><fdepartment>' + department + '</fdepartment></Filter>';
-            xml = xml + '      </Params>';
-            xml = xml + '   </Requests>';
-            var initExpenseAjax = $.ajax({
-                type: "POST",
-                url: "/api/bpm/DataProvider",
-                data: { '': xml },
-
-                beforeSend: function (XHR) {
-                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
-                }
-            }).done(function (data) {
-                var provideData = JSON.parse(unescape(data.replace(/\\(u[0-9a-fA-F]{4})/gm, '%$1')));
-                console.log(provideData);
-                var expenseArr = provideData.Tables[0].Rows;
-                for (var i = 0; i < expenseArr.length; i++) {
-
-                    var li = '<li data-value="" data-tags="" class="mui-table-view-cell mui-indexed-list-item mui-radio mui-left">';
-                    li = li + '<input type="hidden" id="Account" name="Account" value="' + expenseArr[i].Account + '"/>';
-                    li = li + '<input type="hidden" id="DisplayName" name="DisplayName" value="' + expenseArr[i].DisplayName + '"/>';
-                    li = li + '<input type="hidden" id="department" name="department" value="' + expenseArr[i].department + '"/>';
-                    li = li + '<input type="hidden" id="salezone" name="salezone" value="' + expenseArr[i].salezone + '"/>';
-                    li = li + '<input type="hidden" id="salecompany" name="salecompany" value="' + expenseArr[i].salecompany + '"/>';
-
-                    li = li + '<input type="radio" name="radio" />' + expenseArr[i].Account + '&nbsp;业务员姓名:' + expenseArr[i].DisplayName;
-                    li = li + '</li>';
-                    $("#exp_list").append(li);
-
-                }
-
-                var header = document.querySelector('header.mui-bar');
-                var list = document.getElementById('list');
-                var done = document.getElementById('done');
-                //calc hieght
-                list.style.height = (document.body.offsetHeight - header.offsetHeight) + 'px';
-                //create
-                window.indexedList = new mui.IndexedList(list);
-                //done event
-                done.addEventListener('tap', function () {
-                    var checkboxArray = [].slice.call(list.querySelectorAll('input[type="radio"]'));
-                    var checkedValues = [];
-                    var checkedElements = [];
-                    checkboxArray.forEach(function (box) {
-                        if (box.checked) {
-                            checkedValues.push(box.parentNode.innerText);
-                            var checkele = ({
-                                Account: $(box).parent().find("#Account").val(),
-                                DisplayName: $(box).parent().find("#DisplayName").val(),
-                                department: $(box).parent().find("#department").val(),
-                                salezone: $(box).parent().find("#salezone").val(),
-                                salecompany: $(box).parent().find("#salecompany").val()
-
-
-                            })
-                            //console.log($(box).parent().find("#fsqdh").val());
-                            checkedElements.push(checkele);
-
-                        }
-                    });
-                    if (checkedValues.length > 0) {
-                        $(self).parent().parent().find("#fsalerno").val(checkedElements[checkedElements.length - 1].Account);
-                        $(self).parent().parent().find("#fsalername").val(checkedElements[checkedElements.length - 1].DisplayName);
-
-                        hiddenExpense();
-
-
-
-                    } else {
-
-                    }
-                }, false);
-                mui('.mui-indexed-list-inner').on('change', 'input', function () {
-                    var count = list.querySelectorAll('input[type="radio"]:checked').length;
-                    var value = count ? "完成(" + count + ")" : "完成";
-                    done.innerHTML = value;
-                    if (count) {
-                        if (done.classList.contains("mui-disabled")) {
-                            done.classList.remove("mui-disabled");
-                        }
-                    } else {
-                        if (!done.classList.contains("mui-disabled")) {
-                            done.classList.add("mui-disabled");
-                        }
-                    }
-                });
-            }).fail(function (e) {
-
-            });
-
-
-
         }
 
         function tapEvent() {
@@ -884,12 +727,7 @@
 
 
                 $("#bllist").append(li);
-                $("#bllist").find("#fsalerno").each(function () {
-                    var self = this;
-                    $(this).on('tap', function () {
-                        showExpense(self);
-                    });
-                });
+
 
             });
         }
@@ -1029,7 +867,7 @@
                 var fsalername = $(this).find("#fsalername").val();
                 var fdate = $(this).find("#fdate").val() + " 00:00:00";
                 var fremark = $(this).find("#fremark").val();
-                var fjArray = (fjArrayErDimension[i]).toString().replace(",", ";");
+                var fjArray = Array(fjArrayErDimension[i]).toString().replace(",", ";");
                 i++;
                 var bl = new Object;
                 bl.fcusno = fcusno;
@@ -1079,7 +917,7 @@
                         xml = xml + '<fdate>' + bllistArr[i].fdate + '</fdate>';
                         xml = xml + '<fremark>' + bllistArr[i].fremark + '</fremark>';
                         xml = xml + '<fj>' + bllistArr[i].fjArray + '</fj>';
-                        xml = xml + '</BPM_CustomerHandover_B>>';
+                        xml = xml + '</BPM_CustomerHandover_B>';
 
                     }
                     xml = xml + '      </FormData>';
@@ -1110,7 +948,7 @@
                 var fsalername = $(this).find("#fsalername").val();
                 var fdate = $(this).find("#fdate").val() + " 00:00:00";
                 var fremark = $(this).find("#fremark").val();
-                var fjArray = (fjArrayErDimension[i]).toString().replace(",", ";");
+                var fjArray = Array(fjArrayErDimension[i]).toString().replace(",", ";");
                 i++;
                 var bl = new Object;
                 bl.fcusno = fcusno;
@@ -1207,7 +1045,7 @@
                             xml = xml + '<fdate>' + bllistArr[i].fdate + '</fdate>';
                             xml = xml + '<fremark>' + bllistArr[i].fremark + '</fremark>';
                             xml = xml + '<fj>' + bllistArr[i].fjArray + '</fj>';
-                            xml = xml + '</BPM_CustomerHandover_B>>';
+                            xml = xml + '</BPM_CustomerHandover_B>';
 
                         }
                         xml = xml + '      </FormData>';
@@ -1251,7 +1089,7 @@
                     xml = xml + '<fdate>' + bllistArr[i].fdate + '</fdate>';
                     xml = xml + '<fremark>' + bllistArr[i].fremark + '</fremark>';
                     xml = xml + '<fj>' + bllistArr[i].fjArray + '</fj>';
-                    xml = xml + '</BPM_CustomerHandover_B>>';
+                    xml = xml + '</BPM_CustomerHandover_B>';
 
                 }
                 xml = xml + '      </FormData>';

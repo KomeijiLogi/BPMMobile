@@ -18,6 +18,8 @@
     <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
     <link rel="stylesheet" href="../../Content/mui.min.css" />
     <link rel="stylesheet" href="../../Content/upload.css" />
+    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
+    <link rel="stylesheet" href="../../Content/DoneOrMyApproval.css"/>
     <title></title>
 	<meta charset="utf-8" />
     <style>
@@ -29,41 +31,9 @@
             font-family: "Microsoft YaHei", Arial,"微软雅黑","Microsoft yahei","Hiragino Sans GB","冬青黑体简体中文 w3","Hiragino Sans GB","冬青黑体简体中文 w3",STXihei,"华文细黑",SimSun,"宋体",Heiti,"黑体",sans-serif;
         }
 
-        label {
-            font-size: 0.75rem;
-        }
-
-        input {
-            font-size: 0.75rem;
-        }
-
-        #signbody {
-            display:none;
-        }
-
-        #signPer {
-            padding-top: 0.2rem;
-            line-break: auto;
-            white-space: normal;
-            padding-left: 0rem;
-        }
-
-        .mui-bar {
-            -webkit-box-shadow: none;
-            box-shadow: none;
-        }
-
-        #done.mui-disabled {
-            color: gray;
-        }
-
-        li {
-            font-size: 0.75rem;
-        }
-        .adl {
-           
-           background-color:#fea900;
-        }
+      
+       
+     
         
     </style>
 </head>
@@ -92,11 +62,11 @@
 
                 <div class="mui-input-row" style="height:5.25rem;">
                     <label>事由<i style="color:red;">*</i></label>
-                    <textarea rows="10" id="flowCause" style="overflow:auto;" name="flowCause"></textarea>
+                    <textarea rows="8" id="flowCause" style="overflow:auto;" name="flowCause"></textarea>
                 </div>
                 <div class="mui-input-row" style="display:none;height:5.25rem;" id="thd">
                     <label>退回原因</label>
-                    <textarea rows="10" id="backReason" style="overflow:auto;" name="backReason" readonly="readonly"></textarea>
+                    <textarea rows="8" id="backReason" style="overflow:auto;" name="backReason" readonly="readonly"></textarea>
                 </div>
                 <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                     <div class="border border-t upload-img" style="top:0rem;">
@@ -168,26 +138,42 @@
                     
                 </div>
                
-                <div class="mui-input-row" style="height:5.25rem;font-size:0.8rem;display:none;" id="ssd">
+                <div class="mui-input-row" style="height:auto;font-size:0.8rem;display:none;" id="ssd">
                     <label>签核意见</label>
-                    <textarea rows="10" id="signSuggest" placeholder="请输入签核意见"></textarea>
+                    <textarea rows="8" id="signSuggest" placeholder="请输入签核意见"></textarea>
 
                 </div>
 
+                <div class="mui-table-view" style="margin-bottom:3.25rem;">
+                    <div class="mui-table-view-cell  mui-collapse mui-active">
+                        <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
 
+                            历史签核意见
+                        </a>
+                        <div class="mui-collapse-content">
+
+                            <!--流程列表-->
+                            <div class="list">
+                                <ul id="signff"></ul>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
                
             </form>
-            <div style="display:none;z-index:999;bottom:0rem;width:100%;" id="approvalD" class="mui-btn-row">
+            <div  id="approvalD" class="mui-btn-row">
                 &nbsp;&nbsp;
-                <button class="mui-btn mui-btn-primary" type="button" style="top:1rem;width:40%;height:2.5rem;font-size:0.8rem;" id="agreebt" onclick="showConfirm()">同意</button>&nbsp;&nbsp;&nbsp;
+                <button class="mui-btn mui-btn-primary" type="button" style="width:40%;" id="agreebt" onclick="showConfirm()">同意</button>&nbsp;&nbsp;&nbsp;
                 <!--<button class="mui-btn mui-btn-danger" type="button" style="top:1rem;width:25%;height:2.5rem;font-size:0.8rem;display:none;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;-->
-                <button class="mui-btn mui-btn-warning" type="button" style="top:1rem;width:40%;height:2.5rem;font-size:0.8rem;margin-bottom:1rem;" id="refusebt" onclick="Refilled()">退回重填</button>
+                <button class="mui-btn mui-btn-warning" type="button" style="width:40%;" id="refusebt" onclick="Refilled()">退回重填</button>
             </div>
-            <div style="display:none;z-index:999;bottom:0rem;width:100%;" id="createD" class="mui-btn-row">
-                <button class="mui-btn mui-btn-primary" type="button" style="top:1rem;height:2.5rem;font-size:0.8rem;width:100%;margin-bottom:1rem;" id="commitbt" onclick="Save()">提交</button>
+            <div  id="createD" class="mui-btn-row">
+                <button class="mui-btn mui-btn-primary" type="button"  id="commitbt" onclick="Save()">提交</button>
             </div>
-            <div style="display:none;z-index:999;bottom:0rem;width:100%;" id="readD" class="mui-btn-row">
-                <button class="mui-btn mui-btn-primary" type="button" style="top:1rem;height:2.5rem;font-size:0.8rem;width:100%;margin-bottom:1rem;" id="readbt" onclick="hasRead()">已阅</button>
+            <div  id="readD" class="mui-btn-row">
+                <button class="mui-btn mui-btn-primary" type="button"  id="readbt" onclick="hasRead()">已阅</button>
             </div>
         </div>
         
@@ -207,9 +193,9 @@
 
 
     <div id="signd" style="display:none;">
-        <div class="mui-input-row" style="height:5.25rem;font-size:0.8rem;border:groove;border-width:0.1rem;" id="ssd">
+        <div class="mui-input-row"  id="ssd">
             <label>签核意见</label>
-            <textarea rows="10" id="signSuggest" placeholder="请输入签核意见"></textarea>
+            <textarea rows="8" id="signSuggest" placeholder="请输入签核意见"></textarea>
 
         </div>
         <div class="mui-btn-row mui-text-center" style="margin-top:1rem;">
@@ -236,7 +222,7 @@
             });
             watch();
             selectPic();
-            forbiddenCache();
+           
         });
 
         mui('.mui-content .mui-switch').each(function () {
@@ -461,7 +447,7 @@
 
 
                                         }
-
+                                        watch();
                                         $(".imgdiv").on('tap', function () {
                                             console.log($(this)[0].id);
                                             XuntongJSBridge.call('showFile', {
@@ -501,7 +487,7 @@
                         for (var i = 0; i < data.Steps.length; i++) {
                             //debugger;
 
-                            if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
+                            if (data.Steps[i].Finished == false && data.Steps[i].RecipientAccount == ($('#myPhone').val())) {
 
 
                                 if (stepId.indexOf(data.Steps[i].StepID)!=-1) {
@@ -551,6 +537,68 @@
                                 $("#approvalD").css("display", "block");
                             }
 
+                        }
+                        for (var i = 0; i < data.Steps.length; i++) {
+
+                            if (data.Steps[i].FinishAt == "0001-01-01T00:00:00") {
+                                data.Steps[i].FinishAt = "";
+                            }
+                            var time = FormatterTime(data.Steps[i].FinishAt);
+
+                            var stepName = data.Steps[i].NodeName;
+                            if (data.Steps[i].NodeName == "sysInform") {
+                                stepName = "知会";
+                            } else if (data.Steps[i].NodeName == "sysTaskOpt") {
+                                stepName = "任务操作";
+                            } else if (data.Steps[i].NodeName == "开始") {
+                                stepName = "开始";
+                            }
+
+                            var stepAction = locationAction(data.Steps[i].SelAction);
+                            if (data.Steps[i].SelAction == "sysInform") {
+                                stepAction = "发起知会";
+                            } else if (data.Steps[i].SelAction == "Submit") {
+                                stepAction = "已阅";
+                            } else if (data.Steps[i].SelAction == "null" || data.Steps[i].SelAction == null) {
+                                stepAction = "待处理";
+                            } else if (data.Steps[i].SelAction == "sysReject") {
+                                stepAction = "拒绝";
+                            } else if (data.Steps[i].SelAction == "sysRecedeRestart") {
+                                stepAction = "退回重填";
+                            }
+
+
+                            var contents = data.Steps[i].Comments;
+                            if (contents == null) {
+                                contents = "无";
+                            }
+                            //判断是否是加签
+                            if (data.Steps[i].IsConsignStep == false) {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg">' + stepName + '<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            } else {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg signadd">加签<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            }
+                            $("#signff").append(li);
                         }
                     } else {
                        
@@ -715,6 +763,7 @@
 
         //审批或者加签
         function AgreeOrConSign() {
+            var comment = $("#signSuggest").val();
             var fbt=$('#flowTitle').val();
             var fsy = $('#flowCause').val();
             
@@ -775,7 +824,7 @@
                             xml = xml + '   <Method>Process</Method>';
                             xml = xml + '   <PID>' + pid + '</PID> ';
                             xml = xml + '   <Action>同意</Action>';
-                            xml = xml + '   <Comment></Comment>';
+                            xml = xml + '   <Comment>' + comment + '</Comment>';
                             //加签差异xml部分
                             xml = xml + '<ConsignEnabled>True</ConsignEnabled>';
                             xml = xml + '<ConsignUsers>' + consignUserStr + '</ConsignUsers>';
@@ -847,7 +896,7 @@
                 xml = xml + '   <Method>Process</Method>';
                 xml = xml + '   <PID>' + pid + '</PID> ';
                 xml = xml + '   <Action>同意</Action>';
-                xml = xml + '   <Comment></Comment>';
+                xml = xml + '   <Comment>' + comment + '</Comment>';
               
                 xml = xml + '   <InviteIndicateUsers></InviteIndicateUsers>';
                 xml = xml + ' </Header>';

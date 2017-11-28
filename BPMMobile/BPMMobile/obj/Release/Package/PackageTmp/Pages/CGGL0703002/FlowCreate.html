@@ -47,10 +47,10 @@
             </div>
             <div class="mui-input-row">
                 <label for="fcgbm">采购部门<i style="color:red;">*</i></label>
-                <input type="text" id="fcgbm" name="fcgbm" value="" placeholder="请选择采购部门"/>
+                <input type="text" id="fcgbm" name="fcgbm" value="" placeholder="请选择采购部门" readonly="readonly"/>
             </div>
             <div class="mui-input-row" style="height:2.25rem;">
-                <label>安质部零星采购明细</label>
+                <label>采购明细</label>
                 <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;" id="addItem"></span>
             </div>
             <div class="mui-input-group" id="lxlist">
@@ -58,8 +58,8 @@
             </div>           
         </form>     
     </div>
-    <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;">
-        <button class="mui-btn mui-btn-primary" type="button" style="width:100%;height:2.5rem;font-size:0.8rem;" id="commitbt" onclick="Save()">提交</button>
+    <div class="mui-btn-row" id="SaveD">
+        <button class="mui-btn mui-btn-primary" type="button"  id="commitbt" onclick="Save()">提交</button>
     </div>
     <script>
 
@@ -69,7 +69,7 @@
             getVersion('\\01威高集团总部\\06建设公司\\CGGL采购管理', '建设公司安质部零星采购申请');
             getBPMParam();
             prepMsg();
-            forbiddenCache();
+           
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
@@ -152,7 +152,7 @@
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row"> ';
                         li = li + '           <label for="fsl">数量<i style="color:red;">*</i></label>';
-                        li = li + '           <input type="text" id="fsl" name="fsl" placeholder="请填写数量" value="' + flxmxItem.fsl + '"/>';
+                        li = li + '           <input type="number" id="fsl" name="fsl" placeholder="请填写数量" value="' + flxmxItem.fsl + '"/>';
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row" style="height:5.25rem;">';
                         li = li + '           <label for="fyt">用途<i style="color:red;">*</i></label>';
@@ -211,11 +211,11 @@
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row">';
                 li = li + '          <label for="fdw">单位<i style="color:red;">*</i></label>';
-                li = li + '          <input type="text" id="fdw" name="fdw" placeholder="请填写单位"/>';
+                li = li + '          <input type="number" id="fdw" name="fdw" placeholder="请填写单位"/>';
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row"> ';
                 li = li + '           <label for="fsl">数量<i style="color:red;">*</i></label>';
-                li = li + '           <input type="text" id="fsl" name="fsl" placeholder="请填写数量"/>';
+                li = li + '           <input type="number" id="fsl" name="fsl" placeholder="请填写数量"/>';
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row" style="height:5.25rem;">';
                 li = li + '           <label for="fyt">用途<i style="color:red;">*</i></label>';
@@ -252,7 +252,11 @@
                 mui.toast("请填写采购部门");
                 return;
             }
-
+            if (!$("#fdhdate").val() || $("#fdhdate").val() == '') {
+                mui.toast('请填写到货日期');
+                return;
+            }
+            var mxflag = false;
             var lxlistArr = new Array();
             $("#lxlist").find("#lx").each(function () {
 
@@ -265,13 +269,16 @@
                 var fbz = $("#fbz").val();
 
                 if (LxItem(fsyadd, fwlname, fgg, fdw, fsl, fyt, fbz) == null) {
+                    mxflag = true;
                     return;
                 }
                 var lx = LxItem(fsyadd, fwlname, fgg, fdw, fsl, fyt, fbz);
                 lxlistArr.push(lx);
 
             });
-
+            if (mxflag) {
+                return;
+            }
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                 if (e.index == 1) {
@@ -346,6 +353,10 @@
             }
             if (!fsl || fsl == "") {
                 mui.toast("请填写数量");
+                return null;
+            }
+            if (!fyt || fyt == '') {
+                mui.toast('请填写用途');
                 return null;
             }
             return lx;

@@ -43,7 +43,7 @@
             </div>
             <div class="mui-input-row">
                 <label for="fphone">联系电话<i style="color:red;">*</i></label>
-                <input type="tel" id="fphone" name="fphone" readonly="readonly" />
+                <input type="tel" id="ftel" name="ftel" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fzw">职务/岗位 </label>
@@ -148,7 +148,7 @@
         mui.ready(function () {
 
             getTaskMsg();
-            forbiddenCache();
+           
         });
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
 
@@ -408,7 +408,7 @@
 
 
                                     }
-
+                                    watch();
                                     $(".imgdiv").on('tap', function () {
                                         console.log($(this)[0].id);
                                         XuntongJSBridge.call('showFile', {
@@ -473,11 +473,11 @@
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row" style="height:2.25rem;">';
                         li = li + '        <label for="fyqsj">要求到货日期<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="date" id="fyqsj" name="fyqsj"  value="' + FormatterTimeYMS (mxli[i].fyqsj) + '"/>';
+                        li = li + '        <input type="date" id="fyqsj" name="fyqsj"  value="' + FormatterTimeYMS(mxli[i].fyqsj) + '" readonly="readonly"/>';
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row" style="height:3.75rem;">';
                         li = li + '        <label for="fbz">备注<i style="color:red;">*</i></label>';
-                        li = li + '        <textarea rows="3" id="fbz" name="fbz" placeholder="请输入备注">' + mxli[i].fbz + '</textarea>';
+                        li = li + '        <textarea rows="3" id="fbz" name="fbz"  readonly="readonly">' + mxli[i].fbz + '</textarea>';
                         li = li + '   </div>';
                         li = li + '</div>';
                         $("#mxlist").append(li);

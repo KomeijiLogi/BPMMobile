@@ -5,23 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
-    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
    
-    <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
-    <script type="text/javascript" src="../../Scripts/util.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>
-    <link rel="stylesheet" href="../../Content/mui.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
-    <link rel="stylesheet" href="../../Content/upload.css" />
-    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.detail.js"></script>
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
     <title></title>
     <meta charset="utf-8" />
 </head>
@@ -48,17 +48,18 @@
                 <label for="fsylb">使用类别<i style="color:red;">*</i></label>
                 <input type="text" id="fsylb" name="fsylb" readonly="readonly" placeholder="请选择使用类别"/>
             </div>
-            <a class="mui-btn mui-btn-yellow mui-btn-block mui-btn-outlined" id="tjmx" style="margin-top:1rem;">
-                添加明细
-                <span class="mui-icon mui-icon-plusempty"></span>
-            </a>
+           
             <div id="mxlist" style="padding-bottom:2rem;">
 
             </div>
+            <a class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" id="tjmx" style="margin-top:1rem;">
+                添加明细
+                <span class="mui-icon mui-icon-plusempty"></span>
+            </a>
         </form>
     </div> 
-    <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;">
-        <button class="mui-btn mui-btn-primary" type="button" style="width:100%;height:2.5rem;font-size:0.8rem;" id="commitbt" onclick="Save()">提交</button>
+    <div class="mui-btn-row" id="SaveD">
+        <button class="mui-btn mui-btn-primary" type="button"  id="commitbt" onclick="Save()">提交</button>
     </div>
     <script>
 
@@ -160,8 +161,9 @@
                 }
 
             ];
-
+          
             var fjflag = false;
+            var picUrl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx';
             $("#tjmx").on('tap', function () {
                 var fsylb = $("#fsylb").val();
                 if (fsylb == '' || !fsylb) {
@@ -169,10 +171,10 @@
                     return false;
                 } else if (String(fsylb).indexOf('盖章') != -1) {
 
-                    $("#mxlist").empty();
+                    //$("#mxlist").empty();
                     var li = '<div id="mx" class="mui-card">';
                     li = li + '   <div class="mui-input-row itemtitle">';
-                    li = li + '        <label>明细列表项</label> ';
+                    li = li + '        <label>明细项</label> ';
                     li = li + '        <span class="mui-icon mui-icon-close mui-pull-right" style="margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
                     li = li + '   </div>';
                     li = li + '   <div class="mui-input-row">';
@@ -205,23 +207,23 @@
                     li = li + '                 <input type="file" accept="image/jpeg,image/jpg,image/png,image/jp2,image/bmp" id="file" style="opacity:0;">';
                     li = li + '            </span>';
                     li = li + '          </div>';
-                    li = li + '          <div class="upload-img-list"></div>';
+                    li = li + '          <div class="upload-img-list"  id="aimlist"></div>';
                     li = li + '         </div>';
                     li = li + '     </div>';
                     li = li + '</div>';
 
-                    $("#mxlist").prepend(li);
+                    $("#mxlist").append(li);
                    
-                    showPicker('fyzmc', fyzmcdata);
-                    showPicker('fyzlb', fyzlbdata);
-                    
-
+                    showPickerByZepto('#mxlist','#fyzmc', fyzmcdata);
+                    showPickerByZepto('#mxlist', '#fyzlb', fyzlbdata);
+                   
+                    document.getElementById('tjmx').scrollIntoView();
 
                 } else if (String(fsylb).indexOf('借出') != -1) {
 
                     var li = '<div id="mx" class="mui-card">';
                     li = li + '   <div class="mui-input-row itemtitle">';
-                    li = li + '        <label>明细列表项</label> ';
+                    li = li + '        <label>明细项</label> ';
                     li = li + '        <span class="mui-icon mui-icon-close mui-pull-right" style="margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
                     li = li + '   </div>';
                     li = li + '   <div class="mui-input-row">';
@@ -246,13 +248,13 @@
                     li = li + '   </div>';
                     li = li + '</div>';
 
-                    $("#mxlist").prepend(li);
-                    showPicker('fyzmc', fyzmcdata);
-                    showPicker('fyzlb', fyzlbdata);
-
+                    $("#mxlist").append(li);
+                    showPickerByZepto('#mxlist', '#fyzmc', fyzmcdata);
+                    showPickerByZepto('#mxlist', '#fyzlb', fyzlbdata);
+                    document.getElementById('tjmx').scrollIntoView();
                 } 
 
-
+               
             });
 
 
@@ -269,16 +271,36 @@
             var ftel = $("#ftel").val();
             var fsylb = $("#fsylb").val();
 
+
+            var btnArry = ["取消", "确定"];
+            mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
+                if (e.index == 1) {
+
+                    var xml = '<?xml version= "1.0" ?>';
+                    xml = xml + ' <XForm>';
+                    xml = xml + '      <Header>';
+                    xml = xml + '        <Method>Post</Method>';
+                    xml = xml + '          <ProcessName>建设公司印章使用申请</ProcessName>';
+                    xml = xml + '          <ProcessVersion>' + version + '</ProcessVersion>';
+                    xml = xml + '          <DraftGuid></DraftGuid>';
+                    xml = xml + '          <OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
+                    xml = xml + '           <Action>提交</Action>';
+                    xml = xml + '          <Comment></Comment>';
+                    xml = xml + '          <InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '       </Header>';
+                    if (fsylb == '盖章') {
+
+
+                    } else if (fsylb == '借出') {
+
+
+                    }
+
+                    xml = xml + '    </FormData>';
+                    xml = xml + '</XForm>';
+                }
+            });
             
-            if (fsylb == '盖章') {
-               
-                
-
-
-            } else if (fsylb=='借出') {
-
-
-            }
 
 
         }

@@ -12,7 +12,7 @@ function upload() {
     //var picUrl = '/upload/';
 
     var picUrl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx';
-
+    //var picUrl = 'http://172.16.7.7/BPM/YZSoft/Attachment/default.ashx';
     var me = this;
 
     $("#file").upload({
@@ -113,8 +113,7 @@ function upload() {
 
     });
 
-
-
+    
 
 }
 
@@ -122,7 +121,7 @@ function upload_multi(zeptoId, zeptoAimDomClass) {
     var picUrl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx';
 
     var me = this;
-
+    
     $(zeptoId).upload({
 
         uploadUrl: '/api/bpm/UploadFiles',
@@ -172,10 +171,6 @@ function upload_multi(zeptoId, zeptoAimDomClass) {
             var photosInfosLength = photsInfos.length;
 
           
-
-
-
-
         },
         //上传进度
         onUploadProgress: function (loaded, total) {

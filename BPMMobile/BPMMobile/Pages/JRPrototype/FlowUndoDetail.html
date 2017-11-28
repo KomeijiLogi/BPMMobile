@@ -265,7 +265,57 @@
                 }
             }
 
-        });
+            });
+
+        function tapEvent() {
+
+            //样品类型
+            var fyplxdata = [
+                {
+                    value: "fhx",
+                    text: "缝合线"
+                },
+                {
+                    value: "fl",
+                    text: "敷料"
+                }
+            ];
+
+            showPicker('fyplx', fyplxdata);
+
+            $("#addProduct").on('tap', function () {
+                var li = ' <div id="yp" class="mui-card adjla">';
+                li = li + '   <div class="mui-input-row bgc">';
+                li = li + '        <label>明细列表项</label> ';
+                li = li + '        <span class="mui-icon mui-icon-close mui-pull-right" style="margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteProduct(this)"></span>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label> 产品编码 <i style= "color:red;">*</i></label>';
+                li = li + '        <input type="text" id="fwlno" name="fwlno" value="" />';
+                li = li + '   </div >';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label>产品名称</label>';
+                li = li + '        <input type="text" id="fwlname" name="fwlname" value="" />';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '       <label>规格型号<i style="color:red;">*</i></label>';
+                li = li + '       <input type="text" id="fggxh" name="fggxh" value="" />';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label>数量<i style="color:red;">*</i></label>';
+                li = li + '        <input type="number" id="fsl" name="fsl" value="" />';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row" style="height:5.25rem;">';
+                li = li + '        <label>备注说明</label>';
+                li = li + '        <textarea rows="5" id="fremark" name="fremark"></textarea>';
+                li = li + '   </div>';
+                li = li + '</div>';
+
+                $("#yplist").append(li);
+            });
+
+
+        }
         var taskId;
         var stepId;
         var itemidArr;
@@ -452,23 +502,23 @@
                         li = li + '   <input type="hidden" id="itemid" name="itemid" value="' + ypli[i].itemid + '">';
                         li = li + '   <div class="mui-input-row">';
                         li = li + '        <label> 产品编码 <i style= "color:red;">*</i></label>';
-                        li = li + '        <input type="text" id="fwlno" name="fwlno" value="' + ypli[i].fwlno + '" />';
+                        li = li + '        <input type="text" id="fwlno" name="fwlno" readonly="readonly" value="' + ypli[i].fwlno + '" />';
                         li = li + '   </div >';
                         li = li + '   <div class="mui-input-row">';
                         li = li + '        <label>产品名称</label>';
-                        li = li + '        <input type="text" id="fwlname" name="fwlname" value="' + ypli[i].fwlname + '" />';
+                        li = li + '        <input type="text" id="fwlname" name="fwlname" readonly="readonly" value="' + ypli[i].fwlname + '" />';
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row">';
                         li = li + '       <label>规格型号<i style="color:red;">*</i></label>';
-                        li = li + '       <input type="text" id="fggxh" name="fggxh" value="' + ypli[i].fggxh + '" />';
+                        li = li + '       <input type="text" id="fggxh" name="fggxh" readonly="readonly" value="' + ypli[i].fggxh + '" />';
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row">';
                         li = li + '        <label>数量<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="number" id="fsl" name="fsl" value="' + ypli[i].fsl + '" />';
+                        li = li + '        <input type="number" id="fsl" name="fsl" readonly="readonly" value="' + ypli[i].fsl + '" />';
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row" style="height:5.25rem;">';
                         li = li + '        <label>备注说明</label>';
-                        li = li + '        <textarea rows="5" id="fremark" name="fremark">' + ypli[i].fremark + '</textarea>';
+                        li = li + '        <textarea rows="5" id="fremark" name="fremark" readonly="readonly">' + ypli[i].fremark + '</textarea>';
                         li = li + '   </div>';
                         li = li + '</div>';
 
@@ -503,6 +553,11 @@
                         //退回重填的处理
                         $("#createD").css("display", "block");
                         $("#csd").css("display", "none");
+                        tapEvent();
+                        $("#yplist").find('span').each(function () {
+                            $(this).show();
+                        });
+                      
                     } else if (NodeName == "sysInform") {
                         //知会的处理
                         $("#readD").css("display", "block");
@@ -674,9 +729,7 @@
                 var fggxh = $(this).find("#fggxh").val();
                 var fsl = $(this).find("#fsl").val();
                 var fremark = $(this).find("#fremark").val();
-                if (Ypitem(fwlno, fwlname, fggxh, fsl, fremark) == null) {
-                    return;
-                }
+               
                 var yp = Ypitem(fwlno, fwlname, fggxh, fsl, fremark);
                 yplistArr.push(yp);
             });
@@ -847,9 +900,7 @@
                 var fggxh = $(this).find("#fggxh").val();
                 var fsl = $(this).find("#fsl").val();
                 var fremark = $(this).find("#fremark").val();
-                if (Ypitem(fwlno, fwlname, fggxh, fsl, fremark) == null) {
-                    return;
-                }
+               
                 var yp = Ypitem(fwlno, fwlname, fggxh, fsl, fremark);
                 yplistArr.push(yp);
             });
@@ -963,7 +1014,87 @@
             }
 
         }
+        function Save() {
+            var pid = $("#stepId").val();//stepId
+            var fname = $("#fname").val();
+            var farea = $("#farea").val();
+            var fdate = $("#fdate").val() + " 00:00:00";
+            var ftel = $("#ftel").val();
+            var fyplx = $("#fyplx").val();
+            var fcusno = $("#fcusno").val();
+            var fcusname = $("#fcusname").val();
+            var fremark = $("#fremark").val();
+            var fbillno = $("#fbillno").val();
+            var mxflag = false;
+            var yplistArr = new Array();
+            $("#yplist").find("#yp").each(function () {
 
+                var fwlno = $(this).find("#fwlno").val();
+                var fwlname = $(this).find("#fwlname").val();
+                var fggxh = $(this).find("#fggxh").val();
+                var fsl = $(this).find("#fsl").val();
+                var fremark = $(this).find("#fremark").val();
+                if (Ypitem(fwlno, fwlname, fggxh, fsl, fremark) == null) {
+                    mxflag = true;
+                    return;
+                }
+                var yp = Ypitem(fwlno, fwlname, fggxh, fsl, fremark);
+                yplistArr.push(yp);
+            });
+            if (mxflag) {
+                return;
+            }
+            var btnArry = ["取消", "确定"];
+            mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
+                if (e.index == 1) {
+
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + '<XForm>';
+                    xml = xml + '   <Header>';
+                    xml = xml + '    <Method>Process</Method>';
+                    xml = xml + '   <PID>' + pid + '</PID>';
+                    xml = xml + '   <Action>提交</Action>';
+                    xml = xml + '    <Comment></Comment>';
+                    xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '  </Header>';
+                    xml = xml + '<FormData>';
+                    xml = xml + '<BPM_JRYPSQ_A>';
+                    xml = xml + '<fbillno>' + fbillno + '</fbillno>';
+                    xml = xml + '<fname>' + fname + '</fname>';
+                    xml = xml + '<farea>' + farea + '</farea>';
+                    xml = xml + '<fdate>' + fdate + '</fdate>';
+                    xml = xml + '<ftel>' + ftel + '</ftel>';
+                    xml = xml + '<fyplx>' + fyplx + '</fyplx>';
+                    xml = xml + '<fcusno>' + fcusno + '</fcusno>';
+                    xml = xml + '<fcusname>' + fcusname + '</fcusname>';
+                    xml = xml + '<fremark>' + fremark + '</fremark>';
+                    if (fjArray.toString() != null && fjArray.toString() != "") {
+
+                        xml = xml + '      <fj>' + fjArray.toString().replace(",", ";") + '</fj>';
+                    } else {
+
+                        xml = xml + '      <fj></fj>';
+                    }
+                    xml = xml + '</BPM_JRYPSQ_A>';
+                    for (var i = 0; i < yplistArr.length; i++) {
+                        xml = xml + '<BPM_JRYPSQ_B>';
+                        xml = xml + '  <RelationRowGuid>' + (i + 1) + '</RelationRowGuid>';
+                        xml = xml + '  <RowPrimaryKeys>itemid=' + itemidArr[i] + '</RowPrimaryKeys>';
+                        xml = xml + '  <fentryno>' + (i + 1) + '</fentryno>';
+                        xml = xml + '  <fwlno>' + yplistArr[i].fwlno + '</fwlno>';
+                        xml = xml + '  <fwlname>' + yplistArr[i].fwlname + '</fwlname>';
+                        xml = xml + '  <fggxh>' + yplistArr[i].fggxh + '</fggxh>';
+                        xml = xml + '  <fsl>' + yplistArr[i].fsl + '</fsl>';
+                        xml = xml + '  <fremark>' + yplistArr[i].fremark + '</fremark>';
+                        xml = xml + '</BPM_JRYPSQ_B>';
+                    }
+                    xml = xml + '             </FormData>';
+                    xml = xml + '         </XForm>';
+
+                    PostXml(xml);
+                }
+            });
+        }
     </script>
 </body>
 </html>

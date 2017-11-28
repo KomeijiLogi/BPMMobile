@@ -18,13 +18,13 @@
             border-left: none;
         }
 
-ul {
+#signff {
     list-style: none;
     padding-left: 0rem;
     left: 0rem;
 }
 
-i {
+#signff >i {
     display: inline-block;
     font-size: 0rem;
     vertical-align: top;
@@ -63,7 +63,7 @@ i {
 
 .flowmsg {
     color: #00a0ea;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
 }
 
     .flowmsg > span {
@@ -81,10 +81,19 @@ i {
 }
 
 .adi {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
 }
 
 .bgc {
     color: white;
     background-color: #00a0ea;
+}
+.hrefin {
+    color: #36A3CA;
+}
+.adjla {
+    /*margin-top:0.4rem;*/
+    border: groove;
+    border-color: #5191FD;
+    border-width: 0.01rem;
 }

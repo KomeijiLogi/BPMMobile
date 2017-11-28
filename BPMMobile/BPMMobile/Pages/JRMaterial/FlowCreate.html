@@ -400,11 +400,17 @@
 
         //删除产品明细列表项 
         function deleteProduct(context) {
+            var btnArray = ['否', '是'];
+            mui.confirm('确认删除？', '', btnArray, function (e) {
+                if (e.index == 1) {
+                    $(context).parent().parent().remove();
+                    //重新计算下总金额和总数量
+                    amountCountAndPrice();
+                }
+            });
 
-            $(context).parent().parent().remove();
         
-            //重新计算下总金额和总数量
-            amountCountAndPrice();
+           
         }
 
 

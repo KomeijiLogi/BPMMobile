@@ -42,7 +42,7 @@
            </div>
            <div class="mui-input-row">
                <label for="fphone">联系电话<i style="color:red;">*</i></label>
-               <input type="tel" id="fphone" name="fphone" placeholder="请输入联系方式" />
+               <input type="tel" id="ftel" name="ftel" placeholder="请输入联系方式" />
            </div>
            <div class="mui-input-row">
                <label for="fzw">职务/岗位 </label>
@@ -81,8 +81,8 @@
            </div>
        </form>    
     </div> 
-    <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;">
-        <button class="mui-btn mui-btn-primary" type="button" style="width:100%;height:2.5rem;font-size:0.8rem;" id="commitbt" onclick="Save()">提交</button>
+    <div class="mui-btn-row" id="SaveD">
+        <button class="mui-btn mui-btn-primary" type="button"  id="commitbt" onclick="Save()">提交</button>
     </div>
     <script>
         mui.init();
@@ -91,7 +91,7 @@
             getVersion('\\07房地产集团\\02商管公司\\BG办公管理', '盛祥商管公司工装制作申请'); 
             getBPMParam();
             prepMsg();
-            forbiddenCache();
+           
             upload();
             watch();
         });
@@ -283,7 +283,7 @@
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row">';
                         li = li + '        <label for="fsl">数量<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="text" id="fsl" name="fsl"  placeholder="请输入数量"/>';
+                        li = li + '        <input type="number" id="fsl" name="fsl"  placeholder="请输入数量"/>';
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row">';
                         li = li + '        <label for="fsyr">使用人<i style="color:red;">*</i></label>';
@@ -472,7 +472,37 @@
                 }
             ];
 
+            var flxdata = [
 
+                {
+                    value: '',
+                    text:'上衣'
+                },
+                {
+                    value: '',
+                    text: '裤子'
+                },
+                {
+                    value: '',
+                    text: '裙子'
+                },
+                {
+                    value: '',
+                    text: '衬衣'
+                },
+                {
+                    value: '',
+                    text: '领带'
+                },
+                {
+                    value: '',
+                    text: '大衣'
+                },
+                {
+                    value: '',
+                    text: '其他'
+                }
+            ];
 
 
             $("#addItem").on('tap', function () {
@@ -523,7 +553,7 @@
 
                 showPickerByZepto("#mxlist", "#fks", fksdata);
                 showPickerByZepto("#mxlist", "#fjj", fjjdata);
-
+                showPickerByZepto('#mxlist', '#flx', flxdata);
 
                 var picker = new mui.PopPicker(
                     {
@@ -595,6 +625,7 @@
                 mui.toast("请选择工装类型");
                 return;
             }
+            var mxflag = false;
             var mxlistArr = new Array();
             $("#mxlist").find("#mx").each(function () {
 
@@ -608,11 +639,15 @@
                 var fyqsj = $(this).find("#fyqsj").val() + " 00:00:00";
                 var fbz = $(this).find("#fbz").val();
                 if (MxItem(fks, fjj, flx, fsl, fsyr, fxs, fbzcm, fyqsj, fbz) == null) {
+                    mxflag = true;
                     return;
                 }
                 var mx = MxItem(fks, fjj, flx, fsl, fsyr, fxs, fbzcm, fyqsj, fbz);
                 mxlistArr.push(mx);
             });
+            if (mxflag) {
+                return;
+            }
                 var btnArry = ["取消", "确定"];
                 mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                     if (e.index == 1) {

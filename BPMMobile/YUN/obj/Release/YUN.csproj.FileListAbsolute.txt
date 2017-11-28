@@ -14,3 +14,4 @@ D:\Documents\BPMMobile\YUN\bin\Release\Newtonsoft.Json.dll
 D:\Documents\BPMMobile\YUN\obj\Release\YUN.csprojResolveAssemblyReference.cache
 D:\Documents\BPMMobile\YUN\obj\Release\YUN.dll
 D:\Documents\BPMMobile\YUN\obj\Release\YUN.pdb
+D:\Documents\BPMMobile\YUN\obj\Release\YUN.csproj.CoreCompileInputs.cache

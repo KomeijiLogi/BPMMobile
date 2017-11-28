@@ -5,142 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
-    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
    
-    <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
-    <script type="text/javascript" src="../../Scripts/util.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>
-    <link rel="stylesheet" href="../../Content/mui.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
-    <link rel="stylesheet" href="../../Content/upload.css" />
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.detail.js"></script>
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
+    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css"/>
     <title></title>
     <meta charset="utf-8" />
-    <style>
-        html, body {
-            font-size: 20px;
-            height: 100%;
-            overflow: auto;
-            background-color: white;
-        }
-
-
-        label {
-            font-size: 0.75rem;
-        }
-
-
-        input {
-            font-size: 0.75rem;
-        }
-        textarea {
-            height: auto;
-            overflow: auto;
-            font-size: 0.75rem;
-        }
-
-        a {
-            font-size: 0.75rem;
-        }
-
-        .historyli {
-            padding-left: 0rem;
-            left: 0rem;
-        }
-
-
-        .list {
-            padding-top: 20px;
-            padding-left: 30px;
-        }
-
-            .list li {
-                position: relative;
-                border-left: 1px solid #b1b1b1;
-            }
-
-                .list li:last-child {
-                    border-left: none;
-                }
-
-        ul {
-            list-style: none;
-            padding-left: 0rem;
-            left: 0rem;
-        }
-
-        i {
-            display: inline-block;
-            font-size: 0rem;
-            vertical-align: top;
-        }
-
-        .lefttime {
-            display: inline-block;
-            width: 4rem;
-            padding-left: 1rem;
-            font-size: 0.7rem;
-            float: left;
-            position: relative;
-            top: -0.5rem;
-        }
-
-            .lefttime i {
-                display: block;
-                width: 0.5rem;
-                height: 0.5rem;
-                border-radius: 50%;
-                background: #0099ff;
-                position: absolute;
-                left: -0.25rem;
-                top: 0.35rem;
-            }
-
-        .righttext {
-            margin-left: 5.5rem;
-            position: relative;
-            top: -0.5rem;
-        }
-
-            .righttext > div {
-                padding-bottom: 0.8rem;
-            }
-
-        .flowmsg {
-            color: #00a0ea;
-            font-size: 0.75rem;
-        }
-
-            .flowmsg > span {
-                color: #000000;
-                padding-left: 0.8rem;
-            }
-
-        .flowstatus {
-            color: #e8382b;
-            /*padding-left: 0.4rem;*/
-        }
-
-        .signadd {
-            color: #fea900;
-        }
-
-        .adi {
-            font-size: 0.75rem;
-        }
-
-        .bgc {
-            color: white;
-            background-color: #5191FD;
-        }
-    </style>
+   
 </head>
 <body>
     <div class="mui-content" style="background-color:white;">
@@ -155,11 +40,11 @@
             </div>
             <div class="mui-input-row">
                 <label>请示日期<i style="color:red;">*</i></label>
-                <input type="date" id="fdate" name="fdate" />
+                <input type="date" id="fdate" name="fdate" readonly="readonly"/>
             </div>
             <div class="mui-input-row">
                 <label>联系电话</label>
-                <input type="tel" id="tel" name="tel" />
+                <input type="tel" id="tel" name="tel" readonly="readonly"/>
             </div>
 
             <div class="mui-input-row" style="display:none;">
@@ -176,11 +61,11 @@
             </div>
             <div class="mui-input-row">
                 <label>标题<i style="color:red;">*</i></label>
-                <input type="text" id="ftitle" name="ftitle" placeholder="" />
+                <input type="text" id="ftitle" name="ftitle" placeholder="" readonly="readonly"/>
             </div>
             <div class="mui-input-row" style="height:13.25rem;">
                 <label>请示内容</label>
-                <textarea rows="11" id="fqsnr" name="fqsnr" placeholder=""></textarea>
+                <textarea rows="11" id="fqsnr" name="fqsnr" placeholder="" readonly="readonly"></textarea>
             </div>
 
             <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
@@ -266,7 +151,7 @@
         mui.ready(function () {
             getTaskMsg();
             watch();
-            forbiddenCache();
+           
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
@@ -505,7 +390,7 @@
 
 
                                         }
-
+                                        watch();
                                         $(".imgdiv").on('tap', function () {
                                             console.log($(this)[0].id);
                                             XuntongJSBridge.call('showFile', {

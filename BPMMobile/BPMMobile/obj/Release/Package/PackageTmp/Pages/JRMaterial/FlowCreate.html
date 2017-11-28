@@ -22,41 +22,10 @@
     <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
     <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../Content/upload.css" />
+    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
     <title></title>
     <meta charset="utf-8" />
-     <style>
-         html, body {
-             font-size: 20px;
-             background-color: white;
-             height: 100%;
-             overflow: auto;
-         }
-
-
-         label {
-             font-size: 0.75rem;
-         }
-
-         textarea {
-             height: auto;
-             overflow: auto;
-             font-size: 0.75rem;
-         }
-
-         a {
-             font-size: 0.75rem;
-         }
-         .bgc {
-             color: white;
-             background-color: #6BA2D0;
-         }
-         .adjla {
-             /*margin-top:0.4rem;*/
-             border: groove;
-             border-color: #5191FD;
-             border-width:0.01rem;
-         }
-     </style>
+     
 </head>
 <body>
     <div class="mui-content" style="background-color:white;">
@@ -93,7 +62,7 @@
                   <label>购货单位<i style="color:red;">*</i></label>
                   <input type="text" id="fghdw" name="fghdw" placeholder="请输入购货单位"/>
               </div>
-              <div class="mui-input-row" style="height:5.25rem;">
+              <div class="mui-input-row" style="height:auto;">
                   <label>发货地址<i style="color:red;">*</i></label>
                   <textarea rows="5" id="faddr" name="faddr"></textarea>
               </div>
@@ -141,7 +110,7 @@
                          <label>金额</label>
                          <input type="number" id="fdj" name="fdj" value="" readonly="readonly"/>
                      </div>
-                     <div class="mui-input-row" style="height:5.25rem;">
+                     <div class="mui-input-row" style="height:auto;">
                          <label>备注说明</label>
                          <textarea rows="5" id="fremark" name="fremark"></textarea>
                      </div>
@@ -177,7 +146,7 @@
                          <label>金额</label>
                          <input type="number" id="fdj" name="fdj" value="" readonly="readonly" />
                      </div>
-                     <div class="mui-input-row" style="height:5.25rem;">
+                     <div class="mui-input-row" style="height:auto;">
                          <label>备注说明</label>
                          <textarea rows="5" id="fremark" name="fremark"></textarea>
                      </div>
@@ -203,8 +172,8 @@
 
         
     </div>
-    <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;">
-        <button class="mui-btn mui-btn-primary" type="button" style="width:100%;height:2.5rem;font-size:0.8rem;" id="commitbt" onclick="Save()">提交</button>
+    <div class="mui-btn-row" id="SaveD">
+        <button class="mui-btn mui-btn-primary" type="button"  id="commitbt" onclick="Save()">提交</button>
     </div>
     <script>
         mui.init();
@@ -213,7 +182,7 @@
             getVersion('\\02医用制品集团\\05洁瑞医用制品公司\\XS销售管理', '洁瑞公司产品发货申请');
             getBPMParam();
             prepMsg();
-            forbiddenCache();
+           
         });
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
 
@@ -310,7 +279,7 @@
                         li = li + '        <label>金额(元)</label>';
                         li = li + '        <input type="text" id="fje" name="fje" value="' + fcpmxItem.fje + '" readonly="readonly" />';
                         li = li + '   </div>';
-                        li = li + '   <div class="mui-input-row" style="height:5.25rem;">';
+                        li = li + '   <div class="mui-input-row" style="height:auto;">';
                         li = li + '        <label>备注说明</label>';
                         li = li + '        <textarea rows="5" id="fremark" name="fremark">' + fcpmxItem.fremark + '</textarea>';
                         li = li + '   </div>';
@@ -414,7 +383,7 @@
                 li = li + '        <label>金额(元)</label>';
                 li = li + '        <input type="text" id="fje" name="fje" value="" readonly="readonly" />';
                 li = li + '   </div>';
-                li = li + '   <div class="mui-input-row" style="height:5.25rem;">';
+                li = li + '   <div class="mui-input-row" style="height:auto;">';
                 li = li + '        <label>备注说明</label>';
                 li = li + '        <textarea rows="5" id="fremark" name="fremark"></textarea>';
                 li = li + '   </div>';
@@ -431,11 +400,17 @@
 
         //删除产品明细列表项 
         function deleteProduct(context) {
+            var btnArray = ['否', '是'];
+            mui.confirm('确认删除？', '', btnArray, function (e) {
+                if (e.index == 1) {
+                    $(context).parent().parent().remove();
+                    //重新计算下总金额和总数量
+                    amountCountAndPrice();
+                }
+            });
 
-            $(context).parent().parent().remove();
         
-            //重新计算下总金额和总数量
-            amountCountAndPrice();
+           
         }
 
 
@@ -527,6 +502,7 @@
             var ftotal = $("#ftotal").val();
             var ftotal_dx = $("#ftotal_dx").val();
 
+            var mxflag = false;
             //校验必填项
             if (!ftel||ftel==""){
                 mui.toast("请输入联系电话");
@@ -574,6 +550,7 @@
                 var fremark = $(this).find("#fremark").val();
 
                 if (Wlitem(fwlno, fwlname, fggxh, fsl, fdj, fje, fremark) == null) {
+                    mxflag = true;
                     return;
                 }
 
@@ -582,7 +559,9 @@
 
             });
 
-          
+            if (mxflag == true) {
+                return false;
+            }
 
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {

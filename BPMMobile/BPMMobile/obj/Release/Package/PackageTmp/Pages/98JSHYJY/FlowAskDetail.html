@@ -53,9 +53,9 @@
                 <label for="fwjjb">文件级别</label>
                 <input type="text" id="fwjjb" name="fwjjb" placeholder="请选择文件级别" readonly="readonly" />
             </div>
-            <div class="mui-input-row" style="height:11.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fnr">内容</label>
-                <textarea rows="10" id="fnr" name="fnr" placeholder="请填写内容"></textarea>
+                <textarea rows="8" id="fnr" name="fnr" placeholder="请填写内容"></textarea>
             </div>
             <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                 <div class="border border-t upload-img" style="top:0rem;">
@@ -413,7 +413,7 @@
 
 
                                     }
-
+                                    watch();
                                     $(".imgdiv").on('tap', function () {
                                         console.log($(this)[0].id);
                                         XuntongJSBridge.call('showFile', {

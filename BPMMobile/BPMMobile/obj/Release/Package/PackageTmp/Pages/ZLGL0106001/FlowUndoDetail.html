@@ -5,24 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
-    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
    
-    <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
     <!--<script type="text/javascript" src="../../Scripts/xdate.js"></script>-->
-    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
     <!--<script type="text/javascript" src="../../Scripts/util.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>-->
-    <link rel="stylesheet" href="../../Content/mui.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
     <!--<link rel="stylesheet" href="../../Content/upload.css" />-->
-    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
+    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css"/>
+    
     <title></title>
     <meta charset="utf-8" />
 </head>
@@ -48,10 +50,27 @@
             <div id="mxlist" style="padding-bottom:2rem;">
 
             </div>
+            <div class="mui-table-view" style="margin-bottom:3.25rem;">
+                <div class="mui-table-view-cell  mui-collapse mui-active">
+                    <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
+
+                        历史签核意见
+                    </a>
+                    <div class="mui-collapse-content">
+
+                        <!--流程列表-->
+                        <div class="list">
+                            <ul id="signff"></ul>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
         </form>
         
-        <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;" id="readD">
-            <button class="mui-btn mui-btn-primary" type="button" style="height:2.5rem;font-size:0.8rem;width:100%;margin-bottom:1rem;" id="readbt" onclick="hasRead()">已阅</button>
+        <div class="mui-btn-row" style="display:block;" id="readD">
+            <button class="mui-btn mui-btn-primary" type="button"  id="readbt" onclick="hasRead()">已阅</button>
         </div>
     </div>
     <input value="" id="stepId" name="stepId" type="hidden" />
@@ -66,9 +85,9 @@
     <input type="hidden" id="fbillno" name="fbillno" value="" />
     <input type="hidden" id="nodeName" name="nodeName" value="" />
     <div id="signd" style="display:none;">
-        <div class="mui-input-row" style="height:5.25rem;font-size:0.8rem;border:groove;border-width:0.1rem;" id="ssd">
+        <div class="mui-input-row"  id="ssd">
             <label>签核意见</label>
-            <textarea rows="5" id="signSuggest" placeholder="请输入签核意见"></textarea>
+            <textarea rows="8" id="signSuggest" placeholder="请输入签核意见"></textarea>
 
         </div>
         <div class="mui-btn-row mui-text-center" style="margin-top:1rem;">
@@ -404,7 +423,7 @@
                         for (var i = 0; i < data.Steps.length; i++) {
                             //debugger;
 
-                            if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
+                            if (data.Steps[i].Finished == false && data.Steps[i].RecipientAccount == ($('#myPhone').val())) {
 
 
                                 if (stepId.indexOf(data.Steps[i].StepID) != -1) {
@@ -417,6 +436,68 @@
 
                         }
                         $("#nodeName").val(NodeName);
+                        for (var i = 0; i < data.Steps.length; i++) {
+
+                            if (data.Steps[i].FinishAt == "0001-01-01T00:00:00") {
+                                data.Steps[i].FinishAt = "";
+                            }
+                            var time = FormatterTime(data.Steps[i].FinishAt);
+
+                            var stepName = data.Steps[i].NodeName;
+                            if (data.Steps[i].NodeName == "sysInform") {
+                                stepName = "知会";
+                            } else if (data.Steps[i].NodeName == "sysTaskOpt") {
+                                stepName = "任务操作";
+                            } else if (data.Steps[i].NodeName == "开始") {
+                                stepName = "开始";
+                            }
+
+                            var stepAction = locationAction(data.Steps[i].SelAction);
+                            if (data.Steps[i].SelAction == "sysInform") {
+                                stepAction = "发起知会";
+                            } else if (data.Steps[i].SelAction == "Submit") {
+                                stepAction = "已阅";
+                            } else if (data.Steps[i].SelAction == "null" || data.Steps[i].SelAction == null) {
+                                stepAction = "待处理";
+                            } else if (data.Steps[i].SelAction == "sysReject") {
+                                stepAction = "拒绝";
+                            } else if (data.Steps[i].SelAction == "sysRecedeRestart") {
+                                stepAction = "退回重填";
+                            }
+
+
+                            var contents = data.Steps[i].Comments;
+                            if (contents == null) {
+                                contents = "无";
+                            }
+                            //判断是否是加签
+                            if (data.Steps[i].IsConsignStep == false) {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg">' + stepName + '<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            } else {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg signadd">加签<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            }
+                            $("#signff").append(li);
+                        }
                     }
                 }, error: function (e) {
                 }, complete: function () {
@@ -436,7 +517,7 @@
             var mxlistArr = new Array();
             $("#mxlist").find("#mx").each(function () {
 
-                var fgcmc = $(this).find("#fgcmc").val();
+                var fgcmc = $(this).find("#fgcname").val();
                 var fgx = $(this).find("#fgx").val();
                 var fjybhgx = $(this).find("#fjybhgx").val();
                 var fjysl = $(this).find("#fjysl").val();
@@ -575,7 +656,7 @@
             mx.fjybhgx = fjybhgx;
             mx.fbhgsl = fbhgsl;
             mx.fhgl = fhgl;
-         
+            mx.fjysl = fjysl;
             return mx;
 
         }

@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../Content/upload.css" />
     <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
+    <link rel="stylesheet" href="../../Content/DoneOrMyApproval.css"/>
 
     <title></title>
     <meta charset="utf-8" />
@@ -43,7 +44,21 @@
             </div>
             <div class="mui-input-row">
                 <label for="ftel">联系方式</label>
-                <input type="tel" id="ftel" name="ftel" value="" />
+                <input type="tel" id="ftel" name="ftel" value="" readonly="readonly"/>
+            </div>
+            <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
+                <div class="border border-t upload-img" style="top:0rem;">
+                    <!--上传图片-->
+                    <div class="clearfix upload-btn" id="children-bg">
+                        <label class="label">附件<i style="color:red;">*</i></label>
+                        <span class="tips" id="imageCount"><!--已添加0张--></span>
+                        <!--上传图片按钮  -->
+                        <span class="upload-addbtn" style="display:none;">
+                            <input type="file" accept="image/jpeg,image/jpg,image/png,image/jp2,image/bmp" id="file" style="opacity:0;">
+                        </span>
+                    </div>
+                    <div class="upload-img-list"></div>
+                </div>
             </div>
             <div class="mui-input-row bgc" style="height:2.25rem;">
                 <label>本月工作总结</label>
@@ -136,18 +151,35 @@
 
             </div>
 
+            <div class="mui-table-view" style="margin-bottom:3.25rem;">
+                <div class="mui-table-view-cell  mui-collapse mui-active">
+                    <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
+
+                        历史签核意见
+                    </a>
+                    <div class="mui-collapse-content">
+
+                        <!--流程列表-->
+                        <div class="list">
+                            <ul id="signff"></ul>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
         </form>
-        <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;display:none;" id="createD">
-            <button class="mui-btn mui-btn-primary" type="button" style="width:100%;height:2.5rem;font-size:0.8rem;" id="commitbt" onclick="Save()">提交</button>
+        <div class="mui-btn-row"  id="createD">
+            <button class="mui-btn mui-btn-primary" type="button"  id="commitbt" onclick="Save()">提交</button>
         </div>
-        <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;display:none;" id="approvalD">
+        <div class="mui-btn-row"  id="approvalD">
             &nbsp;&nbsp;
-            <button class="mui-btn mui-btn-primary" type="button" style="width:25%;height:2.5rem;font-size:0.8rem;" id="agreebt" onclick="showConfirm()">同意</button>&nbsp;&nbsp;&nbsp;
-            <button class="mui-btn mui-btn-danger" type="button" style="width:25%;height:2.5rem;font-size:0.8rem;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;
-            <button class="mui-btn mui-btn-warning" type="button" style="width:25%;height:2.5rem;font-size:0.8rem;" id="refusebt" onclick="Refilled()">退回重填</button>
+            <button class="mui-btn mui-btn-primary" type="button" style="width:25%;" id="agreebt" onclick="showConfirm()">同意</button>&nbsp;&nbsp;&nbsp;
+            <button class="mui-btn mui-btn-danger" type="button" style="width:25%;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;
+            <button class="mui-btn mui-btn-warning" type="button" style="width:25%;" id="refusebt" onclick="Refilled()">退回重填</button>
         </div>
-        <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;display:none;" id="readD">
-            <button class="mui-btn mui-btn-primary" type="button" style="height:2.5rem;font-size:0.8rem;width:100%;margin-bottom:1rem;" id="readbt" onclick="hasRead()">已阅</button>
+        <div class="mui-btn-row"  id="readD">
+            <button class="mui-btn mui-btn-primary" type="button"  id="readbt" onclick="hasRead()">已阅</button>
         </div>
      </div>
     <input type="hidden" id="ftbrno" name="ftbrno" />
@@ -164,9 +196,9 @@
     <input type="hidden" id="fbillno" name="fbillno" value="" />
 
     <div id="signd" style="display:none;">
-        <div class="mui-input-row" style="height:5.25rem;font-size:0.8rem;border:groove;border-width:0.1rem;" id="ssd">
+        <div class="mui-input-row"  id="ssd">
             <label>签核意见</label>
-            <textarea rows="5" id="signSuggest" placeholder="请输入签核意见"></textarea>
+            <textarea rows="8" id="signSuggest" placeholder="请输入签核意见"></textarea>
 
         </div>
         <div class="mui-btn-row mui-text-center" style="margin-top:1rem;">
@@ -189,7 +221,7 @@
 
             });
 
-            forbiddenCache();
+           
 
         });
         mui('.mui-content .mui-switch').each(function () {
@@ -390,6 +422,122 @@
                         $("#ftjdate").val(item.ftjrq);
                         $("#stepId").val(stepId);
                         $("#fbillno").val(item.fbillno);
+
+                        if (item.ffj != null && item.ffj != "") {
+                            var fjtmp = (String)(item.ffj);
+
+                            fjArray = fjtmp.split(";");
+
+
+                            //console.log("fjArray:" + fjArray);
+
+                            //请求附件详细信息
+                            $.ajax({
+                                type: 'POST',
+                                url: '/api/bpm/GetAttachmentsInfo',
+                                //dataType:'json',
+                                data: { 'fileIds': fjArray },
+
+                                beforeSend: function (XHR) {
+                                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+                                },
+                                success: function (data, status) {
+                                    if (status == "success") {
+
+                                        console.log(data);
+
+                                        for (var i = 0; i < data.length; i++) {
+
+                                            var name = data[i].Name;
+                                            var type = (data[i].Ext).replace(".", "");
+                                            var size = String(data[i].Size);
+
+                                            var time = String(data[i].LastUpdate).replace("T", " ");
+                                            var downurl = 'http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID;
+                                            var attach = attachItem(name, type, size, time, downurl);
+                                            attachArray.push(attach);
+
+
+
+                                            var li = '<div class="pic-preview smallyulan success">';
+                                            li = li + ' <div class="del none" style="opacity:1;z-index:999;"onclick="delPicture(this)">x</div>';
+
+                                            //类型判断
+                                            if ((data[i].Ext).indexOf("png") != -1 || (data[i].Ext).indexOf("jpg") != -1 || (data[i].Ext).indexOf("bmp") != -1) {
+
+                                                //li = li + '    <div class="img-wrap smallimg" id="simg" ><a href="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></a></div>';
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '" ><img src="http://app.weigaogroup.com:8040/BPM/YZSoft/Attachment/default.ashx?' + data[i].FileID + '"/></div>';
+
+                                            } else if ((data[i].Ext).indexOf("xls") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/xlsx@2x.png"/></div>';
+
+                                            } else if ((data[i].Ext).indexOf("doc") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/docx@2x.png"/></div>';
+
+                                            } else if ((data[i].Ext).indexOf("ppt") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/ppt@2x.png"/></div>';
+
+                                            } else if ((data[i].Ext).indexOf("pdf") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/pdf@2x.png"/></div>';
+
+                                            } else if ((data[i].Ext).indexOf("zip") != -1 || (data[i].Ext).indexOf("rar") != -1 || (data[i].Ext).indexOf("7z") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/zip@2x.png"/></div>';
+
+                                            } else if ((data[i].Ext).indexOf("txt") != -1) {
+
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/txt@2x.png"/></div>';
+
+                                            } else {
+                                                li = li + '    <div class="img-wrap smallimg imgdiv" id="' + i + '"><img src="../../Content/images/unkown@2x.png"/></div>';
+                                            }
+
+                                            li = li + ' </div>';
+                                            li = li + '</div>';
+                                            $(".upload-img-list").append(li);
+
+
+                                            $(".imgdiv").each(function () {
+
+                                                $(this).parent().find(".del.none").hide();
+
+                                            });
+
+
+
+
+                                        }
+                                        watch();
+                                        $(".imgdiv").on('tap', function () {
+                                            console.log($(this)[0].id);
+                                            XuntongJSBridge.call('showFile', {
+                                                'fileName': attachArray[$(this)[0].id].name,
+                                                'fileExt': attachArray[$(this)[0].id].type,
+                                                'fileTime': attachArray[$(this)[0].id].time,
+                                                'fileSize': attachArray[$(this)[0].id].size,
+                                                'fileDownloadUrl': attachArray[$(this)[0].id].downurl
+                                            }, function (result) {
+                                                //alert(JSON.stringify(result));
+                                            });
+                                        });
+
+
+                                    }
+
+                                }, error: function (e) {
+                                    console.log(e);
+
+                                }, complete: function () {
+
+                                }
+
+                            });
+
+                        }
                         var item_b = data.FormDataSet.BPM_SGGSYBTBB_B;
                         for (var i = 0; i < item_b.length; i++) {
                             if (item_b[i].frw_zj == null) {
@@ -444,6 +592,18 @@
                             li = li + '        <label for="fmb_jh">目标</label>';
                             li = li + '        <textarea id="fmb_jh" name="fmb_jh" placeholder="" rows="5" readonly="readonly">' + item_c[i].fmb + '</textarea>';
                             li = li + '   </div>';
+                            li = li + '   <div class="mui-input-row">';
+                            li = li + '        <label for="fzrr">责任人</label>';
+                            li = li + '        <input type="text" id="fzrr" name="fzrr" readonly="readonly" value="' + item_c[i].fzrr + '"/>';
+                            li = li + '   </div>';
+                            li = li + '   <div class="mui-input-row">';
+                            li = li + '        <label for="fksrq">开始时间</label>';
+                            li = li + '        <input type="date" id="fksrq" name="fksrq" readonly="readonly" value="' + FormatterTimeYMS(item_c[i].fksrq) + '"/>';
+                            li = li + '   </div>';
+                            li = li + '   <div class="mui-input-row">';
+                            li = li + '        <label for="fjsrq">完成时间</label>';
+                            li = li + '        <input type="date" id="fjsrq" name="fjsrq" readonly="readonly" value="' + FormatterTimeYMS(item_c[i].fjsrq) + '"/>';
+                            li = li + '   </div>';
                             li = li + '</div>';
                             $("#jhlist").append(li);
                         }
@@ -459,7 +619,7 @@
                         for (var i = 0; i < data.Steps.length; i++) {
                             //debugger;
 
-                            if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
+                            if (data.Steps[i].Finished == false && data.Steps[i].RecipientAccount == ($('#myPhone').val())) {
 
 
                                 if (stepId.indexOf(data.Steps[i].StepID)!=-1) {
@@ -476,6 +636,7 @@
                         if (NodeName == "开始") {
                             $("#createD").css("display", "block");
                             $("#csd").css("display", "none");
+                            $("#ftel").removeAttr('readonly');
                             $("#zjlist").find("#deleteProduct").css("display", "block");
                             $("#zjlist").find("#zj").each(function () {
                                 $(this).find("#frw_zj").removeAttr("readonly");
@@ -487,11 +648,15 @@
                             $("#jhlist").find("#jh").each(function () {
                                 $(this).find("#frw_jh").removeAttr("readonly");
                                 $(this).find("#fmb_jh").removeAttr("readonly");
+                                $(this).find("#fzrr").removeAttr("readonly");
+                                $(this).find("#fksrq").removeAttr("readonly");
+                                $(this).find("#fjsrq").removeAttr("readonly");
                             });
                             $("#addjh").css("display", "block");
                             $("#addzj").css("display", "block");
                             $("#fbz_jh").removeAttr("readonly");
                             tapEvent();
+                            $('.upload-addbtn').css('display', 'block');
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -500,6 +665,69 @@
                                 $("#approvalD").css("display", "block");
                             }
 
+
+                        }
+                        for (var i = 0; i < data.Steps.length; i++) {
+
+                            if (data.Steps[i].FinishAt == "0001-01-01T00:00:00") {
+                                data.Steps[i].FinishAt = "";
+                            }
+                            var time = FormatterTime(data.Steps[i].FinishAt);
+
+                            var stepName = data.Steps[i].NodeName;
+                            if (data.Steps[i].NodeName == "sysInform") {
+                                stepName = "知会";
+                            } else if (data.Steps[i].NodeName == "sysTaskOpt") {
+                                stepName = "任务操作";
+                            } else if (data.Steps[i].NodeName == "开始") {
+                                stepName = "开始";
+                            }
+
+                            var stepAction = locationAction(data.Steps[i].SelAction);
+                            if (data.Steps[i].SelAction == "sysInform") {
+                                stepAction = "发起知会";
+                            } else if (data.Steps[i].SelAction == "Submit") {
+                                stepAction = "已阅";
+                            } else if (data.Steps[i].SelAction == "null" || data.Steps[i].SelAction == null) {
+                                stepAction = "待处理";
+                            } else if (data.Steps[i].SelAction == "sysReject") {
+                                stepAction = "拒绝";
+                            } else if (data.Steps[i].SelAction == "sysRecedeRestart") {
+                                stepAction = "退回重填";
+                            }
+
+
+                            var contents = data.Steps[i].Comments;
+                            if (contents == null) {
+                                contents = "无";
+                            }
+                            //判断是否是加签
+                            if (data.Steps[i].IsConsignStep == false) {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg">' + stepName + '<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            } else {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg signadd">加签<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            }
+                            $("#signff").append(li);
                         }
 
 
@@ -650,6 +878,7 @@
                 li = li + '        <label for="fjg_zj">完成结果</label>';
                 li = li + '        <textarea id="fjg_zj" name="fjg_zj" placeholder="请填写完成结果" rows="5"></textarea>';
                 li = li + '   </div>';
+                li = li + '</div>';
                 $("#zjlist").append(li);
             });
 
@@ -667,6 +896,19 @@
                 li = li + '        <label for="fmb_jh">目标</label>';
                 li = li + '        <textarea id="fmb_jh" name="fmb_jh" placeholder="请填写目标" rows="5"></textarea>';
                 li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fzrr">责任人</label>';
+                li = li + '        <input type="text" id="fzrr" name="fzrr" placeholder="请填写责任人"/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fksrq">开始时间</label>';
+                li = li + '        <input type="date" id="fksrq" name="fksrq" placeholder=""/>';
+                li = li + '   </div>';
+                li = li + '   <div class="mui-input-row">';
+                li = li + '        <label for="fjsrq">完成时间</label>';
+                li = li + '        <input type="date" id="fjsrq" name="fjsrq" placeholder=""/>';
+                li = li + '   </div>';
+                li = li + '</div>';
                 $("#jhlist").append(li);
             });
         }
@@ -676,9 +918,7 @@
         function Save() {
 
 
-            var fareaStr = String(BPMOU).split("/");
-            //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
-            $("#fdept").val(fareaStr[fareaStr.length - 2]);
+            
 
             var fname = $("#fname").val();
             var fdate = $("#fdate").val() + " 00:00:00";
@@ -706,7 +946,10 @@
             $("#jhlist").find("#jh").each(function () {
                 var frw_jh = $(this).find("#frw_jh").val();
                 var fmb_jh = $(this).find("#fmb_jh").val();
-                var jh = JhItem(frw_jh, fmb_jh);
+                var fzrr = $(this).find("#fzrr").val();
+                var fksrq = $(this).find("#fksrq").val();
+                var fjsrq = $(this).find("#fjsrq").val();
+                var jh = JhItem(frw_jh, fmb_jh, fzrr, fksrq, fjsrq);
                 jhlistArr.push(jh);
             });
             var pid = $("#stepId").val();
@@ -745,6 +988,11 @@
                     xml = xml + '<fn_jh>' + fn_jh + '</fn_jh>';
                     xml = xml + '<fy_jh>' + fy_jh + '</fy_jh>';
                     xml = xml + '<fbz_jh>' + fbz_jh + '</fbz_jh>';
+                    if (fjArray.length != 0) {
+                        xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                    } else {
+                        xml = xml + '<ffj></ffj>';
+                    }
                     xml = xml + '<ftbrno>' + ftbrno + '</ftbrno>';
                     xml = xml + '<ftjrq>' + ftjdate + '</ftjrq>';
                     xml = xml + '<fxygzjh></fxygzjh>';
@@ -767,6 +1015,9 @@
                         xml = xml + '<entryno>' + (i + 1) + '</entryno>';
                         xml = xml + '<frw>' + jhlistArr[i].frw_jh + '</frw>';
                         xml = xml + ' <fmb>' + jhlistArr[i].fmb_jh + '</fmb>';
+                        xml = xml + '  <fzrr>' + jhlistArr[i].fzrr + '</fzrr>';
+                        xml = xml + '   <fksrq>' + jhlistArr[i].fksrq + '</fksrq>';
+                        xml = xml + '    <fjsrq>' + jhlistArr[i].fjsrq + '</fjsrq>';
                         xml = xml + '</BPM_SGGSYBTBB_C>';
                     }
                     xml = xml + '</FormData>';
@@ -805,7 +1056,10 @@
             $("#jhlist").find("#jh").each(function () {
                 var frw_jh = $(this).find("#frw_jh").val();
                 var fmb_jh = $(this).find("#fmb_jh").val();
-                var jh = JhItem(frw_jh, fmb_jh);
+                var fzrr = $(this).find("#fzrr").val();
+                var fksrq = $(this).find("#fksrq").val();
+                var fjsrq = $(this).find("#fjsrq").val();
+                var jh = JhItem(frw_jh, fmb_jh, fzrr, fksrq, fjsrq);
                 jhlistArr.push(jh);
             });
             var comment = '';
@@ -833,6 +1087,11 @@
                     xml = xml + '<fn_jh>' + fn_jh + '</fn_jh>';
                     xml = xml + '<fy_jh>' + fy_jh + '</fy_jh>';
                     xml = xml + '<fbz_jh>' + fbz_jh + '</fbz_jh>';
+                    if (fjArray.length != 0) {
+                        xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                    } else {
+                        xml = xml + '<ffj></ffj>';
+                    }
                     xml = xml + '<ftbrno>' + ftbrno + '</ftbrno>';
                     xml = xml + '<ftjrq>' + ftjdate + '</ftjrq>';
                     xml = xml + '<fxygzjh></fxygzjh>';
@@ -855,6 +1114,9 @@
                         xml = xml + '<entryno>' + (i + 1) + '</entryno>';
                         xml = xml + '<frw>' + jhlistArr[i].frw_jh + '</frw>';
                         xml = xml + ' <fmb>' + jhlistArr[i].fmb_jh + '</fmb>';
+                        xml = xml + '  <fzrr>' + jhlistArr[i].fzrr + '</fzrr>';
+                        xml = xml + '   <fksrq>' + jhlistArr[i].fksrq + '</fksrq>';
+                        xml = xml + '    <fjsrq>' + jhlistArr[i].fjsrq + '</fjsrq>';
                         xml = xml + '</BPM_SGGSYBTBB_C>';
                     }
                     xml = xml + '</FormData>';
@@ -865,6 +1127,7 @@
 
         }
         function AgreeOrConSign() {
+            var comment = $("#signSuggest").val();
             var fname = $("#fname").val();
             var fdate = $("#fdate").val() + " 00:00:00";
             var fdept = $("#fdept").val();
@@ -892,7 +1155,10 @@
             $("#jhlist").find("#jh").each(function () {
                 var frw_jh = $(this).find("#frw_jh").val();
                 var fmb_jh = $(this).find("#fmb_jh").val();
-                var jh = JhItem(frw_jh, fmb_jh);
+                var fzrr = $(this).find("#fzrr").val();
+                var fksrq = $(this).find("#fksrq").val();
+                var fjsrq = $(this).find("#fjsrq").val();
+                var jh = JhItem(frw_jh, fmb_jh, fzrr, fksrq, fjsrq);
                 jhlistArr.push(jh);
             });
 
@@ -943,7 +1209,7 @@
                             xml = xml + '              <Method>Process</Method>';
                             xml = xml + '              <PID>' + pid + '</PID>';
                             xml = xml + '              <Action>同意</Action>';
-                            xml = xml + '              <Comment></Comment>';
+                            xml = xml + '              <Comment>' + comment + '</Comment>';
 
                             //加签差异xml部分
                             xml = xml + '<ConsignEnabled>True</ConsignEnabled>';
@@ -967,6 +1233,11 @@
                             xml = xml + '<fn_jh>' + fn_jh + '</fn_jh>';
                             xml = xml + '<fy_jh>' + fy_jh + '</fy_jh>';
                             xml = xml + '<fbz_jh>' + fbz_jh + '</fbz_jh>';
+                            if (fjArray.length != 0) {
+                                xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                            } else {
+                                xml = xml + '<ffj></ffj>';
+                            }
                             xml = xml + '<ftbrno>' + ftbrno + '</ftbrno>';
                             xml = xml + '<ftjrq>' + ftjdate + '</ftjrq>';
                             xml = xml + '<fxygzjh></fxygzjh>';
@@ -989,6 +1260,9 @@
                                 xml = xml + '<entryno>' + (i + 1) + '</entryno>';
                                 xml = xml + '<frw>' + jhlistArr[i].frw_jh + '</frw>';
                                 xml = xml + ' <fmb>' + jhlistArr[i].fmb_jh + '</fmb>';
+                                xml = xml + '  <fzrr>' + jhlistArr[i].fzrr + '</fzrr>';
+                                xml = xml + '   <fksrq>' + jhlistArr[i].fksrq + '</fksrq>';
+                                xml = xml + '    <fjsrq>' + jhlistArr[i].fjsrq + '</fjsrq>';
                                 xml = xml + '</BPM_SGGSYBTBB_C>';
                             }
                             xml = xml + '</FormData>';
@@ -1007,7 +1281,7 @@
                 xml = xml + '              <Method>Process</Method>';
                 xml = xml + '              <PID>' + pid + '</PID>';
                 xml = xml + '              <Action>同意</Action>';
-                xml = xml + '              <Comment></Comment>';
+                xml = xml + '              <Comment>' + comment + '</Comment>';
 
 
                 xml = xml + '              <InviteIndicateUsers></InviteIndicateUsers>';
@@ -1025,6 +1299,11 @@
                 xml = xml + '<fn_jh>' + fn_jh + '</fn_jh>';
                 xml = xml + '<fy_jh>' + fy_jh + '</fy_jh>';
                 xml = xml + '<fbz_jh>' + fbz_jh + '</fbz_jh>';
+                if (fjArray.length != 0) {
+                    xml = xml + '<ffj>' + fjArray.toString().replace(",", ";") + '</ffj>';
+                } else {
+                    xml = xml + '<ffj></ffj>';
+                }
                 xml = xml + '<ftbrno>' + ftbrno + '</ftbrno>';
                 xml = xml + '<ftjrq>' + ftjdate + '</ftjrq>';
                 xml = xml + '<fxygzjh></fxygzjh>';
@@ -1047,6 +1326,9 @@
                     xml = xml + '<entryno>' + (i + 1) + '</entryno>';
                     xml = xml + '<frw>' + jhlistArr[i].frw_jh + '</frw>';
                     xml = xml + ' <fmb>' + jhlistArr[i].fmb_jh + '</fmb>';
+                    xml = xml + '  <fzrr>' + jhlistArr[i].fzrr + '</fzrr>';
+                    xml = xml + '   <fksrq>' + jhlistArr[i].fksrq + '</fksrq>';
+                    xml = xml + '    <fjsrq>' + jhlistArr[i].fjsrq + '</fjsrq>';
                     xml = xml + '</BPM_SGGSYBTBB_C>';
                 }
                 xml = xml + '</FormData>';
@@ -1062,11 +1344,14 @@
             zj.fjg_zj = fjg_zj;
             return zj;
         }
-        function JhItem(frw_jh, fmb_jh) {
+        function JhItem(frw_jh, fmb_jh, fzrr, fksrq, fjsrq) {
 
             var jh = new Object;
             jh.frw_jh = frw_jh;
             jh.fmb_jh = fmb_jh;
+            jh.fzrr = fzrr;
+            jh.fksrq = fksrq;
+            jh.fjsrq = fjsrq;
             return jh;
         }
     </script>

@@ -304,6 +304,7 @@
     <Compile Include="Models\PostInformModel.cs" />
     <Compile Include="Models\PostRecedeBackModel.cs" />
     <Compile Include="Models\PostRecedeRestartModel.cs" />
+    <Compile Include="Models\PostShareModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -690,6 +691,11 @@
     <Content Include="Pages\02YiYongZhiPin\01KuaZiGongSi\AQ0201001\FlowCreate.html" />
     <Content Include="Pages\02YiYongZhiPin\01KuaZiGongSi\AQ0201001\FlowDoneDetail.html" />
     <Content Include="Pages\02YiYongZhiPin\01KuaZiGongSi\AQ0201001\FlowUndoDetail.html" />
+    <Content Include="Pages\02YiYongZhiPin\01KuaZiGongSi\AQ0201002\common.js" />
+    <Content Include="Pages\02YiYongZhiPin\01KuaZiGongSi\AQ0201002\FlowAskDetail.html" />
+    <Content Include="Pages\02YiYongZhiPin\01KuaZiGongSi\AQ0201002\FlowCreate.html" />
+    <Content Include="Pages\02YiYongZhiPin\01KuaZiGongSi\AQ0201002\FlowDoneDetail.html" />
+    <Content Include="Pages\02YiYongZhiPin\01KuaZiGongSi\AQ0201002\FlowUndoDetail.html" />
     <Content Include="Pages\02YiYongZhiPin\01KuaZiGongSi\AQ0201003\common.js" />
     <Content Include="Pages\02YiYongZhiPin\01KuaZiGongSi\AQ0201003\FlowAskDetail.html" />
     <Content Include="Pages\02YiYongZhiPin\01KuaZiGongSi\AQ0201003\FlowCreate.html" />

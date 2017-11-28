@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../Content/upload.css" />
     <link rel="stylesheet" href="../../Content/ApprovalUtils.css"/>
+    <link rel="stylesheet" href="../../Content/DoneOrMyApproval.css"/>
     <title></title>
     <meta charset="utf-8" />
 </head>
@@ -42,7 +43,7 @@
             </div>
             <div class="mui-input-row">
                 <label for="fze">合同金额(元)<i style="color:red;">*</i></label>
-                <input type="text" id="fze" name="fze" readonly="readonly" />
+                <input type="number" id="fze" name="fze" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fhtdf">合同对方<i style="color:red;">*</i></label>
@@ -52,15 +53,15 @@
                 <label for="fhtmc">合同名称<i style="color:red;">*</i></label>
                 <input type="text" id="fhtmc" name="fhtmc" readonly="readonly" />
             </div>
-            <div class="mui-input-row" style="height:11.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fhtnr">合同内容<i style="color:red;">*</i></label>
                 <textarea id="fhtnr" name="fhtnr" rows="7" readonly="readonly"></textarea>
             </div>
-            <div class="mui-input-row" style="height:7.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fjkfs">合同价款及付款方式<i style="color:red;">*</i></label>
                 <textarea id="fjkfs" name="fjkfs" rows="5" readonly="readonly"></textarea>
             </div>
-            <div class="mui-input-row" style="height:11.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fydtk">特别约定条款<i style="color:red;">*</i></label>
                 <textarea id="fydtk" name="fydtk" rows="7" readonly="readonly"></textarea>
             </div>
@@ -132,18 +133,34 @@
                 </div>
 
             </div>
+            <div class="mui-table-view" style="margin-bottom:3.25rem;">
+                <div class="mui-table-view-cell  mui-collapse mui-active">
+                    <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
 
+                        历史签核意见
+                    </a>
+                    <div class="mui-collapse-content">
+
+                        <!--流程列表-->
+                        <div class="list">
+                            <ul id="signff"></ul>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
         </form>
-        <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;display:none;" id="createD">
-            <button class="mui-btn mui-btn-primary" type="button" style="width:100%;height:2.5rem;font-size:0.8rem;" id="commitbt" onclick="Save()">提交</button>
+        <div class="mui-btn-row"  id="createD">
+            <button class="mui-btn mui-btn-primary" type="button"  id="commitbt" onclick="Save()">提交</button>
         </div>
-        <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;display:none;" id="approvalD">
+        <div class="mui-btn-row"  id="approvalD">
             &nbsp;&nbsp;
-            <button class="mui-btn mui-btn-primary" type="button" style="width:40%;height:2.5rem;font-size:0.8rem;" id="agreebt" onclick="showConfirm()">同意</button>&nbsp;&nbsp;&nbsp;
-            <button class="mui-btn mui-btn-danger" type="button" style="width:40%;height:2.5rem;font-size:0.8rem;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;
+            <button class="mui-btn mui-btn-primary" type="button" style="width:40%;" id="agreebt" onclick="showConfirm()">同意</button>&nbsp;&nbsp;&nbsp;
+            <button class="mui-btn mui-btn-danger" type="button" style="width:40%;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;
         </div>
-        <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;display:none;" id="readD">
-            <button class="mui-btn mui-btn-primary" type="button" style="height:2.5rem;font-size:0.8rem;width:100%;margin-bottom:1rem;" id="readbt" onclick="hasRead()">已阅</button>
+        <div class="mui-btn-row"  id="readD">
+            <button class="mui-btn mui-btn-primary" type="button"  id="readbt" onclick="hasRead()">已阅</button>
         </div>
     </div>
     <input value="" id="stepId" name="stepId" type="hidden" />
@@ -158,9 +175,9 @@
     <input type="hidden" id="fbillno" name="fbillno" value="" />
 
     <div id="signd" style="display:none;">
-        <div class="mui-input-row" style="height:5.25rem;font-size:0.8rem;border:groove;border-width:0.1rem;" id="ssd">
+        <div class="mui-input-row"  id="ssd">
             <label>签核意见</label>
-            <textarea rows="5" id="signSuggest" placeholder="请输入签核意见"></textarea>
+            <textarea rows="8" id="signSuggest" placeholder="请输入签核意见"></textarea>
 
         </div>
         <div class="mui-btn-row mui-text-center" style="margin-top:1rem;">
@@ -182,7 +199,7 @@
             });
             upload();
             watch();
-            forbiddenCache();
+           
         });
 
         mui('.mui-content .mui-switch').each(function () {
@@ -324,7 +341,7 @@
             }
 
         });
-
+        action = '同意';
         function getTaskMsg() {
 
             var url = window.location.href;
@@ -464,7 +481,7 @@
 
 
                                         }
-
+                                        watch();
                                         $(".imgdiv").on('tap', function () {
                                             console.log($(this)[0].id);
                                             XuntongJSBridge.call('showFile', {
@@ -502,7 +519,7 @@
                         for (var i = 0; i < data.Steps.length; i++) {
                             //debugger;
                             //stepIDs.push(data.Steps[i].NodeName);
-                            if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
+                            if (data.Steps[i].Finished == false && data.Steps[i].RecipientAccount == ($('#myPhone').val())) {
 
 
                                 if (stepId.indexOf(data.Steps[i].StepID)!=-1) {
@@ -530,7 +547,74 @@
                         } else {
                             if (typeof (NodeName) != "undefined") {
                                 $("#approvalD").css("display", "block");
+                                if (String(NodeName) == '综合部') {
+                                    $("#agreebt").text('确认');
+                                    action = '确认';
+                                }
                             }
+                        }
+
+                        for (var i = 0; i < data.Steps.length; i++) {
+
+                            if (data.Steps[i].FinishAt == "0001-01-01T00:00:00") {
+                                data.Steps[i].FinishAt = "";
+                            }
+                            var time = FormatterTime(data.Steps[i].FinishAt);
+
+                            var stepName = data.Steps[i].NodeName;
+                            if (data.Steps[i].NodeName == "sysInform") {
+                                stepName = "知会";
+                            } else if (data.Steps[i].NodeName == "sysTaskOpt") {
+                                stepName = "任务操作";
+                            } else if (data.Steps[i].NodeName == "开始") {
+                                stepName = "开始";
+                            }
+
+                            var stepAction = locationAction(data.Steps[i].SelAction);
+                            if (data.Steps[i].SelAction == "sysInform") {
+                                stepAction = "发起知会";
+                            } else if (data.Steps[i].SelAction == "Submit") {
+                                stepAction = "已阅";
+                            } else if (data.Steps[i].SelAction == "null" || data.Steps[i].SelAction == null) {
+                                stepAction = "待处理";
+                            } else if (data.Steps[i].SelAction == "sysReject") {
+                                stepAction = "拒绝";
+                            } else if (data.Steps[i].SelAction == "sysRecedeRestart") {
+                                stepAction = "退回重填";
+                            }
+
+
+                            var contents = data.Steps[i].Comments;
+                            if (contents == null) {
+                                contents = "无";
+                            }
+                            //判断是否是加签
+                            if (data.Steps[i].IsConsignStep == false) {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg">' + stepName + '<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            } else {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg signadd">加签<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            }
+                            $("#signff").append(li);
                         }
                     }
                 }, error: function (e) {
@@ -543,6 +627,7 @@
 
 
         function AgreeOrConSign() {
+            var comment = $("#signSuggest").val();
             var fbillno = $("#fbillno").val();
             var pid = $("#stepId").val();
             var fname = $("#fname").val();
@@ -602,8 +687,8 @@
                             xml = xml + '<Header>';
                             xml = xml + '<Method>Process</Method>';
                             xml = xml + '<PID>' + pid + '</PID>';
-                            xml = xml + '<Action>同意</Action>';
-                            xml = xml + '<Comment></Comment>';
+                            xml = xml + '<Action>' + action + '</Action>';
+                            xml = xml + '<Comment>' + comment + '</Comment>';
 
 
                             //加签差异部分
@@ -645,8 +730,8 @@
                 xml = xml + '<Header>';
                 xml = xml + '<Method>Process</Method>';
                 xml = xml + '<PID>' + pid + '</PID>';
-                xml = xml + '<Action>同意</Action>';
-                xml = xml + '<Comment></Comment>';
+                xml = xml + '<Action>' + action + '</Action>';
+                xml = xml + '<Comment>' + comment + '</Comment>';
 
 
 

@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="../../../../Content/city-selector.css" />
     <link rel="stylesheet" href="../../../../Content/calendar-selector.css" />
     <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css"/>
+    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
 </head>
 <body>
 
@@ -1341,7 +1342,7 @@
 
 
                                         }
-
+                                        watch(); 
                                         $(".imgdiv").on('tap', function () {
                                             console.log($(this)[0].id);
                                             XuntongJSBridge.call('showFile', {
@@ -1408,8 +1409,8 @@
                                 var li = ' <li>';
                                 li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
                                 li = li + '  <div class="righttext">';
-                                li = li + '     <div>';
-                                li = li + '        <div class="flowmsg">' + stepName + '<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '     <div style="font-size:0.65rem;">';
+                                li = li + '        <div class="flowmsg">' + stepName + '<span style="font-size:0.65rem !important;">' + data.Steps[i].RecipientFullName + '</span></div>';
                                 li = li + '        <label class="flowstatus">' + stepAction + '</label>';
                                 li = li + '        <p>签核意见: ' + contents + '</p>';
                                 li = li + '     </div>';
@@ -1420,8 +1421,8 @@
                                 var li = ' <li>';
                                 li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
                                 li = li + '  <div class="righttext">';
-                                li = li + '     <div>';
-                                li = li + '        <div class="flowmsg signadd">加签<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '     <div style="font-size:0.65rem;">';
+                                li = li + '        <div class="flowmsg signadd">加签<span style="font-size:0.65rem !important;">' + data.Steps[i].RecipientFullName + '</span></div>';
                                 li = li + '        <label class="flowstatus">' + stepAction + '</label>';
                                 li = li + '        <p>签核意见: ' + contents + '</p>';
                                 li = li + '     </div>';

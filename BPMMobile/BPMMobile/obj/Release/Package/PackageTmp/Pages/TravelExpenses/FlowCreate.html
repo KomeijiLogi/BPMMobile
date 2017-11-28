@@ -25,9 +25,11 @@
     <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
     <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
     <link rel="stylesheet" href="../../../../Content/maintanse.css" />
     <link rel="stylesheet" href="../../../../Content/city-selector.css" />
     <link rel="stylesheet" href="../../../../Content/calendar-selector.css" />
+    
 </head>
 <body>
    
@@ -2535,7 +2537,7 @@
                         fno = $("#fno").val();
                     }
 
-
+                    
                     var xml = '<?xml version= "1.0" ?>';
                     xml = xml + '      <Requests>';
                     xml = xml + '     <Params>';
@@ -2581,10 +2583,12 @@
 
                     xml = xml + '      <Params>';
                     xml = xml + '       <DataSource>BPM_EXPENSE</DataSource>';
-                    xml = xml + '          <ID>p_ZPJTSCCL_city</ID>';
+                    //xml = xml + '          <ID>p_ZPJTSCCL_city</ID>';
+                    xml = xml + '          <ID>erpcloud_医用制品差旅费报销</ID>';
                     xml = xml + '         <Type>2</Type>';
                     xml = xml + '           <Method>GetUserDataProcedure</Method>';
-                    xml = xml + '          <ProcedureName>p_ZPJTSCCL_city</ProcedureName>';
+                    //xml = xml + '          <ProcedureName>p_ZPJTSCCL_city</ProcedureName>';
+                    xml = xml + '          <ProcedureName>erpcloud_医用制品差旅费报销</ProcedureName>';
                     xml = xml + '          <Filter>';
                     xml = xml + '                <_x0040_fuser_no>' + fno + '</_x0040_fuser_no>';
                     xml = xml + '           </Filter>';
@@ -2604,7 +2608,7 @@
                             if (status == "success" || data.success == "true" || data.success == true) {
 
 
-
+                                console.log(data);
                                 var provideData = JSON.parse(unescape(data.replace(/\\(u[0-9a-fA-F]{4})/gm, '%$1')));
 
 
@@ -2752,19 +2756,13 @@
                 mui.toast('请填写结束日期');
                 return null;
             }
-            if (!item.cfdd_pro || item.cfdd_pro == '') {
-                mui.toast('获取出发地省份错误');
-                return null;
-            }
-            if (!item.cfdd_city || item.cfdd_city == '') {
+          
+            //if (!item.cfdd_city || item.cfdd_city == '') {
 
-                mui.toast('请选择出发地城市');
-                return null;
-            }
-            if (!item.dddd_pro || item.dddd_pro == '') {
-                mui.toast('获取目的地省份错误');
-                return null;
-            }
+            //    mui.toast('请选择出发地城市');
+            //    return null;
+            //}
+            
             if (!item.dddd_city || item.dddd_city == '') {
                 mui.toast('请选择目的地城市');
                 return null;
@@ -2808,7 +2806,7 @@
                 mui.toast('请填写本单往返次数');
                 return false;
             }
-            //todo:财务节点需要加字段
+          
 
             var fbm = $("#fbm").val();
             var fbsczrno = $("#fbsczrno").val();

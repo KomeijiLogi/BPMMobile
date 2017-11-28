@@ -5,24 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
-    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
    
-    <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
-    <script type="text/javascript" src="../../Scripts/util.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>
-    <link rel="stylesheet" href="../../Content/mui.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
-    <link rel="stylesheet" href="../../Content/upload.css" />
-    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
-    <link rel="stylesheet" href="../../Content/DoneOrMyApproval.css" />
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.detail.js"></script>
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
+    <link rel="stylesheet" href="../../../../Content/DoneOrMyApproval.css" />
     <title></title>
     <meta charset="utf-8" />
 </head>
@@ -57,17 +57,17 @@
                 <label for="fhtlb">合同类别<i style="color:red;">*</i></label>
                 <input type="text" id="fhtlb" name="fhtlb" readonly="readonly"  />
             </div>
-            <div class="mui-input-row" style="height:11.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fht_mc_nr">合同名称及内容<i style="color:red;">*</i></label>
-                <textarea rows="10" id="fht_mc_nr" name="fht_mc_nr"></textarea>
+                <textarea rows="8" id="fht_mc_nr" name="fht_mc_nr"></textarea>
             </div>
-            <div class="mui-input-row" style="height:11.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fht_jk_fkfs">合同价款及付款方式<i style="color:red;">*</i></label>
-                <textarea rows="10" id="fht_jk_fkfs" name="fht_jk_fkfs" ></textarea>
+                <textarea rows="8" id="fht_jk_fkfs" name="fht_jk_fkfs" ></textarea>
             </div>
-            <div class="mui-input-row" style="height:11.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fydtk">特别约定条款<i style="color:red;">*</i></label>
-                <textarea rows="10" id="fydtk" name="fydtk" ></textarea>
+                <textarea rows="8" id="fydtk" name="fydtk" ></textarea>
             </div>
             <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                 <div class="border border-t upload-img" style="top:0rem;">
@@ -151,7 +151,7 @@
 
         mui.ready(function () {
             getTaskMsg();
-            forbiddenCache();
+           
         });
         XuntongJSBridge.call('setWebViewTitle', { 'title': '审批详情' });
 
@@ -400,7 +400,7 @@
 
 
                                     }
-
+                                    watch();
                                     $(".imgdiv").on('tap', function () {
                                         console.log($(this)[0].id);
                                         XuntongJSBridge.call('showFile', {

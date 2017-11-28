@@ -21,34 +21,11 @@
     <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
     <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../Content/upload.css" />
+    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
 
     <title></title>
     <meta charset="utf-8" />
-    <style>
-        html, body {
-            font-size: 20px;
-            background-color: white;
-            height: 100%;
-            overflow: auto;
-        }
-
-        label {
-            font-size: 0.75rem;
-        }
-
-        textarea {
-            height: auto;
-            overflow: auto;
-            font-size: 0.75rem;
-        }
-
-        a {
-            font-size: 0.75rem;
-        }
-        input {
-           font-size:0.75rem;
-        }
-    </style>
+   
 
 </head>
 <body>
@@ -86,17 +63,17 @@
                 <label>品牌名称<i style="color:red;">*</i></label>
                 <input type="text" id="fppmc" name="fppmc" placeholder="请输入品牌名称"/>
             </div>
-            <div class="mui-input-row" style="height:11.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label>合同名称及内容<i style="color:red;">*</i></label>
-                <textarea rows="10" id="fht_mcnr" name="fht_mcnr" placeholder="请输入合同名称及内容"></textarea>
+                <textarea rows="8" id="fht_mcnr" name="fht_mcnr" placeholder="请输入合同名称及内容"></textarea>
             </div>
-            <div class="mui-input-row" style="height:11.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label>合同价款及付款方式<i style="color:red;">*</i></label>
-                <textarea rows="10" id="fht_jkfkfs" name="fht_jkfkfs" placeholder="请输入合同价款及付款方式"></textarea>
+                <textarea rows="8" id="fht_jkfkfs" name="fht_jkfkfs" placeholder="请输入合同价款及付款方式"></textarea>
             </div>
-            <div class="mui-input-row" style="height:11.25rem;">
+            <div class="mui-input-row" style="height:auto;">
                 <label>特别约定条款<i style="color:red;">*</i></label>
-                <textarea rows="10" id="fydtk" name="fydtk" placeholder="请输入特别约定条款"></textarea>
+                <textarea rows="8" id="fydtk" name="fydtk" placeholder="请输入特别约定条款"></textarea>
             </div>
             <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                 <div class="border border-t upload-img" style="top:0rem;">
@@ -114,8 +91,8 @@
                 </div>
             </div>
         </form>
-        <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;">
-            <button class="mui-btn mui-btn-primary" type="button" style="width:100%;height:2.5rem;font-size:0.8rem;" id="commitbt" onclick="Save()">提交</button>
+        <div class="mui-btn-row" id="SaveD">
+            <button class="mui-btn mui-btn-primary" type="button"  id="commitbt" onclick="Save()">提交</button>
         </div>
     </div>
     <script>
@@ -126,7 +103,7 @@
             watch();
             upload();
             prepMsg();
-            forbiddenCache();
+           
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });

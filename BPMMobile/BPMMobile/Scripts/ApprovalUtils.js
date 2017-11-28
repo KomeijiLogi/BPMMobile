@@ -164,7 +164,7 @@ function Notify() {
 
 
             } else if (callBackId == 'callback2') {
-                history.go(0);
+                window.location.reload();
             }
         }
 
@@ -263,6 +263,63 @@ function Refilled() {
     }, 'div');
 
 }
+
+//从共享池中取出
+
+function PickupShareTaskExt() {
+
+    var pid = $("#stepId").val();
+    var btnArry = ["取消", "确定"];
+    mui.confirm('是否从共享任务中取出？', '取出确认提醒', btnArry, function (e) {
+        if (e.index == 1) {
+            $.ajax({
+                type: "POST",
+                url: "/api/bpm/PickupShareTaskExt",
+                data: { 'stepid':pid},
+                beforeSend: function (XHR) {
+                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+                }
+            }).done(function (data) {
+                mui.toast('从共享任务中取出');
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
+                
+            }).fail(function (e) {
+                mui.toast('取出失败');
+            });
+        }
+    });
+}
+
+//放回共享池
+function PutbackShareTaskExt() {
+    var pid = $("#stepId").val();
+    var btnArry = ["取消", "确定"];
+    mui.confirm('是否放回共享任务？', '取出确认提醒', btnArry, function (e) {
+        if (e.index == 1) {
+            $.ajax({
+                type: "POST",
+                url: "/api/bpm/PutbackShareTaskExt",
+                data: { 'stepid': pid },
+                beforeSend: function (XHR) {
+                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+
+                }
+            }).done(function (data) {
+                mui.toast('已放回共享任务');
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
+                
+            }).fail(function (e) {
+                mui.toast('放回失败');
+            });
+        }
+    });
+}
+
 
 //获取BPM参数
 

@@ -149,7 +149,11 @@ li {
     font-size: 0.8rem;
     border-radius: 1rem;
 }
-
+.roundbt {
+    height: 2.3rem;
+    font-size: 0.8rem;
+    border-radius: 1rem;
+}
 #readD {
     padding-top: 0.2rem;
     padding-bottom: 0.1rem;
@@ -166,7 +170,14 @@ li {
     width: 100%;
     border-radius: 1rem;
 }
-
+#pickbackbt {
+    margin-top: 0.5rem;
+    margin-bottom:0.25rem;
+  
+}
+#pickupbt {
+    margin-bottom: 0.25rem;
+}
 #SaveD {
     padding-top: 0.2rem;
     padding-bottom: 0.1rem;
@@ -175,7 +186,6 @@ li {
     position: fixed;
     width: 100%;
     background-color: white;
-   
 }
 
 #ssd {

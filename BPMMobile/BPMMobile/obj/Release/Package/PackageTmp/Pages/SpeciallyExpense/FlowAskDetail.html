@@ -32,37 +32,49 @@
     <div class="mui-content" style="background-color:white;">
         <form class="mui-input-group" style="left:0rem;right:0rem;margin-bottom:1rem;padding-bottom:4rem;">
 
-            <div class="mui-input-row">
-                <label for="fname">申请人<i style="color:red;">*</i></label>
-                <input type="text" id="fname" name="fname" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fzhiwu">职务<i style="color:red;">*</i></label>
-                <input type="text" id="fzhiwu" name="fzhiwu" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="flevel">级别<i style="color:red;">*</i></label>
-                <input type="text" id="flevel" name="flevel" readonly="readonly" />
-            </div>
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell mui-collapse">
+                    <a class="mui-navigate-right mui-row" href="#">
+                        <label for="fname">申请人<i style="color:red;">*</i><input type="text" id="fname" name="fname" readonly="readonly" value="111" /></label>
+
+                    </a>
+                    <div class="mui-collapse-content">
+
+                        <div class="mui-input-row">
+                            <label for="fxb">性别<i style="color:red;">*</i></label>
+                            <input type="text" id="fxb" name="fxb" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="fzhiwu">职务<i style="color:red;">*</i></label>
+                            <input type="text" id="fzhiwu" name="fzhiwu" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="flevel">级别<i style="color:red;">*</i></label>
+                            <input type="text" id="flevel" name="flevel" readonly="readonly" />
+                        </div>
+
+                        <div class="mui-input-row">
+                            <label for="fcompany">公司名称<i style="color:red;">*</i></label>
+                            <input type="text" id="fcompany" name="fcompany" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="ffcompany">销售分公司<i style="color:red;">*</i></label>
+                            <input type="text" id="ffcompany" name="ffcompany" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="fsalezone">大区</label>
+                            <input type="text" id="fsalezone" name="fsalezone" readonly="readonly" />
+                        </div>
+                        <div class="mui-input-row">
+                            <label for="fdept">办事处</label>
+                            <input type="text" id="fdept" name="fdept" readonly="readonly" />
+                        </div>
+                    </div>
+                </li>
+            </ul>
             <div class="mui-input-row">
                 <label for="fdate">日期<i style="color:red;">*</i></label>
                 <input type="date" id="fdate" name="fdate" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fcompany">公司名称<i style="color:red;">*</i></label>
-                <input type="text" id="fcompany" name="fcompany" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="ffcompany">销售分公司<i style="color:red;">*</i></label>
-                <input type="text" id="ffcompany" name="ffcompany" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fsalezone">大区</label>
-                <input type="text" id="fsalezone" name="fsalezone" readonly="readonly" />
-            </div>
-            <div class="mui-input-row">
-                <label for="fdept">办事处</label>
-                <input type="text" id="fdept" name="fdept" readonly="readonly" />
             </div>
             <div class="mui-card">
                 <h5 class="mui-content-padded" style="color:black;">地区类别<i style="color:red;">*</i></h5>
@@ -92,10 +104,10 @@
                 </div>
 
             </div>
-            <div class="mui-input-row">
+            <!--<div class="mui-input-row">
                 <label for="fxb">性别<i style="color:red;">*</i></label>
                 <input type="text" id="fxb" name="fxb" readonly="readonly" />
-            </div>
+            </div>-->
             <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                 <div class="border border-t upload-img" style="top:0rem;">
                     <!--上传图片-->
@@ -514,7 +526,7 @@
 
 
                                     }
-
+                                    watch();
                                     $(".imgdiv").on('tap', function () {
                                         console.log($(this)[0].id);
                                         XuntongJSBridge.call('showFile', {

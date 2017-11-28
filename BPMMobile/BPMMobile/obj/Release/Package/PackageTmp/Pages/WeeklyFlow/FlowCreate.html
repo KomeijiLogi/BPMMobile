@@ -5,51 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
-    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
     
-    <script type="text/javascript" src="../../Scripts/mui.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
     <!--<script type="text/javascript" src="../../Scripts/util.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.js"></script>
     <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>-->
-    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
-    <link rel="stylesheet" href="../../Content/mui.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
-    <link rel="stylesheet" href="../../Content/upload.css" />
-    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
     <title></title>
     <meta charset="utf-8" />
     <style>
-        html, body {
-            font-size: 20px;
-            background-color: white;
-            height: 100%;
-            overflow: auto;
-        }
-        label {
-            font-size: 0.75rem;
-        }
-        textarea {
-            height: auto;
-            overflow: auto;
-            font-size: 0.75rem;
-        }
-        a {
-           font-size:0.75rem;
-        }
-        input[type="date"]:before {
+       
+       
+        /*input[type="date"]:before {
             content: attr(placeholder);
             
-        }
-        .adi {
-            
-            font-size: 0.75rem;
-        }
+        }*/
+      
     </style>
 </head>
 <body>
@@ -57,11 +39,11 @@
          <form class="mui-input-group" style="left:0rem;right:0rem;">
              <div class="mui-input-row">
                  <label>员工姓名</label>
-                 <input type="text" placeholder="请输入员工姓名信息" class="mui-input-clear" id="fname" name="fname" />
+                 <input type="text" placeholder="请输入员工姓名信息" readonly="readonly" id="fname" name="fname" />
              </div>
              <div class="mui-input-row" style="display:none;">
                  <label>员工工号</label>
-                 <input type="text" placeholder="请输入员工工号信息" class="mui-input-clear" id="fno" name="fno" />
+                 <input type="text" placeholder="请输入员工工号信息" readonly="readonly" id="fno" name="fno" />
              </div>
              <div class="mui-input-row">
                  <label>起始时间</label>
@@ -71,25 +53,25 @@
                  <label>终止时间</label>
                  <input type="date" placeholder="请选择终止时间" class="mui-input-clear" id="foverdate" name="foverdate"/>
              </div>
-             <div class="mui-input-row" style="display:none;">
+             <div class="mui-input-row">
                  <label>年度</label>
-                 <input type="text" placeholder="请输入年度信息" class="" id="fyear" name="fyear" readonly="readonly"/>
+                 <input type="text"  class="" id="fyear" name="fyear" readonly="readonly"/>
              </div>
-             <div class="mui-input-row" style="display:none;">
+             <div class="mui-input-row">
                  <label>月度</label>
-                 <input type="text" placeholder="请输入月度信息" class="" id="fmonth" name="fmonth" readonly="readonly"/>
+                 <input type="text"  class="" id="fmonth" name="fmonth" readonly="readonly"/>
              </div>
-             <div class="mui-input-row" style="display:none;">
+             <div class="mui-input-row">
                  <label>周</label>
-                 <input type="number" placeholder="请输入周信息" class="" id="fweek" name="fweek" readonly="readonly"/>
+                 <input type="number" placeholder="请选择起止日期" class="" id="fweek" name="fweek" readonly="readonly"/>
              </div>
-             <div class="mui-input-row" style="height:11.25rem;">
+             <div class="mui-input-row" style="height:auto;">
                  <label>工作内容记录</label>
-                 <textarea rows="10" id="fnrjl" name="fnrjl"></textarea>
+                 <textarea rows="8" id="fnrjl" name="fnrjl"></textarea>
              </div>
-             <div class="mui-input-row" style="height:11.25rem;">
+             <div class="mui-input-row" style="height:auto;">
                  <label>存在问题及改进思路</label>
-                 <textarea rows="10" id="fgjsl" name="fgjsl"></textarea>
+                 <textarea rows="8" id="fgjsl" name="fgjsl"></textarea>
              </div>
 
              <div class="mui-input-row">
@@ -97,12 +79,12 @@
                  <input value="" id="zwpjg" name="zwpjg" type="text" readonly="readonly" class="adi"/>
              </div>
 
-             <div class="mui-input-row" style="display:none;">
+             <div class="mui-input-row">
                  <label>经理评价<i style="color:red;">*</i></label>
                  <input value="" id="jlpjg" name="jlpjg" type="text" readonly="readonly" class="adi" />
              </div>
 
-             <div class="mui-input-row" style="display:none;">
+             <div class="mui-input-row">
                  <label>总监评价<i style="color:red;">*</i></label>
                  <input value="" id="zjpjg" name="zjpjg" type="text" readonly="readonly" class="adi" />
              </div>
@@ -194,16 +176,19 @@
              </div>-->
              
 
-             <div class="mui-input-row" style="height:5.25rem;display:none;" >
+             <div class="mui-input-row" style="height:auto;" >
                  <label>改进意见(部门经理)</label>
                  <textarea rows="5" id="fgjjy_manager" name="fgjjy_manager" readonly="readonly"></textarea>
              </div>
-             <div class="mui-input-row" style="height:5.25rem;display:none;">
+             <div class="mui-input-row" style="height:auto;">
                  <label>改进意见(总监)</label>
                  <textarea rows="5" id="fgjjy_director" name="fgjjy_director" readonly="readonly"></textarea>
              </div>
          </form>
-        <button class="mui-btn mui-btn-primary" type="submit" style="top:1rem;width:100%;height:2.5rem;font-size:0.8rem;margin-bottom:1rem;" onclick="Save()">提交</button>
+        <!--<div class="mui-btn-row" id="SaveD">-->
+            <button class="mui-btn mui-btn-primary" type="submit" id="commitbt" onclick="Save()">提交</button>
+        <!--</div>-->
+      
     </div>
 
 
@@ -215,21 +200,21 @@
             getBPMParam();
             getTimeMsg();
            
-            var fs= document.getElementById('fstartdate');
-            fs.onfocus = function () {
-                this.removeAttribute('placeholder');
-            };
-            fs.onblur = function () {
-                if (this.value == '') this.setAttribute('placeholder', '请输入起始时间');
-            };
+            //var fs= document.getElementById('fstartdate');
+            //fs.onfocus = function () {
+            //    this.removeAttribute('placeholder');
+            //};
+            //fs.onblur = function () {
+            //    if (this.value == '') this.setAttribute('placeholder', '请输入起始时间');
+            //};
 
-            var fo = document.getElementById('foverdate');
-            fo.onfocus = function () {
-                this.removeAttribute('placeholder');
-            };
-            fo.onblur = function () {
-                if (this.value == '') this.setAttribute('placeholder', '请输入终止时间');
-            };
+            //var fo = document.getElementById('foverdate');
+            //fo.onfocus = function () {
+            //    this.removeAttribute('placeholder');
+            //};
+            //fo.onblur = function () {
+            //    if (this.value == '') this.setAttribute('placeholder', '请输入终止时间');
+            //};
 
 
             $("#zwpjg").attr("placeholder", "请选择自我评价");
@@ -237,7 +222,7 @@
 
             prepMsg();
 
-            forbiddenCache();
+           
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
@@ -324,36 +309,16 @@
             });
         }
 
-        var BPMOU;
-        function getBPMParam() {
-            $.ajax({
-
-                type: 'get',
-                url: "/api/bpm/GetBPMParam",
-                data: {},
-                beforeSend: function (XHR) {
-                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
-                },
-                success: function (data, status) {
-                    if (status == "success") {
-                        
-                        BPMOU = data.Position[0].FullName;
-                    }
-                },
-                error: function (e) {
-                },
-
-                complete: function () { }
-
-            });
-
-        }
+       
         function Save() {
+           
+          
+            var BPMOUStr = String(BPMOU).split("/");
+            var fdept = String(BPMOUStr[BPMOUStr.length - 2]);
             if ($("#fno").val() == "") {
-                var myPhone = String(BPMOU).split("/");
-                $('#fno').val(String(myPhone[myPhone.length - 1]));
+                
+                $('#fno').val(String(BPMOUStr[BPMOUStr.length - 1]));
             }
-
             var fname = $("#fname").val();
             var fno = $("#fno").val();
             var fstartdate = $("#fstartdate").val() + " 00:00:00";
@@ -375,76 +340,48 @@
                 mui.toast("请选择自我评价");
                 return;
             }
-            var xml = '<?xml version="1.0"?>';
-            xml = xml + ' <XForm>';
-            xml = xml + '   <Header>';
-            xml = xml + '    <Method>Post</Method>';
-            //xml = xml + '   <ProcessName>BG0101005_周工作汇报审批_流程</ProcessName>';
-            xml = xml + '   <ProcessName>集团总部信息化推进部周工作汇报</ProcessName>';
-            xml = xml + '   <ProcessVersion>' + version + '</ProcessVersion>';
-            xml = xml + '   <DraftGuid></DraftGuid>';
-            xml = xml + '   <OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
-            //xml = xml + '   <Action>同意</Action>';
-            xml = xml + '   <Action>提交</Action>';
-            xml = xml + '   <Comment></Comment>';
-            xml = xml + '   <InviteIndicateUsers></InviteIndicateUsers>';
-            xml = xml + '  </Header>';
-            xml = xml + '<FormData>';
-            xml = xml + '<BPM_ZGZHB>';
-            xml = xml + '   <fbillno>自动生成</fbillno>';
-            xml = xml + '   <TaskID></TaskID>';
-            xml = xml + '   <fname>' + fname + '</fname>';
-            xml = xml + '   <fno>' + fno + '</fno>';
-            xml = xml + '   <fstartdate>' + fstartdate + '</fstartdate>';
-            xml = xml + '   <foverdate>' + foverdate + '</foverdate>';
-            xml = xml + '   <fyear>' + fyear + '</fyear>';
-            xml = xml + '   <fmonth>' + fmonth + '</fmonth>';
-            xml = xml + '   <fweek>' + fweek + '</fweek>';
-            xml = xml + '   <fpd>2</fpd>';
-            xml = xml + '   <fnrjl>' + fnrjl + '</fnrjl>';
-            xml = xml + '   <fgjsl>' + fgjsl + '</fgjsl>';
-            xml = xml + '   <fzwpj>' + fzwpj + '</fzwpj>';
-            xml = xml + '   <fjlpj></fjlpj>';
-            xml = xml + '   <fzjpj></fzjpj>';
-            xml = xml + '   <fgjjy_manager></fgjjy_manager>';
-            xml = xml + '   <fgjjy_director></fgjjy_director>';
-            xml = xml + ' </BPM_ZGZHB>';
-            xml = xml + '</FormData>';
-            xml = xml + '</XForm>';
+            var btnArry = ["取消", "确定"];
+            mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
+                if (e.index == 1) {
+                    var xml = '<?xml version="1.0"?>';
+                    xml = xml + ' <XForm>';
+                    xml = xml + '   <Header>';
+                    xml = xml + '    <Method>Post</Method>';
 
+                    xml = xml + '   <ProcessName>集团总部信息化推进部周工作汇报</ProcessName>';
+                    xml = xml + '   <ProcessVersion>' + version + '</ProcessVersion>';
+                    xml = xml + '   <DraftGuid></DraftGuid>';
+                    xml = xml + '   <OwnerMemberFullName>' + BPMOU + '</OwnerMemberFullName>';
 
-            $.ajax({
-                type: "POST",
-                url: "/api/bpm/PostProcess",
-                data: { '': xml },
-                beforeSend: function (XHR) {
-                    XHR.setRequestHeader('Authorization', 'Basic ' + localStorage.getItem('ticket'));
+                    xml = xml + '   <Action>提交</Action>';
+                    xml = xml + '   <Comment></Comment>';
+                    xml = xml + '   <InviteIndicateUsers></InviteIndicateUsers>';
+                    xml = xml + '  </Header>';
+                    xml = xml + '<FormData>';
 
-                },
-                success: function (data, status) {
-                   
-                    if (status == "success") {
-                        //console.log(data);
-                        
-                        if (data.Recipients[0] != null) {
-                            mui.toast("提交给" + data.Recipients[0].Recipient.DisplayName);
-                        } else {
-                            mui.toast("流程发起");
-                        }
-                        setTimeout("window.location.href = '/Pages/index.html?ticket=" + localStorage.getItem('ticket') + "'", 2000);
+                    xml = xml + '   <BPM_周工作汇报>';
+                    xml = xml + '     <工号>' + fno + '</工号>';
+                    xml = xml + '      <姓名>' + fname + '</姓名>';
+                    xml = xml + '       <部门>' + fdept + '</部门>';
+                    xml = xml + '      <开始日期>' + fstartdate + '</开始日期>';
+                    xml = xml + '      <结束日期>' + foverdate + '</结束日期>';
+                    xml = xml + '       <月>' + fmonth + '</月>';
+                    xml = xml + '       <年>' + fyear + '</年>';
+                    xml = xml + '       <重复标记>2</重复标记>';
+                    xml = xml + '      <周>' + fweek + '</周>';
+                    xml = xml + '        <自我评价>' + fzwpj + '</自我评价>';
+                    xml = xml + '      <工作内容>' + fnrjl + '</工作内容>';
+                    xml = xml + '     <存在问题>' + fgjsl + '</存在问题>';
+                    xml = xml + '       <经理评价></经理评价>';
+                    xml = xml + '      <总监评价></总监评价>';
+                    xml = xml + '       <经理意见></经理意见>';
+                    xml = xml + '       <总监意见></总监意见>';
+                    xml = xml + '   </BPM_周工作汇报>';
+                    xml = xml + '  </FormData>';
+                    xml = xml + '</XForm >';
 
-                    } else {
-                        mui.toast("提交失败!请稍后重试");
-                    }
-                },
-                error: function (e) {
-
-                    alert(e.statusText);
-                },
-                complete: function () {
-
+                    PostXml(xml);
                 }
-
             });
         }
 
@@ -520,34 +457,8 @@
             }
         }
 
-        //判断是否是Safari
-        function isSafari() {
-
-            if ( navigator.userAgent.indexOf("iPad") != -1 || navigator.userAgent.indexOf("iPhone") != -1) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        //ios刷新
-        function iosfresh() {
-
-
-            if ($('body').hasClass("no-cache")) {
-                document.body.style.display = "none";
-                window.location.reload();
-
-            }
-
-
-        }
-        function forbiddenCache() {
-            if (isSafari()) {
-                $('body').addClass("no-cache");
-             
-            }
-          
-        }
+       
+       
     </script>
 </body>
 </html>

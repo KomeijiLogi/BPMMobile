@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
     <link rel="stylesheet" href="../../Content/upload.css" />
     <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
+    <link rel="stylesheet" href="../../Content/DoneOrMyApproval.css"/>
     <title></title>
     <meta charset="utf-8" />
 </head>
@@ -42,7 +43,7 @@
             </div>
             <div class="mui-input-row">
                 <label for="fphone">联系电话<i style="color:red;">*</i></label>
-                <input type="tel" id="fphone" name="fphone" readonly="readonly" />
+                <input type="tel" id="ftel" name="ftel" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fzw">职务/岗位 </label>
@@ -58,7 +59,7 @@
             </div>
             <div class="mui-input-row bgc">
                 <label>申请明细</label>
-                <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;" id="addItem"></span>
+                <span class="mui-icon mui-icon-plusempty mui-pull-right" style="border:groove;margin-right:1rem;border-width:0.1rem;margin-top:0.1rem;display:none;" id="addItem"></span>
             </div>
             <div class="mui-input-group" id="mxlist" style="padding-bottom:2rem;">
 
@@ -130,17 +131,35 @@
                 </div>
 
             </div>
+
+            <div class="mui-table-view" style="margin-bottom:3.25rem;">
+                <div class="mui-table-view-cell  mui-collapse mui-active">
+                    <a class="mui-navigate-right" href="#" style="background-color:#00a0ea;color:white;font-size:0.75rem;">
+
+                        历史签核意见
+                    </a>
+                    <div class="mui-collapse-content">
+
+                        <!--流程列表-->
+                        <div class="list">
+                            <ul id="signff"></ul>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
         </form>
-        <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;display:none;" id="createD">
-            <button class="mui-btn mui-btn-primary" type="button" style="width:100%;height:2.5rem;font-size:0.8rem;" id="commitbt" onclick="Save()">提交</button>
+        <div class="mui-btn-row"  id="createD">
+            <button class="mui-btn mui-btn-primary" type="button"  id="commitbt" onclick="Save()">提交</button>
         </div>
-        <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;display:none;" id="approvalD">
+        <div class="mui-btn-row"  id="approvalD">
             &nbsp;&nbsp;
-            <button class="mui-btn mui-btn-primary" type="button" style="width:40%;height:2.5rem;font-size:0.8rem;" id="agreebt" onclick="showConfirm()">同意</button>&nbsp;&nbsp;&nbsp;
-            <button class="mui-btn mui-btn-danger" type="button" style="width:40%;height:2.5rem;font-size:0.8rem;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;
+            <button class="mui-btn mui-btn-primary" type="button" style="width:40%;" id="agreebt" onclick="showConfirm()">同意</button>&nbsp;&nbsp;&nbsp;
+            <button class="mui-btn mui-btn-danger" type="button" style="width:40%;" id="disagreebt" onclick="reject()">拒绝</button>&nbsp;&nbsp;&nbsp;
         </div>
-        <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;display:none;" id="readD">
-            <button class="mui-btn mui-btn-primary" type="button" style="height:2.5rem;font-size:0.8rem;width:100%;margin-bottom:1rem;" id="readbt" onclick="hasRead()">已阅</button>
+        <div class="mui-btn-row"  id="readD">
+            <button class="mui-btn mui-btn-primary" type="button" id="readbt" onclick="hasRead()">已阅</button>
         </div>
     </div>  
 
@@ -156,9 +175,9 @@
     <input type="hidden" id="fbillno" name="fbillno" value="" />
 
     <div id="signd" style="display:none;">
-        <div class="mui-input-row" style="height:5.25rem;font-size:0.8rem;border:groove;border-width:0.1rem;" id="ssd">
+        <div class="mui-input-row"  id="ssd">
             <label>签核意见</label>
-            <textarea rows="5" id="signSuggest" placeholder="请输入签核意见"></textarea>
+            <textarea rows="8" id="signSuggest" placeholder="请输入签核意见"></textarea>
 
         </div>
         <div class="mui-btn-row mui-text-center" style="margin-top:1rem;">
@@ -181,7 +200,7 @@
             });
             upload();
             watch();
-            forbiddenCache();
+           
         });
         mui('.mui-content .mui-switch').each(function () {
 
@@ -462,7 +481,7 @@
 
 
                                         }
-
+                                        watch();
                                         $(".imgdiv").on('tap', function () {
                                             console.log($(this)[0].id);
                                             XuntongJSBridge.call('showFile', {
@@ -492,6 +511,7 @@
 
                         var mxli = data.FormDataSet.BPM_SGGSGZZZSQB_B;
                         for (var i = 0; i < mxli.length; i++) {
+                            itemidArr.push(mxli[i].itemid);
                             var li = '<div id="mx" class="mui-card">';
                             li = li + '   <div class="mui-input-row itemtitle">';
                             li = li + '        <label>明细列表项</label> ';
@@ -511,7 +531,7 @@
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row">';
                             li = li + '        <label for="fsl">数量<i style="color:red;">*</i></label>';
-                            li = li + '        <input type="text" id="fsl" name="fsl"  readonly="readonly" value="' + mxli[i].fsl + '"/>';
+                            li = li + '        <input type="number" id="fsl" name="fsl"  readonly="readonly" value="' + mxli[i].fsl + '"/>';
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row">';
                             li = li + '        <label for="fsyr">使用人<i style="color:red;">*</i></label>';
@@ -531,7 +551,7 @@
                             li = li + '   </div>';
                             li = li + '   <div class="mui-input-row" style="height:3.75rem;">';
                             li = li + '        <label for="fbz">备注<i style="color:red;">*</i></label>';
-                            li = li + '        <textarea rows="3" id="fbz" name="fbz" >' + mxli[i].fbz + '</textarea>';
+                            li = li + '        <textarea rows="3" id="fbz" name="fbz" readonly="readonly">' + mxli[i].fbz + '</textarea>';
                             li = li + '   </div>';
                             li = li + '</div>';
                             $("#mxlist").append(li);
@@ -548,7 +568,7 @@
                         for (var i = 0; i < data.Steps.length; i++) {
                             //debugger;
 
-                            if (data.Steps[i].Finished == false && data.Steps[i].HandlerAccount == ($('#myPhone').val())) {
+                            if (data.Steps[i].Finished == false && data.Steps[i].RecipientAccount == ($('#myPhone').val())) {
 
 
                                 if (stepId.indexOf(data.Steps[i].StepID)!=-1) {
@@ -568,15 +588,9 @@
                             $("#addItem").css("display", "block");
                             $("#ftel").removeAttr("readonly");
                             $("#fzw").removeAttr("readonly");
-                            $("#mxlist").find("#fks").each(function () {
-                                $(this).removeAttr("readonly");
-                            })
-                            $("#mxlist").find("#fjj").each(function () {
-                                $(this).removeAttr("readonly");
-                            });
-                            $("#mxlist").find("#flx").each(function () {
-                                $(this).removeAttr("readonly");
-                            });
+                           
+                           
+                           
                             $("#mxlist").find("#fsl").each(function () {
                                 $(this).removeAttr("readonly");
                             });
@@ -595,7 +609,49 @@
                             $("#mxlist").find("#fbz").each(function () {
                                 $(this).removeAttr("readonly");
                             });
+                            $("#mxlist").find('span').each(function () {
+                                $(this).css("display", "block");
+                            });
                             tapEvent();
+                            showPickerByZepto("#mxlist", "#fks", fksdata);
+                            showPickerByZepto("#mxlist", "#fjj", fjjdata);
+                            showPickerByZepto('#mxlist', '#flx', flxdata);
+
+                            var picker = new mui.PopPicker(
+                                {
+                                    layer: 2
+                                }
+                            );
+                            picker.setData(fxsdata);
+
+                            $("#mxlist").find("#fxs").each(function () {
+
+                                var self = this;
+                                $(this).on('tap', function () {
+
+                                    picker.show(function (items) {
+                                        self.value = (items[0].text);
+                                        $(self).parent().parent().find("#fbzcm").val(items[1].value);
+                                    });
+                                });
+                            });
+
+                            $("#mxlist").find("#fbzcm").each(function () {
+
+                                var self = this;
+                                $(this).on('tap', function () {
+                                    var self = this;
+                                    $(this).on('tap', function () {
+
+                                        picker.show(function (items) {
+                                            self.value = (items[1].value);
+                                            $(self).parent().parent().find("#fxs").val(items[0].text);
+                                        });
+                                    });
+
+                                });
+
+                            });
                         } else if (NodeName == "sysInform") {
                             $("#readD").css("display", "block");
                             $("#csd").css("display", "none");
@@ -603,6 +659,69 @@
                             if (typeof (NodeName) != "undefined") {
                                 $("#approvalD").css("display", "block");
                             }
+                        }
+
+                        for (var i = 0; i < data.Steps.length; i++) {
+
+                            if (data.Steps[i].FinishAt == "0001-01-01T00:00:00") {
+                                data.Steps[i].FinishAt = "";
+                            }
+                            var time = FormatterTime(data.Steps[i].FinishAt);
+
+                            var stepName = data.Steps[i].NodeName;
+                            if (data.Steps[i].NodeName == "sysInform") {
+                                stepName = "知会";
+                            } else if (data.Steps[i].NodeName == "sysTaskOpt") {
+                                stepName = "任务操作";
+                            } else if (data.Steps[i].NodeName == "开始") {
+                                stepName = "开始";
+                            }
+
+                            var stepAction = locationAction(data.Steps[i].SelAction);
+                            if (data.Steps[i].SelAction == "sysInform") {
+                                stepAction = "发起知会";
+                            } else if (data.Steps[i].SelAction == "Submit") {
+                                stepAction = "已阅";
+                            } else if (data.Steps[i].SelAction == "null" || data.Steps[i].SelAction == null) {
+                                stepAction = "待处理";
+                            } else if (data.Steps[i].SelAction == "sysReject") {
+                                stepAction = "拒绝";
+                            } else if (data.Steps[i].SelAction == "sysRecedeRestart") {
+                                stepAction = "退回重填";
+                            }
+
+
+                            var contents = data.Steps[i].Comments;
+                            if (contents == null) {
+                                contents = "无";
+                            }
+                            //判断是否是加签
+                            if (data.Steps[i].IsConsignStep == false) {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg">' + stepName + '<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            } else {
+                                var li = ' <li>';
+                                li = li + '  <span class="lefttime"><i></i>' + time + '</span>';
+                                li = li + '  <div class="righttext">';
+                                li = li + '     <div>';
+                                li = li + '        <div class="flowmsg signadd">加签<span>' + data.Steps[i].RecipientFullName + '</span></div>';
+                                li = li + '        <label class="flowstatus">' + stepAction + '</label>';
+                                li = li + '        <p>签核意见: ' + contents + '</p>';
+                                li = li + '     </div>';
+                                li = li + '   </div>';
+                                li = li + '</li>';
+
+                            }
+                            $("#signff").append(li);
                         }
                     }
                 }, error: function (e) {
@@ -612,7 +731,123 @@
                 }
             });
         }
+        var fksdata = [
+            {
+                value: "male",
+                text: "男款"
+            },
+            {
+                value: "female",
+                text: "女款"
+            }
+        ];
 
+        var fjjdata = [
+            {
+                value: "summer",
+                text: "夏装 "
+            },
+            {
+                value: "springAndAutumn",
+                text: "春秋装"
+            }
+        ];
+        var fbzcmdata = [
+            {
+                value: "35",
+                text: "35"
+            },
+            {
+                value: "36",
+                text: "36"
+            },
+            {
+                value: "37",
+                text: "37"
+            },
+            {
+                value: "38",
+                text: "38"
+            },
+            {
+                value: "39",
+                text: "39"
+            },
+            {
+                value: "40",
+                text: "40"
+            },
+            {
+                value: "41",
+                text: "41"
+            },
+            {
+                value: "42",
+                text: "42"
+            },
+
+            {
+                value: "43",
+                text: "43"
+            },
+            {
+                value: "44",
+                text: "44"
+            },
+            {
+                value: "45",
+                text: "45"
+            }
+        ];
+        var fxsdata = [
+            {
+                value: "lt",
+                text: "量体",
+                children: [
+                    {
+                        value: "0",
+                        text: "请在备注里标明尺码"
+                    }
+                ]
+            },
+            {
+                value: "bzcm",
+                text: "标准尺码",
+                children: fbzcmdata
+            }
+        ];
+        var flxdata = [
+
+            {
+                value: '',
+                text: '上衣'
+            },
+            {
+                value: '',
+                text: '裤子'
+            },
+            {
+                value: '',
+                text: '裙子'
+            },
+            {
+                value: '',
+                text: '衬衣'
+            },
+            {
+                value: '',
+                text: '领带'
+            },
+            {
+                value: '',
+                text: '大衣'
+            },
+            {
+                value: '',
+                text: '其他'
+            }
+        ];
+       
         function tapEvent() {
 
             var fsqlydata = [
@@ -643,93 +878,10 @@
             ];
             showPicker('fgzlx', fgzlxdata);
 
-            var fksdata = [
-                {
-                    value: "male",
-                    text: "男款"
-                },
-                {
-                    value: "female",
-                    text: "女款"
-                }
-            ];
+          
+           
 
-            var fjjdata = [
-                {
-                    value: "summer",
-                    text: "夏装 "
-                },
-                {
-                    value: "springAndAutumn",
-                    text: "春秋装"
-                }
-            ];
-
-            var fbzcmdata = [
-                {
-                    value: "35",
-                    text: "35"
-                },
-                {
-                    value: "36",
-                    text: "36"
-                },
-                {
-                    value: "37",
-                    text: "37"
-                },
-                {
-                    value: "38",
-                    text: "38"
-                },
-                {
-                    value: "39",
-                    text: "39"
-                },
-                {
-                    value: "40",
-                    text: "40"
-                },
-                {
-                    value: "41",
-                    text: "41"
-                },
-                {
-                    value: "42",
-                    text: "42"
-                },
-
-                {
-                    value: "43",
-                    text: "43"
-                },
-                {
-                    value: "44",
-                    text: "44"
-                },
-                {
-                    value: "45",
-                    text: "45"
-                }
-            ];
-
-            var fxsdata = [
-                {
-                    value: "lt",
-                    text: "量体",
-                    children: [
-                        {
-                            value: "0",
-                            text: "请在备注里标明尺码"
-                        }
-                    ]
-                },
-                {
-                    value: "bzcm",
-                    text: "标准尺码",
-                    children: fbzcmdata
-                }
-            ];
+           
 
 
 
@@ -782,7 +934,7 @@
 
                 showPickerByZepto("#mxlist", "#fks", fksdata);
                 showPickerByZepto("#mxlist", "#fjj", fjjdata);
-
+                showPickerByZepto('#mxlist', '#flx', flxdata);
 
                 var picker = new mui.PopPicker(
                     {
@@ -904,6 +1056,7 @@
         }
 
         function AgreeOrConSign() {
+            var comment = $("#signSuggest").val();
             var fname = $("#fname").val();
             var fdate = $("#fdate").val() + " 00:00:00";
             var fdept = $("#fdept").val();
@@ -978,7 +1131,7 @@
                             xml = xml + '<Method>Process</Method>';
                             xml = xml + '<PID>' + pid + '</PID>';
                             xml = xml + '<Action>同意</Action>';
-                            xml = xml + '<Comment></Comment>';
+                            xml = xml + '<Comment>' + comment + '</Comment>';
 
                             //加签差异部分
                             xml = xml + '<ConsignEnabled>True</ConsignEnabled>';
@@ -1036,7 +1189,7 @@
                 xml = xml + '<Method>Process</Method>';
                 xml = xml + '<PID>' + pid + '</PID>';
                 xml = xml + '<Action>同意</Action>';
-                xml = xml + '<Comment></Comment>';
+                xml = xml + '<Comment>' + comment + '</Comment>';
 
            
 
@@ -1084,9 +1237,7 @@
 
         function Save() {
 
-            var fareaStr = String(BPMOU).split("/");
-            //将BPMOU://XX/XX/工号，获取倒数第二个，就是所在区域
-            $("#fdept").val(fareaStr[fareaStr.length - 2]);
+          
 
             var fname = $("#fname").val();
             var fdate = $("#fdate").val() + " 00:00:00";
@@ -1110,6 +1261,7 @@
                 mui.toast("请选择工装类型");
                 return;
             }
+            var mxflag = false;
             var mxlistArr = new Array();
             $("#mxlist").find("#mx").each(function () {
 
@@ -1123,11 +1275,15 @@
                 var fyqsj = $(this).find("#fyqsj").val() + " 00:00:00";
                 var fbz = $(this).find("#fbz").val();
                 if (MxItem(fks, fjj, flx, fsl, fsyr, fxs, fbzcm, fyqsj, fbz) == null) {
+                    mxflag = true;
                     return;
                 }
                 var mx = MxItem(fks, fjj, flx, fsl, fsyr, fxs, fbzcm, fyqsj, fbz);
                 mxlistArr.push(mx);
             });
+            if (mxflag) {
+                return;
+            }
             var pid = $("#stepId").val();
                 var btnArry = ["取消", "确定"];
                 mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {

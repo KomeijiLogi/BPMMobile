@@ -708,6 +708,45 @@ namespace BPMMobile.Controllers
                 return Json(rv.ToString());
             }
         }
+
+        /// <summary>
+        /// 从共享池取出
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult PickupShareTaskExt(PostShareModel model)
+        {
+            PrepareBPMEnv();
+            using (BPMConnection cn = new BPMConnection())
+            {
+                cn.WebOpen();
+
+                BPMProcStep.PickupShareStep(cn, model.stepid);
+
+                return Json("ok");
+            }
+        }
+
+        /// <summary>
+        /// 放回共享池
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult PutbackShareTaskExt(PostShareModel model)
+        {
+            PrepareBPMEnv();
+            using (BPMConnection cn = new BPMConnection())
+            {
+                cn.WebOpen();
+
+                BPMProcStep.PutbackShareStep(cn, model.stepid);
+
+                return Json("ok");
+            }
+        }
+
         /// <summary>
         /// 获取全部可以退回的步骤
         /// </summary>
@@ -1155,6 +1194,15 @@ namespace BPMMobile.Controllers
                 {
                     int rowcount = 0;
                     var list = cn.GetMyTaskList("ProcessName='" + p.Name + "'", null, 0, int.MaxValue, out rowcount);
+
+
+                    tasks.Append(list);
+                }
+                //共享池
+                foreach(var p in mobileProcess)
+                {
+                    int rowcounts = 0;
+                    var list = cn.GetShareTaskList("ProcessName='" + p.Name + "'", null, 0, int.MaxValue, out rowcounts);
                     tasks.Append(list);
                 }
             }
@@ -1181,6 +1229,16 @@ namespace BPMMobile.Controllers
                         tasks.Append(list);
                     }
                    
+                }
+                //共享池
+                foreach (var p in mobileProcess)
+                {
+                    int rowcounts = 0;
+                    if (p.DisplayName.IndexOf(search) != -1)
+                    {
+                        var list = cn.GetShareTaskList("ProcessName='" + p.Name + "'", null, 0, int.MaxValue, out rowcounts);
+                        tasks.Append(list);
+                    }
                 }
             }
             return tasks;

@@ -244,11 +244,11 @@
                     li = li + '   </div>';
                     li = li + '   <div class="mui-input-row">';
                     li = li + '        <label for="famount">数量</label>';
-                    li = li + '        <input type="text" id="famount" name="famount" value="' + bli[i].famount + '" readonly="readonly"/> ';
+                    li = li + '        <input type="number" id="famount" name="famount" value="' + bli[i].famount + '" readonly="readonly"/> ';
                     li = li + '   </div>';
                     li = li + '   <div class="mui-input-row">';
                     li = li + '        <label for="fbz">备注</label>';
-                    li = li + '        <input type="text" id="fbz" name="fbz" value="' + bli[i].fbz + '" readonly="readonly" />';
+                    li = li + '        <input type="text" id="fbz" name="fbz" value="' + changeNullToEmpty(bli[i].fbz) + '" readonly="readonly" />';
                     li = li + '   </div>';
 
                     $("#bllist").append(li);

@@ -5,23 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script type="text/javascript" src="../../Scripts/baidu-statistics.js"></script>
-    <script type="text/javascript" src="../../Scripts/zepto.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/baidu-statistics.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/zepto.min.js"></script>
    
-    <script type="text/javascript" src="../../Scripts/mui.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.js"></script>
     <!--<script src="http://yun.kingdee.com/res/js/qingjs.js"></script>-->
     <script type="text/javascript" src="http://wb.weigaoholding.com:8090/res/js/qingjs.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.poppicker.js"></script>
-    <script type="text/javascript" src="../../Scripts/mui.picker.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/ApprovalUtils.js"></script>
-    <script type="text/javascript" src="../../Scripts/util.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.js"></script>
-    <script type="text/javascript" src="../../Scripts/upload.detail.js"></script>
-    <link rel="stylesheet" href="../../Content/mui.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.picker.min.css" />
-    <link rel="stylesheet" href="../../Content/mui.poppicker.css" />
-    <link rel="stylesheet" href="../../Content/upload.css" />
-    <link rel="stylesheet" href="../../Content/ApprovalUtils.css" />
+    <script type="text/javascript" src="../../../../Scripts/mui.poppicker.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/ApprovalUtils.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/util.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.js"></script>
+    <script type="text/javascript" src="../../../../Scripts/upload.detail.js"></script>
+    <link rel="stylesheet" href="../../../../Content/mui.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.picker.min.css" />
+    <link rel="stylesheet" href="../../../../Content/mui.poppicker.css" />
+    <link rel="stylesheet" href="../../../../Content/upload.css" />
+    <link rel="stylesheet" href="../../../../Content/ApprovalUtils.css" />
     <title></title>
     <meta charset="utf-8" />
 </head>
@@ -41,16 +41,16 @@
                  <input type="text" id="fdate" name="fdate" readonly="readonly"/>
              </div>
              <div class="mui-input-row">
-                 <label for="fphone">联系电话</label>
+                 <label for="fphone">联系电话<i style="color:red;">*</i></label>
                  <input type="tel" id="fphone" name="fphone" placeholder="请输入联系方式"/>
              </div>
              <div class="mui-input-row" style="height:5.25rem;">
                  <label for="fytsm">用途说明<i style="color:red;">*</i></label>
                  <textarea rows="5" id="fytsm" name="fytsm" placeholder="请输入用途说明"></textarea>
              </div>
-              <div class="mui-input-row">
+             <div class="mui-input-row">
                 <label for="fzje">总金额</label>
-                <input type="number" id="fzje" name="fzje" readonly="readonly" value="0"/>
+                <input type="text" id="fzje" name="fzje"  class="fzje" readonly="readonly" value="0"/>
             </div>
              <div class="mui-input-row bgc" >
                  <label>申请明细</label>
@@ -76,19 +76,20 @@
              </div>
          </form>
     </div>
-    <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;">
-        <button class="mui-btn mui-btn-primary" type="button" style="width:100%;height:2.5rem;font-size:0.8rem;" id="commitbt" onclick="Save()">提交</button>
+    <div class="mui-btn-row" id="SaveD">
+        <button class="mui-btn mui-btn-primary" type="button"  id="commitbt" onClick="Save()">提交</button>
     </div>
     <script>
         mui.init();
-
+        var picker = new mui.PopPicker();
         mui.ready(function () {
             getVersion('\\07房地产集团\\02商管公司\\BG办公管理', '盛祥商管公司威高广场消费卡领用申请');
             getBPMParam();
             prepMsg();
-            forbiddenCache();
+           
             upload();
             watch();
+            setList();
         });
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
         XuntongJSBridge.call('getPersonInfo', {}, function (result) {
@@ -125,7 +126,23 @@
             }
 
         });
-
+        function setList() {
+            var ftypedata = [
+                   {
+                       value: "vipk",
+                       text: "VIP卡"
+                   },
+                   {
+                       value: "msgcmsk",
+                       text: "美食广场美食卡"
+                   },
+                   {
+                       value: "msgcvipk",
+                       text: "美食广场vip卡"
+                   }
+            ];            
+            picker.setData(ftypedata);
+        }
         function prepMsg() {
 
             tapEvent();
@@ -136,26 +153,14 @@
             if (url != null && url != "") {
                 if (String(url).indexOf("reset") != -1) {
                    
-                    var msg = JSON.parse(localStorage.getItem('BPM_WGGCDJJLPLYSQMsg'));
+                    var msg = JSON.parse(localStorage.getItem('BPM_WGGCXFKLYSQMsg'));
                     $("#fname").val(msg.fname);
                     $("#fdept").val(msg.fdept);
                     $("#fdate").val(msg.fdate);
                     $("#fphone").val(msg.fphone);
                     $("#fytsm").val(msg.fytsm);
-                    var ftypedata = [
-                        {
-                            value: "vipk",
-                            text: "VIP卡"
-                        },
-                        {
-                            value: "msgcmsk",
-                            text: "美食广场美食卡"
-                        },
-                        {
-                            value: "msgcvipk",
-                            text: "美食广场vip卡"
-                        }
-                    ];
+                   
+
                     for (var i = 0; i < msg.fsqmx.length; i++) {
                         var fsqmxItem = JSON.parse(msg.fsqmx[i]);
 
@@ -187,10 +192,6 @@
                         li = li + '</div>';
                         $("#mxlist").append(li);
 
-
-                        var picker = new mui.PopPicker();
-                        picker.setData(ftypedata);
-
                         $("#mxlist").find("#fklx").each(function () {
 
                             var self = this;
@@ -199,7 +200,7 @@
                                 picker.show(function (items) {
                                     self.value = (items[0].text);
                                 });
-                            });
+                            });                            
                         });
 
                     }
@@ -212,21 +213,7 @@
 
         function tapEvent() {
 
-            var ftypedata = [
-                        {
-                            value: "vipk",
-                            text: "VIP卡"
-                        },
-                        {
-                            value: "msgcmsk",
-                            text: "美食广场美食卡"
-                        },
-                        {
-                            value: "msgcvipk",
-                            text: "美食广场vip卡"
-                        }
-            ];
-
+             
 
             $("#addItem").on('tap', function () {
                 var li = '<div id="mx" class="mui-card">';
@@ -262,9 +249,7 @@
 
                 });
 
-
-                var picker = new mui.PopPicker();
-                picker.setData(ftypedata);
+ 
 
                
                 $("#mxlist").find("#fklx").each(function () {
@@ -314,8 +299,8 @@
                 }
 
             });
-           
-            $("#fzje").val(FormatMoney(ftotal.toString()));
+           // mui.toast(ftotal);
+            $("#fzje").val(ftotal);
         }
         //删除明细列表项 
         function deleteItem1(context) {
@@ -341,6 +326,11 @@
             var fdept = $("#fdept").val();
             var fphone = $("#fphone").val();
             var fytsm = $("#fytsm").val();
+            var fzje = $("#fzje").val();
+			 if (!fphone || fphone == "") {
+                mui.toast("请输入联系方式");
+                return;
+            }
 
             if (!fytsm || fytsm == "") {
                 mui.toast("请填写用途说明");
@@ -350,20 +340,24 @@
 
 
             var mxlistArr = new Array();
+            var nullFlage =true;
             $("#mxlist").find("#mx").each(function () {
 
                 var fklx = $(this).find("#fklx").val();
                 var famount = $(this).find("#famount").val();
                 var fdj = $(this).find("#fdj").val();
                 var ftotal = $(this).find("#ftotal").val();                
-                var fremark = $(this).find("#fremark").val();
-                var fzje = $(this).find("#fzje").val();
+                var fremark = $(this).find("#fremark").val();                            
                 if (MxItem(fklx, famount, fdj, ftotal, fremark) == null) {
-                    return;
-                }
-                var mx = MxItem(fklx, famount, fdj, ftotal , fremark);
+                    nullFlage=false;
+                }                
+                var mx = MxItem(fklx, famount, fdj, ftotal, fremark);                
                 mxlistArr.push(mx);
             });
+            if(nullFlage==false)
+            {
+                return;
+            }
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                 if (e.index == 1) {
@@ -451,10 +445,7 @@
                 mui.toast("请输入单价");
                 return null;
             }
-            if (!ftotal || ftotal == "") {
-                mui.toast("请输入总价");
-                return null;
-            }
+           
             return mx;
         }
     </script>

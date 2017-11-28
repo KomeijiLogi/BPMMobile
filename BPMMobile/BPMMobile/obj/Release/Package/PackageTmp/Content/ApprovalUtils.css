@@ -19,6 +19,10 @@
     color: white;
     background-color: #5191FD;
 }
+.itemtitle2 {
+    color: white;
+    background-color: #FD8A21;
+}
 
 #signbody {
     display: none;
@@ -33,20 +37,20 @@
 
 
 label {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
 }
 
 textarea {
     height: auto;
     overflow: auto;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
 }
 
 a {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
 }
 input {
-    font-size:0.75rem;
+    font-size:0.65rem;
 }
 
 .mui-bar {
@@ -59,18 +63,27 @@ input {
 }
 
 li {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
 }
 
 .adl {
     background-color: #fea900;
 }
+
 .bgc {
     color: white;
     background-color: #6BA2D0;
 }
-
-
+.bgl {
+    color: white;
+    background-color: #D55511;
+}
+.adjla {
+    /*margin-top:0.4rem;*/
+    border: groove;
+    border-color: #5191FD;
+    border-width: 0.01rem;
+}
 .itemcontenttitle {
     color: white;
     background-color: #5BC254;
@@ -91,4 +104,103 @@ li {
 #signd div  > button {
    width:40%;
    height:2rem;
+}
+
+
+#createD {
+    padding-top: 0.2rem;
+    padding-bottom: 0.1rem;
+    z-index: 999;
+    bottom: 0rem;
+    position: fixed;
+    width: 100%;
+    display: none;
+    background-color: white;
+    
+}
+#commitbt {
+    width: 100%;
+    height: 2.3rem;
+    font-size: 0.8rem;
+    border-radius:1rem;
+}
+#approvalD {
+    padding-top:0.2rem;
+    padding-bottom:0.1rem;
+    z-index: 999;
+    bottom: 0rem;
+    position: fixed;
+    width: 100%;
+    display: none;
+    background-color:white;
+}
+#agreebt {
+    height: 2.3rem;
+    font-size: 0.8rem;
+    border-radius: 1rem;
+}
+#disagreebt {
+    height: 2.3rem;
+    font-size: 0.8rem;
+    border-radius: 1rem;
+}
+#refusebt {
+    height: 2.3rem;
+    font-size: 0.8rem;
+    border-radius: 1rem;
+}
+.roundbt {
+    height: 2.3rem;
+    font-size: 0.8rem;
+    border-radius: 1rem;
+}
+#readD {
+    padding-top: 0.2rem;
+    padding-bottom: 0.1rem;
+    z-index: 999;
+    bottom: 0rem;
+    position: fixed;
+    width: 100%;
+    display: none;
+    background-color: white;
+}
+#readbt {
+    height: 2.3rem;
+    font-size: 0.8rem;
+    width: 100%;
+    border-radius: 1rem;
+}
+
+#SaveD {
+    padding-top: 0.2rem;
+    padding-bottom: 0.1rem;
+    z-index: 999;
+    bottom: 0rem;
+    position: fixed;
+    width: 100%;
+    background-color: white;
+   
+}
+
+#ssd {
+    height: auto;
+    font-size: 0.8rem;
+    border: groove;
+    border-width: 0.1rem;
+    border-radius:1rem;
+    margin-left:0.2rem;
+    margin-right:0.2rem;
+    margin-top:1rem;
+}
+.col-div-adjust-forInput {
+   height:2rem;
+}
+.h5-adjust-forInput {
+    height:1.6rem;
+    padding-top:0.4rem;
+}
+.cutOffLine {
+  border:outset;
+  border-width:0.05rem;
+  
 }

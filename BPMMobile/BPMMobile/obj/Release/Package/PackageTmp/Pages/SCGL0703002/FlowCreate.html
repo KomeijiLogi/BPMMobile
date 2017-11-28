@@ -63,8 +63,8 @@
 
         </form>
     </div>
-    <div class="mui-btn-row" style="z-index:999;bottom:0.1rem;position:fixed;width:100%;">
-        <button class="mui-btn mui-btn-primary" type="button" style="width:100%;height:2.5rem;font-size:0.8rem;" id="commitbt" onclick="Save()">提交</button>
+    <div class="mui-btn-row" id="SaveD">
+        <button class="mui-btn mui-btn-primary" type="button"  id="commitbt" onclick="Save()">提交</button>
     </div>
     <script>
         mui.init();
@@ -73,7 +73,7 @@
             getVersion('\\01威高集团总部\\06建设公司\\SCGL生产管理','建设公司库存不良物资提报');
             getBPMParam();
             prepMsg();
-            forbiddenCache();
+           
         });
 
         XuntongJSBridge.call('setWebViewTitle', { 'title': '发起流程' });
@@ -110,7 +110,7 @@
 
         });
 
-
+        
         function prepMsg() {
 
             tapEvent();
@@ -170,11 +170,11 @@
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row">';
                         li = li + '        <label for="fsl">数量<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="text" id="fsl" name="fsl" value="' + fwlmxItem.fsl + '" placeholder="请输入数量" onchange="calcPrice(this)"/>';
+                        li = li + '        <input type="number" id="fsl" name="fsl" value="' + fwlmxItem.fsl + '" placeholder="请输入数量" onchange="calcPrice(this)"/>';
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row">';
                         li = li + '        <label for="fckdj">参考单价<i style="color:red;">*</i></label>';
-                        li = li + '        <input type="text" id="fckdj" name="fckdj" value="' + fwlmxItem.fckdj + '" placeholder="请输入参考单价" onchange="calcPrice(this)"/>';
+                        li = li + '        <input type="number" id="fckdj" name="fckdj" value="' + fwlmxItem.fckdj + '" placeholder="请输入参考单价" onchange="calcPrice(this)"/>';
                         li = li + '   </div>';
                         li = li + '   <div class="mui-input-row">';
                         li = li + '        <label for="fje">金额(元)</label>';
@@ -190,8 +190,8 @@
                         li = li + '   </div>';
 
                         $("#bllist").append(li);
+                        
                         var picker = new mui.PopPicker();
-
                         picker.setData(fwzlxdata);
 
                         $("#bllist").find("#fwzlx").each(function () {
@@ -254,11 +254,11 @@
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row">';
                 li = li + '        <label for="fsl">数量<i style="color:red;">*</i></label>';
-                li = li + '        <input type="text" id="fsl" name="fsl" value="" placeholder="请输入数量" onchange="calcPrice(this)"/>';
+                li = li + '        <input type="number" id="fsl" name="fsl" value="" placeholder="请输入数量" onchange="calcPrice(this)"/>';
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row">';
                 li = li + '        <label for="fckdj">参考单价<i style="color:red;">*</i></label>';
-                li = li + '        <input type="text" id="fckdj" name="fckdj" value="" placeholder="请输入参考单价" onchange="calcPrice(this)"/>';
+                li = li + '        <input type="number" id="fckdj" name="fckdj" value="" placeholder="请输入参考单价" onchange="calcPrice(this)"/>';
                 li = li + '   </div>';
                 li = li + '   <div class="mui-input-row">';
                 li = li + '        <label for="fje">金额(元)</label>';
@@ -408,9 +408,16 @@
         }
 
         function deleteItem(context) {
+            var btnArray = ['否', '是'];
+            mui.confirm('确认删除？', '', btnArray, function (e) {
+                if (e.index == 1) {
+                    $(context).parent().parent().remove();
+                    amountCountAndPrice();
+                }
+            });
 
-            $(context).parent().parent().remove();
-            amountCountAndPrice();
+          
+          
         }
 
         function Save() {
@@ -422,7 +429,7 @@
             var fdepot = $("#fdepot").val();
             var fsltotal = $("#fsltotal").val();
             var fjetotal = $("#fjetotal").val();
-
+            var mxflag = false;
             var bllistArr = new Array();
             $("#bllist").find("#bl").each(function () {
                 var fwlno = $(this).find("#fwlno").val();
@@ -436,11 +443,13 @@
                 var fcsyy = $(this).find("#fcsyy").val();
 
                 if (BlItem(fwlno, fwlname, fggxh, fdw, fsl, fckdj, fje, fwzlx, fcsyy) == null) {
+                    mxflag = true;
                     return;
                 }
                 var bl = BlItem(fwlno, fwlname, fggxh, fdw, fsl, fckdj, fje, fwzlx, fcsyy);
                 bllistArr.push(bl);
             });
+           
 
             if (!fdept || fdept=="") {
 
@@ -452,6 +461,9 @@
                 return;
 
             } 
+            if (mxflag == true) {
+                return;
+            }
             var btnArry = ["取消", "确定"];
             mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
                 if (e.index == 1) {
