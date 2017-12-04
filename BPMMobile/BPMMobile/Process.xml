@@ -2367,6 +2367,9 @@
   <Description>适用于建设公司工程竣工自检申请 </Description>
   </Process>
   
+  
+  
+  
   <Process>
     <Name>洁瑞公司学术交流申请</Name>
     <Path>\\02医用制品集团\\05洁瑞医用制品公司\\XS销售管理</Path>
@@ -2538,13 +2541,11 @@
     <Description>洁丽康公司月度办公用品申请汇总</Description>
   </Process>
 
-
-  
-  
-  
+   
   <Process>
     <Name>输血器材公司生产管理提报</Name>
     <Path>\\02医用制品集团\\07输血技术装备公司\\SC生产</Path>
+	<!-- <Path>\\02医用制品集团\\07输血技术装备公司\\SCGL生产管理</Path>-->
     <CanCreate>True</CanCreate>
     <CreatePage>/Pages/02YiYongZhiPin/07ShuXueJiShuZhuangBei/SCGL0207001/FlowCreate.html</CreatePage>
     <ViewUndoPage>/Pages/02YiYongZhiPin/07ShuXueJiShuZhuangBei/SCGL0207001/FlowUndoDetail.html</ViewUndoPage>
@@ -2589,6 +2590,7 @@
     <Group></Group>
     <Description>医用材料公司授权申请</Description>
   </Process>
+  
   <Process>
     <Name>医用材料公司发货申请</Name>
     <Path>\\02医用制品集团\\08医用材料公司\\SCYX市场营销</Path>
@@ -2852,5 +2854,6 @@
     <Group></Group>
     <Description>适用于威瑞外科办公用品申请</Description>
   </Process>
+
 
 </ProcessList>

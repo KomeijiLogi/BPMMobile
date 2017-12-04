@@ -2804,6 +2804,7 @@
     <Group>法律事务</Group>
     <Description>适用于医用材料公司特殊合同评审</Description>
   </Process>
+  
   <Process>
     <Name>医用材料公司样品计划提报</Name>
     <Path>\\02医用制品集团\\08医用材料公司\\SCGL生产管理</Path>
@@ -2819,6 +2820,7 @@
     <Group>生产管理</Group>
     <Description>适用于医用材料公司样品计划提报</Description>
   </Process>
+  
   <Process>
     <Name>威瑞外科办公用品汇总</Name>
     <Path>\\02医用制品集团\\06威瑞外科有限公司</Path>
@@ -2834,6 +2836,7 @@
     <Group></Group>
     <Description>适用于威瑞外科办公用品汇总</Description>
   </Process>
+  
   <Process>
     <Name>威瑞外科办公用品申请</Name>
     <Path>\\02医用制品集团\\06威瑞外科有限公司</Path>
@@ -2849,5 +2852,6 @@
     <Group></Group>
     <Description>适用于威瑞外科办公用品申请</Description>
   </Process>
+
 
 </ProcessList>

@@ -31,8 +31,8 @@
                 <input type="date" id="fdate" name="fdate" readonly="readonly" />
             </div>
             <div class="mui-input-row">
-                <label for="fsqlx">申请类型<i style="color:red;">*</i></label>
-                <input type="text" id="fsqlx" name="fsqlx" readonly="readonly" />
+                <label for="fbglx">申请类型<i style="color:red;">*</i></label>
+                <input type="text" id="fbglx" name="fbglx" readonly="readonly" />
             </div>
             <div class="mui-input-row">
                 <label for="fsszgs">申请单位所属子公司<i style="color:red;">*</i></label>
@@ -400,7 +400,7 @@
                 }
             }).done(function (data) {
                 console.log(data);
-                var item = data.FormDataSet.医用制品集团岗位设立与编制调整申请[0];
+                var item = data.FormDataSet.医用制品集团岗位及编制变更[0];
                 $("#taskId").val(item.TaskID);
                 $("#stepId").val(stepId);
                 $("#fbillno").val(item.fbillno);
@@ -662,104 +662,7 @@
 
 
 
-        function Save() {
-            var taskId = $("#taskId").val();
-            var fbillno = $("#fbillno").val();
-            var pid = $("#stepId").val();
 
-
-            var fcompany = $("#fcompany").val();
-            var fdept = $("#fdept").val();
-            var fname = $("#fname").val();
-            var fno = $("#fno").val();
-            var fdate = $("#fdate").val() + " 00:00:00";
-            var ftel = $("#ftel").val();
-            var fsqdh = $("#fsqdh").val();
-            var fsqdID = $("#fsqdID").val();
-            var ftzlx = $("#ftzlx").val();
-            var fxmmc = $("#fxmmc").val();
-            var fhtmc = $("#fhtmc").val();
-            var fhtje = $("#fhtje").val();
-            var fjhzq = $("#fjhzq").val();
-            var ffkfs = $("#ffkfs").val();
-            var fremark = $("#fremark").val();
-            if (!ftel) {
-                mui.toast('请输入联系方式');
-                return;
-            }
-            if (!fcompany) {
-                mui.toast('请输入所属公司');
-                return;
-            }
-            if (!fsqdh) {
-                mui.toast('请选择投资申请单');
-                return;
-            }
-            if (!fhtmc) {
-                mui.toast('请输入合同名称');
-                return;
-            }
-            if (!fhtje) {
-                mui.toast('请输入合同金额');
-                return;
-            }
-            if (!fjhzq) {
-                mui.toast('请输入交货周期');
-                return;
-            }
-            if (!ffkfs) {
-                mui.toast('请输入付款方式');
-                return;
-            }
-            if (fjArray.length == 0) {
-                mui.toast('请上传附件');
-                return;
-            }
-
-            var btnArry = ["取消", "确定"];
-            mui.confirm('即将提交，是否确定？', '提交确认提醒', btnArry, function (e) {
-                if (e.index == 1) {
-                    var xml = '<?xml version="1.0"?>';
-                    xml = xml + '<XForm>';
-                    xml = xml + '   <Header>';
-                    xml = xml + '    <Method>Process</Method>';
-                    xml = xml + '   <PID>' + pid + '</PID>';
-                    xml = xml + '   <Action>提交</Action>';
-                    xml = xml + '    <Comment></Comment>';
-                    xml = xml + '    <InviteIndicateUsers></InviteIndicateUsers>';
-                    xml = xml + '  </Header>';
-                    xml = xml + '<FormData>';
-                    xml = xml + '         <制品集团_设备采购合同评审>';
-                    xml = xml + '            <单号>' + fbillno + '</单号>';
-                    xml = xml + '            <申请人编号>' + fno + '</申请人编号>';
-                    xml = xml + '            <申请人>' + fname + '</申请人>';
-                    xml = xml + '              <申请部门>' + fdept + '</申请部门>';
-                    xml = xml + '              <申请日期>' + fdate + '</申请日期>';
-                    xml = xml + '              <联系方式>' + ftel + '</联系方式>';
-                    xml = xml + '               <所属公司>' + fcompany + '</所属公司>';
-                    xml = xml + '              <投资申请编号>' + fsqdh + '</投资申请编号>';
-                    xml = xml + '              <TaskID_投资申请>' + fsqdID + '</TaskID_投资申请>';
-                    xml = xml + '             <投资类型>' + ftzlx + '</投资类型>';
-                    xml = xml + '             <投资项目名称>' + fxmmc + '</投资项目名称>';
-                    xml = xml + '             <合同名称>' + fhtmc + '</合同名称>';
-                    xml = xml + '             <合同金额>' + fhtje + '</合同金额>';
-                    xml = xml + '            <交货周期>' + fjhzq + '</交货周期>';
-                    xml = xml + '            <付款方式>' + ffkfs + '</付款方式>';
-                    xml = xml + '              <其他情况说明>' + fremark + '</其他情况说明>';
-                    if (fjArray.length != 0) {
-                        xml = xml + '             <附件>' + fjArray.toSting().replace(",", ";") + '</附件>';
-                    } else {
-                        xml = xml + '             <附件></附件>';
-                    }
-
-                    xml = xml + '           </制品集团_设备采购合同评审>';
-
-                    xml = xml + '      </FormData>';
-                    xml = xml + '   </XForm>';
-                    PostXml(xml);
-                }
-            });
-        }
 
         function hasRead() {
             var taskId = $("#taskId").val();
@@ -823,7 +726,7 @@
                     xml = xml + '              <人员类别>' + fyrylb + '</人员类别>';
                     xml = xml + '              <调整理由>' + ftzsy + '</调整理由>';
                     if (fjArray.length != 0) {
-                        xml = xml + '             <附件>' + fjArray.toSting().replace(",", ";") + '</附件>';
+                        xml = xml + '             <附件>' + String(fjArray).replace(",", ";") + '</附件>';
                     } else {
                         xml = xml + '             <附件></附件>';
                     }
@@ -950,7 +853,7 @@
                         xml = xml + '              <人员类别>' + fyrylb + '</人员类别>';
                         xml = xml + '              <调整理由>' + ftzsy + '</调整理由>';
                         if (fjArray.length != 0) {
-                            xml = xml + '             <附件>' + fjArray.toSting().replace(",", ";") + '</附件>';
+                            xml = xml + '             <附件>' + String(fjArray).replace(",", ";") + '</附件>';
                         } else {
                             xml = xml + '             <附件></附件>';
                         }
@@ -1000,7 +903,7 @@
                 xml = xml + '              <人员类别>' + fyrylb + '</人员类别>';
                 xml = xml + '              <调整理由>' + ftzsy + '</调整理由>';
                 if (fjArray.length != 0) {
-                    xml = xml + '             <附件>' + fjArray.toSting().replace(",", ";") + '</附件>';
+                    xml = xml + '             <附件>' + String(fjArray).replace(",", ";") + '</附件>';
                 } else {
                     xml = xml + '             <附件></附件>';
                 }

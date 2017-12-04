@@ -198,8 +198,8 @@
 
         }
 
-        function showExpense(self) {
-            initExpense(self);
+        function showExpense() {
+            initExpense();
             $("#wrapper").css("display", "none");
             $("#search").css("display", "block");
             var header = document.querySelector('header.mui-bar');
@@ -216,7 +216,7 @@
             $("#search").css("display", "none");
 
         }
-        function initExpense(self) {
+        function initExpense() {
             var xml = '<?xml version= "1.0" ?>';
             xml = xml + '      <Requests>';
             xml = xml + '     <Params>';
@@ -285,11 +285,43 @@
                     if (checkedValues.length > 0) {
 
                         hiddenExpense();
-                        $(self).parent().parent().find("#fno").val(checkedElements[checkedElements.length - 1].fno);
-                        $(self).parent().parent().find("#fname").val(checkedElements[checkedElements.length - 1].fname);
-                        $(self).parent().parent().find("#fggxh").val(checkedElements[checkedElements.length - 1].fggxh);
-                        $(self).parent().parent().find("#fdw").val(checkedElements[checkedElements.length - 1].fdw);
+                        var li = '<div id="bl" class="mui-card">';
+                        li = li + '   <div class="mui-input-row bgc">';
+                        li = li + '        <label>明细列表项</label> ';
+                        li = li + '        <span class="mui-icon mui-icon-close mui-pull-right" style="margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
+                        li = li + '   </div>';
+                        li = li + '   <div class="mui-input-row">';
+                        li = li + '        <label for="fno">物料编码<i style="color:red;">*</i></label>';
+                        li = li + '        <input type="text" id="fno" name="fno" value="' + checkedElements[checkedElements.length - 1].fno + '" readonly="readonly" /> ';
+                        li = li + '   </div>';
+                        li = li + '   <div class="mui-input-row">';
+                        li = li + '        <label for="fname">物料名称</label>';
+                        li = li + '        <input type="text" id="fname" name="fname" value="' + checkedElements[checkedElements.length - 1].fname + '" readonly="readonly"/> ';
+                        li = li + '   </div>';
+                        li = li + '   <div class="mui-input-row">';
+                        li = li + '        <label for="fggxh">规格型号</label>';
+                        li = li + '        <input type="text" id="fggxh" name="fggxh" value="' + checkedElements[checkedElements.length - 1].fggxh + '" readonly="readonly"/> ';
+                        li = li + '   </div>';
+                        li = li + '   <div class="mui-input-row">';
+                        li = li + '        <label for="fdw">单位</label>';
+                        li = li + '        <input type="text" id="fdw" name="fdw" value="' + checkedElements[checkedElements.length - 1].fdw + '" readonly="readonly"/> ';
+                        li = li + '   </div>';
+                        li = li + '   <div class="mui-input-row">';
+                        li = li + '        <label for="fsl">数量<i style="color:red;">*</i></label>';
+                        li = li + '        <input type="number" id="fsl" name="fsl" value=""  placeholder="请输入数量" />';
+                        li = li + '   </div>';
+                        li = li + '   <div class="mui-input-row">';
+                        li = li + '        <label for="fxqrq">需求日期<i style="color:red;">*</i></label>';
+                        li = li + '        <input type="date" id="fxqrq" name="fxqrq" value=""  placeholder="请输入需求日期" />';
+                        li = li + '   </div>';
+                        li = li + '   <div class="mui-input-row">';
+                        li = li + '        <label for="fbz">备注</label>';
+                        li = li + '        <input type="text" id="fbz" name="fbz" value="" placeholder="请输入备注" />';
+                        li = li + '   </div>';
+                        li = li + '   </div>';
 
+
+                        $("#bllist").append(li);
                     } else {
 
                     }
@@ -319,50 +351,7 @@
         function tapEvent() {
            
             $("#addItem").on('tap', function () {
-
-                var li = '<div id="bl" class="mui-card">';
-                li = li + '   <div class="mui-input-row bgc">';
-                li = li + '        <label>明细列表项</label> ';
-                li = li + '        <span class="mui-icon mui-icon-close mui-pull-right" style="margin-right:0.6rem;border-width:0.1rem;border-radius:1.2rem;margin-top:0.2rem;" id="deleteProduct" onclick="deleteItem(this)"></span>';
-                li = li + '   </div>';
-                li = li + '   <div class="mui-input-row">';
-                li = li + '        <label for="fno">物料编码<i style="color:red;">*</i></label>';
-                li = li + '        <input type="text" id="fno" name="fno" value="" placeholder="请选择物料编码" readonly="readonly" /> ';
-                li = li + '   </div>';
-                li = li + '   <div class="mui-input-row">';
-                li = li + '        <label for="fname">物料名称</label>';
-                li = li + '        <input type="text" id="fname" name="fname" value="" readonly="readonly"/> ';
-                li = li + '   </div>';
-                li = li + '   <div class="mui-input-row">';
-                li = li + '        <label for="fggxh">规格型号</label>';
-                li = li + '        <input type="text" id="fggxh" name="fggxh" value="" readonly="readonly"/> ';
-                li = li + '   </div>';
-                li = li + '   <div class="mui-input-row">';
-                li = li + '        <label for="fdw">单位</label>';
-                li = li + '        <input type="text" id="fdw" name="fdw" value="" readonly="readonly"/> ';
-                li = li + '   </div>';
-                li = li + '   <div class="mui-input-row">';
-                li = li + '        <label for="fsl">数量<i style="color:red;">*</i></label>';
-                li = li + '        <input type="number" id="fsl" name="fsl" value=""  placeholder="请输入数量" />';
-                li = li + '   </div>';
-                li = li + '   <div class="mui-input-row">';
-                li = li + '        <label for="fxqrq">需求日期<i style="color:red;">*</i></label>';
-                li = li + '        <input type="date" id="fxqrq" name="fxqrq" value=""  placeholder="请输入需求日期" />';
-                li = li + '   </div>';
-                li = li + '   <div class="mui-input-row">';
-                li = li + '        <label for="fbz">备注</label>';
-                li = li + '        <input type="text" id="fbz" name="fbz" value="" placeholder="请输入备注" />';
-                li = li + '   </div>';
-                li = li + '   </div>';
-
-
-                $("#bllist").append(li);
-                $("#bllist").find("#fno").each(function () {
-                    var self = this;
-                    $(this).on('tap', function () {
-                        showExpense(self);
-                    });
-                });
+                showExpense();
 
             });
 

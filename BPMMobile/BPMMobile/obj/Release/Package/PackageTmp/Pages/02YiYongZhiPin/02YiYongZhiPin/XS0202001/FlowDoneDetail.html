@@ -193,9 +193,7 @@
                 }
             }
 
-            });
-        var fjArrayErDimension = new Array();
-
+        });
         function getTaskMsg() {
 
             var url = window.location.href;
@@ -209,8 +207,7 @@
                 history.go(-1);
 
             }
-            itemidArr_sq = new Array();
-            itemidArr_bx = new Array();
+            itemidArr = new Array();
             $.ajax({
                 type: "get",
                 url: "/api/bpm/GetTaskData",
@@ -242,11 +239,11 @@
                     li = li + '   </div>';
                     li = li + '   <div class="mui-input-row">';
                     li = li + '        <label for="fcusno">客户编码</label>';
-                    li = li + '        <input type="text" id="fcusno" name="fcusno" value="' + bli[i].fcusno + '" readonly="readonly"/> ';
+                    li = li + '        <input type="text" id="fcusno" name="fcusno" value="' + changeNullToEmpty(bli[i].fcusno) + '" readonly="readonly"/> ';
                     li = li + '   </div>';
                     li = li + '   <div class="mui-input-row">';
                     li = li + '        <label for="fcusname">客户名称</label>';
-                    li = li + '        <input type="text" id="fcusname" name="fcusname" value="' + bli[i].fcusname + '" readonly="readonly"/> ';
+                    li = li + '        <input type="text" id="fcusname" name="fcusname" value="' + changeNullToEmpty(bli[i].fcusname) + '" readonly="readonly"/> ';
                     li = li + '   </div>';
                     li = li + '   <div class="mui-input-row">';
                     li = li + '        <label for="fsalerno">接业务员编码</label>';
@@ -258,11 +255,11 @@
                     li = li + '   </div>';
                     li = li + '   <div class="mui-input-row">';
                     li = li + '        <label for="fdate">交接日期<i style="color:red;">*</i></label>';
-                    li = li + '        <input type="date" id="fdate" name="fdate" value="' + bli[i].fdate + '" readonly="readonly"/> ';
+                    li = li + '        <input type="date" id="fdate" name="fdate" value="' + FormatterTimeYMS(bli[i].fdate) + '" readonly="readonly"/> ';
                     li = li + '   </div>';
                     li = li + '   <div class="mui-input-row">';
                     li = li + '        <label for="fremark">备注<i style="color:red;">*</i></label>';
-                    li = li + '        <input type="texxt" id="fremark" name="fremark" value="' + bli[i].fremark + '" readonly="readonly"/> ';
+                    li = li + '        <input type="text" id="fremark" name="fremark" value="' + bli[i].fremark + '" readonly="readonly"/> ';
                     li = li + '   </div>';
                     li = li + '  <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">';
                     li = li + '     <div class="border border-t upload-img" style="top:0rem;">';
@@ -280,8 +277,8 @@
 
                     $("#bllist").append(li);
                     n = i;
-                    if (item[i].fj != null && item[i].fj != "") {
-                        var fjtmp = (String)(item[i].fj);
+                    if (bli[i].fj != null && bli[i].fj != "") {
+                        var fjtmp = (String)(bli[i].fj);
 
                         fjArray = fjtmp.split(";");
                         fjArrayErDimension.push(fjArray);

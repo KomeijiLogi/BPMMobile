@@ -1457,6 +1457,7 @@ function nodeController(data) {
 
     }
     var NodeName;
+    var ShareNode;
     //判断流程本节点是否结束，处理者是否为当前用户,
     //流程步骤是否是传过来的流程步骤，再根据这三项查出对应的节点名称
     for (var i = 0; i < data.Steps.length; i++) {
@@ -1469,6 +1470,11 @@ function nodeController(data) {
 
                 NodeName = data.Steps[i].NodeName;
                 NodeName_before = data.Steps[i - 1].NodeName;
+                if (data.Steps[i].Share && !data.Steps[i].OwnerAccount) {
+                    ShareNode = '流程被共享';
+                } else if (data.Steps[i].Share && data.Steps[i].OwnerAccount) {
+                    ShareNode = '流程被取出';
+                }
             }
 
         }
@@ -1555,7 +1561,21 @@ function nodeController(data) {
             }
         }
     }
+    if (ShareNode == '流程被共享') {
+        $("#approvalD").empty();
+        var li = '';
+        li = li + '    &nbsp;&nbsp;';
+        li = li + '   <button class="mui-btn mui-btn-green roundbt" type="button" style="width:100%" id="pickupbt" onclick="PickupShareTaskExt()">从共享任务中取出</button>';
+        $("#approvalD").append(li);
 
+    } else if (ShareNode == '流程被取出') {
+
+        var li = '';
+        li = li + '    &nbsp;&nbsp;';
+        li = li + '   <button class="mui-btn mui-btn-green roundbt" type="button" style="width:100%" id="pickbackbt" onclick="PutbackShareTaskExt()">放回共享任务</button>';
+        $("#approvalD").append(li);
+
+    }
 
 }
 

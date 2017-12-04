@@ -95,10 +95,10 @@
       <publishTime>08/22/2017 02:19:24</publishTime>
     </File>
     <File Include="bin/BPMMobile.dll">
-      <publishTime>11/27/2017 10:58:13</publishTime>
+      <publishTime>11/28/2017 09:42:11</publishTime>
     </File>
     <File Include="bin/BPMMobile.pdb">
-      <publishTime>11/27/2017 10:58:13</publishTime>
+      <publishTime>11/28/2017 09:42:11</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>08/22/2017 02:19:24</publishTime>
@@ -266,10 +266,10 @@
       <publishTime>11/27/2017 10:58:07</publishTime>
     </File>
     <File Include="bin/zh-CHS/BPMMobile.resources.dll">
-      <publishTime>11/27/2017 10:58:13</publishTime>
+      <publishTime>11/28/2017 09:42:12</publishTime>
     </File>
     <File Include="bin/zh-CHT/BPMMobile.resources.dll">
-      <publishTime>11/27/2017 10:58:13</publishTime>
+      <publishTime>11/28/2017 09:42:12</publishTime>
     </File>
     <File Include="bin/zh-Hans/EntityFramework.resources.dll">
       <publishTime>08/22/2017 02:19:24</publishTime>
@@ -341,7 +341,7 @@
       <publishTime>08/22/2017 02:19:24</publishTime>
     </File>
     <File Include="Content/ApprovalUtils.css">
-      <publishTime>11/27/2017 08:54:18</publishTime>
+      <publishTime>11/27/2017 13:36:15</publishTime>
     </File>
     <File Include="Content/bootstrap.css">
       <publishTime>08/22/2017 02:19:24</publishTime>
@@ -848,16 +848,16 @@
       <publishTime>10/16/2017 09:36:47</publishTime>
     </File>
     <File Include="Pages/01WeGoHQ/01KuaZhanYe/CW0101011/FlowAskDetail.html">
-      <publishTime>10/16/2017 09:57:40</publishTime>
+      <publishTime>11/27/2017 14:13:19</publishTime>
     </File>
     <File Include="Pages/01WeGoHQ/01KuaZhanYe/CW0101011/FlowCreate.html">
-      <publishTime>10/16/2017 09:57:40</publishTime>
+      <publishTime>11/27/2017 14:13:19</publishTime>
     </File>
     <File Include="Pages/01WeGoHQ/01KuaZhanYe/CW0101011/FlowDoneDetail.html">
-      <publishTime>10/16/2017 09:57:40</publishTime>
+      <publishTime>11/27/2017 14:13:19</publishTime>
     </File>
     <File Include="Pages/01WeGoHQ/01KuaZhanYe/CW0101011/FlowUndoDetail.html">
-      <publishTime>10/16/2017 09:57:40</publishTime>
+      <publishTime>11/27/2017 14:13:19</publishTime>
     </File>
     <File Include="Pages/01WeGoHQ/01KuaZhanYe/CW0101012/FlowAskDetail.html">
       <publishTime>10/16/2017 09:57:40</publishTime>
@@ -881,7 +881,7 @@
       <publishTime>10/10/2017 11:17:15</publishTime>
     </File>
     <File Include="Pages/01WeGoHQ/01KuaZhanYe/CW0101015/FlowUndoDetail.html">
-      <publishTime>10/10/2017 13:52:36</publishTime>
+      <publishTime>11/27/2017 13:59:49</publishTime>
     </File>
     <File Include="Pages/01WeGoHQ/01KuaZhanYe/RL0101001/FlowAskDetail.html">
       <publishTime>09/15/2017 15:10:30</publishTime>
@@ -905,7 +905,7 @@
       <publishTime>09/25/2017 15:53:19</publishTime>
     </File>
     <File Include="Pages/01WeGoHQ/01KuaZhanYe/RL0101003/FlowUndoDetail.html">
-      <publishTime>11/27/2017 10:54:23</publishTime>
+      <publishTime>11/27/2017 13:40:45</publishTime>
     </File>
     <File Include="Pages/01WeGoHQ/01KuaZhanYe/RL0101004/FlowAskDetail.html">
       <publishTime>10/11/2017 15:56:07</publishTime>
@@ -1025,7 +1025,7 @@
       <publishTime>09/29/2017 16:28:14</publishTime>
     </File>
     <File Include="Pages/01WeGoHQ/01KuaZhanYe/XX0101001/FlowUndoDetail.html">
-      <publishTime>11/27/2017 10:56:14</publishTime>
+      <publishTime>11/27/2017 13:35:53</publishTime>
     </File>
     <File Include="Pages/01WeGoHQ/01KuaZhanYe/XX0101003/FlowAskDetail.html">
       <publishTime>09/23/2017 13:33:00</publishTime>
@@ -1703,22 +1703,37 @@
       <publishTime>09/20/2017 08:13:08</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/AQ0201001/common.js">
-      <publishTime>11/23/2017 14:30:46</publishTime>
+      <publishTime>11/27/2017 14:42:13</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/AQ0201001/FlowAskDetail.html">
-      <publishTime>11/23/2017 14:30:46</publishTime>
+      <publishTime>11/27/2017 14:42:13</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/AQ0201001/FlowCreate.html">
-      <publishTime>11/23/2017 14:30:46</publishTime>
+      <publishTime>11/27/2017 14:42:13</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/AQ0201001/FlowDoneDetail.html">
-      <publishTime>11/23/2017 14:30:46</publishTime>
+      <publishTime>11/27/2017 14:42:13</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/AQ0201001/FlowUndoDetail.html">
-      <publishTime>11/23/2017 14:30:46</publishTime>
+      <publishTime>11/27/2017 14:42:13</publishTime>
+    </File>
+    <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/AQ0201002/common.js">
+      <publishTime>11/27/2017 14:42:14</publishTime>
+    </File>
+    <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/AQ0201002/FlowAskDetail.html">
+      <publishTime>11/27/2017 14:42:14</publishTime>
+    </File>
+    <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/AQ0201002/FlowCreate.html">
+      <publishTime>11/27/2017 14:42:14</publishTime>
+    </File>
+    <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/AQ0201002/FlowDoneDetail.html">
+      <publishTime>11/27/2017 14:42:14</publishTime>
+    </File>
+    <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/AQ0201002/FlowUndoDetail.html">
+      <publishTime>11/27/2017 14:42:14</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/AQ0201003/common.js">
-      <publishTime>11/22/2017 15:33:16</publishTime>
+      <publishTime>11/27/2017 14:48:13</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/AQ0201003/FlowAskDetail.html">
       <publishTime>11/22/2017 14:09:03</publishTime>
@@ -1775,16 +1790,16 @@
       <publishTime>11/23/2017 14:30:46</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/RLZY0201001/FlowAskDetail.html">
-      <publishTime>11/23/2017 14:30:46</publishTime>
+      <publishTime>11/28/2017 09:03:17</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/RLZY0201001/FlowCreate.html">
-      <publishTime>11/23/2017 14:30:46</publishTime>
+      <publishTime>11/28/2017 09:03:17</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/RLZY0201001/FlowDoneDetail.html">
-      <publishTime>11/23/2017 14:30:46</publishTime>
+      <publishTime>11/28/2017 09:03:17</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/RLZY0201001/FlowUndoDetail.html">
-      <publishTime>11/23/2017 14:30:46</publishTime>
+      <publishTime>11/28/2017 09:03:17</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/XS0201001/common.js">
       <publishTime>11/23/2017 10:01:35</publishTime>
@@ -1802,43 +1817,43 @@
       <publishTime>11/23/2017 10:01:58</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/ZLGL0201001/common.js">
-      <publishTime>11/23/2017 14:30:45</publishTime>
+      <publishTime>11/28/2017 09:07:01</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/ZLGL0201001/FlowAskDetail.html">
-      <publishTime>11/23/2017 14:30:45</publishTime>
+      <publishTime>11/28/2017 09:07:01</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/ZLGL0201001/FlowCreate.html">
-      <publishTime>11/23/2017 14:30:45</publishTime>
+      <publishTime>11/28/2017 09:07:01</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/ZLGL0201001/FlowDoneDetail.html">
-      <publishTime>11/23/2017 14:30:45</publishTime>
+      <publishTime>11/28/2017 09:07:01</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/01KuaZiGongSi/ZLGL0201001/FlowUndoDetail.html">
-      <publishTime>11/23/2017 14:30:45</publishTime>
+      <publishTime>11/28/2017 09:07:01</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/02YiYongZhiPin/SC0202007/FlowAskDetail.html">
-      <publishTime>11/23/2017 15:29:52</publishTime>
+      <publishTime>11/28/2017 08:14:27</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/02YiYongZhiPin/SC0202007/FlowCreate.html">
-      <publishTime>11/23/2017 15:29:52</publishTime>
+      <publishTime>11/28/2017 08:14:27</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/02YiYongZhiPin/SC0202007/FlowDoneDetail.html">
-      <publishTime>11/23/2017 15:29:52</publishTime>
+      <publishTime>11/28/2017 08:14:27</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/02YiYongZhiPin/SC0202007/FlowUndoDetail.html">
-      <publishTime>11/23/2017 15:29:52</publishTime>
+      <publishTime>11/28/2017 08:14:27</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/02YiYongZhiPin/XS0202001/FlowAskDetail.html">
-      <publishTime>11/23/2017 14:30:45</publishTime>
+      <publishTime>11/27/2017 16:15:26</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/02YiYongZhiPin/XS0202001/FlowCreate.html">
-      <publishTime>11/23/2017 14:30:45</publishTime>
+      <publishTime>11/27/2017 16:15:26</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/02YiYongZhiPin/XS0202001/FlowDoneDetail.html">
-      <publishTime>11/23/2017 14:30:45</publishTime>
+      <publishTime>11/27/2017 16:15:26</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/02YiYongZhiPin/XS0202001/FlowUndoDetail.html">
-      <publishTime>11/23/2017 15:28:15</publishTime>
+      <publishTime>11/27/2017 16:15:26</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/02YiYongZhiPin/XS0202006/common.js">
       <publishTime>11/24/2017 10:39:56</publishTime>
@@ -1985,7 +2000,7 @@
       <publishTime>11/24/2017 16:49:07</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/06WeiRuiWaiKe/BG0206003/common.js">
-      <publishTime>11/27/2017 10:40:30</publishTime>
+      <publishTime>11/27/2017 13:38:05</publishTime>
     </File>
     <File Include="Pages/02YiYongZhiPin/06WeiRuiWaiKe/BG0206003/FlowAskDetail.html">
       <publishTime>11/21/2017 13:11:05</publishTime>
@@ -2990,16 +3005,16 @@
       <publishTime>08/22/2017 02:19:24</publishTime>
     </File>
     <File Include="Pages/SC0200002/FlowAskDetail.html">
-      <publishTime>09/15/2017 08:47:54</publishTime>
+      <publishTime>11/27/2017 13:54:09</publishTime>
     </File>
     <File Include="Pages/SC0200002/FlowCreate.html">
-      <publishTime>08/22/2017 02:19:24</publishTime>
+      <publishTime>11/27/2017 13:54:09</publishTime>
     </File>
     <File Include="Pages/SC0200002/FlowDoneDetail.html">
-      <publishTime>09/15/2017 08:47:39</publishTime>
+      <publishTime>11/27/2017 13:54:09</publishTime>
     </File>
     <File Include="Pages/SC0200002/FlowUndoDetail.html">
-      <publishTime>09/15/2017 09:52:24</publishTime>
+      <publishTime>11/27/2017 13:54:09</publishTime>
     </File>
     <File Include="Pages/SCGL0703002/FlowAskDetail.html">
       <publishTime>08/22/2017 02:19:24</publishTime>
@@ -3077,7 +3092,7 @@
       <publishTime>09/14/2017 08:34:58</publishTime>
     </File>
     <File Include="Process.xml">
-      <publishTime>11/24/2017 15:42:38</publishTime>
+      <publishTime>11/28/2017 08:12:43</publishTime>
     </File>
     <File Include="Scripts/ai.0.15.0-build58334.js">
       <publishTime>08/22/2017 02:19:24</publishTime>

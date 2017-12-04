@@ -59,7 +59,7 @@
                 <label for="fmjph">灭菌批号</label>
                 <input type="text" id="fmjph" name="fmjph" placeholder="请输入灭菌批号" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fwtms">质量问题描述<i style="color:red;">*</i></label>
                 <textarea id="fwtms" name="fwtms" rows="4" placeholder="请输入质量问题描述"></textarea>
             </div>
@@ -99,15 +99,15 @@
                 <label for="fif_sb">院方是否上报不良事件<i style="color:red;">*</i></label>
                 <input type="text" id="fif_sb" name="fif_sb" placeholder="请输入院方是否上报不良事件" />
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fclyq">客户处理要求</label>
                 <textarea id="fclyq" name="fclyq" rows="4" placeholder="请输入客户处理要求"></textarea>                
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fgzfx">故障原因分析<i style="color:red;">*</i></label>
                 <textarea id="fgzfx" name="fgzfx" rows="4" readonly="readonly"></textarea>
             </div>
-            <div class="mui-input-row">
+            <div class="mui-input-row" style="height:auto;">
                 <label for="fjzcs">纠正措施<i style="color:red;">*</i></label>
                 <textarea id="fjzcs" name="fjzcs" rows="4" readonly="readonly"></textarea>
             </div>
@@ -139,7 +139,7 @@
                 <label for="fif_zdsg">是否重大质量事故<i style="color:red;">*</i></label>
                 <input type="text" id="fif_zdsg" name="fif_zdsg" readonly="readonly" />
             </div>
-            <div class="mui-input-row" style="height:7rem;overflow:scroll;display:none;" id="uploaddiv">
+            <div class="mui-input-row" style="height:7rem;overflow:scroll;" id="uploaddiv">
                 <div class="border border-t upload-img" style="top:0rem;">
                     <!--上传图纸附件-->
                     <div class="clearfix upload-btn" id="children-bg">
@@ -179,7 +179,7 @@
 
         mui.ready(function () {
 
-            getVersion('\\02医用制品集团\\01跨子公司\\BG办公管理', '医用制品集团办公设备采购申请');
+            getVersion('\\02医用制品集团\\01跨子公司\\ZLGL质量管理', '医用制品集团质量信息反馈');
 
             getBPMParam();
             upload();
